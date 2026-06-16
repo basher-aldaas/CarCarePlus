@@ -1,0 +1,19 @@
+<?php
+
+namespace {{ namespace }};
+
+
+class {{ class }}
+{
+    public function __construct() {}
+
+    public static function fromArray(array $data): self
+    {
+        return new self();
+    }
+
+    public function toArray(): array
+    {
+        return [];
+    }
+}
