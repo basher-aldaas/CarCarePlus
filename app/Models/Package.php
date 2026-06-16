@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PackageType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -19,6 +20,7 @@ class Package extends Model
     ];
 
     protected $casts = [
+        'type' => PackageType::class,
         'price' => 'decimal:2',
         'discount_pct' => 'decimal:2',
         'is_active' => 'boolean',

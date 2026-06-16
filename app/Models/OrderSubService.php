@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderEnums\OrderMaterialStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,6 +20,7 @@ class OrderSubService extends Model
     ];
 
     protected $casts = [
+        'status' => OrderMaterialStatus::class,
         'price' => 'decimal:2',
         'checked_at' => 'datetime',
     ];

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PurchaseRequestStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -25,7 +26,7 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->enum('status',\App\Enums\PurchaseRequestStatus::values())
+            $table->enum('status', PurchaseRequestStatus::values())
                 ->default('pending');
 
             $table->decimal('total_amount', 12, 2);

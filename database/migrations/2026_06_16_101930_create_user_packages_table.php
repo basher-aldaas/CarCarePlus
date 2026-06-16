@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserPackageStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -29,7 +30,7 @@ return new class extends Migration
 
             $table->unsignedInteger('remaining_count');
 
-            $table->enum('status', \App\Enums\UserPackageStatus::values())
+            $table->enum('status', UserPackageStatus::values())
                 ->default('active');
 
             $table->timestamp('created_at')->useCurrent();

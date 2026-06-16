@@ -24,7 +24,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->boolean('type')
-                ->default('washer');
+                ->default('0'); //0 for washer
 
             $table->boolean('is_active')
                 ->default(true);

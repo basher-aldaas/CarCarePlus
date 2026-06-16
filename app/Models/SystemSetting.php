@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\SystemSettingType;
 use Illuminate\Database\Eloquent\Model;
 
 class SystemSetting extends Model
@@ -13,5 +14,9 @@ class SystemSetting extends Model
         'value',
         'type',
         'description',
+    ];
+
+    protected $casts = [
+        'type' => SystemSettingType::class,
     ];
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserPackageStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,6 +20,7 @@ class UserPackage extends Model
     ];
 
     protected $casts = [
+        'status' => UserPackageStatus::class,
         'start_date' => 'datetime',
         'end_date' => 'datetime',
     ];

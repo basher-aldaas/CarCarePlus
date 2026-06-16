@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PointsTransactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -22,6 +23,7 @@ class PointsTransaction extends Model
     ];
 
     protected $casts = [
+        'type' => PointsTransactionType::class,
         'points' => 'integer',
         'balance_before' => 'integer',
         'balance_after' => 'integer',

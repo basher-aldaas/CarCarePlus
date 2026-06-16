@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrderEnums\OrderMaterialStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -21,6 +22,7 @@ class OrderMaterial extends Model
     ];
 
     protected $casts = [
+        'type' => OrderMaterialStatus::class,
         'quantity' => 'decimal:2',
         'unit_price' => 'decimal:2',
         'total_price' => 'decimal:2',

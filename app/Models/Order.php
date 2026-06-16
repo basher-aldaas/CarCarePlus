@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\OrderEnums\OrderStatus;
+use App\Enums\OrderEnums\OrderType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -41,6 +43,8 @@ class Order extends Model
     ];
 
     protected $casts = [
+        'type' => OrderType::class,
+        'status' => OrderStatus::class,
         'is_vip' => 'boolean',
         'booking_type' => 'boolean',
         'scheduled_at' => 'datetime',

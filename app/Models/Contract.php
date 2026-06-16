@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ContractStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -23,6 +24,7 @@ class Contract extends Model
     ];
 
     protected $casts = [
+        'status' => ContractStatus::class,
         'start_date' => 'date',
         'end_date' => 'date',
         'last_renewed_at' => 'datetime',

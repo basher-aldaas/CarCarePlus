@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\PaymentEnums\PaymentMethod;
+use App\Enums\PaymentEnums\PaymentStatus;
+use App\Enums\PaymentEnums\PaymentType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -21,6 +24,13 @@ class Payment extends Model
     ];
 
     protected $casts = [
+        'type' => PaymentType::class,
+        'method' => PaymentMethod::class,
+        'status' => PaymentStatus::class,
+
+
+
+
         'amount' => 'decimal:2',
     ];
 

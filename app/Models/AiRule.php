@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AiRuleConditionType;
 use Illuminate\Database\Eloquent\Model;
 
 class AiRule extends Model
@@ -20,6 +21,7 @@ class AiRule extends Model
     ];
 
     protected $casts = [
+        'type' => AiRuleConditionType::class,
         'is_active' => 'boolean',
     ];
 }

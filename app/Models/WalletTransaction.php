@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\WalletTransactionEnums\WalletTransactionReason;
+use App\Enums\WalletTransactionEnums\WalletTransactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -21,6 +23,8 @@ class WalletTransaction extends Model
     ];
 
     protected $casts = [
+        'type' => WalletTransactionType::class,
+        'reason' => WalletTransactionReason::class,
         'amount' => 'decimal:2',
         'balance_before' => 'decimal:2',
         'balance_after' => 'decimal:2',

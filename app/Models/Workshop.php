@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\WorkshopStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class Workshop extends Model
@@ -19,6 +20,7 @@ class Workshop extends Model
     ];
 
     protected $casts = [
+        'status' => WorkshopStatus::class,
         'latitude' => 'decimal:7',
         'longitude' => 'decimal:7',
         'rating_avg' => 'decimal:2',

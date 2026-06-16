@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\SchedulingConflictResolutionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -20,6 +21,7 @@ class SchedulingConflict extends Model
     ];
 
     protected $casts = [
+        'resolution_type' => SchedulingConflictResolutionType::class,
         'conflict_time' => 'datetime',
         'resolved_at' => 'datetime',
         'discount_offered' => 'decimal:2',

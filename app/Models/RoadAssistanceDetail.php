@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CarEnums\CarTypeSize;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -21,6 +22,7 @@ class RoadAssistanceDetail extends Model
     ];
 
     protected $casts = [
+        'car_type' => CarTypeSize::class,
         'ai_chat_log' => 'array',
         'towing_required' => 'boolean',
     ];

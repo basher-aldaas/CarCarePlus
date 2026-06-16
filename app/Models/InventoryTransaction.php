@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\InventoryTransactionType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -22,6 +23,7 @@ class InventoryTransaction extends Model
     ];
 
     protected $casts = [
+        'type' => InventoryTransactionType::class,
         'quantity' => 'decimal:2',
         'quantity_before' => 'decimal:2',
         'quantity_after' => 'decimal:2',

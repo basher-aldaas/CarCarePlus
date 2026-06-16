@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\RefundEnums\RefundDestination;
+use App\Enums\RefundEnums\RefundReason;
+use App\Enums\RefundEnums\RefundStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -21,6 +24,9 @@ class Refund extends Model
     ];
 
     protected $casts = [
+        'reason' => RefundReason::class,
+        'status' => RefundStatus::class,
+        'destination' => RefundDestination::class,
         'amount' => 'decimal:2',
     ];
 

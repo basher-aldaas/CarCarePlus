@@ -21,6 +21,7 @@ class EmployeeReport extends Model
     ];
 
     protected $casts = [
+        'status' => EmployeeReport::class,
         'affected_parts' => 'array',
         'images' => 'array',
         'reviewed_at' => 'datetime',

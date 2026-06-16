@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\SuggestedProblemCategory;
 use Illuminate\Database\Eloquent\Model;
 
 class SuggestedProblem extends Model
@@ -13,5 +14,9 @@ class SuggestedProblem extends Model
         'name_ar',
         'description',
         'category',
+    ];
+
+    protected $casts = [
+        'category' => SuggestedProblemCategory::class,
     ];
 }

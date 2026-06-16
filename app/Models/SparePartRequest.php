@@ -19,6 +19,7 @@ class SparePartRequest extends Model
     ];
 
     protected $casts = [
+        'status' => SparePartRequest::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PurchaseRequestStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -19,6 +20,7 @@ class PurchaseRequest extends Model
     ];
 
     protected $casts = [
+        'status' => PurchaseRequestStatus::class,
         'request_type' => 'boolean',
         'total_amount' => 'decimal:2',
         'approved_at' => 'datetime',

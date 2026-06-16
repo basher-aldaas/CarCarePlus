@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PackageType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->text('description')
                 ->nullable();
 
-            $table->enum('type',\App\Enums\PackageType::values());
+            $table->enum('type', PackageType::values());
 
             $table->decimal('price', 12, 2);
 
