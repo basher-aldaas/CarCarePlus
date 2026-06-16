@@ -3,26 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Category extends Model
+class SubService extends Model
 {
     public $timestamps = false;
 
     protected $fillable = [
+        'service_id',
         'name',
         'name_ar',
         'description',
+        'price',
         'is_active',
     ];
 
     protected $casts = [
+        'price' => 'decimal:2',
         'is_active' => 'boolean',
     ];
 
-    public function services() : HasMany
+    public function service() : BelongsTo
     {
-        return $this->hasMany(Service::class);
+        return $this->belongsTo(Service::class);
     }
 
 }

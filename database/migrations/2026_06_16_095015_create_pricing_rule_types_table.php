@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_types', function (Blueprint $table) {
+        Schema::create('pricing_rule_types', function (Blueprint $table) {
             $table->id();
 
             $table->string('name');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_types');
+        Schema::dropIfExists('pricing_rule_types');
     }
 };

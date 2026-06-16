@@ -5,24 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Category extends Model
+class MaterialUnit extends Model
 {
-    public $timestamps = false;
-
     protected $fillable = [
         'name',
         'name_ar',
-        'description',
-        'is_active',
+        'is_decimal',
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
+        'is_decimal' => 'boolean',
     ];
 
-    public function services() : HasMany
+    public function materials() : HasMany
     {
-        return $this->hasMany(Service::class);
+        return $this->hasMany(Material::class);
     }
-
 }

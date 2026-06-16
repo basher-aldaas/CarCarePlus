@@ -5,24 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Category extends Model
+class Package extends Model
 {
-    public $timestamps = false;
-
     protected $fillable = [
         'name',
-        'name_ar',
         'description',
+        'type',
+        'price',
+        'discount_pct',
+        'services_count',
+        'valid_days',
         'is_active',
     ];
 
     protected $casts = [
+        'price' => 'decimal:2',
+        'discount_pct' => 'decimal:2',
         'is_active' => 'boolean',
     ];
 
     public function services() : HasMany
     {
-        return $this->hasMany(Service::class);
+        return $this->hasMany(PackageService::class);
     }
 
 }

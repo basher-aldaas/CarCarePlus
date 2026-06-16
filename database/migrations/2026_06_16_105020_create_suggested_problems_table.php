@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\SuggestedProblemCategory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +12,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_types', function (Blueprint $table) {
+        Schema::create('suggested_problems', function (Blueprint $table) {
             $table->id();
-
             $table->string('name');
+
             $table->string('name_ar');
+
+            $table->text('description')
+                ->nullable();
+
+            $table->enum('category', SuggestedProblemCategory::values());
 
             $table->timestamp('created_at')->useCurrent();
         });
@@ -26,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_types');
+        Schema::dropIfExists('suggested_problems');
     }
 };

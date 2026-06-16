@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Category extends Model
+class ProblemType extends Model
 {
-    public $timestamps = false;
 
     protected $fillable = [
         'name',
         'name_ar',
-        'description',
         'is_active',
     ];
 
@@ -20,9 +18,8 @@ class Category extends Model
         'is_active' => 'boolean',
     ];
 
-    public function services() : HasMany
+    public function roadAssistanceDetails() : HasMany
     {
-        return $this->hasMany(Service::class);
+        return $this->hasMany(RoadAssistanceDetail::class);
     }
-
 }

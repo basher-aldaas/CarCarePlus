@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class ServiceType extends Model
+class PricingRuleType extends Model
 {
     public $timestamps = false;
 
@@ -14,8 +14,8 @@ class ServiceType extends Model
         'name_ar',
     ];
 
-    public function services() : HasMany
+    public function pricingRules() : HasMany
     {
-        return $this->hasMany(Service::class);
+        return $this->hasMany(PricingRule::class);
     }
 }

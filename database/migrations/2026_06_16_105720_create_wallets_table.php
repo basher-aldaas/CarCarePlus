@@ -11,13 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_types', function (Blueprint $table) {
+        Schema::create('wallets', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
-            $table->string('name_ar');
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
 
-            $table->timestamp('created_at')->useCurrent();
+            $table->decimal('balance', 12, 2)
+                ->default(0);
+
+            $table->timestamps();
         });
     }
 
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_types');
+        Schema::dropIfExists('wallets');
     }
 };
