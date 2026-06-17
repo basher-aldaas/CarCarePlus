@@ -30,7 +30,7 @@ class PointsTransaction extends Model
         'expires_at' => 'datetime',
     ];
 
-    public function customer() : BelongsTo
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'customer_id');
     }

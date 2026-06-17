@@ -18,8 +18,8 @@ class ProblemType extends Model
         'is_active' => 'boolean',
     ];
 
-    public function roadAssistanceDetails() : HasMany
+    public function roadAssistanceRecords(): HasMany
     {
-        return $this->hasMany(RoadAssistanceDetail::class);
+        return $this->hasMany(RoadAssistanceDetail::class, 'problem_type_id');
     }
 }

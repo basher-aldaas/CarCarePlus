@@ -14,8 +14,8 @@ class PricingRuleType extends Model
         'name_ar',
     ];
 
-    public function pricingRules() : HasMany
+    public function rules(): HasMany
     {
-        return $this->hasMany(PricingRule::class);
+        return $this->hasMany(PricingRule::class, 'pricing_rule_type_id');
     }
 }

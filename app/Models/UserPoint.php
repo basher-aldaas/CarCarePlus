@@ -18,7 +18,7 @@ class UserPoint extends Model
         'balance' => 'integer',
     ];
 
-    public function customer() : BelongsTo
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'customer_id');
     }

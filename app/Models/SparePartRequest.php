@@ -24,19 +24,16 @@ class SparePartRequest extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function order() : BelongsTo
+    public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class, 'order_id');
     }
-
-    public function employee() : BelongsTo
+    public function employee(): BelongsTo
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
-
-    public function admin() : BelongsTo
+    public function admin(): BelongsTo
     {
         return $this->belongsTo(User::class, 'admin_id');
     }
-
 }

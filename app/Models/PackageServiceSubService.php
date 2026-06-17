@@ -19,13 +19,12 @@ class PackageServiceSubService extends Model
         'is_active' => 'boolean',
     ];
 
-    public function packageService() : BelongsTo
+    public function packageService(): BelongsTo
     {
-        return $this->belongsTo(PackageService::class);
+        return $this->belongsTo(PackageService::class, 'package_service_id');
     }
-
-    public function subService() : BelongsTo
+    public function subService(): BelongsTo
     {
-        return $this->belongsTo(SubService::class);
+        return $this->belongsTo(SubService::class, 'sub_service_id');
     }
 }

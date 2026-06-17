@@ -7,6 +7,7 @@ use App\Enums\PaymentEnums\PaymentStatus;
 use App\Enums\PaymentEnums\PaymentType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Payment extends Model
 {
@@ -27,31 +28,27 @@ class Payment extends Model
         'type' => PaymentType::class,
         'method' => PaymentMethod::class,
         'status' => PaymentStatus::class,
-
-
-
-
         'amount' => 'decimal:2',
     ];
 
-    public function order() : BelongsTo
+    public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class, 'order_id');
     }
-
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
-
-    public function package() : BelongsTo
+    public function package(): BelongsTo
     {
-        return $this->belongsTo(Package::class);
+        return $this->belongsTo(UserPackage::class, 'package_id');
     }
-
-    public function confirmer() : BelongsTo
+    public function cashConfirmer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'cash_confirmed_by');
     }
-
+    public function refunds(): HasMany
+    {
+        return $this->hasMany(Refund::class, 'payment_id');
+    }
 }

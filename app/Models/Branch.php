@@ -28,13 +28,32 @@ class Branch extends Model
         'working_hours' => 'array',
     ];
 
-    public function admin(): BelongsTo
+    public function manager(): BelongsTo
     {
         return $this->belongsTo(User::class, 'admin_id');
     }
-
     public function employees(): HasMany
     {
-        return $this->hasMany(Employee::class);
+        return $this->hasMany(Employee::class, 'branch_id');
+    }
+    public function inventories(): HasMany
+    {
+        return $this->hasMany(Inventory::class, 'branch_id');
+    }
+    public function inventoryTransactions(): HasMany
+    {
+        return $this->hasMany(InventoryTransaction::class, 'branch_id');
+    }
+    public function purchaseRequests(): HasMany
+    {
+        return $this->hasMany(PurchaseRequest::class, 'branch_id');
+    }
+    public function incomingTransfers(): HasMany
+    {
+        return $this->hasMany(PurchaseRequest::class, 'from_branch_id');
+    }
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'branch_id');
     }
 }

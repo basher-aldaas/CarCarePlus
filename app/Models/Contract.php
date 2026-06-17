@@ -31,19 +31,17 @@ class Contract extends Model
         'value' => 'decimal:2',
     ];
 
-    public function company() : BelongsTo
+    public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class, 'company_id');
     }
-
-    public function workshop() : BelongsTo
-    {
-        return $this->belongsTo(Workshop::class);
-    }
-
-    public function creator() : BelongsTo
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+    public function workshop(): BelongsTo
+    {
+        return $this->belongsTo(Workshop::class, 'workshop_id');
     }
 
 }

@@ -27,14 +27,13 @@ class RoadAssistanceDetail extends Model
         'towing_required' => 'boolean',
     ];
 
-    public function order() : BelongsTo
+    public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class, 'order_id');
     }
-
-    public function problemType() : BelongsTo
+    public function problemType(): BelongsTo
     {
-        return $this->belongsTo(ProblemType::class);
+        return $this->belongsTo(ProblemType::class, 'problem_type_id');
     }
 
 }

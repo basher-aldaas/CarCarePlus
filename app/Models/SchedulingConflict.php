@@ -28,12 +28,12 @@ class SchedulingConflict extends Model
         'extra_cost' => 'decimal:2',
     ];
 
-    public function order1() : BelongsTo
+    public function order1(): BelongsTo
     {
         return $this->belongsTo(Order::class, 'order_id_1');
     }
 
-    public function order2() : BelongsTo
+    public function order2(): BelongsTo
     {
         return $this->belongsTo(Order::class, 'order_id_2');
     }

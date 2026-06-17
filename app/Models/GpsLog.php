@@ -23,13 +23,15 @@ class GpsLog extends Model
         'recorded_at' => 'datetime',
     ];
 
-    public function employee() : BelongsTo
+    public function employee(): BelongsTo
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
 
-    public function order() : BelongsTo
+    public function order(): BelongsTo
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class, 'order_id');
     }
+
+
 }

@@ -26,9 +26,13 @@ class Package extends Model
         'is_active' => 'boolean',
     ];
 
-    public function services() : HasMany
+    public function packageServices(): HasMany
     {
-        return $this->hasMany(PackageService::class);
+        return $this->hasMany(PackageService::class, 'package_id');
+    }
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(UserPackage::class, 'package_id');
     }
 
 }

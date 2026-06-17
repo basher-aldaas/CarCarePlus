@@ -14,4 +14,15 @@ class UserRole extends Model
         'user_id',
         'role_id',
     ];
+
+    public function user()
+    {
+
+    }
+
+//    public function customer() : BelongsTo
+//    {
+//        return $this->belongsTo(User::class, 'customer_id');
+//    }
+
 }

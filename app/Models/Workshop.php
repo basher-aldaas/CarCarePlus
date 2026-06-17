@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\WorkshopStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Workshop extends Model
 {
@@ -25,5 +26,11 @@ class Workshop extends Model
         'longitude' => 'decimal:7',
         'rating_avg' => 'decimal:2',
     ];
+
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class, 'workshop_id');
+    }
 
 }

@@ -6,6 +6,8 @@ use App\Enums\OrderEnums\OrderStatus;
 use App\Enums\OrderEnums\OrderType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Order extends Model
 {
@@ -64,29 +66,78 @@ class Order extends Model
         'total_price' => 'decimal:2',
     ];
 
-    public function customer() : BelongsTo
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'customer_id');
     }
-
-    public function car() : BelongsTo
+    public function company(): BelongsTo
     {
-        return $this->belongsTo(Car::class);
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+    public function car(): BelongsTo
+    {
+        return $this->belongsTo(Car::class, 'car_id');
+    }
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(Employee::class, 'employee_id');
+    }
+    public function service(): BelongsTo
+    {
+        return $this->belongsTo(Service::class, 'service_id');
     }
 
-    public function branch() : BelongsTo
+    public function subServices(): HasMany
     {
-        return $this->belongsTo(Branch::class);
+        return $this->hasMany(OrderSubService::class, 'order_id');
     }
-
-    public function employee() : BelongsTo
+    public function materials(): HasMany
     {
-        return $this->belongsTo(Employee::class);
+        return $this->hasMany(OrderMaterial::class, 'order_id');
     }
-
-    public function service() : BelongsTo
+    public function statusHistory(): HasMany
     {
-        return $this->belongsTo(Service::class);
+        return $this->hasMany(OrderStatusHistory::class, 'order_id');
+    }
+    public function roadAssistance(): HasOne
+    {
+        return $this->hasOne(RoadAssistanceDetail::class, 'order_id');
+    }
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class, 'order_id');
+    }
+    public function refunds(): HasMany
+    {
+        return $this->hasMany(Refund::class, 'order_id');
+    }
+    public function rating(): HasOne
+    {
+        return $this->hasOne(Rating::class, 'order_id');
+    }
+    public function reports(): HasMany
+    {
+        return $this->hasMany(EmployeeReport::class, 'order_id');
+    }
+    public function sparePartRequests(): HasMany
+    {
+        return $this->hasMany(SparePartRequest::class, 'order_id');
+    }
+    public function gpsLogs(): HasMany
+    {
+        return $this->hasMany(GpsLog::class, 'order_id');
+    }
+    public function schedulingConflictsAsFirst(): HasMany
+    {
+        return $this->hasMany(SchedulingConflict::class, 'order_id_1');
+    }
+    public function schedulingConflictsAsSecond(): HasMany
+    {
+        return $this->hasMany(SchedulingConflict::class, 'order_id_2');
     }
 
 }

@@ -23,13 +23,12 @@ class PurchaseRequestItem extends Model
         'total_price' => 'decimal:2',
     ];
 
-    public function request() : BelongsTo
+    public function request(): BelongsTo
     {
         return $this->belongsTo(PurchaseRequest::class, 'purchase_req_id');
     }
-
-    public function material() : BelongsTo
+    public function material(): BelongsTo
     {
-        return $this->belongsTo(Material::class);
+        return $this->belongsTo(Material::class, 'material_id');
     }
 }

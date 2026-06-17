@@ -22,13 +22,20 @@ class Company extends Model
         'is_active' => 'boolean',
     ];
 
-    public function customer(): BelongsTo
+    public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'customer_id');
     }
-
     public function cars(): HasMany
     {
-        return $this->hasMany(Car::class);
+        return $this->hasMany(Car::class, 'company_id');
+    }
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'company_id');
+    }
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class, 'company_id');
     }
 }

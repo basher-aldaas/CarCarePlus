@@ -17,8 +17,8 @@ class MaterialUnit extends Model
         'is_decimal' => 'boolean',
     ];
 
-    public function materials() : HasMany
+    public function materials(): HasMany
     {
-        return $this->hasMany(Material::class);
+        return $this->hasMany(Material::class, 'material_unit_id');
     }
 }

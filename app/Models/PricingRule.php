@@ -21,12 +21,12 @@ class PricingRule extends Model
         'is_active' => 'boolean',
     ];
 
-    public function creator() : BelongsTo
+
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'super_admin_id');
     }
-
-    public function type() : BelongsTo
+    public function ruleType(): BelongsTo
     {
         return $this->belongsTo(PricingRuleType::class, 'pricing_rule_type_id');
     }

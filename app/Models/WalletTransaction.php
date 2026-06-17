@@ -30,14 +30,13 @@ class WalletTransaction extends Model
         'balance_after' => 'decimal:2',
     ];
 
-    public function wallet() : BelongsTo
+    public function wallet(): BelongsTo
     {
-        return $this->belongsTo(Wallet::class);
+        return $this->belongsTo(Wallet::class, 'wallet_id');
     }
-
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }

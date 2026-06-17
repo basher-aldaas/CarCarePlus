@@ -23,13 +23,12 @@ class Inventory extends Model
         'min_quantity' => 'decimal:2',
     ];
 
-    public function branch() : BelongsTo
+    public function branch(): BelongsTo
     {
-        return $this->belongsTo(Branch::class);
+        return $this->belongsTo(Branch::class, 'branch_id');
     }
-
-    public function material() : BelongsTo
+    public function material(): BelongsTo
     {
-        return $this->belongsTo(Material::class);
+        return $this->belongsTo(Material::class, 'material_id');
     }
 }

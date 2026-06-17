@@ -26,19 +26,25 @@ class Service extends Model
         'is_vip_available' => 'boolean',
     ];
 
-    public function category() : BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id');
     }
-
     public function serviceType(): BelongsTo
     {
-        return $this->belongsTo(ServiceType::class);
+        return $this->belongsTo(ServiceType::class, 'service_type_id');
     }
-
-    public function subServices() : HasMany
+    public function subServices(): HasMany
     {
-        return $this->hasMany(SubService::class);
+        return $this->hasMany(SubService::class, 'service_id');
+    }
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'service_id');
+    }
+    public function packageServices(): HasMany
+    {
+        return $this->hasMany(PackageService::class, 'service_id');
     }
 
 }

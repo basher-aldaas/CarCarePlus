@@ -29,9 +29,9 @@ class Notification extends Model
         'sent_via' => 'array',
     ];
 
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }

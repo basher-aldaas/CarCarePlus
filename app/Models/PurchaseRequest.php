@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\PurchaseRequestStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PurchaseRequest extends Model
@@ -26,18 +27,16 @@ class PurchaseRequest extends Model
         'approved_at' => 'datetime',
     ];
 
-    public function branch() : BelongsTo
+    public function branch(): BelongsTo
     {
-        return $this->belongsTo(Branch::class);
+        return $this->belongsTo(Branch::class, 'branch_id');
     }
-
-    public function fromBranch() : BelongsTo
+    public function fromBranch(): BelongsTo
     {
         return $this->belongsTo(Branch::class, 'from_branch_id');
     }
-
-    public function items() : HasMany
+    public function items(): HasMany
     {
-        return $this->hasMany(PurchaseRequestItem::class);
+        return $this->hasMany(PurchaseRequestItem::class, 'purchase_req_id');
     }
 }

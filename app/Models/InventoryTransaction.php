@@ -30,16 +30,14 @@ class InventoryTransaction extends Model
         'reference_id' => 'string',
     ];
 
-    public function branch() : BelongsTo
+    public function branch(): BelongsTo
     {
-        return $this->belongsTo(Branch::class);
+        return $this->belongsTo(Branch::class, 'branch_id');
     }
-
     public function material(): BelongsTo
     {
-        return $this->belongsTo(Material::class);
+        return $this->belongsTo(Material::class, 'material_id');
     }
-
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');

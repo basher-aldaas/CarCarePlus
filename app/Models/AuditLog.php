@@ -25,8 +25,8 @@ class AuditLog extends Model
         'new_values' => 'array',
     ];
 
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
