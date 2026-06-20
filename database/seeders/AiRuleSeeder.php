@@ -29,7 +29,7 @@ class AiRuleSeeder extends Seeder
                 'condition_key' => 'no_start',
                 'condition_value' => 'clicking_sound',
                 'brand_id' => $toyotaId,
-                'car_type' => CarTypeSize::SMALL->value,
+                'car_type' => CarTypeSize::SEDAN->value,
                 'fuel_type' => FuelType::PETROL->value,
                 'response_template' => 'Based on the clicking sound, your battery might be dead. We recommend dispatching a technician with a battery booster.',
                 'is_active' => true,

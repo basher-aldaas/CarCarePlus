@@ -4,10 +4,10 @@ namespace App\Enums\CarEnums;
 
 enum CarTypeSize: string
 {
-    case SMALL = 'sedan';
-    case MEDIUM = 'medium';
-    case LARGE = 'large';
+    case SEDAN = 'sedan';
     case SUV = 'suv';
+    case HATCHBACK = 'hatchback';
+    case PICKUP = 'pickup';
 
     public static function values(): array
     {

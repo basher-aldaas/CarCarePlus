@@ -2,8 +2,6 @@
 
 namespace App\Enums;
 
-use function Laravel\Prompts\select;
-
 enum AiRuleConditionType: string
 {
     case MAINTENANCE = 'maintenance';
@@ -13,33 +11,15 @@ enum AiRuleConditionType: string
     case UPSELL = 'upsell';
     case DIAGNOSIS = 'diagnosis';
 
-
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
     }
 
-    public function label(): string
+    public function label(?string $locale = null): string
     {
-        return match ($this) {
-            self::MAINTENANCE => 'Maintenance',
-            self::RECOMMENDATION => 'Recommendation',
-            self::WARNING => 'Warning',
-            self::PROMOTION => 'Promotion',
-            self::UPSELL => 'Upsell',
-            self::DIAGNOSIS =>'Diagnosis',
-        };
-    }
+        $locale ??= app()->getLocale();
 
-    public function labelAr(): string
-    {
-        return match ($this) {
-            self::MAINTENANCE => 'صيانة',
-            self::RECOMMENDATION => 'توصية',
-            self::WARNING => 'تحذير',
-            self::PROMOTION => 'عرض ترويجي',
-            self::UPSELL => 'اقتراح خدمة إضافية',
-            self::DIAGNOSIS => 'تشخيص اداء' ,
-        };
+        return __("ai_rule_condition_type.{$this->value}", locale: $locale);
     }
 }
