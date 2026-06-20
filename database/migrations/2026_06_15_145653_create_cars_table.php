@@ -19,6 +19,11 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
+            $table->foreignId('brand_id')
+                ->constrained('car_brands')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
             $table->foreignId('company_id')
                 ->nullable()
                 ->constrained('companies')

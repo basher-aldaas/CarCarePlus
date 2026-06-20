@@ -4,7 +4,7 @@ namespace App\Enums\CarEnums;
 
 enum CarTypeSize: string
 {
-    case SMALL = 'small';
+    case SMALL = 'sedan';
     case MEDIUM = 'medium';
     case LARGE = 'large';
     case SUV = 'suv';

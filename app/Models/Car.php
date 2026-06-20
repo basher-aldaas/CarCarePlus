@@ -13,6 +13,7 @@ class Car extends Model
         'customer_id',
         'company_id',
         'car_type_id',
+        'brand_id',
         'plate_number',
         'brand',
         'model',
@@ -45,5 +46,10 @@ class Car extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'car_id');
+    }
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(CarBrand::class, 'brand_id');
     }
 }

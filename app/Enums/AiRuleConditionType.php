@@ -2,20 +2,44 @@
 
 namespace App\Enums;
 
+use function Laravel\Prompts\select;
+
 enum AiRuleConditionType: string
 {
-    case CAR_BRAND = 'car_brand';
-    case CAR_TYPE = 'car_type';
-    case FUEL_TYPE = 'fuel_type';
+    case MAINTENANCE = 'maintenance';
+    case RECOMMENDATION = 'recommendation';
+    case WARNING = 'warning';
+    case PROMOTION = 'promotion';
+    case UPSELL = 'upsell';
+    case DIAGNOSIS = 'diagnosis';
+
 
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
     }
 
-    public function label(?string $locale = null): string
+    public function label(): string
     {
-        $locale ??= app()->getLocale();
-        return __("device_status.{$this->value}", locale: $locale);
+        return match ($this) {
+            self::MAINTENANCE => 'Maintenance',
+            self::RECOMMENDATION => 'Recommendation',
+            self::WARNING => 'Warning',
+            self::PROMOTION => 'Promotion',
+            self::UPSELL => 'Upsell',
+            self::DIAGNOSIS =>'Diagnosis',
+        };
+    }
+
+    public function labelAr(): string
+    {
+        return match ($this) {
+            self::MAINTENANCE => 'صيانة',
+            self::RECOMMENDATION => 'توصية',
+            self::WARNING => 'تحذير',
+            self::PROMOTION => 'عرض ترويجي',
+            self::UPSELL => 'اقتراح خدمة إضافية',
+            self::DIAGNOSIS => 'تشخيص اداء' ,
+        };
     }
 }

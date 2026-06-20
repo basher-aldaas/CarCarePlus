@@ -8,6 +8,8 @@ enum SuggestedProblemCategory: string
     case BRAKES = 'brakes';
     case ELECTRICAL = 'electrical';
     case TIRES = 'tires';
+    case MECHANICAL = 'mechanical';
+    case LOCKSMITH = 'locksmith';
 
     public static function values(): array
     {

@@ -4,9 +4,9 @@ namespace App\Enums;
 
 enum PackageType: string
 {
-    case BASIC = 'basic';
-    case PREMIUM = 'premium';
-    case VIP = 'vip';
+    case WEEKLY = 'weekly';
+    case MONTHLY = 'monthly';
+    case COMPANY = 'company';
 
     public static function values(): array
     {

@@ -11,25 +11,30 @@ class FactoryMakeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'make:dto {name}';
+    protected $signature = 'make:factory {name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new DTO class';
+    protected $description = 'Create a new Factory class';
 
     /**
      * Execute the console command.
      */
     protected function getStub()
     {
-        return __DIR__ . '/stubs/dto.stub';
+        return __DIR__ . '/stubs/factory.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\\DTOs';
+        return $rootNamespace.'\\Database\\Factories\\';
+    }
+
+    public function handle()
+    {
+        $this->info('Factory created');
     }
 }

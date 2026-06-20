@@ -9,7 +9,7 @@ class Inventory extends Model
 {
     public $timestamps = false;
 
-    protected $table = 'inventory';
+    protected $table = 'inventories';
 
     protected $fillable = [
         'branch_id',

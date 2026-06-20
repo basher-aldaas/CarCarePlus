@@ -1,6 +1,8 @@
 <?php
 
 use App\Enums\AiRuleConditionType;
+use App\Enums\CarEnums\CarTypeSize;
+use App\Enums\CarEnums\FuelType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -27,13 +29,16 @@ return new class extends Migration
             $table->string('condition_value')
                 ->nullable();
 
-            $table->string('car_brand')
+            $table->foreignId('brand_id')
+                ->nullable()
+                ->constrained('car_brands')
+                ->nullOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->enum('car_type',CarTypeSize::values())
                 ->nullable();
 
-            $table->string('car_type')
-                ->nullable();
-
-            $table->string('fuel_type')
+            $table->enum('fuel_type',FuelType::values())
                 ->nullable();
 
             $table->text('response_template');

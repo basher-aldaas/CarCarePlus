@@ -1,8 +1,6 @@
 <?php
-
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,11 +13,40 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call([
+            // 1. المجموعات الثابتة الأساسية (Lookup Tables)
+            CarTypeSeeder::class,
+            CarBrandSeeder::class,
+            CategorySeeder::class,
+            ServiceTypeSeeder::class,
+            MaterialUnitSeeder::class,
+            ProblemTypeSeeder::class,
+            PricingRuleTypeSeeder::class,
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            // 2. إعدادات وتكوين النظام الثابتة والأدوار
+            PointsConfigSeeder::class,
+            SystemSettingSeeder::class,
+            RolePermissionSeeder::class,
+            AiRuleSeeder::class,           // <-- أضفه هنا (إعدادات AI ثابتة)
+            SuggestedProblemSeeder::class, // <-- أضفه هنا (مشاكل مقترحة للنظام)
+
+            // 3. الخدمات والمواد التشغيلية
+            ServiceSeeder::class,
+            SubServiceSeeder::class,
+            MaterialSeeder::class,
+
+            // 4. البنية التحتية والمقرات
+            BranchSeeder::class,
+            WorkshopSeeder::class,
+
+            // 5. الحسابات والموظفين والباقات
+            UserSeeder::class,
+            EmployeeSeeder::class,
+            PackageSeeder::class,
+
+            // 6. ربط باقات النظام بالخدمات (بناءً على الباقات والخدمات التي تم إنشاؤها فوق)
+            PackageServiceSeeder::class,                  // <-- أضفه هنا
+            PackageServiceSubServiceSeeder::class,        // <-- أضفه هنا
         ]);
     }
 }

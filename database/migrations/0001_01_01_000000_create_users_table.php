@@ -29,8 +29,7 @@ return new class extends Migration
 
             $table->rememberToken();
 
-            $table->boolean('email_verified')
-                ->default(false);
+            $table->timestamp('email_verified_at')->nullable();
 
             $table->timestamp('last_login_at')
                 ->nullable();
