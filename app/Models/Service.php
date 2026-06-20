@@ -10,7 +10,6 @@ class Service extends Model
 {
     protected $fillable = [
         'category_id',
-        'service_type_id',
         'name',
         'name_ar',
         'description',
@@ -29,10 +28,6 @@ class Service extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
-    }
-    public function serviceType(): BelongsTo
-    {
-        return $this->belongsTo(ServiceType::class, 'service_type_id');
     }
     public function subServices(): HasMany
     {

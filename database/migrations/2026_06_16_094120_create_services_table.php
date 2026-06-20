@@ -18,11 +18,6 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreignId('service_type_id')
-                ->constrained('service_types')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-
             $table->string('name');
             $table->string('name_ar');
 

@@ -1,6 +1,9 @@
 <?php
 namespace Database\Seeders;
 
+use App\Models\Car;
+use App\Models\Company;
+use App\Models\Order;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,7 +21,6 @@ class DatabaseSeeder extends Seeder
             CarTypeSeeder::class,
             CarBrandSeeder::class,
             CategorySeeder::class,
-            ServiceTypeSeeder::class,
             MaterialUnitSeeder::class,
             ProblemTypeSeeder::class,
             PricingRuleTypeSeeder::class,
@@ -47,6 +49,8 @@ class DatabaseSeeder extends Seeder
             // 6. ربط باقات النظام بالخدمات (بناءً على الباقات والخدمات التي تم إنشاؤها فوق)
             PackageServiceSeeder::class,                  // <-- أضفه هنا
             PackageServiceSubServiceSeeder::class,        // <-- أضفه هنا
+
+
         ]);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -8,65 +9,24 @@ class ServiceSeeder extends Seeder
 {
     public function run(): void
     {
-        // جلب معرفات التصنيفات والأنواع لربطها
-        $washCategory = DB::table('categories')->where('name', 'Car Wash')->first();
-        $maintenanceCategory = DB::table('categories')->where('name', 'Maintenance')->first();
-
-        $washType = DB::table('service_types')->where('name', 'Full Wash')->first();
-        $washType2 = DB::table('service_types')->where('name', 'Polishing & Wax')->first();
-
-        $maintenanceType = DB::table('service_types')->where('name', 'Oil Change')->first();
+        $carWashId    = DB::table('categories')->where('name', 'Car Wash')->value('id');
+        $maintenanceId = DB::table('categories')->where('name', 'Maintenance')->value('id');
+        $roadsideId    = DB::table('categories')->where('name', 'Roadside Assistance')->value('id');
 
         $services = [
-            // خدمة 1
-            [
-                'id' => 1, // تثبيت المعرفات يسهل عليك ربط الخدمات الفرعية لاحقاً
-                'category_id' => $washCategory?->id,
-                'service_type_id' => $washType?->id,
-                'name' => 'Eco Friendly Full Wash',
-                'name_ar' => 'غسيل كامل صديق للبيئة',
-                'description' => 'غسيل خارجي وداخلي لكامل السيارة',
-                'base_price' => 120.00,
-                'is_vip_available' => true,
-                'vip_extra_price' => 50.00,
-                'duration_minutes' => 45,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            // خدمة 2
-            [
-                'id' => 2,
-                'category_id' => $washCategory?->id,
-                'service_type_id' => $washType2?->id,
-                'name' => 'Premium Waxing & Polish',
-                'name_ar' => 'تلميع وبوليش نانو واكس',
-                'description' => 'إزالة الخدوش السطحية وإضافة طبقة حماية ولمعان لهيكل السيارة',
-                'base_price' => 350.00,
-                'is_vip_available' => false,
-                'vip_extra_price' => null,
-                'duration_minutes' => 120,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            // خدمة 3
-            [
-                'id' => 3,
-                'category_id' => $maintenanceCategory?->id,
-                'service_type_id' => $maintenanceType?->id,
-                'name' => 'Oil & Filter Change Service',
-                'name_ar' => 'خدمة تغيير الزيت والفلتر',
-                'description' => 'تغيير زيت المحرك ',
-                'base_price' => 80.00,
-                'is_vip_available' => true,
-                'vip_extra_price' => 30.00,
-                'duration_minutes' => 30,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
+            ['category_id' => $carWashId, 'name' => 'Exterior Wash', 'name_ar' => 'غسيل خارجي', 'description' => 'غسيل خارجي شامل للسيارة', 'base_price' => 50, 'is_vip_available' => true, 'vip_extra_price' => 20, 'duration_minutes' => 30],
+            ['category_id' => $carWashId, 'name' => 'Interior Cleaning', 'name_ar' => 'تنظيف داخلي', 'description' => 'تنظيف داخلي شامل للمقاعد والسجاد', 'base_price' => 70, 'is_vip_available' => true, 'vip_extra_price' => 25, 'duration_minutes' => 45],
+            ['category_id' => $maintenanceId, 'name' => 'Oil Change', 'name_ar' => 'تغيير زيت', 'description' => 'تغيير زيت المحرك والفلتر', 'base_price' => 120, 'is_vip_available' => false, 'vip_extra_price' => null, 'duration_minutes' => 45],
+            ['category_id' => $maintenanceId, 'name' => 'Brake Inspection', 'name_ar' => 'فحص فرامل', 'description' => 'فحص وصيانة نظام الفرامل', 'base_price' => 90, 'is_vip_available' => false, 'vip_extra_price' => null, 'duration_minutes' => 40],
+            ['category_id' => $roadsideId, 'name' => 'Battery Jump Start', 'name_ar' => 'تشغيل بطارية', 'description' => 'تشغيل البطارية للسيارات العالقة', 'base_price' => 80, 'is_vip_available' => false, 'vip_extra_price' => null, 'duration_minutes' => 20],
+            ['category_id' => $roadsideId, 'name' => 'Flat Tire Change', 'name_ar' => 'تغيير إطار', 'description' => 'تغيير الإطار المثقوب على الطريق', 'base_price' => 60, 'is_vip_available' => false, 'vip_extra_price' => null, 'duration_minutes' => 25],
         ];
 
         foreach ($services as $service) {
-            DB::table('services')->updateOrInsert(['id' => $service['id']], $service);
+            DB::table('services')->insert(array_merge($service, [
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]));
         }
     }
 }

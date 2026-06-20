@@ -76,7 +76,6 @@ class RolePermissionSeeder extends Seeder
             'manage.categories', 'show.categories',
             'manage.services', 'show.services',
             'manage.sub_services', 'show.sub_services',
-            'manage.service_types', 'show.service_types',
             'add.pricing_rule', 'edit.pricing_rule', 'delete.pricing_rule', 'show.pricing_rules',
             'manage.pricing_rule_types',
 
@@ -144,7 +143,7 @@ class RolePermissionSeeder extends Seeder
             'add.car', 'edit.car', 'show.cars',
 
             // === الخدمات والأسعار (عرض فقط) ===
-            'show.categories', 'show.services', 'show.sub_services', 'show.service_types', 'show.pricing_rules',
+            'show.categories', 'show.services', 'show.sub_services', 'show.pricing_rules',
 
             // === المواد، المخزون، والمشتريات (صلاحيات كاملة للفرع) ===
             'show.materials',

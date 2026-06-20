@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Service;
 use App\Models\Category;
-use App\Models\ServiceType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ServiceFactory extends Factory
@@ -15,7 +14,6 @@ class ServiceFactory extends Factory
     {
         return [
             'category_id' => Category::factory(),
-            'service_type_id' => ServiceType::factory(),
             'name' => $this->faker->word() . ' Service',
             'name_ar' => 'خدمة ' . $this->faker->word(),
             'description' => $this->faker->sentence(),
