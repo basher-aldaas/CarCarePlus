@@ -14,7 +14,6 @@ class BranchSeeder extends Seeder
 
         if ($branchAdmin) {
             DB::table('branches')->updateOrInsert(
-                ['id' => 1], // لمنع التكرار في حال إعادة التشغيل
                 [
                     'admin_id' => $branchAdmin->id,
                     'name' => 'Main Riyadh Branch',
