@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
             'name' => 'المدير العام',
             'email' => 'superadmin@system.com',
             'phone' => '0500000001',
+            'password' => 'password123',
             'is_active' => true,
         ]);
         $superAdmin->assignRole('super_admin');
