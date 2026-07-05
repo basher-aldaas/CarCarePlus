@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
+use Illuminate\Console\GeneratorCommand;
 
-class ServiceMakeCommand extends Command
+class ServiceMakeCommand extends GeneratorCommand
 {
     /**
      * The name and signature of the console command.
@@ -19,6 +19,11 @@ class ServiceMakeCommand extends Command
      * @var string
      */
     protected $description = 'Create a new Service class';
+
+    /**
+     * نوع الملف الذي يظهر في الـ Terminal عند النجاح
+     */
+    protected $type = 'Service';
 
     /**
      * Execute the console command.

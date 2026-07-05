@@ -15,7 +15,6 @@ class WorkshopSeeder extends Seeder
             [
                 'name' => 'Al-Tamyoz Workshop',
                 'name_ar' => 'مركز صيانة التميز',
-                'phone' => '0522222222',
                 'address' => 'المنطقة الصناعية، مخرج 18',
                 'city' => 'Riyadh',
                 'latitude' => 24.633300,

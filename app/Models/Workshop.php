@@ -4,14 +4,15 @@ namespace App\Models;
 
 use App\Enums\WorkshopStatus;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Workshop extends Model
 {
     protected $fillable = [
+        'user_id',
         'name',
         'name_ar',
-        'phone',
         'address',
         'city',
         'latitude',
@@ -27,6 +28,11 @@ class Workshop extends Model
         'rating_avg' => 'decimal:2',
     ];
 
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function contracts(): HasMany
     {

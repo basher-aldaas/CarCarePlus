@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
+use Illuminate\Console\GeneratorCommand;
 
-class HelperMakeCommand extends Command
+class HelperMakeCommand extends GeneratorCommand
 {
     /**
      * The name and signature of the console command.
@@ -19,6 +19,11 @@ class HelperMakeCommand extends Command
      * @var string
      */
     protected $description = 'Create a new Helper class';
+
+    /**
+     * نوع الملف الذي يظهر في الـ Terminal عند النجاح
+     */
+    protected $type = 'Helper';
 
     /**
      * Execute the console command.

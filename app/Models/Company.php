@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CompanyStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,10 +16,12 @@ class Company extends Model
         'commercial_reg',
         'tax_number',
         'address',
+        'status',
         'is_active',
     ];
 
     protected $casts = [
+        'status' => CompanyStatus::class,
         'is_active' => 'boolean',
     ];
 

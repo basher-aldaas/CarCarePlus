@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
+use Illuminate\Console\GeneratorCommand;
 
-class DtoMakeCommand extends Command
+class DtoMakeCommand extends GeneratorCommand
 {
     /**
      * The name and signature of the console command.
@@ -19,6 +19,11 @@ class DtoMakeCommand extends Command
      * @var string
      */
     protected $description = 'Crate a new DTO class';
+
+    /**
+     * نوع الملف الذي يظهر في الـ Terminal عند النجاح
+     */
+    protected $type = 'DTO';
 
     /**
      * Execute the console command.

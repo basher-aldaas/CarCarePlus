@@ -15,12 +15,18 @@ return new class extends Migration
         Schema::create('workshops', function (Blueprint $table) {
             $table->id();
 
+            // Owner account (the workshop-role user who registered it).
+            // Nullable so system-seeded partner workshops can exist without an owner.
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained('users')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->string('name');
 
             $table->string('name_ar');
 
-            $table->string('phone')
-                ->nullable();
 
             $table->text('address');
 
@@ -32,7 +38,8 @@ return new class extends Migration
             $table->decimal('longitude', 10, 7)
                 ->nullable();
 
-            $table->enum('status', WorkshopStatus::values());
+            $table->enum('status', WorkshopStatus::values())
+                ->default(WorkshopStatus::PENDING->value);
 
             $table->decimal('rating_avg', 3, 2)
                 ->default(0);

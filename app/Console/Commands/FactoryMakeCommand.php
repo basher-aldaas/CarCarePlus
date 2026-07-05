@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
+use Illuminate\Console\GeneratorCommand;
 
-class FactoryMakeCommand extends Command
+class FactoryMakeCommand extends GeneratorCommand
 {
     /**
      * The name and signature of the console command.
@@ -19,6 +19,11 @@ class FactoryMakeCommand extends Command
      * @var string
      */
     protected $description = 'Create a new Factory class';
+
+    /**
+     * نوع الملف الذي يظهر في الـ Terminal عند النجاح
+     */
+    protected $type = 'Factory';
 
     /**
      * Execute the console command.

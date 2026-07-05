@@ -12,7 +12,9 @@ class Response
         return response()->json([
             'status'=>1,
             'data'=>$data,
-            'message'=>$message
+            'message'=>$message,
+            'status_code' => $code,
+            'timestamp' => now()->toIso8601String(),
         ],$code);
     }
 
@@ -21,7 +23,9 @@ class Response
         return response()->json([
             'status'=>0,
             'data'=>$data,
-            'message'=>$message
+            'message'=>$message,
+            'status_code' => $code,
+            'timestamp' => now()->toIso8601String(),
         ],$code);
     }
 
@@ -30,7 +34,9 @@ class Response
         return response()->json([
             'status'=>0,
             'data'=>$data,
-            'message'=>$message
+            'message'=>$message,
+            'status_code' => $code,
+            'timestamp' => now()->toIso8601String(),
         ],$code);
     }
 

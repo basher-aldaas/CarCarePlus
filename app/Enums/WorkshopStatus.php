@@ -4,6 +4,12 @@ namespace App\Enums;
 
 enum WorkshopStatus: string
 {
+    // Registration lifecycle states
+    case PENDING = 'pending';
+    case APPROVED = 'approved';
+    case REJECTED = 'rejected';
+
+    // Operational states (post-approval)
     case ACTIVE = 'active';
     case INACTIVE = 'inactive';
     case SUSPENDED = 'suspended';
