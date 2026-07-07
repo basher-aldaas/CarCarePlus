@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\SuperAdmin\Auth;
 
-use App\DTOs\AdminsDTOs\RegisterAdminDTO;
-use App\DTOs\EmployeesDTOs\RegisterEmployeeDTO;
+use App\DTOs\AuhDTOs\RegisterAdminDTO;
+use App\DTOs\AuhDTOs\RegisterEmployeeDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequests\RegistersRequest\RegisterAdminRequest;
 use App\Http\Requests\AuthRequests\RegistersRequest\RegisterEmployeeRequest;

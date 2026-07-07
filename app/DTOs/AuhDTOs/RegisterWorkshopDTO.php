@@ -1,8 +1,9 @@
 <?php
 
-namespace App\DTOs\WorkshopsDTOs;
+namespace App\DTOs\AuhDTOs;
 
 use App\DTOs\UserDTO;
+use App\DTOs\WorkshopDTO;
 
 class RegisterWorkshopDTO
 {

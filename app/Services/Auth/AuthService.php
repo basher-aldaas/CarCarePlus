@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth;
 
-use App\DTOs\AuthDTOs\LoginDTO;
+use App\DTOs\AuhDTOs\LoginDTO;
 use App\Exceptions\AccountInactiveException;
 use App\Exceptions\InvalidCredentialsException;
 use App\Models\User;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs\OtpDTOs;
+namespace App\DTOs\AuhDTOs;
 
 use App\Enums\OtpEnums\OtpChannel;
 use App\Enums\OtpEnums\OtpType;

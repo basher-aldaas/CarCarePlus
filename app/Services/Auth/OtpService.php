@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth;
 
-use App\DTOs\OtpDTOs\OtpDTO;
+use App\DTOs\AuhDTOs\OtpDTO;
 use App\Enums\OtpEnums\OtpChannel;
 use App\Enums\OtpEnums\OtpType;
 use App\Exceptions\OtpCooldownException;

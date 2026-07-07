@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\OperationsRequest;
+namespace App\Http\Requests\OperationsRequest\UsersRequest;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -28,7 +28,7 @@ class EditProfileRequest extends FormRequest
             'name' => ['sometimes', 'string', 'max:255'],
             'email' => ['sometimes', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore(auth()->id())],
             'phone' => ['sometimes', 'string', 'max:20', Rule::unique('users', 'phone')->ignore(auth()->id())],
-            'image_url' => ['sometimes','nullable', 'string','mimes:jpg,jpeg,png,webp', 'max:255'],
+            'image_url' => ['sometimes','nullable','mimes:jpg,jpeg,png,webp', 'max:255'],
         ];
     }
 }

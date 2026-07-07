@@ -1,10 +1,10 @@
 <?php
+namespace App\DTOs\AuhDTOs;
 
-namespace App\DTOs\CompaniesDTOs;
-
+use App\DTOs\CompanyDTO;
 use App\DTOs\UserDTO;
 
-class CreateCompanyUserDTO
+class RegisterCompanyCustomerDTO
 {
     public function __construct(
         public readonly UserDTO $userDto,
@@ -15,14 +15,12 @@ class CreateCompanyUserDTO
     {
         return new self(
             userDto: UserDTO::fromArray($data),
-
             companyDto: CompanyDTO::fromArray([
-                'name' => $data['company_name'] ?? null,
-                'name_ar' => $data['company_name_ar'] ?? null,
-                'commercial_reg' => $data['commercial_reg'] ?? null,
-                'tax_number' => $data['tax_number'] ?? null,
-                'address' => $data['company_address'] ?? null,
-                'is_active' => $data['is_active'] ?? true,
+                'name'           => $data['company_name'],
+                'name_ar'        => $data['company_name_ar'],
+                'commercial_reg' => $data['commercial_reg'],
+                'tax_number'     => $data['tax_number'],
+                'address'        => $data['company_address'],
             ]),
         );
     }

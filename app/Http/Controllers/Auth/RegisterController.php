@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\DTOs\CompaniesDTOs\RegisterCompanyCustomerDTO;
+use App\DTOs\AuhDTOs\RegisterCompanyCustomerDTO;
+use App\DTOs\AuhDTOs\RegisterWorkshopDTO;
 use App\DTOs\CustomersDTOs\RegisterCustomerDTO;
-use App\DTOs\WorkshopsDTOs\RegisterWorkshopDTO;
+use App\DTOs\UserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequests\RegistersRequest\RegisterCompanyCustomerRequest;
 use App\Http\Requests\AuthRequests\RegistersRequest\RegisterCustomerRequest;
@@ -23,7 +24,7 @@ class RegisterController extends Controller
      */
     public function customer(RegisterCustomerRequest $request): JsonResponse
     {
-        $dto = RegisterCustomerDTO::fromArray($request->validated());
+        $dto = UserDTO::fromArray($request->validated());
         $result = $this->registrationService->registerCustomer($dto);
 
         $userData = (new UserResource($result['user']))

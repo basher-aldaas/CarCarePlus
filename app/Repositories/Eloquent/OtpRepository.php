@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\DTOs\OtpDTOs\OtpDTO;
+use App\DTOs\AuhDTOs\OtpDTO;
 use App\Enums\OtpEnums\OtpType;
 use App\Models\OtpCode;
 

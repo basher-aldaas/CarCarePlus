@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs\AuthDTOs;
+namespace App\DTOs\AuhDTOs;
 
 class ResetPasswordDTO
 {

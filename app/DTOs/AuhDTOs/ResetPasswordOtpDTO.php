@@ -1,11 +1,12 @@
 <?php
 
-namespace App\DTOs\AuthDTOs;
+namespace App\DTOs\AuhDTOs;
 
-class LoginDTO
+class ResetPasswordOtpDTO
 {
     public function __construct(
         public string $email,
+        public string $otp,
         public string $password,
     ) {}
 
@@ -13,6 +14,7 @@ class LoginDTO
     {
         return new self(
             email:    $data['email'],
+            otp:      (string) $data['otp'],
             password: $data['password'],
         );
     }

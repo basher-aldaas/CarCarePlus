@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Constants\HttpStatusConstants;
+use App\DTOs\AuhDTOs\ForgotPasswordDTO;
+use App\DTOs\AuhDTOs\ResetPasswordDTO;
+use App\DTOs\AuhDTOs\ResetPasswordOtpDTO;
 use App\DTOs\AuthDTOs\ChangePasswordDTO;
-use App\DTOs\AuthDTOs\ForgotPasswordDTO;
-use App\DTOs\AuthDTOs\ResetPasswordDTO;
-use App\DTOs\AuthDTOs\ResetPasswordOtpDTO;
 use App\Exceptions\PasswordResetException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequests\ChangePasswordRequest;
@@ -96,21 +96,6 @@ class PasswordResetController extends Controller
         );
     }
 
-    /**
-     * Change the password for the authenticated user.
-     */
-    public function change(ChangePasswordRequest $request): JsonResponse
-    {
-        $this->passwordService->change(
-            $request->user(),
-            ChangePasswordDTO::fromArray($request->validated())
-        );
-
-        return Response::Success(
-            data: null,
-            message: __('Your password has been changed successfully.')
-        );
-    }
 
     private function messageForStatus(string $status): string
     {

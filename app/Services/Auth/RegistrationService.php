@@ -2,11 +2,11 @@
 
 namespace App\Services\Auth;
 
-use App\DTOs\AdminsDTOs\RegisterAdminDTO;
-use App\DTOs\CompaniesDTOs\RegisterCompanyCustomerDTO;
-use App\DTOs\CustomersDTOs\RegisterCustomerDTO;
-use App\DTOs\EmployeesDTOs\RegisterEmployeeDTO;
-use App\DTOs\WorkshopsDTOs\RegisterWorkshopDTO;
+use App\DTOs\AuhDTOs\RegisterAdminDTO;
+use App\DTOs\AuhDTOs\RegisterCompanyCustomerDTO;
+use App\DTOs\AuhDTOs\RegisterEmployeeDTO;
+use App\DTOs\AuhDTOs\RegisterWorkshopDTO;
+use App\DTOs\UserDTO;
 use App\Enums\CompanyStatus;
 use App\Enums\WorkshopStatus;
 use App\Models\Branch;
@@ -34,10 +34,10 @@ class RegistrationService
      *
      * @return array{user: \App\Models\User, token: string}
      */
-    public function registerCustomer(RegisterCustomerDTO $dto): array
+    public function registerCustomer(UserDTO $dto): array
     {
         $result = DB::transaction(function () use ($dto) {
-            $user = $this->userRepository->create($dto->user);
+            $user = $this->userRepository->create($dto);
             $user->assignRole('customer_personal');
 
             $token = $user->createToken('auth_token')->plainTextToken;

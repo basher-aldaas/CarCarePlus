@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\DTOs\CompaniesDTOs\CompanyDTO;
+use App\DTOs\CompanyDTO;
 use App\Enums\CompanyStatus;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Collection;

@@ -39,8 +39,6 @@ Route::prefix('auth')->group(function () {
     Route::post('password/otp/send', [PasswordResetController::class, 'sendResetOtp']);
     Route::post('password/otp/reset', [PasswordResetController::class, 'resetWithOtp']);
 
-    // Password: change while authenticated
-    Route::post('change-password', [PasswordResetController::class, 'change'])->middleware('auth:sanctum');
 });
 
 /*

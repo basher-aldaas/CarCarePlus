@@ -1,17 +1,19 @@
 <?php
 
-namespace App\DTOs\AuthDTOs;
+namespace App\DTOs\AuhDTOs;
 
-class ForgotPasswordDTO
+class LoginDTO
 {
     public function __construct(
         public string $email,
+        public string $password,
     ) {}
 
     public static function fromArray(array $data): self
     {
         return new self(
-            email: $data['email'],
+            email:    $data['email'],
+            password: $data['password'],
         );
     }
 }

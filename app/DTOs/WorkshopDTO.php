@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTOs\WorkshopsDTOs;
+namespace App\DTOs;
 
 
 class WorkshopDTO

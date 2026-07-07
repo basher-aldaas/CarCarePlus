@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\DTOs\EmployeesDTOs\EmployeeDTO;
+use App\DTOs\EmployeeDTO;
 use App\Models\Employee;
 
 class EmployeeRepository

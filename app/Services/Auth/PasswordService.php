@@ -2,10 +2,10 @@
 
 namespace App\Services\Auth;
 
+use App\DTOs\AuhDTOs\ForgotPasswordDTO;
+use App\DTOs\AuhDTOs\ResetPasswordDTO;
+use App\DTOs\AuhDTOs\ResetPasswordOtpDTO;
 use App\DTOs\AuthDTOs\ChangePasswordDTO;
-use App\DTOs\AuthDTOs\ForgotPasswordDTO;
-use App\DTOs\AuthDTOs\ResetPasswordDTO;
-use App\DTOs\AuthDTOs\ResetPasswordOtpDTO;
 use App\Enums\OtpEnums\OtpChannel;
 use App\Enums\OtpEnums\OtpType;
 use App\Exceptions\InvalidOtpException;
@@ -84,25 +84,6 @@ class PasswordService
 
         $this->applyNewPassword($user, $dto->password);
         $user->tokens()->delete();
-        $user->notify(new PasswordChangedNotification());
-    }
-
-    // ----- Authenticated change -----
-
-    /**
-     * Change the password for an authenticated user.
-     * Keeps the current session token, revokes all others, and emails a confirmation.
-     */
-    public function change(User $user, ChangePasswordDTO $dto): void
-    {
-        $currentTokenId = $user->currentAccessToken()?->id;
-
-        $this->applyNewPassword($user, $dto->newPassword);
-
-        $user->tokens()
-            ->when($currentTokenId, fn ($query) => $query->where('id', '!=', $currentTokenId))
-            ->delete();
-
         $user->notify(new PasswordChangedNotification());
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\DTOs\WorkshopsDTOs\WorkshopDTO;
+use App\DTOs\WorkshopDTO;
 use App\Enums\WorkshopStatus;
 use App\Models\Workshop;
 use Illuminate\Database\Eloquent\Collection;
