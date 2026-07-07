@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\RegistrationRequestController;
-use App\Http\Controllers\Admin\StaffAccountController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Operations\UserController;
+use App\Http\Controllers\SuperAdmin\Auth\RegistrationRequestController;
+use App\Http\Controllers\SuperAdmin\Auth\StaffAccountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,18 @@ Route::prefix('auth')->group(function () {
     // Password: change while authenticated
     Route::post('change-password', [PasswordResetController::class, 'change'])->middleware('auth:sanctum');
 });
+
+/*
+|--------------------------------------------------------------------------
+| Authenticated user — profile
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth:sanctum')
+    ->prefix('profile')
+    ->group(function () {
+        Route::get('/showProfile', [UserController::class, 'showProfile']);
+        Route::post('/editProfile', [UserController::class, 'editProfile']);
+    });
 
 /*
 |--------------------------------------------------------------------------

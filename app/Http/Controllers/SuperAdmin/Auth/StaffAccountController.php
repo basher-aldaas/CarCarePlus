@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\SuperAdmin\Auth;
 
 use App\DTOs\AdminsDTOs\RegisterAdminDTO;
 use App\DTOs\EmployeesDTOs\RegisterEmployeeDTO;

@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
             'name' => 'المدير العام',
             'email' => 'superadmin@system.com',
             'phone' => '0500000001',
-            'password' => 'password123',
+            'password' => bcrypt('password123'),
             'is_active' => true,
         ]);
         $superAdmin->assignRole('super_admin');
@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
             'name' => 'مدير الفرع الرئيسي',
             'email' => 'admin@system.com',
             'phone' => '0500000002',
+            'password' => bcrypt('password123'),
             'is_active' => true,
         ]);
         $admin->assignRole('admin');
@@ -33,6 +34,7 @@ class UserSeeder extends Seeder
             'name' => 'مركز صيانة التميز',
             'email' => 'workshop@system.com',
             'phone' => '0500000003',
+            'password' => bcrypt('password123'),
             'is_active' => true,
         ]);
         $workshop->assignRole('workshop');
@@ -42,6 +44,7 @@ class UserSeeder extends Seeder
             'name' => 'أحمد العتيبي (عميل)',
             'email' => 'customer@system.com',
             'phone' => '0500000004',
+            'password' => bcrypt('password123'),
             'is_active' => true,
         ]);
         $customer->assignRole('customer_personal');
@@ -51,6 +54,7 @@ class UserSeeder extends Seeder
             'name' => 'شركة أسطول النقل',
             'email' => 'company@system.com',
             'phone' => '0500000005',
+            'password' => bcrypt('password123'),
             'is_active' => true,
         ]);
         $companyCustomer->assignRole('customer_company');
@@ -60,6 +64,7 @@ class UserSeeder extends Seeder
             'name' => 'فني غسيل 1',
             'email' => 'washer@system.com',
             'phone' => '0500000006',
+            'password' => bcrypt('password123'),
             'is_active' => true,
         ]);
         $washer->assignRole('employee_washer');
@@ -69,6 +74,7 @@ class UserSeeder extends Seeder
             'name' => 'مهندس ميكانيكي 1',
             'email' => 'mechanic@system.com',
             'phone' => '0500000007',
+            'password' => bcrypt('password123'),
             'is_active' => true,
         ]);
         $mechanic->assignRole('employee_mechanic');

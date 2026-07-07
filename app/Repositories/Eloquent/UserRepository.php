@@ -21,4 +21,20 @@ class UserRepository
     {
         return User::where('email', $email)->first();
     }
+
+    public function findById(int $id): ?User
+    {
+        return User::find($id);
+    }
+
+    public function update(User $user, UserDTO $DTO): User
+    {
+        $data = $DTO->toArray();
+        if (isset($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+        $user->update($data);
+
+        return $user->refresh();
+    }
 }

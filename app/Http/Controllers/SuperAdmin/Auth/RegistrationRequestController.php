@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\SuperAdmin\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CompanyResource;
