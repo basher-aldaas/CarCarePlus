@@ -25,32 +25,33 @@ class DatabaseSeeder extends Seeder
             ProblemTypeSeeder::class,
             PricingRuleTypeSeeder::class,
 
-            // 2. إعدادات وتكوين النظام الثابتة والأدوار
-            PointsConfigSeeder::class,
-            SystemSettingSeeder::class,
-            RolePermissionSeeder::class,
-            AiRuleSeeder::class,           // <-- أضفه هنا (إعدادات AI ثابتة)
-            SuggestedProblemSeeder::class, // <-- أضفه هنا (مشاكل مقترحة للنظام)
 
-            // 3. الخدمات والمواد التشغيلية
-            ServiceSeeder::class,
-            SubServiceSeeder::class,
-            MaterialSeeder::class,
+                PointsConfigSeeder::class,
+                SystemSettingSeeder::class,
+                RolePermissionSeeder::class,
+                AiRuleSeeder::class,
+                SuggestedProblemSeeder::class,
 
-            // 4. البنية التحتية والمقرات
-            BranchSeeder::class,
-            WorkshopSeeder::class,
+                ServiceSeeder::class,
+                SubServiceSeeder::class,
+                MaterialSeeder::class,
 
-            // 5. الحسابات والموظفين والباقات
-            UserSeeder::class,
-            EmployeeSeeder::class,
-            PackageSeeder::class,
+                // أولاً أنشئ المستخدمين
+                UserSeeder::class,
 
-            // 6. ربط باقات النظام بالخدمات (بناءً على الباقات والخدمات التي تم إنشاؤها فوق)
-            PackageServiceSeeder::class,                  // <-- أضفه هنا
-            PackageServiceSubServiceSeeder::class,        // <-- أضفه هنا
+                // ثم الفروع لأنها تحتاج admin@system.com
+                BranchSeeder::class,
 
+                // ثم الورش
+                WorkshopSeeder::class,
 
-        ]);
+                // ثم الموظفين لأنهم يحتاجون User + Branch
+                EmployeeSeeder::class,
+
+                PackageSeeder::class,
+                PackageServiceSeeder::class,
+                PackageServiceSubServiceSeeder::class,
+            ]);
+
     }
 }
