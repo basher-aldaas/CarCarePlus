@@ -20,7 +20,7 @@ class WorkshopResource extends JsonResource
             'status'     => $this->status?->value,
             'rating_avg' => $this->rating_avg,
             'owner'      => new UserResource($this->whenLoaded('owner')),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->toDateString(),
         ];
     }
 }

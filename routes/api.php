@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Operations\CarController;
 use App\Http\Controllers\Operations\UserController;
 use App\Http\Controllers\SuperAdmin\Auth\RegistrationRequestController;
 use App\Http\Controllers\SuperAdmin\Auth\StaffAccountController;
@@ -50,7 +51,23 @@ Route::middleware('auth:sanctum')
     ->prefix('profile')
     ->group(function () {
         Route::get('/showProfile', [UserController::class, 'showProfile']);
-        Route::post('/editProfile', [UserController::class, 'editProfile']);
+        Route::post('/updateProfile', [UserController::class, 'updateProfile']);
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Authenticated user — cars
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth:sanctum')
+    ->prefix('cars')
+    ->group(function () {
+        Route::get('/', [CarController::class, 'indexDashboard']);
+        Route::get('/indexClient', [CarController::class, 'indexClient']);
+        Route::post('/', [CarController::class, 'store'])->middleware('can:add.car');
+        Route::get('/{id}', [CarController::class, 'show']);
+        Route::post('/{id}', [CarController::class, 'update']);
+        Route::delete('/{id}', [CarController::class, 'destroy']);
     });
 
 /*
