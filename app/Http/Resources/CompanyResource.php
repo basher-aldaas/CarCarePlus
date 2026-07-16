@@ -19,7 +19,7 @@ class CompanyResource extends JsonResource
             'status'         => $this->status?->value,
             'is_active'      => (bool) $this->is_active,
             'owner'          => new UserResource($this->whenLoaded('owner')),
-            'created_at'     => $this->created_at,
+            'created_at'     => $this->created_at->toDateString(),
         ];
     }
 }

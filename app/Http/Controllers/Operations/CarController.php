@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Operations;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\OperationsRequest\CarsRequest\AddCarRequest;
+use App\Http\Requests\OperationsRequest\CarsRequest\CreateCarRequest;
 use Illuminate\Http\JsonResponse;
 
 use App\DTOs\CarsDTOs\CreateCarDTO;
@@ -44,7 +44,7 @@ class CarController extends Controller
     /**
      * Store vehicle.
      */
-    public function store(AddCarRequest $request)
+    public function store(CreateCarRequest $request)
     {
         $result = $this->carService->store(
 

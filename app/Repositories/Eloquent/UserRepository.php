@@ -27,7 +27,7 @@ class UserRepository
         return User::find($id);
     }
 
-    public function update(User $user, UserDTO $DTO): User
+    public function update(UserDTO $DTO, User $user): User
     {
         $data = $DTO->toArray();
         if (isset($data['password'])) {

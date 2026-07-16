@@ -29,15 +29,33 @@ class CarResource extends JsonResource
 
             'color' => $this->color,
 
-            'fuel_type'=>$this->fuel_type?->value,
+            'fuel_type' => $this->fuel_type?->value,
 
             'cylinders' => $this->cylinders,
 
             'mileage' => $this->mileage,
 
-            'image_url'=>$this->image_url,
+            'image_url' => $this->image_url
+                ? asset('storage/' . $this->image_url)
+                : null,
+
+            'is_active' => (bool) $this->is_active,
+
+            'owner' => new UserResource(
+                $this->whenLoaded('owner')
+            ),
+
+            'company' => new CompanyResource(
+                $this->whenLoaded('company')
+            ),
+
+            'car_type' => new CarTypeResource(
+                $this->whenLoaded('carType')
+            ),
 
             'created_at' => $this->created_at,
+
+            'updated_at' => $this->updated_at,
 
         ];
     }

@@ -2,41 +2,36 @@
 
 namespace App\Repositories\Eloquent;
 
-    use App\DTOs\CarsDTOs\CreateCarDTO;
-    use App\DTOs\CarsDTOs\UpdateCarDTO;
-    use App\Models\Car;
-    use Illuminate\Database\Eloquent\Collection;
+use App\DTOs\CarsDTOs\CreateCarDTO;
+use App\DTOs\CarsDTOs\UpdateCarDTO;
+use App\Models\Car;
+use Illuminate\Database\Eloquent\Collection;
 
 class CarRepository
 {
     /**
-     * Return all cars.
+     * جميع سيارات المستخدم الحالي
      */
-    public function all():Collection
-    {
-        return Car::all();
-    }
-
     public function getUserCars(int $customerId): Collection
     {
-        return Car::where('customer_id',$customerId)
+        return Car::with(['company', 'carType'])
+            ->where('customer_id', $customerId)
             ->latest()
             ->get();
     }
 
-    public function findUserCar(
-        int $customerId,
-        int $carId
-    )
+    /**
+     * البحث عن سيارة يملكها المستخدم
+     */
+    public function findUserCar(int $customerId, int $carId): ?Car
     {
-        return Car::where('customer_id',$customerId)
-            ->where('id',$carId)
+        return Car::where('customer_id', $customerId)
+            ->where('id', $carId)
             ->first();
     }
 
-
     /**
-     * Create a new car.
+     * إنشاء سيارة
      */
     public function create(CreateCarDTO $DTO): Car
     {
@@ -44,7 +39,7 @@ class CarRepository
     }
 
     /**
-     * Update existing car.
+     * تعديل سيارة
      */
     public function update(Car $car, UpdateCarDTO $DTO): Car
     {
@@ -54,11 +49,15 @@ class CarRepository
     }
 
     /**
-     * Delete a car.
+     * حذف سيارة
      */
-    public function delete(Car $car)
+    public function delete(Car $car): bool
     {
-        return  $car->delete();
-    }
+        // احذف الصورة إذا كانت موجودة
+        if ($car->image_url) {
+            \Storage::disk('public')->delete($car->image_url);
+        }
 
+        return $car->delete();
+    }
 }

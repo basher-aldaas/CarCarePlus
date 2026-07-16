@@ -1,39 +1,29 @@
 <?php
 
-
 namespace App\Services\Operations;
 
 use App\DTOs\CarsDTOs\CreateCarDTO;
 use App\DTOs\CarsDTOs\UpdateCarDTO;
-use App\Models\Car;
 use App\Repositories\Eloquent\CarRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CarService
 {
-
     protected $carRepository;
 
     public function __construct(
-
         CarRepository $carRepository
     ) {
         $this->carRepository = $carRepository;
     }
 
-    /**
-     * Show authenticated user's vehicles.
-     */
     public function index()
     {
-
         return $this->carRepository->getUserCars(auth()->id());
     }
 
-    /**
-     * Store new vehicle.
-     */
     public function store(CreateCarDTO $dto): array
     {
         return DB::transaction(function () use ($dto) {
@@ -41,15 +31,11 @@ class CarService
             $car = $this->carRepository->create($dto);
 
             return [
-                'car' => $car->refresh(),  //               'car' => $car,
-
+                'car' => $car->refresh(),
             ];
         });
     }
 
-    /**
-     * Update vehicle.
-     */
     public function update(int $id, UpdateCarDTO $dto): array
     {
         return DB::transaction(function () use ($id, $dto) {
@@ -60,20 +46,16 @@ class CarService
             if (!$car) {
                 throw new NotFoundHttpException('Vehicle not found.');
             }
-//            $car = $this->carRepository
-//                ->update($car, $dto);
+
             $this->carRepository->update($car, $dto);
 
             return [
-                'car' => $car->fresh(), // 'car' => $car
+                'car' => $car->fresh(),
             ];
         });
     }
 
-    /**
-     * Delete vehicle.
-     */
-    public function destroy(int $id)
+    public function destroy(int $id): void
     {
         DB::transaction(function () use ($id) {
 
@@ -82,6 +64,10 @@ class CarService
 
             if (!$car) {
                 throw new NotFoundHttpException('Vehicle not found.');
+            }
+
+            if ($car->image_url) {
+                Storage::disk('public')->delete($car->image_url);
             }
 
             $this->carRepository->delete($car);

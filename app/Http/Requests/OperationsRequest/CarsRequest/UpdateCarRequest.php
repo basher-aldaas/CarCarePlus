@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Requests\OperationsRequest\CarsRequest;
 
 use App\Enums\CarEnums\FuelType;
@@ -16,25 +15,25 @@ class UpdateCarRequest extends FormRequest
 
     public function rules(): array
     {
-
         return [
 
             'brand_id' => [
                 'sometimes',
                 'integer',
-                'exists:car_brands,id'
+                'exists:car_brands,id',
             ],
 
             'company_id' => [
                 'sometimes',
+                'nullable',
                 'integer',
-                'exists:companies,id'
+                'exists:companies,id',
             ],
 
             'car_type_id' => [
                 'sometimes',
                 'integer',
-                'exists:car_types,id'
+                'exists:car_types,id',
             ],
 
             'plate_number' => [
@@ -42,19 +41,19 @@ class UpdateCarRequest extends FormRequest
                 'string',
                 'max:255',
                 Rule::unique('cars', 'plate_number')
-                    ->ignore($this->route('id'))
+                    ->ignore($this->route('id')),
             ],
 
             'brand' => [
                 'sometimes',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'model' => [
                 'sometimes',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'year' => [
@@ -62,38 +61,46 @@ class UpdateCarRequest extends FormRequest
                 'digits:4',
                 'integer',
                 'min:1900',
-                'max:' . date('Y')
+                'max:' . date('Y'),
             ],
 
             'color' => [
                 'sometimes',
                 'string',
-                'max:255'
+                'max:255',
             ],
 
             'fuel_type' => [
                 'sometimes',
-                Rule::in(FuelType::values())
+                Rule::in(FuelType::values()),
             ],
 
             'cylinders' => [
+                'sometimes',
                 'nullable',
                 'integer',
                 'min:1',
-                'max:16'
+                'max:16',
             ],
 
             'mileage' => [
+                'sometimes',
                 'nullable',
                 'integer',
-                'min:0'
+                'min:0',
+            ],
+
+            'is_active' => [
+                'sometimes',
+                'boolean',
             ],
 
             'image' => [
+                'sometimes',
                 'nullable',
                 'image',
                 'mimes:jpg,jpeg,png,webp',
-                'max:2048'
+                'max:2048',
             ],
 
         ];
