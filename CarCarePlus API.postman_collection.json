@@ -1,0 +1,1176 @@
+{
+  "info": {
+    "_postman_id": "aed198d7-37e9-4668-b7a4-8c6e070e961c",
+    "name": "CarCarePlus API",
+    "description": "Auth, registration and super-admin approval endpoints for CarCarePlus.\n\nSet the `base_url` variable (default http://localhost:8000). The Login / Register Customer requests automatically save the returned Sanctum token into the `token` collection variable, which every authenticated request uses as a Bearer token.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "31623904"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register Customer (Type 1)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "const token = res?.data?.token;",
+                  "if (token) { pm.collectionVariables.set('token', token); console.log('token saved'); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"John Customer\",\n    \"email\": \"customer@example.com\",\n    \"phone\": \"0500000001\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register/customer",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register",
+                "customer"
+              ]
+            },
+            "description": "Personal customer self-registration. Active immediately and returns a token.\n\nNote: `image_url` is an optional image upload (jpg/jpeg/png/webp, max 2MB) — use form-data if you want to send it."
+          },
+          "response": []
+        },
+        {
+          "name": "Register Company (Type 2a)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Company Owner\",\n    \"email\": \"company@example.com\",\n    \"phone\": \"0500000002\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"is_active\": false,\n    \"company_name\": \"Acme Auto\",\n    \"company_name_ar\": \"أكمي أوتو\",\n    \"commercial_reg\": \"CR-123456\",\n    \"tax_number\": \"TAX-123456\",\n    \"company_address\": \"123 King Fahd Rd, Riyadh\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register/company",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register",
+                "company"
+              ]
+            },
+            "description": "Company customer submits a registration request. Pending super-admin approval (no token issued)."
+          },
+          "response": []
+        },
+        {
+          "name": "Register Workshop (Type 2b)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Workshop Owner\",\n    \"email\": \"workshop@example.com\",\n    \"phone\": \"0500000003\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"is_active\": false,\n    \"workshop_name\": \"Speedy Garage\",\n    \"workshop_name_ar\": \"الكراج السريع\",\n    \"workshop_address\": \"45 Olaya St, Riyadh\",\n    \"workshop_city\": \"Riyadh\",\n    \"latitude\": 24.7136,\n    \"longitude\": 46.6753\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register/workshop",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register",
+                "workshop"
+              ]
+            },
+            "description": "Workshop submits a registration request. Pending super-admin approval (no token issued)."
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "const token = res?.data?.token;",
+                  "if (token) { pm.collectionVariables.set('token', token); console.log('token saved'); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"customer@example.com\",\n    \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Log in and receive a Sanctum token. The token is saved to the `token` collection variable automatically."
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Revoke the current access token. Requires auth:sanctum."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Authenticated User",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/user",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "user"
+              ]
+            },
+            "description": "Return the currently authenticated user. Requires auth:sanctum."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Password",
+      "item": [
+        {
+          "name": "Forgot Password (link)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"customer@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/forgot-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "forgot-password"
+              ]
+            },
+            "description": "Send a password reset link by email. Always responds generically to prevent account enumeration."
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password (link token)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"token\": \"PASTE_TOKEN_FROM_EMAIL\",\n    \"email\": \"customer@example.com\",\n    \"password\": \"newpassword123\",\n    \"password_confirmation\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/reset-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "reset-password"
+              ]
+            },
+            "description": "Set a new password using the token from the reset email."
+          },
+          "response": []
+        },
+        {
+          "name": "Send Reset OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"customer@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/password/otp/send",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "password",
+                "otp",
+                "send"
+              ]
+            },
+            "description": "Email a one-time reset code. Responds generically to prevent account enumeration."
+          },
+          "response": []
+        },
+        {
+          "name": "Reset Password (OTP)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"customer@example.com\",\n    \"otp\": \"123456\",\n    \"password\": \"newpassword123\",\n    \"password_confirmation\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/password/otp/reset",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "password",
+                "otp",
+                "reset"
+              ]
+            },
+            "description": "Set a new password using the emailed OTP code."
+          },
+          "response": []
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"current_password\": \"password123\",\n    \"password\": \"newpassword123\",\n    \"password_confirmation\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/change-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "change-password"
+              ]
+            },
+            "description": "Change the password for the authenticated user. Requires auth:sanctum."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin (Super Admin)",
+      "item": [
+        {
+          "name": "Create Employee (Type 3)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Ali Employee\",\n    \"email\": \"employee@example.com\",\n    \"phone\": \"0500000004\",\n    \"password\": \"password123\",\n    \"branch_id\": 1,\n    \"type\": \"mechanic\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/employees",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "employees"
+              ]
+            },
+            "description": "Super admin creates an employee. `type` is one of: washer, mechanic."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Admin (Branch Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Branch Admin\",\n    \"email\": \"branchadmin@example.com\",\n    \"phone\": \"0500000005\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"is_active\": true,\n    \"branch_id\": 1\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/admins",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "admins"
+              ]
+            },
+            "description": "Super admin creates a branch admin account."
+          },
+          "response": []
+        },
+        {
+          "name": "List Pending Company Requests",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/registration-requests/companies",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "registration-requests",
+                "companies"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Pending Workshop Requests",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/registration-requests/workshops",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "registration-requests",
+                "workshops"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Approve Company",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/registration-requests/companies/:company/approve",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "registration-requests",
+                "companies",
+                ":company",
+                "approve"
+              ],
+              "variable": [
+                {
+                  "key": "company",
+                  "value": "1",
+                  "description": "Company ID"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reject Company",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"reason\": \"Incomplete commercial registration documents\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/registration-requests/companies/:company/reject",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "registration-requests",
+                "companies",
+                ":company",
+                "reject"
+              ],
+              "variable": [
+                {
+                  "key": "company",
+                  "value": "1",
+                  "description": "Company ID"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Approve Workshop",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/admin/registration-requests/workshops/:workshop/approve",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "registration-requests",
+                "workshops",
+                ":workshop",
+                "approve"
+              ],
+              "variable": [
+                {
+                  "key": "workshop",
+                  "value": "1",
+                  "description": "Workshop ID"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reject Workshop",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"reason\": \"Location could not be verified\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/admin/registration-requests/workshops/:workshop/reject",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "registration-requests",
+                "workshops",
+                ":workshop",
+                "reject"
+              ],
+              "variable": [
+                {
+                  "key": "workshop",
+                  "value": "1",
+                  "description": "Workshop ID"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "All endpoints require auth:sanctum and the super_admin role."
+    },
+    {
+      "name": "index vehicle",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_0udi}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"brand_id\": 1,\n    \"car_type_id\": 1,\n    \"plate_number\": \"12345\",\n    \"brand\": \"Toyota\",\n    \"model\": \"Corolla\",\n    \"year\": 2022,\n    \"color\": \"White\",\n    \"fuel_type\": \"petrol\",\n    \"cylinders\": 4,\n    \"mileage\": 25000\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/cars",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "cars"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"brand_id\": 1,\n    \"car_type_id\": 1,\n    \"plate_number\": \"12345\",\n    \"brand\": \"Toyota\",\n    \"model\": \"Corolla\",\n    \"year\": 2022,\n    \"color\": \"White\",\n    \"fuel_type\": \"petrol\",\n    \"cylinders\": 4,\n    \"mileage\": 25000\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/cars",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "cars"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "localhost:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.3.30"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 16 Jul 2026 12:11:41 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"brand_id\": 1,\n        \"company_id\": null,\n        \"car_type_id\": 1,\n        \"plate_number\": \"12345\",\n        \"brand\": \"Toyota\",\n        \"model\": \"Corolla\",\n        \"year\": 2022,\n        \"color\": \"White\",\n        \"fuel_type\": \"petrol\",\n        \"cylinders\": 4,\n        \"mileage\": 25000,\n        \"image_url\": null,\n        \"created_at\": \"2026-07-16T12:11:41.000000Z\"\n    },\n    \"message\": \"Vehicle created successfully.\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-16T12:11:41+00:00\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "update vehicle",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "success",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"brand_id\": 2,\r\n    \"car_type_id\": 2,\r\n    \"plate_number\": \"55555\",\r\n    \"brand\": \"Honda\",\r\n    \"model\": \"Civic\",\r\n    \"year\": 2023,\r\n    \"color\": \"Black\",\r\n    \"fuel_type\": \"hybrid\",\r\n    \"cylinders\": 4,\r\n    \"mileage\": 15000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/cars/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "cars",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "localhost:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.3.30"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 16 Jul 2026 17:15:59 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"brand_id\": 2,\n        \"company_id\": null,\n        \"car_type_id\": 2,\n        \"plate_number\": \"55555\",\n        \"brand\": \"Honda\",\n        \"model\": \"Civic\",\n        \"year\": \"2023\",\n        \"color\": \"Black\",\n        \"fuel_type\": \"hybrid\",\n        \"cylinders\": 4,\n        \"mileage\": 15000,\n        \"image_url\": null,\n        \"created_at\": \"2026-07-16T16:46:52.000000Z\"\n    },\n    \"message\": \"Vehicle updated successfully.\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-16T17:15:59+00:00\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "show vehicle",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_1cd7}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/cars",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "cars"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/cars",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "cars"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "localhost:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.3.30"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 16 Jul 2026 17:17:30 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"brand_id\": 2,\n            \"company_id\": null,\n            \"car_type_id\": 2,\n            \"plate_number\": \"55555\",\n            \"brand\": \"Honda\",\n            \"model\": \"Civic\",\n            \"year\": \"2023\",\n            \"color\": \"Black\",\n            \"fuel_type\": \"hybrid\",\n            \"cylinders\": 4,\n            \"mileage\": 15000,\n            \"image_url\": null,\n            \"created_at\": \"2026-07-16T16:46:52.000000Z\"\n        }\n    ],\n    \"message\": \"Vehicles retrieved successfully.\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-16T17:17:30+00:00\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "delete vehicle",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "success",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/cars/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "cars",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Host",
+              "value": "localhost:8000"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "X-Powered-By",
+              "value": "PHP/8.3.30"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, private"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 16 Jul 2026 17:26:45 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": 1,\n    \"data\": null,\n    \"message\": \"Vehicle deleted successfully.\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-16T17:26:45+00:00\"\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "auth_secret_0udi",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_1cd7",
+      "secret": true
+    }
+  ]
+}

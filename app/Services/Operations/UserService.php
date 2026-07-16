@@ -9,9 +9,13 @@ use Illuminate\Support\Facades\DB;
 
 class UserService
 {
+    protected $userRepository;
+
     public function __construct(
-        protected UserRepository $userRepository,
-    ) {}
+        UserRepository $userRepository
+    ) {
+        $this->userRepository = $userRepository;
+    }
 
     public function getUserProfile(): User
     {

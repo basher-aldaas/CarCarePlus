@@ -9,6 +9,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Validation\ValidationException;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -28,12 +29,22 @@ return Application::configure(basePath: dirname(__DIR__))
 //            return $next($request);
 //        });
 
+
+        $middleware->alias([
+            'role' => EnsureUserHasRole::class,
+        ]);
+
+
         // 2. إجبار لارافيل على إرجاع رد JSON مسبك (401) للزوار غير المسجلين في الـ API
         $middleware->redirectGuestsTo(fn () => null);
 
-        // 3. تسجيل ميدل وير التحقق من الدور (يعمل مع Sanctum)
+        //
+        //وأضف Middleware الخاص بـ Spatieمن أجل permissions  بالطلب Story 4 (Roles & Permissions)
+//3. تسجيل ميدل وير التحقق من الدور (يعمل مع Sanctum)
         $middleware->alias([
             'role' => EnsureUserHasRole::class,
+            'permission' => PermissionMiddleware::class,
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

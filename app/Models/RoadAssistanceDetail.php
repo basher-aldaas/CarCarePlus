@@ -22,7 +22,8 @@ class RoadAssistanceDetail extends Model
     ];
 
     protected $casts = [
-        'car_type' => CarTypeSize::class,
+        'car_type_size' => CarTypeSize::class,
+     //error   'car_type' => CarTypeSize::class,
         'ai_chat_log' => 'array',
         'towing_required' => 'boolean',
     ];

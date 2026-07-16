@@ -25,8 +25,8 @@ class AddCarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'brand_id' => ['required', 'integer', 'exists:brands,id'],
-            'company_id' => ['required', 'integer', 'exists:companies,id'],
+            'brand_id' => ['required', 'integer', 'exists:car_brands,id'],
+            'company_id' => ['nullable', 'integer', 'exists:companies,id'],
             'car_type_id' => ['required', 'integer', 'exists:car_types,id'],
             'plate_number' => ['required', 'string', 'max:255', 'unique:cars,plate_number'],
             'brand' => ['required', 'string', 'max:255'],

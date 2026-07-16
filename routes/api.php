@@ -9,6 +9,7 @@ use App\Http\Controllers\SuperAdmin\Auth\RegistrationRequestController;
 use App\Http\Controllers\SuperAdmin\Auth\StaffAccountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Operations\CarController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -74,3 +75,18 @@ Route::middleware(['auth:sanctum', 'role:super_admin'])
         Route::post('registration-requests/workshops/{workshop}/approve', [RegistrationRequestController::class, 'approveWorkshop']);
         Route::post('registration-requests/workshops/{workshop}/reject', [RegistrationRequestController::class, 'rejectWorkshop']);
     });
+
+Route::middleware(['auth:sanctum', 'permission:add.car'])
+    ->post('/cars', [CarController::class,'store']
+);
+
+Route::middleware(['auth:sanctum', 'permission:show.cars'])
+    ->get('/cars', [CarController::class,'index']);
+
+Route::middleware([   'auth:sanctum',    'permission:edit.car'])
+    ->put('/cars/{id}',    [CarController::class,'update']);
+
+Route::middleware(['auth:sanctum', 'permission:delete.car'])
+    ->delete(    '/cars/{id}', [CarController::class,'destroy']);
+
+

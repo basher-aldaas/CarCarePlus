@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\SparePartRequestStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,7 +20,7 @@ class SparePartRequest extends Model
     ];
 
     protected $casts = [
-        'status' => SparePartRequest::class,
+        'status' => SparePartRequestStatus::class, // SparePartRequestStatus هي اينام ليس موديل حطيتها
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
