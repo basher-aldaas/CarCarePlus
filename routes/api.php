@@ -137,10 +137,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/services/{id}',[ServiceController::class,'show']);
 
     /*
-    Admin Only
+    SuperAdmin Only
     */
 
-    Route::middleware('role:admin')->group(function () {
+    Route::middleware('role:super_admin')->group(function () {
 
         Route::post('/categories',[CategoryController::class,'store']);
         Route::put('/categories/{category}',[CategoryController::class,'update']);
