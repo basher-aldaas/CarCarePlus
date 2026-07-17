@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
-    public $timestamps = false;
-
+//    public $timestamps = false;
     protected $fillable = [
         'name',
         'name_ar',
@@ -16,9 +15,11 @@ class Category extends Model
         'is_active',
     ];
 
+
     protected $casts = [
-        'is_active' => 'boolean',
+        'is_active'=>'boolean',
     ];
+
 
     public function services(): HasMany
     {

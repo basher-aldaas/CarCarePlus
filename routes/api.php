@@ -14,6 +14,8 @@ use App\Http\Controllers\Operations\UserController;
 use App\Http\Controllers\SuperAdmin\Auth\RegistrationRequestController;
 use App\Http\Controllers\SuperAdmin\Auth\StaffAccountController;
 
+use App\Http\Controllers\Operations\CategoryController;
+use App\Http\Controllers\Operations\ServiceController;
 /*
 |--------------------------------------------------------------------------
 | Authenticated User
@@ -122,3 +124,32 @@ Route::middleware(['auth:sanctum', 'role:super_admin'])
             [RegistrationRequestController::class, 'rejectWorkshop']);
 
     });
+Route::middleware('auth:sanctum')->group(function () {
+
+    /*
+    Customer + Admin
+    */
+
+    Route::get('/categories',[CategoryController::class,'index']);
+    Route::get('/categories/{id}',[CategoryController::class,'show']);
+
+    Route::get('/services',[ServiceController::class,'index']);
+    Route::get('/services/{id}',[ServiceController::class,'show']);
+
+    /*
+    Admin Only
+    */
+
+    Route::middleware('role:admin')->group(function () {
+
+        Route::post('/categories',[CategoryController::class,'store']);
+        Route::put('/categories/{category}',[CategoryController::class,'update']);
+        Route::delete('/categories/{category}',[CategoryController::class,'destroy']);
+
+        Route::post('/services',[ServiceController::class,'store']);
+        Route::put('/services/{service}',[ServiceController::class,'update']);
+        Route::delete('/services/{service}',[ServiceController::class,'destroy']);
+
+    });
+
+});

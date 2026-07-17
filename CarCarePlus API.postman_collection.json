@@ -781,7 +781,641 @@
       "description": "All endpoints require auth:sanctum and the super_admin role."
     },
     {
-      "name": "index vehicle",
+      "name": "Categories",
+      "item": [
+        {
+          "name": "store categories",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Engine\",\r\n    \"name_ar\":\"المحرك\",\r\n    \"description\":\"Engine maintenance\",\r\n    \"is_active\":true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 16:21:07 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 4,\n        \"name\": \"Engine\",\n        \"name_ar\": \"المحرك\",\n        \"description\": \"Engine maintenance\",\n        \"is_active\": true,\n        \"created_at\": \"2026-07-17 16:21:07\",\n        \"updated_at\": \"2026-07-17 16:21:07\"\n    },\n    \"message\": \"Category created successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-17T16:21:07+00:00\"\n}"
+            },
+            {
+              "name": "error from customar",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Engine\",\r\n    \"name_ar\":\"المحرك\",\r\n    \"description\":\"Engine maintenance\",\r\n    \"is_active\":true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 18:37:47 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-07-17T18:37:47+00:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "put categories",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Engine Repair\",\r\n    \"name_ar\":\"إصلاح المحرك\",\r\n    \"description\":\"Updated\",\r\n    \"is_active\":true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/categories/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 16:30:32 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Engine Repair\",\n        \"name_ar\": \"إصلاح المحرك\",\n        \"description\": \"Updated\",\n        \"is_active\": true,\n        \"created_at\": \"2026-07-16 18:29:29\",\n        \"updated_at\": \"2026-07-17 16:30:32\"\n    },\n    \"message\": \"Category updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-17T16:30:32+00:00\"\n}"
+            },
+            {
+              "name": "error from customar need admin",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"Engine Repair\",\r\n    \"name_ar\":\"إصلاح المحرك\",\r\n    \"description\":\"Updated\",\r\n    \"is_active\":true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/categories/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 18:36:56 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-07-17T18:36:56+00:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "show categories",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "success from customar",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/categories/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 18:36:31 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Engine Repair\",\n        \"name_ar\": \"إصلاح المحرك\",\n        \"description\": \"Updated\",\n        \"is_active\": true,\n        \"created_at\": \"2026-07-16 18:29:29\",\n        \"updated_at\": \"2026-07-17 16:30:32\"\n    },\n    \"message\": \"Category fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-17T18:36:31+00:00\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Services",
+      "item": [
+        {
+          "name": "store service",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"category_id\":1,\r\n    \"name\":\"Oil Change\",\r\n    \"name_ar\":\"تغيير الزيت\",\r\n    \"description\":\"Premium oil\",\r\n    \"base_price\":30,\r\n    \"is_vip_available\":true,\r\n    \"vip_extra_price\":10,\r\n    \"duration_minutes\":45\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/services",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "services"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 16:35:35 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 7,\n        \"category_id\": 1,\n        \"name\": \"Oil Change\",\n        \"name_ar\": \"تغيير الزيت\",\n        \"description\": \"Premium oil\",\n        \"base_price\": \"30.00\",\n        \"is_vip_available\": true,\n        \"vip_extra_price\": \"10.00\",\n        \"duration_minutes\": 45,\n        \"created_at\": \"2026-07-17 16:35:35\",\n        \"updated_at\": \"2026-07-17 16:35:35\"\n    },\n    \"message\": \"Service created successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-17T16:35:35+00:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "update service",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "show service",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "success from customar",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/services",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "services"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 18:35:22 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 7,\n            \"category_id\": 1,\n            \"name\": \"Oil Change\",\n            \"name_ar\": \"تغيير الزيت\",\n            \"description\": \"Premium oil\",\n            \"base_price\": \"30.00\",\n            \"is_vip_available\": true,\n            \"vip_extra_price\": \"10.00\",\n            \"duration_minutes\": 45,\n            \"created_at\": \"2026-07-17 16:35:35\",\n            \"updated_at\": \"2026-07-17 16:35:35\"\n        },\n        {\n            \"id\": 2,\n            \"category_id\": 1,\n            \"name\": \"Interior Cleaning\",\n            \"name_ar\": \"تنظيف داخلي\",\n            \"description\": \"تنظيف داخلي شامل للمقاعد والسجاد\",\n            \"base_price\": \"70.00\",\n            \"is_vip_available\": true,\n            \"vip_extra_price\": \"25.00\",\n            \"duration_minutes\": 45,\n            \"created_at\": \"2026-07-16 18:29:30\",\n            \"updated_at\": \"2026-07-16 18:29:30\"\n        },\n        {\n            \"id\": 3,\n            \"category_id\": 2,\n            \"name\": \"Oil Change\",\n            \"name_ar\": \"تغيير زيت\",\n            \"description\": \"تغيير زيت المحرك والفلتر\",\n            \"base_price\": \"120.00\",\n            \"is_vip_available\": false,\n            \"vip_extra_price\": null,\n            \"duration_minutes\": 45,\n            \"created_at\": \"2026-07-16 18:29:30\",\n            \"updated_at\": \"2026-07-16 18:29:30\"\n        },\n        {\n            \"id\": 4,\n            \"category_id\": 2,\n            \"name\": \"Brake Inspection\",\n            \"name_ar\": \"فحص فرامل\",\n            \"description\": \"فحص وصيانة نظام الفرامل\",\n            \"base_price\": \"90.00\",\n            \"is_vip_available\": false,\n            \"vip_extra_price\": null,\n            \"duration_minutes\": 40,\n            \"created_at\": \"2026-07-16 18:29:30\",\n            \"updated_at\": \"2026-07-16 18:29:30\"\n        },\n        {\n            \"id\": 5,\n            \"category_id\": 3,\n            \"name\": \"Battery Jump Start\",\n            \"name_ar\": \"تشغيل بطارية\",\n            \"description\": \"تشغيل البطارية للسيارات العالقة\",\n            \"base_price\": \"80.00\",\n            \"is_vip_available\": false,\n            \"vip_extra_price\": null,\n            \"duration_minutes\": 20,\n            \"created_at\": \"2026-07-16 18:29:30\",\n            \"updated_at\": \"2026-07-16 18:29:30\"\n        },\n        {\n            \"id\": 6,\n            \"category_id\": 3,\n            \"name\": \"Flat Tire Change\",\n            \"name_ar\": \"تغيير إطار\",\n            \"description\": \"تغيير الإطار المثقوب على الطريق\",\n            \"base_price\": \"60.00\",\n            \"is_vip_available\": false,\n            \"vip_extra_price\": null,\n            \"duration_minutes\": 25,\n            \"created_at\": \"2026-07-16 18:29:30\",\n            \"updated_at\": \"2026-07-16 18:29:30\"\n        }\n    ],\n    \"message\": \"Services fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-17T18:35:22+00:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/services/1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "services",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "localhost:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.30"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 17:19:02 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Service deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-17T17:19:02+00:00\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "store vehicle",
       "request": {
         "auth": {
           "type": "bearer",
