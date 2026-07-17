@@ -17,7 +17,7 @@ class CategoryRepository
         return Category::findOrFail($id);
     }
 
-    public function create(CategoryDTO $dto): Category
+     public function create(CategoryDTO $dto): Category
     {
         return Category::create($dto->toArray());
     }

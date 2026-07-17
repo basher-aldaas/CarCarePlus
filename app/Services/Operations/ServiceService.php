@@ -11,10 +11,13 @@ use Illuminate\Support\Facades\DB;
 
 class ServiceService
 {
+    protected $serviceRepository;
+
     public function __construct(
-        protected ServiceRepository $serviceRepository
+        ServiceRepository $serviceRepository
     )
     {
+        $this->serviceRepository = $serviceRepository;
     }
 
     public function index(): Collection
