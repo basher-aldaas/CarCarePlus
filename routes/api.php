@@ -8,6 +8,9 @@ use App\Http\Controllers\Operations\CarController;
 use App\Http\Controllers\Operations\CategoryController;
 use App\Http\Controllers\Operations\ServiceController;
 use App\Http\Controllers\Operations\UserController;
+use App\Http\Controllers\SuperAdmin\Operations\CarBrandController;
+use App\Http\Controllers\SuperAdmin\Operations\CarTypeController;
+use App\Http\Controllers\SuperAdmin\Operations\SubServiceController;
 use App\Http\Controllers\SuperAdmin\Auth\RegistrationRequestController;
 use App\Http\Controllers\SuperAdmin\Auth\StaffAccountController;
 use Illuminate\Http\Request;
@@ -106,6 +109,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/categories/{id}',[CategoryController::class,'show']);
     Route::get('/services',[ServiceController::class,'index']);
     Route::get('/services/{id}',[ServiceController::class,'show']);
+    Route::get('/sub-services',[SubServiceController::class,'index']);
+    Route::get('/sub-services/{id}',[SubServiceController::class,'show']);
+    Route::get('/car-types',[CarTypeController::class,'index']);
+    Route::get('/car-types/{id}',[CarTypeController::class,'show']);
+    Route::get('/car-brands',[CarBrandController::class,'index']);
+    Route::get('/car-brands/{id}',[CarBrandController::class,'show']);
 
 
     //for SA
@@ -118,6 +127,18 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/services',[ServiceController::class,'store']);
         Route::post('/services/{service}',[ServiceController::class,'update']);
         Route::delete('/services/{service}',[ServiceController::class,'destroy']);
+
+        Route::post('/sub-services',[SubServiceController::class,'store']);
+        Route::post('/sub-services/{sub_service}',[SubServiceController::class,'update']);
+        Route::delete('/sub-services/{sub_service}',[SubServiceController::class,'destroy']);
+
+        Route::post('/car-types',[CarTypeController::class,'store']);
+        Route::post('/car-types/{car_type}',[CarTypeController::class,'update']);
+        Route::delete('/car-types/{car_type}',[CarTypeController::class,'destroy']);
+
+        Route::post('/car-brands',[CarBrandController::class,'store']);
+        Route::post('/car-brands/{car_brand}',[CarBrandController::class,'update']);
+        Route::delete('/car-brands/{car_brand}',[CarBrandController::class,'destroy']);
 
     });
 

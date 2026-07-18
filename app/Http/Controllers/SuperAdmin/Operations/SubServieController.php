@@ -1,32 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Operations;
+namespace App\Http\Controllers\SuperAdmin\Operations;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CarTypeResource;
-use App\Http\Responses\Response;
-use App\Services\Operations\CarTypeService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class CarTypeController extends Controller
+class SubServieController extends Controller
 {
-
-    public function __construct(
-       protected CarTypeService $carTypeService,
-    )
-    {}
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index()
     {
-        $result = $this->carTypeService->getAllCarTypes();
-
-        return Response::Success(
-            data: new CarTypeResource($result),
-            message: __('Car types retrieved successfully')
-        );
+        //
     }
 
     /**

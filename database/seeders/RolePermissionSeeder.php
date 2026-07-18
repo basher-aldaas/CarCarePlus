@@ -70,6 +70,7 @@ class RolePermissionSeeder extends Seeder
 
             // === السيارات وأنواعها ===
             'manage.car_types', 'show.car_types',
+            'manage.car_brands', 'show.car_brands',
             'add.car', 'edit.car', 'delete.car', 'show.car', 'show.cars', 'show.client.cars',
 
             // === الخدمات والأسعار والتصنيفات ===
@@ -140,6 +141,7 @@ class RolePermissionSeeder extends Seeder
             'show.companies',
             'edit.branch', 'show.branches',
             'show.car_types',
+            'show.car_brands',
             'add.car', 'edit.car', 'show.car', 'show.cars', 'show.client.cars',
 
             // === الخدمات والأسعار (عرض فقط) ===
@@ -184,6 +186,8 @@ class RolePermissionSeeder extends Seeder
             'edit.workshop', 'show.workshops',
             'show.contracts',
             'show.car',
+            'show.car_types',
+            'show.car_brands',
 
             // إدارة فنيي الورشة
             'add.employee', 'edit.employee', 'show.employees',
@@ -213,6 +217,8 @@ class RolePermissionSeeder extends Seeder
             'show.wallets', 'show.wallet_transactions', 'show.user_packages', 'show.user_points', 'show.points_transactions',
             'create.payment', 'show.payments', 'create.refund', 'show.refunds', 'create.rating', 'show.ratings',
             'show.notifications', 'edit.notification_status',
+            'show.car_types',
+            'show.car_brands',
         ];
     }
 
@@ -235,6 +241,8 @@ class RolePermissionSeeder extends Seeder
             'manage.gps_logs',
             'show.categories', 'show.services', 'show.sub_services', 'show.materials', 'manage.order_materials',
             'create.employee_report', 'show.employee_reports', 'show.ratings',
+            'show.car_types',
+            'show.car_brands',
         ];
     }
 
@@ -249,6 +257,8 @@ class RolePermissionSeeder extends Seeder
             'show.categories', 'show.services', 'show.sub_services', 'show.materials', 'manage.order_materials',
             'create.employee_report', 'show.employee_reports', 'create.spare_part_request', 'show.spare_part_requests',
             'show.ratings',
+            'show.car_types',
+            'show.car_brands',
         ];
     }
 }
