@@ -26,10 +26,9 @@ class CreateCarRequest extends FormRequest
     {
         return [
             'brand_id' => ['required', 'integer', 'exists:car_brands,id'],
-            'company_id' => ['nullable', 'integer', 'exists:companies,id'],
             'car_type_id' => ['required', 'integer', 'exists:car_types,id'],
+            'branch_id' => ['required', 'integer', 'exists:branches,id'],
             'plate_number' => ['required', 'string', 'max:255', 'unique:cars,plate_number'],
-            'brand' => ['required', 'string', 'max:255'],
             'model' => ['required', 'string', 'max:255'],
             'year' => [ 'required', 'digits:4', 'integer', 'min:1900', 'max:' . date('Y'), ],
             'color' => ['required', 'string', 'max:255'],

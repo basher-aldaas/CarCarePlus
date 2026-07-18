@@ -20,14 +20,13 @@ class CarResource extends JsonResource
             'id' => $this->id,
 
             // المفاتيح الأجنبية (Foreign Keys)
-            'customer_id' => $this->customer_id,
+            'user_id' => $this->user_id,
             'brand_id' => $this->brand_id,
-            'company_id' => $this->company_id,
             'car_type_id' => $this->car_type_id,
+            'branch_id' => $this->branch_id,
 
             // البيانات الأساسية للسيارة
             'plate_number' => $this->plate_number,
-            'brand' => $this->brand,
             'model' => $this->model,
             'year' => $this->year,
             'color' => $this->color,
@@ -45,8 +44,13 @@ class CarResource extends JsonResource
 
             // العلاقات — تظهر فقط عند تحميلها مسبقاً (eager loaded)
             'owner' => new UserResource($this->whenLoaded('owner')),
-            'company' => new CompanyResource($this->whenLoaded('company')),
             'car_type' => new CarTypeResource($this->whenLoaded('carType')),
+            'branch' => $this->whenLoaded('branch', fn () => [
+                'id'      => $this->branch->id,
+                'name'    => $this->branch->name,
+                'name_ar' => $this->branch->name_ar,
+                'city'    => $this->branch->city,
+            ]),
 
             // تنسيق التواريخ
             'created_at' => $this->created_at->toDateString(),

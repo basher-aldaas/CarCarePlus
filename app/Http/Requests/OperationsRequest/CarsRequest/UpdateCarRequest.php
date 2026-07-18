@@ -28,10 +28,9 @@ class UpdateCarRequest extends FormRequest
     {
         return [
             'brand_id' => ['sometimes', 'integer', 'exists:car_brands,id'],
-            'company_id' => ['sometimes', 'nullable', 'integer', 'exists:companies,id'],
             'car_type_id' => ['sometimes', 'integer', 'exists:car_types,id'],
+            'branch_id' => ['sometimes', 'nullable', 'integer', 'exists:branches,id'],
             'plate_number' => ['sometimes', 'string', 'max:255', Rule::unique('cars', 'plate_number')->ignore($this->route('id'))],
-            'brand' => ['sometimes', 'string', 'max:255'],
             'model' => ['sometimes', 'string', 'max:255'],
             'year' => ['sometimes', 'digits:4', 'integer', 'min:1900', 'max:' . date('Y')],
             'color' => ['sometimes', 'string', 'max:255'],

@@ -12,7 +12,7 @@ class EmployeeResource extends JsonResource
         return [
             'id'         => $this->id,
             'branch_id'  => $this->branch_id,
-            'type'       => $this->type ? 'mechanic' : 'washer',
+            'type'       => $this->type?->value,
             'is_active'  => (bool) $this->is_active,
             'rating_avg' => $this->rating_avg,
             'user'       => new UserResource($this->whenLoaded('user')),

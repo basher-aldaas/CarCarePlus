@@ -3,19 +3,30 @@
 namespace App\Repositories\Eloquent;
 
 use App\DTOs\CarDTO;
+use App\Models\Branch;
 use App\Models\Car;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-
 class CarRepository
 {
     /**
      * @return Collection<int, Car>
      */
-    public function getAllDashboard(): Collection
+    public function getAllDashboard(): Builder
     {
-        return Car::with(['owner', 'company', 'carType'])
-            ->latest()
-            ->get();
+
+        $user = auth()->user();
+
+        $query = Car::with(['owner', 'carType', 'branch'])
+            ->latest();
+
+        // مدير الفرع (admin) يرى فقط سيارات الفروع التي يديرها
+        if ($user->hasRole('admin')) {
+            $branchIds = Branch::where('admin_id', $user->id)->pluck('id');
+            $query->whereIn('branch_id', $branchIds);
+        }
+
+        return $query;
     }
 
     /**
@@ -23,8 +34,8 @@ class CarRepository
      */
     public function getAllClient(int $customerId): Collection
     {
-        return Car::with(['company', 'carType'])
-            ->where('customer_id', $customerId)
+        return Car::with(['carType'])
+            ->where('user_id', $customerId)
             ->latest()
             ->get();
     }
@@ -45,7 +56,7 @@ class CarRepository
 
     public function findById(int $id): Car
     {
-        return Car::with(['owner', 'company', 'carType'])->findOrFail($id);
+        return Car::with(['owner', 'carType', 'branch'])->findOrFail($id);
     }
 
     public function delete(int $id): void
@@ -58,4 +69,5 @@ class CarRepository
 
         $car->delete();
     }
+
 }

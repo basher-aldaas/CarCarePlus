@@ -37,13 +37,16 @@ class DatabaseSeeder extends Seeder
             SubServiceSeeder::class,
             MaterialSeeder::class,
 
-            // 4. البنية التحتية والمقرات
+            // 4. الحسابات والأدوار (قبل الفروع والورش لأنها تعتمد على المستخدمين)
+            UserSeeder::class,
+
+            // 5. البنية التحتية والمقرات (تعتمد على المستخدمين)
             BranchSeeder::class,
             WorkshopSeeder::class,
 
-            // 5. الحسابات والموظفين والباقات
-            UserSeeder::class,
+            // 6. الموظفين والسيارات والباقات
             EmployeeSeeder::class,
+            CarSeeder::class,
             PackageSeeder::class,
 
             // 6. ربط باقات النظام بالخدمات (بناءً على الباقات والخدمات التي تم إنشاؤها فوق)

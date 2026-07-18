@@ -17,6 +17,8 @@ class UserResource extends JsonResource
             'phone'      => $this->phone,
             'image_url'  => $this->image_url,
             'is_active'  => (bool) $this->is_active,
+             'role' => $this->getRoleNames()->first(),
+
             // سيظهر التوكن فقط إذا قمنا بتمريره إضافياً عند التسجيل أو الدخول
             'token'      => $this->when(isset($this->additional['token']), fn () => $this->additional['token']),
         ];

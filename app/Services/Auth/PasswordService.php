@@ -5,7 +5,6 @@ namespace App\Services\Auth;
 use App\DTOs\AuhDTOs\ForgotPasswordDTO;
 use App\DTOs\AuhDTOs\ResetPasswordDTO;
 use App\DTOs\AuhDTOs\ResetPasswordOtpDTO;
-use App\DTOs\AuthDTOs\ChangePasswordDTO;
 use App\Enums\OtpEnums\OtpChannel;
 use App\Enums\OtpEnums\OtpType;
 use App\Exceptions\InvalidOtpException;

@@ -2,12 +2,12 @@
 
 namespace App\Services\Auth;
 
-use App\DTOs\AuhDTOs\RegisterAdminDTO;
 use App\DTOs\AuhDTOs\RegisterCompanyCustomerDTO;
 use App\DTOs\AuhDTOs\RegisterEmployeeDTO;
 use App\DTOs\AuhDTOs\RegisterWorkshopDTO;
 use App\DTOs\UserDTO;
 use App\Enums\CompanyStatus;
+use App\Enums\EmployeeType;
 use App\Enums\WorkshopStatus;
 use App\Models\Branch;
 use App\Notifications\RegistrationPendingNotification;
@@ -102,8 +102,9 @@ class RegistrationService
     }
 
     /**
-     * Type 3a: Super admin creates an employee account.
-     * Role is derived from the employee type (washer / mechanic).
+     * Type 3: Super admin creates a staff account (washer / mechanic / admin).
+     * The role is derived from the employee type. When the type is admin, the
+     * user is also assigned as manager of their branch.
      *
      * @return array{user: \App\Models\User, employee: \App\Models\Employee}
      */
@@ -112,39 +113,21 @@ class RegistrationService
         $result = DB::transaction(function () use ($dto) {
             $user = $this->userRepository->create($dto->user);
 
-            $role = $dto->employee->type ? 'employee_mechanic' : 'employee_washer';
-            $user->assignRole($role);
+            $user->assignRole($dto->employee->type->roleName());
 
             $dto->employee->user_id = $user->id;
             $employee = $this->employeeRepository->create($dto->employee);
 
+            // A branch admin also manages the branch they belong to.
+            if ($dto->employee->type === EmployeeType::ADMIN) {
+                Branch::findOrFail($dto->branchId)->update(['admin_id' => $user->id]);
+            }
+
             return ['user' => $user, 'employee' => $employee];
         });
 
-        $result['user']->notify(new StaffAccountCreatedNotification(__('employee')));
-
-        return $result;
-    }
-
-    /**
-     * Type 3b: Super admin creates a branch admin account
-     * and assigns them as manager of the given branch.
-     *
-     * @return array{user: \App\Models\User, branch: \App\Models\Branch}
-     */
-    public function createAdmin(RegisterAdminDTO $dto): array
-    {
-        $result = DB::transaction(function () use ($dto) {
-            $user = $this->userRepository->create($dto->user);
-            $user->assignRole('admin');
-
-            $branch = Branch::findOrFail($dto->branchId);
-            $branch->update(['admin_id' => $user->id]);
-
-            return ['user' => $user, 'branch' => $branch];
-        });
-
-        $result['user']->notify(new StaffAccountCreatedNotification(__('admin')));
+        $accountType = $dto->employee->type === EmployeeType::ADMIN ? __('admin') : __('employee');
+        $result['user']->notify(new StaffAccountCreatedNotification($accountType));
 
         return $result;
     }

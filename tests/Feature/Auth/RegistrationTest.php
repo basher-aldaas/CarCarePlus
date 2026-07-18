@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Enums\CompanyStatus;
+use App\Enums\EmployeeType;
 use App\Enums\WorkshopStatus;
 use App\Models\Branch;
 use App\Models\Company;
@@ -145,29 +146,34 @@ class RegistrationTest extends TestCase
         $this->assertDatabaseHas('employees', [
             'user_id'   => $user->id,
             'branch_id' => $branch->id,
-            'type'      => true,
+            'type'      => EmployeeType::MECHANIC->value,
         ]);
     }
 
-    /** Type 3b — super admin creates a branch admin and assigns management. */
+    /** Type 3b — super admin creates a branch admin (type=admin) and assigns management. */
     public function test_super_admin_creates_admin_and_assigns_branch(): void
     {
         $this->superAdmin();
         $branch = $this->branch();
 
-        $res = $this->postJson('/api/admin/admins', [
-            'name'                  => 'Branch Boss',
-            'email'                 => 'boss@system.com',
-            'phone'                 => '0512345682',
-            'password'              => 'password123',
-            'password_confirmation' => 'password123',
-            'branch_id'             => $branch->id,
+        $res = $this->postJson('/api/admin/employees', [
+            'name'      => 'Branch Boss',
+            'email'     => 'boss@system.com',
+            'phone'     => '0512345682',
+            'password'  => 'password123',
+            'branch_id' => $branch->id,
+            'type'      => 'admin',
         ]);
 
         $res->assertCreated();
 
         $user = User::where('email', 'boss@system.com')->first();
         $this->assertTrue($user->hasRole('admin'));
+        $this->assertDatabaseHas('employees', [
+            'user_id'   => $user->id,
+            'branch_id' => $branch->id,
+            'type'      => EmployeeType::ADMIN->value,
+        ]);
         $this->assertDatabaseHas('branches', [
             'id'       => $branch->id,
             'admin_id' => $user->id,

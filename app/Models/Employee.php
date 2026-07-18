@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\EmployeeType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,7 +18,7 @@ class Employee extends Model
     ];
 
     protected $casts = [
-        'type' => 'boolean',
+        'type' => EmployeeType::class,
         'is_active' => 'boolean',
         'rating_avg' => 'decimal:2',
     ];

@@ -83,7 +83,7 @@ class User extends Authenticatable
     }
     public function cars(): HasMany
     {
-        return $this->hasMany(Car::class, 'customer_id');
+        return $this->hasMany(Car::class, 'user_id');
     }
     public function orders(): HasMany
     {

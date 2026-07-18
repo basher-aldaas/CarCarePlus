@@ -28,8 +28,8 @@ class RegisterEmployeeRequest extends FormRequest
             'phone'     => ['required', 'string', 'unique:users,phone'],
             'password'  => ['required', 'string', 'min:8'],
             'branch_id' => ['required', 'integer', 'exists:branches,id'],
-            'type'      => ['required', 'string', 'in:washer,mechanic'],
-
+            'type'      => ['required', 'string', 'in:washer,mechanic,admin'],
+            'is_active' => ['nullable', 'boolean'],
         ];
     }
 }

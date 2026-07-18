@@ -5,12 +5,11 @@ namespace App\DTOs;
 class CarDTO
 {
     public function __construct(
-        public ?int $customer_id,
+        public ?int $user_id,
         public ?int $brand_id,
-        public ?int $company_id,
         public ?int $car_type_id,
+        public ?int $branch_id,
         public ?string $plate_number,
-        public ?string $brand,
         public ?string $model,
         public ?int $year,
         public ?string $color,
@@ -24,13 +23,12 @@ class CarDTO
     public static function fromArray(array $data): self
     {
         return new self(
-            customer_id: isset($data['customer_id']) ? (int) $data['customer_id'] : null,
+            user_id: isset($data['user_id']) ? (int) $data['user_id'] : null,
             brand_id: isset($data['brand_id']) ? (int) $data['brand_id'] : null,
-            company_id: isset($data['company_id']) ? (int) $data['company_id'] : null,
             car_type_id: isset($data['car_type_id']) ? (int) $data['car_type_id'] : null,
+            branch_id: isset($data['branch_id']) ? (int) $data['branch_id'] : null,
 
             plate_number: $data['plate_number'] ?? null,
-            brand: $data['brand'] ?? null,
             model: $data['model'] ?? null,
 
             year: isset($data['year']) ? (int) $data['year'] : null,
@@ -49,12 +47,11 @@ class CarDTO
     public function toArray(): array
     {
         return array_filter([
-            'customer_id' => $this->customer_id,
+            'user_id' => $this->user_id,
             'brand_id' => $this->brand_id,
-            'company_id' => $this->company_id,
             'car_type_id' => $this->car_type_id,
+            'branch_id' => $this->branch_id,
             'plate_number' => $this->plate_number,
-            'brand' => $this->brand,
             'model' => $this->model,
             'year' => $this->year,
             'color' => $this->color,

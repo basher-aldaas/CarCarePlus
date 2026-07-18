@@ -70,7 +70,7 @@ class RolePermissionSeeder extends Seeder
 
             // === السيارات وأنواعها ===
             'manage.car_types', 'show.car_types',
-            'add.car', 'edit.car', 'delete.car', 'show.cars',
+            'add.car', 'edit.car', 'delete.car', 'show.car', 'show.cars', 'show.client.cars',
 
             // === الخدمات والأسعار والتصنيفات ===
             'manage.categories', 'show.categories',
@@ -140,7 +140,7 @@ class RolePermissionSeeder extends Seeder
             'show.companies',
             'edit.branch', 'show.branches',
             'show.car_types',
-            'add.car', 'edit.car', 'show.cars',
+            'add.car', 'edit.car', 'show.car', 'show.cars', 'show.client.cars',
 
             // === الخدمات والأسعار (عرض فقط) ===
             'show.categories', 'show.services', 'show.sub_services', 'show.pricing_rules',
@@ -183,6 +183,7 @@ class RolePermissionSeeder extends Seeder
             // تصفح الورش والعقود الخاصة به والتعديل عليها بحسب النطاق البرمجي
             'edit.workshop', 'show.workshops',
             'show.contracts',
+            'show.car',
 
             // إدارة فنيي الورشة
             'add.employee', 'edit.employee', 'show.employees',
@@ -204,7 +205,7 @@ class RolePermissionSeeder extends Seeder
     private function customerPersonalPermissions(): array
     {
         return [
-            'add.car', 'edit.car', 'delete.car', 'show.cars',
+            'add.car', 'edit.car', 'delete.car', 'show.car', 'show.client.cars',
             'show.users',
             'show.branches', 'show.categories', 'show.services', 'show.sub_services', 'show.packages', 'show.package_services',
             'create.order', 'cancel.order', 'show.orders', 'show.order_sub_services', 'show.order_status_history', 'show.gps_tracking',
@@ -229,6 +230,7 @@ class RolePermissionSeeder extends Seeder
     {
         return [
             'show.employees',
+            'show.car',
             'show.orders', 'edit.order', 'show.order_sub_services', 'show.order_status_history',
             'manage.gps_logs',
             'show.categories', 'show.services', 'show.sub_services', 'show.materials', 'manage.order_materials',
@@ -240,6 +242,7 @@ class RolePermissionSeeder extends Seeder
     {
         return [
             'show.employees',
+            'show.car',
             'show.orders', 'edit.order', 'show.order_sub_services', 'show.order_status_history',
             'show.road_assistance_details', 'show.suggested_problems', 'manage.ai_chat',
             'manage.gps_logs',

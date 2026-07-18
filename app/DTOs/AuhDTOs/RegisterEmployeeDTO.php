@@ -20,7 +20,7 @@ class RegisterEmployeeDTO
         return new self(
             user: UserDTO::fromArray($data),
             employee: EmployeeDTO::fromArray($data),
-            branchId: $data['branch_id'],
+            branchId: isset($data['branch_id']) ? (int) $data['branch_id'] : throw new \InvalidArgumentException('branch_id is required'),
         );
     }
 

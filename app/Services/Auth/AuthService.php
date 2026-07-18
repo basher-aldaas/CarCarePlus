@@ -39,7 +39,7 @@ class AuthService
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        $user->notify(new LoginNotification($ip, $userAgent, now()->toDayDateTimeString()));
+        //$user->notify(new LoginNotification($ip, $userAgent, now()->toDayDateTimeString()));
 
         return ['user' => $user, 'token' => $token];
     }

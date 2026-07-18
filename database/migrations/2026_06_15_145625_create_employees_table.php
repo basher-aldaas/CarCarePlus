@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\EmployeeType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,8 +24,8 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->boolean('type')
-                ->default('0'); //0 for washer
+            $table->enum('type', EmployeeType::values())
+                ->default(EmployeeType::WASHER->value);
 
             $table->boolean('is_active')
                 ->default(true);

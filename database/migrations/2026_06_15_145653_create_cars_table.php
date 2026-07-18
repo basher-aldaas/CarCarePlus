@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')
+            $table->foreignId('user_id')
                 ->constrained('users')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
@@ -24,21 +24,20 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
 
-            $table->foreignId('company_id')
-                ->nullable()
-                ->constrained('companies')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-
             $table->foreignId('car_type_id')
                 ->constrained('car_types')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
+            $table->foreignId('branch_id')
+                ->nullable()
+                ->constrained('branches')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->string('plate_number')
                 ->unique();
 
-            $table->string('brand');
             $table->string('model');
 
             $table->year('year');

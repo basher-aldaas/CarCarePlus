@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\SuperAdmin\Auth;
 
-use App\DTOs\AuhDTOs\RegisterAdminDTO;
 use App\DTOs\AuhDTOs\RegisterEmployeeDTO;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AuthRequests\RegistersRequest\RegisterAdminRequest;
 use App\Http\Requests\AuthRequests\RegistersRequest\RegisterEmployeeRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Responses\Response;
@@ -13,7 +11,8 @@ use App\Services\Auth\RegistrationService;
 use Illuminate\Http\JsonResponse;
 
 /**
- * Type 3: Accounts created by the super admin (employees & branch admins).
+ * Type 3: Staff accounts created by the super admin — washers, mechanics, and
+ * branch admins. The employee type on the request decides which is created.
  */
 class StaffAccountController extends Controller
 {
@@ -26,19 +25,7 @@ class StaffAccountController extends Controller
 
         return Response::Success(
             data: new UserResource($result['user']),
-            message: __('Employee account created successfully'),
-            code: 201
-        );
-    }
-
-    public function storeAdmin(RegisterAdminRequest $request): JsonResponse
-    {
-        $dto = RegisterAdminDTO::fromArray($request->validated());
-        $result = $this->registrationService->createAdmin($dto);
-
-        return Response::Success(
-            data: new UserResource($result['user']),
-            message: __('Admin account created successfully'),
+            message: __('Staff account created successfully'),
             code: 201
         );
     }

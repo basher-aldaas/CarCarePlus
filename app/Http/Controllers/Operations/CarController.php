@@ -28,19 +28,40 @@ class CarController extends Controller
     }
 
     //Get all Cars in system for clients
-    public function indexClient(): JsonResponse
+    public function indexClient(?int $customer_id = null): JsonResponse
     {
-        $result = $this->carService->getAllClientCars(auth()->id());
+        if (auth()->user()->hasAnyRole(['super_admin', 'admin'])) {
+
+            if ($customer_id === null) {
+                return Response::Error(data:null,message: 'customer_id is required');
+            }
+
+            $result = $this->carService->getAllClientCars($customer_id);
+
+        } else {
+            $result = $this->carService->getAllClientCars(auth()->id());
+        }
 
         return Response::Success(
             data: CarResource::collection($result),
             message: __('User cars retrieved successfully')
         );
     }
-    public function store(CreateCarRequest $request): JsonResponse
+    public function store(CreateCarRequest $request, ?int $customer_id = null): JsonResponse
     {
         $data = $request->validated();
-        $data['customer_id'] = auth()->id();
+
+        if (auth()->user()->hasAnyRole(['super_admin', 'admin'])) {
+
+            if ($customer_id === null) {
+                return Response::Error(data:null, message: 'customer_id is required');
+            }
+
+            $data['user_id'] = $customer_id;
+
+        } else {
+            $data['user_id'] = auth()->id();
+        }
 
         if ($request->hasFile('image')) {
             $data['image_url'] = $request->file('image')->store('cars', 'public');

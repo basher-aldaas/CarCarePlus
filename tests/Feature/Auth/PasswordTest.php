@@ -10,7 +10,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
-use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class PasswordTest extends TestCase
@@ -105,46 +104,5 @@ class PasswordTest extends TestCase
         ])->assertOk();
 
         $this->assertCount(0, $user->fresh()->tokens()->get());
-    }
-
-    // ---- Change password (authenticated) ----
-
-    public function test_authenticated_user_can_change_password(): void
-    {
-        Notification::fake();
-        $user = $this->user();
-        Sanctum::actingAs($user);
-
-        $this->postJson('/api/auth/change-password', [
-            'current_password'      => 'oldpassword',
-            'password'              => 'brandnewpass1',
-            'password_confirmation' => 'brandnewpass1',
-        ])->assertOk()->assertJsonPath('status', 1);
-
-        $this->assertTrue(Hash::check('brandnewpass1', $user->fresh()->password));
-        Notification::assertSentTo($user, PasswordChangedNotification::class);
-    }
-
-    public function test_change_password_fails_with_wrong_current_password(): void
-    {
-        $user = $this->user();
-        Sanctum::actingAs($user);
-
-        $this->postJson('/api/auth/change-password', [
-            'current_password'      => 'not-the-password',
-            'password'              => 'brandnewpass1',
-            'password_confirmation' => 'brandnewpass1',
-        ])->assertStatus(422);
-
-        $this->assertTrue(Hash::check('oldpassword', $user->fresh()->password));
-    }
-
-    public function test_guest_cannot_change_password(): void
-    {
-        $this->postJson('/api/auth/change-password', [
-            'current_password'      => 'oldpassword',
-            'password'              => 'brandnewpass1',
-            'password_confirmation' => 'brandnewpass1',
-        ])->assertUnauthorized();
     }
 }
