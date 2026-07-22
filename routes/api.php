@@ -6,10 +6,17 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Operations\CarController;
 use App\Http\Controllers\Operations\CategoryController;
+use App\Http\Controllers\Operations\PointController;
+use App\Http\Controllers\Operations\PointsTransactionController;
 use App\Http\Controllers\Operations\ServiceController;
 use App\Http\Controllers\Operations\UserController;
+use App\Http\Controllers\Operations\UserPackageController;
 use App\Http\Controllers\SuperAdmin\Operations\CarBrandController;
 use App\Http\Controllers\SuperAdmin\Operations\CarTypeController;
+use App\Http\Controllers\SuperAdmin\Operations\PackageController;
+use App\Http\Controllers\SuperAdmin\Operations\PackageServiceController;
+use App\Http\Controllers\SuperAdmin\Operations\PackageServiceSubServiceController;
+use App\Http\Controllers\SuperAdmin\Operations\PointsConfigController;
 use App\Http\Controllers\SuperAdmin\Operations\SubServiceController;
 use App\Http\Controllers\SuperAdmin\Auth\RegistrationRequestController;
 use App\Http\Controllers\SuperAdmin\Auth\StaffAccountController;
@@ -52,8 +59,7 @@ Route::prefix('auth')->group(function () {
 | Authenticated user — profile
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth:sanctum')
-    ->prefix('profile')
+Route:: prefix('profile')
     ->group(function () {
         Route::get('/showProfile', [UserController::class, 'showProfile']); // for all
         Route::post('/updateProfile', [UserController::class, 'updateProfile']); // for all
@@ -74,7 +80,7 @@ Route::middleware('auth:sanctum')
         Route::get('/indexClient/{customer_id?}', [CarController::class, 'indexClient'])->middleware('can:show.client.cars');//super admin, admin, customer
         //for super admin and admin we send customer id to add car for him
         //for customer we don't send customer id
-        Route::post('/{customer_id?}', [CarController::class, 'store'])->middleware('can:add.car')->middleware('can:add.car'); //super admin, admin, customer
+        Route::post('/{customer_id?}', [CarController::class, 'store'])->middleware('can:add.car'); //super admin, admin, customer
         Route::get('/show/{id}', [CarController::class, 'show'])->middleware('can:show.car'); //for all
         Route::post('/update/{id}', [CarController::class, 'update'])->middleware('can:edit.car'); //super admin, admin, customer
         Route::get('/delete/{id}', [CarController::class, 'destroy'])->middleware('can:delete.car'); //super admin, customer
@@ -115,10 +121,60 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/car-types/{id}',[CarTypeController::class,'show']);
     Route::get('/car-brands',[CarBrandController::class,'index']);
     Route::get('/car-brands/{id}',[CarBrandController::class,'show']);
+    Route::get('/packages',[PackageController::class,'index']);
+    Route::get('/packages/{id}',[PackageController::class,'show']);
+    Route::get('/package-services',[PackageServiceController::class,'index']);
+    Route::get('/package-services/{id}',[PackageServiceController::class,'show']);
+    Route::get('/package-service-sub-services',[PackageServiceSubServiceController::class,'index']);
+    Route::get('/package-service-sub-services/{id}',[PackageServiceSubServiceController::class,'show']);
 
+
+
+    /*
+     (SA , A) : can enter customer id and show his points or show all users points
+      customer can show his points
+    */
+
+    //for SA & A & CUSTOMER
+    Route::middleware(['role:super_admin|admin|customerCompanyPermissions|customerPersonalPermissions'])->group(function () {
+        Route::get('points/show/{customer_id?}', [PointController::class, 'show']);
+        Route::get('points/transactions/{customer_id?}', [PointsTransactionController::class, 'index']);
+        Route::get('points/transactions/show/{transaction}', [PointsTransactionController::class, 'show']);
+        //Route::get('user-packages/{customer_id?}', [UserPackageController::class, 'index']);
+        //Route::get('user-packages/show/{user_package}', [UserPackageController::class, 'show']);
+
+    });
+
+    //for SA & A
+    Route::middleware(['role:super_admin|admin'])->group(function () {
+        Route::get('/points', [PointController::class, 'index']);
+        Route::get('/points-configs', [PointsConfigController::class, 'index']);
+        Route::get('/points-configs/{id}', [PointsConfigController::class, 'show']);
+
+    });
 
     //for SA
     Route::middleware('role:super_admin')->group(function () {
+        //Route::post('/points/transactions', [PointsTransactionController::class, 'store'];
+        Route::post('/points-configs', [PointsConfigController::class, 'store']);
+        Route::post('/points-configs/{points_config}', [PointsConfigController::class, 'update']);
+        Route::delete('/points-configs/{points_config}', [PointsConfigController::class, 'destroy']);
+
+        //Route::post('/user-packages', [UserPackageController::class, 'store']);
+        //Route::post('/user-packages/{user_package}', [UserPackageController::class, 'update']);
+        //Route::delete('/user-packages/{user_package}', [UserPackageController::class, 'destroy']);
+
+        Route::post('/packages',[PackageController::class,'store']);
+        Route::post('/packages/{package}',[PackageController::class,'update']);
+        Route::delete('/packages/{package}',[PackageController::class,'destroy']);
+
+        Route::post('/package-services',[PackageServiceController::class,'store']);
+        Route::post('/package-services/{package_service}',[PackageServiceController::class,'update']);
+        Route::delete('/package-services/{package_service}',[PackageServiceController::class,'destroy']);
+
+        Route::post('/package-service-sub-services',[PackageServiceSubServiceController::class,'store']);
+        Route::post('/package-service-sub-services/{package_service_sub_service}',[PackageServiceSubServiceController::class,'update']);
+        Route::delete('/package-service-sub-services/{package_service_sub_service}',[PackageServiceSubServiceController::class,'destroy']);
 
         Route::post('/categories',[CategoryController::class,'store']);
         Route::post('/categories/{category}',[CategoryController::class,'update']);

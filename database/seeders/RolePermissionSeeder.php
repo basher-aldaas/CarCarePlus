@@ -92,7 +92,7 @@ class RolePermissionSeeder extends Seeder
             'manage.packages', 'show.packages',
             'manage.package_services', 'show.package_services',
             'manage.package_service_sub_services', 'show.package_service_sub_services',
-            'show.user_packages',
+            'manage.user_packages', 'show.user_packages',
 
             // === الطلبات والعمليات الميدانية ===
             'edit.order', 'cancel.order', 'assign.order', 'show.orders',

@@ -18,6 +18,7 @@ class PointsConfig extends Model
     ];
 
     protected $casts = [
+        'updated_at' => 'datetime',
         'earn_per_amount' => 'decimal:2',
         'redeem_value' => 'decimal:2',
         'is_active' => 'boolean',
