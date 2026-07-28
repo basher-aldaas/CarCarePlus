@@ -17,31 +17,9 @@ class CreateUserPackageRequest extends FormRequest
     {
         return [
 
-            'user_id' => [
-                'required',
-                'exists:users,id'
-            ],
-
             'package_id' => [
                 'required',
                 'exists:packages,id'
-            ],
-
-            'start_date' => [
-                'required',
-                'date'
-            ],
-
-            'end_date' => [
-                'required',
-                'date',
-                'after_or_equal:start_date'
-            ],
-
-            'remaining_count' => [
-                'required',
-                'integer',
-                'min:0'
             ],
 
             'status' => [

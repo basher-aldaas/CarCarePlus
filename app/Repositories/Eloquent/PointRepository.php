@@ -7,6 +7,7 @@ use App\Models\PointsTransaction;
 use App\Models\UserPoint;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Validation\ValidationException;
 
 class PointRepository
 {
@@ -46,6 +47,13 @@ class PointRepository
         );
 
         $balanceBefore = $userPoint->balance;
+
+        if ($type === PointsTransactionType::REDEEM && $balanceBefore < $points) {
+            throw ValidationException::withMessages([
+                'points' => [__('Insufficient points balance')],
+            ]);
+        }
+
         $balanceAfter = $type === PointsTransactionType::EARN
             ? $balanceBefore + $points
             : $balanceBefore - $points;

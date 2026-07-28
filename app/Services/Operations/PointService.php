@@ -3,14 +3,12 @@
 namespace App\Services\Operations;
 
 use App\DTOs\AdjustPointsDTO;
-use App\Enums\PointsTransactionType;
 use App\Models\PointsTransaction;
 use App\Models\UserPoint;
 use App\Repositories\Eloquent\PointRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 
 class PointService
 {
@@ -41,16 +39,6 @@ class PointService
     public function adjustPoints(AdjustPointsDTO $dto): PointsTransaction
     {
         return DB::transaction(function () use ($dto) {
-            if ($dto->type === PointsTransactionType::REDEEM) {
-                $userPoint = $this->pointRepository->firstOrCreate($dto->customer_id);
-
-                if ($userPoint->balance < $dto->points) {
-                    throw ValidationException::withMessages([
-                        'points' => [__('Insufficient points balance')],
-                    ]);
-                }
-            }
-
             return $this->pointRepository->createTransaction(
                 customer_id: $dto->customer_id,
                 type: $dto->type,

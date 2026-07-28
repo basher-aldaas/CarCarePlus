@@ -26,7 +26,7 @@ class PointsTransactionController extends Controller
     {
         if (auth()->user()->hasAnyRole(['super_admin', 'admin'])) {
             if ($customer_id === null) {
-                return Response::Error(data:null,message: 'customer_id is required');
+                return Response::Error(data:null,message: __('customer_id is required'), code: HttpStatusConstants::HTTP_400_BAD_REQUEST);
             }
         } else {
             $customer_id = auth()->id();

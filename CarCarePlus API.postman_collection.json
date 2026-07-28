@@ -3783,6 +3783,1417 @@
 									]
 								}
 							]
+						},
+						{
+							"name": "pointsConfig",
+							"item": [
+								{
+									"name": "all config",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/points-configs",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"points-configs"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points-configs",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points-configs"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:28:39 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"earn_per_amount\": \"10.00\",\n            \"redeem_value\": \"0.05\",\n            \"min_redeem\": 100,\n            \"expiry_days\": 365,\n            \"max_earn_per_order\": 50,\n            \"is_active\": true,\n            \"updated_at\": \"2026-07-18 13:52:10\"\n        },\n        {\n            \"id\": 2,\n            \"earn_per_amount\": \"5.00\",\n            \"redeem_value\": \"0.10\",\n            \"min_redeem\": 50,\n            \"expiry_days\": 365,\n            \"max_earn_per_order\": 100,\n            \"is_active\": false,\n            \"updated_at\": \"2026-07-18 13:52:10\"\n        },\n        {\n            \"id\": 3,\n            \"earn_per_amount\": \"3.00\",\n            \"redeem_value\": \"0.15\",\n            \"min_redeem\": 30,\n            \"expiry_days\": 730,\n            \"max_earn_per_order\": 200,\n            \"is_active\": false,\n            \"updated_at\": \"2026-07-18 13:52:10\"\n        }\n    ],\n    \"message\": \"Points configs fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:28:39+00:00\"\n}"
+										},
+										{
+											"name": "success for admin",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points-configs",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points-configs"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:32:58 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"earn_per_amount\": \"10.00\",\n            \"redeem_value\": \"0.05\",\n            \"min_redeem\": 100,\n            \"expiry_days\": 365,\n            \"max_earn_per_order\": 50,\n            \"is_active\": true,\n            \"updated_at\": \"2026-07-18 13:52:10\"\n        },\n        {\n            \"id\": 2,\n            \"earn_per_amount\": \"5.00\",\n            \"redeem_value\": \"0.10\",\n            \"min_redeem\": 50,\n            \"expiry_days\": 365,\n            \"max_earn_per_order\": 100,\n            \"is_active\": false,\n            \"updated_at\": \"2026-07-18 13:52:10\"\n        },\n        {\n            \"id\": 3,\n            \"earn_per_amount\": \"3.00\",\n            \"redeem_value\": \"0.15\",\n            \"min_redeem\": 30,\n            \"expiry_days\": 730,\n            \"max_earn_per_order\": 200,\n            \"is_active\": false,\n            \"updated_at\": \"2026-07-18 13:52:10\"\n        }\n    ],\n    \"message\": \"Points configs fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:32:58+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "show",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/ecmascript",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/points-configs/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"points-configs",
+												"1"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/ecmascript",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points-configs/1",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points-configs",
+														"1"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:35:19 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"earn_per_amount\": \"10.00\",\n        \"redeem_value\": \"0.05\",\n        \"min_redeem\": 100,\n        \"expiry_days\": 365,\n        \"max_earn_per_order\": 50,\n        \"is_active\": true,\n        \"updated_at\": \"2026-07-18 13:52:10\"\n    },\n    \"message\": \"Points config fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:35:19+00:00\"\n}"
+										},
+										{
+											"name": "success for admin",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/ecmascript",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points-configs/1",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points-configs",
+														"1"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:36:00 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"earn_per_amount\": \"10.00\",\n        \"redeem_value\": \"0.05\",\n        \"min_redeem\": 100,\n        \"expiry_days\": 365,\n        \"max_earn_per_order\": 50,\n        \"is_active\": true,\n        \"updated_at\": \"2026-07-18 13:52:10\"\n    },\n    \"message\": \"Points config fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:36:00+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "update",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "redeem_value",
+													"value": "0.3",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/points-configs/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"points-configs",
+												"1"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success just for SA",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "redeem_value",
+															"value": "0.3",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{base_url}}/api/points-configs/1",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points-configs",
+														"1"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:38:15 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"earn_per_amount\": \"10.00\",\n        \"redeem_value\": \"0.30\",\n        \"min_redeem\": 100,\n        \"expiry_days\": 365,\n        \"max_earn_per_order\": 50,\n        \"is_active\": true,\n        \"updated_at\": \"2026-07-22 04:37:56\"\n    },\n    \"message\": \"Points config updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:38:15+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "store",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "earn_per_amount",
+													"value": "8",
+													"type": "text"
+												},
+												{
+													"key": "redeem_value",
+													"value": "0.2",
+													"type": "text"
+												},
+												{
+													"key": "min_redeem",
+													"value": "90",
+													"type": "text"
+												},
+												{
+													"key": "expiry_days",
+													"value": "300",
+													"type": "text"
+												},
+												{
+													"key": "max_earn_per_order",
+													"value": "50",
+													"type": "text"
+												},
+												{
+													"key": "is_active",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/points-configs",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"points-configs"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success just for SA",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "earn_per_amount",
+															"value": "8",
+															"type": "text"
+														},
+														{
+															"key": "redeem_value",
+															"value": "0.2",
+															"type": "text"
+														},
+														{
+															"key": "min_redeem",
+															"value": "90",
+															"type": "text"
+														},
+														{
+															"key": "expiry_days",
+															"value": "300",
+															"type": "text"
+														},
+														{
+															"key": "max_earn_per_order",
+															"value": "50",
+															"type": "text"
+														},
+														{
+															"key": "is_active",
+															"value": "1",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{base_url}}/api/points-configs",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points-configs"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:40:37 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 5,\n        \"earn_per_amount\": \"8.00\",\n        \"redeem_value\": \"0.20\",\n        \"min_redeem\": 90,\n        \"expiry_days\": 300,\n        \"max_earn_per_order\": 50,\n        \"is_active\": true,\n        \"updated_at\": null\n    },\n    \"message\": \"Points config created successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:40:37+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "New Request",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/points-configs/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"points-configs",
+												"1"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success just for SA",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points-configs/1",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points-configs",
+														"1"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:42:00 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Points config deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:42:00+00:00\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "points",
+							"item": [
+								{
+									"name": "all point with users",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{customer2-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/points?",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"points"
+											],
+											"query": [
+												{
+													"key": "",
+													"value": null
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points?",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points"
+													],
+													"query": [
+														{
+															"key": "",
+															"value": null
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:44:18 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 5,\n            \"customer_id\": 28,\n            \"balance\": 0,\n            \"customer\": {\n                \"id\": 28,\n                \"name\": \"bashir\",\n                \"email\": \"bashir.d.aldaas@gmail.com\",\n                \"phone\": \"0994875923\",\n                \"image_url\": null,\n                \"is_active\": true,\n                \"role\": \"customer_personal\"\n            }\n        },\n        {\n            \"id\": 4,\n            \"customer_id\": 30,\n            \"balance\": 0,\n            \"customer\": {\n                \"id\": 30,\n                \"name\": \"Company Owner\",\n                \"email\": \"company@example.com\",\n                \"phone\": \"0500000202\",\n                \"image_url\": null,\n                \"is_active\": true,\n                \"role\": \"customer_company\"\n            }\n        },\n        {\n            \"id\": 3,\n            \"customer_id\": 1,\n            \"balance\": 12,\n            \"customer\": {\n                \"id\": 1,\n                \"name\": \"المدير العام\",\n                \"email\": \"superadmin@system.com\",\n                \"phone\": \"0500000001\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/00eebb?text=people+impedit\",\n                \"is_active\": true,\n                \"role\": \"super_admin\"\n            }\n        },\n        {\n            \"id\": 2,\n            \"customer_id\": 5,\n            \"balance\": 0,\n            \"customer\": {\n                \"id\": 5,\n                \"name\": \"شركة أسطول النقل\",\n                \"email\": \"company@system.com\",\n                \"phone\": \"0500000005\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/0033dd?text=people+dolorem\",\n                \"is_active\": true,\n                \"role\": \"customer_company\"\n            }\n        },\n        {\n            \"id\": 1,\n            \"customer_id\": 4,\n            \"balance\": 0,\n            \"customer\": {\n                \"id\": 4,\n                \"name\": \"أحمد العتيبي (عميل)\",\n                \"email\": \"customer@system.com\",\n                \"phone\": \"0500000004\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/00bbaa?text=people+a\",\n                \"is_active\": true,\n                \"role\": \"customer_personal\"\n            }\n        }\n    ],\n    \"message\": \"User points retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:44:18+00:00\"\n}"
+										},
+										{
+											"name": "success for admin",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points?",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points"
+													],
+													"query": [
+														{
+															"key": "",
+															"value": null
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:45:03 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 5,\n            \"customer_id\": 28,\n            \"balance\": 0,\n            \"customer\": {\n                \"id\": 28,\n                \"name\": \"bashir\",\n                \"email\": \"bashir.d.aldaas@gmail.com\",\n                \"phone\": \"0994875923\",\n                \"image_url\": null,\n                \"is_active\": true,\n                \"role\": \"customer_personal\"\n            }\n        },\n        {\n            \"id\": 4,\n            \"customer_id\": 30,\n            \"balance\": 0,\n            \"customer\": {\n                \"id\": 30,\n                \"name\": \"Company Owner\",\n                \"email\": \"company@example.com\",\n                \"phone\": \"0500000202\",\n                \"image_url\": null,\n                \"is_active\": true,\n                \"role\": \"customer_company\"\n            }\n        },\n        {\n            \"id\": 3,\n            \"customer_id\": 1,\n            \"balance\": 12,\n            \"customer\": {\n                \"id\": 1,\n                \"name\": \"المدير العام\",\n                \"email\": \"superadmin@system.com\",\n                \"phone\": \"0500000001\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/00eebb?text=people+impedit\",\n                \"is_active\": true,\n                \"role\": \"super_admin\"\n            }\n        },\n        {\n            \"id\": 2,\n            \"customer_id\": 5,\n            \"balance\": 0,\n            \"customer\": {\n                \"id\": 5,\n                \"name\": \"شركة أسطول النقل\",\n                \"email\": \"company@system.com\",\n                \"phone\": \"0500000005\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/0033dd?text=people+dolorem\",\n                \"is_active\": true,\n                \"role\": \"customer_company\"\n            }\n        },\n        {\n            \"id\": 1,\n            \"customer_id\": 4,\n            \"balance\": 0,\n            \"customer\": {\n                \"id\": 4,\n                \"name\": \"أحمد العتيبي (عميل)\",\n                \"email\": \"customer@system.com\",\n                \"phone\": \"0500000004\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/00bbaa?text=people+a\",\n                \"is_active\": true,\n                \"role\": \"customer_personal\"\n            }\n        }\n    ],\n    \"message\": \"User points retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:45:03+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "show",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/points/show/6",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"points",
+												"show",
+												"6"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for customer",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points/show",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points",
+														"show"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:46:31 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 6,\n        \"customer_id\": 29,\n        \"balance\": 0\n    },\n    \"message\": \"Point retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:46:31+00:00\"\n}"
+										},
+										{
+											"name": "sucess for admin",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points/show/6",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points",
+														"show",
+														"6"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:47:09 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 7,\n        \"customer_id\": 6,\n        \"balance\": 0\n    },\n    \"message\": \"Point retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:47:09+00:00\"\n}"
+										},
+										{
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points/show/6",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points",
+														"show",
+														"6"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:47:32 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 7,\n        \"customer_id\": 6,\n        \"balance\": 0\n    },\n    \"message\": \"Point retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:47:32+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "all transactions for specific customer",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{company1-token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/points/transactions",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"points",
+												"transactions"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points/transactions/1",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points",
+														"transactions",
+														"1"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:49:55 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Point transactions retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:49:55+00:00\"\n}"
+										},
+										{
+											"name": "success for admin",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points/transactions/1",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points",
+														"transactions",
+														"1"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:50:53 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Point transactions retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:50:53+00:00\"\n}"
+										},
+										{
+											"name": "success for customer",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/points/transactions",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"points",
+														"transactions"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 22 Jul 2026 01:52:46 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Point transactions retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T01:52:46+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "show transaction",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				}
@@ -5420,6 +6831,181 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"User cars retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-18T12:04:27+00:00\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "points",
+					"item": [
+						{
+							"name": "show points",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{customer1-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/points/show",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"points",
+										"show"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "show by SA",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/points/show/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"points",
+												"show",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 18 Jul 2026 23:39:24 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 3,\n        \"customer_id\": 1,\n        \"balance\": 12\n    },\n    \"message\": \"Point retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-18T23:39:24+00:00\"\n}"
+								},
+								{
+									"name": "show by same customer",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/points/show",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"points",
+												"show"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 18 Jul 2026 23:40:31 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 5,\n        \"customer_id\": 28,\n        \"balance\": 0\n    },\n    \"message\": \"Point retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-18T23:40:31+00:00\"\n}"
 								}
 							]
 						}

@@ -28,7 +28,7 @@ class PointsConfigRepository
             $this->deactivateOthers($config->id);
         }
 
-        return $config;
+        return $config->fresh();
     }
 
     public function update(PointsConfig $pointsConfig, PointsConfigDTO $dto): PointsConfig

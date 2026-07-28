@@ -127,6 +127,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/package-services/{id}',[PackageServiceController::class,'show']);
     Route::get('/package-service-sub-services',[PackageServiceSubServiceController::class,'index']);
     Route::get('/package-service-sub-services/{id}',[PackageServiceSubServiceController::class,'show']);
+    Route::post('/user-packages/{customer_id?}', [UserPackageController::class, 'store']);
+    Route::post('/user-packages/update/{user_package}', [UserPackageController::class, 'update']);
+
+
 
 
 
@@ -136,12 +140,12 @@ Route::middleware('auth:sanctum')->group(function () {
     */
 
     //for SA & A & CUSTOMER
-    Route::middleware(['role:super_admin|admin|customerCompanyPermissions|customerPersonalPermissions'])->group(function () {
+    Route::middleware(['role:super_admin|admin|customer_company|customer_personal'])->group(function () {
         Route::get('points/show/{customer_id?}', [PointController::class, 'show']);
         Route::get('points/transactions/{customer_id?}', [PointsTransactionController::class, 'index']);
         Route::get('points/transactions/show/{transaction}', [PointsTransactionController::class, 'show']);
-        //Route::get('user-packages/{customer_id?}', [UserPackageController::class, 'index']);
-        //Route::get('user-packages/show/{user_package}', [UserPackageController::class, 'show']);
+        Route::get('user-packages/{customer_id?}', [UserPackageController::class, 'index']);
+        Route::get('user-packages/show/{user_package}', [UserPackageController::class, 'show']);
 
     });
 
@@ -160,9 +164,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/points-configs/{points_config}', [PointsConfigController::class, 'update']);
         Route::delete('/points-configs/{points_config}', [PointsConfigController::class, 'destroy']);
 
-        //Route::post('/user-packages', [UserPackageController::class, 'store']);
-        //Route::post('/user-packages/{user_package}', [UserPackageController::class, 'update']);
-        //Route::delete('/user-packages/{user_package}', [UserPackageController::class, 'destroy']);
+        Route::delete('/user-packages/{user_package}', [UserPackageController::class, 'destroy']);
 
         Route::post('/packages',[PackageController::class,'store']);
         Route::post('/packages/{package}',[PackageController::class,'update']);

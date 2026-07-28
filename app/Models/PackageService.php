@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PackageService extends Model
 {
-    public $timestamps = false;
-
     protected $fillable = [
         'package_id',
         'service_id',

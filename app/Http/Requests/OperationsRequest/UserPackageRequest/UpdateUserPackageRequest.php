@@ -17,27 +17,6 @@ class UpdateUserPackageRequest extends FormRequest
     {
         return [
 
-            'user_id' => [
-                'sometimes',
-                'exists:users,id'
-            ],
-
-            'package_id' => [
-                'sometimes',
-                'exists:packages,id'
-            ],
-
-            'start_date' => [
-                'sometimes',
-                'date'
-            ],
-
-            'end_date' => [
-                'sometimes',
-                'date',
-                'after_or_equal:start_date'
-            ],
-
             'remaining_count' => [
                 'sometimes',
                 'integer',

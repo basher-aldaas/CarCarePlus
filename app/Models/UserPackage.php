@@ -24,6 +24,7 @@ class UserPackage extends Model
         'status' => UserPackageStatus::class,
         'start_date' => 'datetime',
         'end_date' => 'datetime',
+        'created_at' => 'datetime',
     ];
 
     public function user(): BelongsTo

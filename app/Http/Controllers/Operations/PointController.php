@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Operations;
 
+use App\Constants\HttpStatusConstants;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PointResource;
 use App\Http\Responses\Response;
@@ -33,7 +34,7 @@ class PointController extends Controller
     {
         if (auth()->user()->hasAnyRole(['super_admin', 'admin'])) {
             if ($customer_id === null) {
-                return Response::Error(data:null,message: 'customer_id is required');
+                return Response::Error(data:null,message: __('customer_id is required'), code: HttpStatusConstants::HTTP_400_BAD_REQUEST);
             }
         } else {
             $customer_id = auth()->id();

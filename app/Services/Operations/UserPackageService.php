@@ -3,7 +3,9 @@
 namespace App\Services\Operations;
 
 use App\DTOs\UserPackageDTO;
+use App\Enums\UserPackageStatus;
 use App\Models\UserPackage;
+use App\Repositories\Eloquent\PackageRepository;
 use App\Repositories\Eloquent\UserPackageRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +13,8 @@ use Illuminate\Support\Facades\DB;
 class UserPackageService
 {
     public function __construct(
-        protected UserPackageRepository $userPackageRepository
+        protected UserPackageRepository $userPackageRepository,
+        protected PackageRepository $packageRepository
     ) {
     }
 
@@ -28,6 +31,13 @@ class UserPackageService
     public function store(UserPackageDTO $dto): UserPackage
     {
         return DB::transaction(function () use ($dto) {
+            $package = $this->packageRepository->findById($dto->package_id);
+
+            $dto->start_date = now()->toDateString();
+            $dto->end_date = now()->addDays($package->valid_days)->toDateString();
+            $dto->remaining_count = $package->services_count;
+            $dto->status = UserPackageStatus::ACTIVE->value;
+
             return $this->userPackageRepository->create($dto);
         });
     }

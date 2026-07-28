@@ -27,7 +27,7 @@ class UserPackageController extends Controller
     {
         if (auth()->user()->hasAnyRole(['super_admin', 'admin'])) {
             if ($customer_id === null) {
-                return Response::Error(data:null,message: 'customer_id is required');
+                return Response::Error(data:null,message: __('customer_id is required'), code: HttpStatusConstants::HTTP_400_BAD_REQUEST);
             }
         } else {
             $customer_id = auth()->id();
@@ -61,9 +61,24 @@ class UserPackageController extends Controller
         );
     }
 
-    public function store(CreateUserPackageRequest $request): JsonResponse
+    /**
+     * Subscribe to a package.
+     * SA/admin may pass a customer_id to assign a package to any customer; other roles always subscribe themselves.
+     */
+    public function store(CreateUserPackageRequest $request, ?int $customer_id = null): JsonResponse
     {
-        $dto = UserPackageDTO::fromArray($request->validated());
+        if (auth()->user()->hasAnyRole(['super_admin', 'admin'])) {
+            if ($customer_id === null) {
+                return Response::Error(data:null,message: __('customer_id is required'), code: HttpStatusConstants::HTTP_400_BAD_REQUEST);
+            }
+        } else {
+            $customer_id = auth()->id();
+        }
+
+        $data = $request->validated();
+        $data['user_id'] = $customer_id;
+
+        $dto = UserPackageDTO::fromArray($data);
 
         $userPackage = $this->userPackageService->store($dto);
 
@@ -73,8 +88,20 @@ class UserPackageController extends Controller
         );
     }
 
+    /**
+     * Update a package subscription.
+     * SA/admin may update any subscription; other roles may only update their own.
+     */
     public function update(UpdateUserPackageRequest $request, UserPackage $userPackage): JsonResponse
     {
+        if (!auth()->user()->hasAnyRole(['super_admin', 'admin']) && $userPackage->user_id !== auth()->id()) {
+            return Response::Error(
+                data: null,
+                message: __('Unauthorized'),
+                code: HttpStatusConstants::HTTP_403_FORBIDDEN
+            );
+        }
+
         $dto = UserPackageDTO::fromArray($request->validated());
 
         $userPackage = $this->userPackageService->update($userPackage, $dto);
