@@ -64,6 +64,7 @@ class RolePermissionSeeder extends Seeder
             'add.employee', 'edit.employee', 'delete.employee', 'show.employees',
             'manage.roles', 'manage.permissions',
             'show.otp_codes', 'show.audit_logs',
+            'add.staff_account', 'show.registration_requests', 'manage.registration_requests',
 
             // === الشركات والفروع والموظفين ===
             'add.branch', 'edit.branch', 'delete.branch', 'show.branches',
@@ -92,7 +93,7 @@ class RolePermissionSeeder extends Seeder
             'manage.packages', 'show.packages',
             'manage.package_services', 'show.package_services',
             'manage.package_service_sub_services', 'show.package_service_sub_services',
-            'manage.user_packages', 'show.user_packages',
+            'manage.user_packages', 'show.user_packages', 'add.user_package', 'edit.user_package',
 
             // === الطلبات والعمليات الميدانية ===
             'edit.order', 'cancel.order', 'assign.order', 'show.orders',
@@ -116,7 +117,7 @@ class RolePermissionSeeder extends Seeder
             'create.refund', 'show.refunds', 'edit.refund_status',
             'show.wallets', 'adjust.wallet_balance',
             'show.wallet_transactions',
-            'manage.point_config', 'show.user_points', 'show.points_transactions',
+            'manage.point_config', 'show.point_config', 'show.user_points', 'show.all_user_points', 'show.points_transactions',
 
             // === العقود ===
             'add.contract', 'edit.contract', 'delete.contract', 'show.contracts',
@@ -154,7 +155,8 @@ class RolePermissionSeeder extends Seeder
             'manage.purchase_requests', 'manage.purchase_request_items',
 
             // === الباقات والاشتراكات ===
-            'show.packages', 'show.package_services', 'show.package_service_sub_services', 'show.user_packages',
+            'show.packages', 'show.package_services', 'show.package_service_sub_services',
+            'show.user_packages', 'add.user_package', 'edit.user_package',
 
             // === إدارة العمليات والطلبات ===
             'edit.order', 'cancel.order', 'assign.order', 'show.orders',
@@ -169,7 +171,8 @@ class RolePermissionSeeder extends Seeder
 
             // === المالية، المحافظ، والنقاط ===
             'show.payments', 'create.refund', 'show.refunds',
-            'show.wallets', 'show.wallet_transactions', 'show.user_points', 'show.points_transactions',
+            'show.wallets', 'show.wallet_transactions',
+            'show.point_config', 'show.user_points', 'show.all_user_points', 'show.points_transactions',
 
             // === الورش والعقود ===
             'show.workshops', 'show.contracts',
@@ -214,11 +217,13 @@ class RolePermissionSeeder extends Seeder
             'show.branches', 'show.categories', 'show.services', 'show.sub_services', 'show.packages', 'show.package_services',
             'create.order', 'cancel.order', 'show.orders', 'show.order_sub_services', 'show.order_status_history', 'show.gps_tracking',
             'create.road_assistance', 'show.road_assistance_details', 'show.suggested_problems', 'manage.ai_chat',
-            'show.wallets', 'show.wallet_transactions', 'show.user_packages', 'show.user_points', 'show.points_transactions',
+            'show.wallets', 'show.wallet_transactions', 'show.user_packages', 'add.user_package', 'edit.user_package',
+            'show.user_points', 'show.points_transactions',
             'create.payment', 'show.payments', 'create.refund', 'show.refunds', 'create.rating', 'show.ratings',
             'show.notifications', 'edit.notification_status',
             'show.car_types',
             'show.car_brands',
+            'show.package_service_sub_services',
         ];
     }
 
