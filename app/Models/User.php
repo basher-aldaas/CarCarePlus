@@ -105,10 +105,6 @@ class User extends Authenticatable
     {
         return $this->hasOne(Branch::class, 'admin_id');
     }
-    public function pricingRules(): HasMany
-    {
-        return $this->hasMany(PricingRule::class, 'super_admin_id');
-    }
     public function inventoryTransactions(): HasMany
     {
         return $this->hasMany(InventoryTransaction::class, 'created_by');

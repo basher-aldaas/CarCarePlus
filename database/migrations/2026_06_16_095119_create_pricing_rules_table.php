@@ -13,10 +13,6 @@ return new class extends Migration
     {
         Schema::create('pricing_rules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('super_admin_id')
-                ->constrained('users')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
 
             $table->foreignId('pricing_rule_type_id')
                 ->constrained('pricing_rule_types')
@@ -24,6 +20,8 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->string('name');
+
+            $table->string('name_ar');
 
             $table->double('value');
 

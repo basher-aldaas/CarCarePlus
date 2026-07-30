@@ -4,6 +4,7 @@ namespace Database\Seeders;
 use App\Models\Car;
 use App\Models\Company;
 use App\Models\Order;
+use App\Models\PricingRule;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
             MaterialUnitSeeder::class,
             ProblemTypeSeeder::class,
             PricingRuleTypeSeeder::class,
+            PricingRuleSeeder::class,
 
             // 2. إعدادات وتكوين النظام الثابتة والأدوار
             PointsConfigSeeder::class,

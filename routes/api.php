@@ -17,6 +17,8 @@ use App\Http\Controllers\SuperAdmin\Operations\PackageController;
 use App\Http\Controllers\SuperAdmin\Operations\PackageServiceController;
 use App\Http\Controllers\SuperAdmin\Operations\PackageServiceSubServiceController;
 use App\Http\Controllers\SuperAdmin\Operations\PointsConfigController;
+use App\Http\Controllers\SuperAdmin\Operations\PricingRuleController;
+use App\Http\Controllers\SuperAdmin\Operations\PricingRuleTypeController;
 use App\Http\Controllers\SuperAdmin\Operations\SubServiceController;
 use App\Http\Controllers\SuperAdmin\Auth\RegistrationRequestController;
 use App\Http\Controllers\SuperAdmin\Auth\StaffAccountController;
@@ -127,6 +129,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/package-services/{id}',[PackageServiceController::class,'show'])->middleware('can:show.package_services');
     Route::get('/package-service-sub-services',[PackageServiceSubServiceController::class,'index'])->middleware('can:show.package_service_sub_services');
     Route::get('/package-service-sub-services/{id}',[PackageServiceSubServiceController::class,'show'])->middleware('can:show.package_service_sub_services');
+    Route::get('/pricing-rule-types', [PricingRuleTypeController::class, 'index'])->middleware('can:show.pricing_rule_types');
+    Route::get('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'show'])->middleware('can:show.pricing_rule_types');
+    Route::get('/pricing-rules', [PricingRuleController::class, 'index'])->middleware('can:show.pricing_rules');
+    Route::get('/pricing-rules/{pricing_rule}', [PricingRuleController::class, 'show'])->middleware('can:show.pricing_rules');
 
 
 
@@ -150,7 +156,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/points', [PointController::class, 'index'])->middleware('can:show.all_user_points');
     Route::get('/points-configs', [PointsConfigController::class, 'index'])->middleware('can:show.point_config');
     Route::get('/points-configs/{id}', [PointsConfigController::class, 'show'])->middleware('can:show.point_config');
-
 
     //for SA
         //Route::post('/points/transactions', [PointsTransactionController::class, 'store']);
@@ -191,5 +196,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/car-brands',[CarBrandController::class,'store'])->middleware('can:manage.car_brands');
         Route::post('/car-brands/{car_brand}',[CarBrandController::class,'update'])->middleware('can:manage.car_brands');
         Route::delete('/car-brands/{car_brand}',[CarBrandController::class,'destroy'])->middleware('can:manage.car_brands');
+
+        Route::post('/pricing-rule-types', [PricingRuleTypeController::class, 'store'])->middleware('can:add.pricing_rule_types');
+        Route::post('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'update'])->middleware('can:edit.pricing_rule_types');
+        Route::delete('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'destroy'])->middleware('can:delete.pricing_rule_types');
+
+        Route::post('/pricing-rules', [PricingRuleController::class, 'store'])->middleware('can:add.pricing_rule');
+        Route::post('/pricing-rules/{pricing_rule}', [PricingRuleController::class, 'update'])->middleware('can:edit.pricing_rule');
+        Route::delete('/pricing-rules/{pricing_rule}', [PricingRuleController::class, 'destroy'])->middleware('can:delete.pricing_rule');
 
 });
