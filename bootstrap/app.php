@@ -34,6 +34,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // 3. تسجيل ميدل وير التحقق من الدور (يعمل مع Sanctum)
         $middleware->alias([
             'role' => EnsureUserHasRole::class,
+            'active.user' =>\App\Http\Middleware\EnsureUserIsActive::class,
+            'active.admin' => \App\Http\Middleware\EnsureAdminIsActive::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

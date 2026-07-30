@@ -60,17 +60,6 @@ Route::prefix('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Authenticated user — profile
-|--------------------------------------------------------------------------
-*/
-Route:: prefix('profile')
-    ->group(function () {
-        Route::get('/showProfile', [UserController::class, 'showProfile']); // for all
-        Route::post('/updateProfile', [UserController::class, 'updateProfile']); // for all
-    });
-
-/*
-|--------------------------------------------------------------------------
 | Authenticated user — cars
 |--------------------------------------------------------------------------
 */
@@ -78,16 +67,16 @@ Route::middleware('auth:sanctum')
     ->prefix('cars')
     ->group(function () {
         //get all cars in system for super admin and all car in branch for admin
-        Route::get('/all', [CarController::class, 'indexDashboard'])->middleware('can:show.cars');//super admin, admin
+        Route::get('/all', [CarController::class, 'indexDashboard'])->middleware(['can:show.cars', 'active.user']);//super admin, admin
         //for super admin and admin we send customer id to show all his cars
         //for customer we don't send customer id
-        Route::get('/indexClient/{customer_id?}', [CarController::class, 'indexClient'])->middleware('can:show.client.cars');//super admin, admin, customer
+        Route::get('/indexClient/{customer_id?}', [CarController::class, 'indexClient'])->middleware(['can:show.client.cars', 'active.admin']);//super admin, admin, customer
         //for super admin and admin we send customer id to add car for him
         //for customer we don't send customer id
-        Route::post('/{customer_id?}', [CarController::class, 'store'])->middleware('can:add.car'); //super admin, admin, customer
+        Route::post('/{customer_id?}', [CarController::class, 'store'])->middleware(['can:add.car', 'active.user']); //super admin, admin, customer
         Route::get('/show/{id}', [CarController::class, 'show'])->middleware('can:show.car'); //for all
-        Route::post('/update/{id}', [CarController::class, 'update'])->middleware('can:edit.car'); //super admin, admin, customer
-        Route::get('/delete/{id}', [CarController::class, 'destroy'])->middleware('can:delete.car'); //super admin, customer
+        Route::post('/update/{id}', [CarController::class, 'update'])->middleware(['can:edit.car', 'active.user']); //super admin, admin, customer
+        Route::get('/delete/{id}', [CarController::class, 'destroy'])->middleware(['can:delete.car', 'active.user']); //super admin, customer
     });
 
 /*
@@ -112,7 +101,7 @@ Route::middleware(['auth:sanctum'])
     });
 
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
 
     //for all
     Route::get('/categories',[CategoryController::class,'index'])->middleware('can:show.categories');
@@ -135,7 +124,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'show'])->middleware('can:show.pricing_rule_types');
     Route::get('/pricing-rules', [PricingRuleController::class, 'index'])->middleware('can:show.pricing_rules');
     Route::get('/pricing-rules/{pricing_rule}', [PricingRuleController::class, 'show'])->middleware('can:show.pricing_rules');
-
+    Route:: prefix('profile')
+        ->group(function () {
+            Route::get('/showProfile', [UserController::class, 'showProfile']);
+            Route::post('/updateProfile', [UserController::class, 'updateProfile']);
+        });
 
 
 
@@ -145,17 +138,17 @@ Route::middleware('auth:sanctum')->group(function () {
       customer can show his points
     */
     //for SA & A & CUSTOMER
-    Route::get('points/show/{customer_id?}', [PointController::class, 'show'])->middleware('can:show.user_points');
-    Route::get('points/transactions/{customer_id?}', [PointsTransactionController::class, 'index'])->middleware('can:show.points_transactions');
-    Route::get('points/transactions/show/{transaction}', [PointsTransactionController::class, 'show'])->middleware('can:show.points_transactions');
-    Route::get('user-packages/{customer_id?}', [UserPackageController::class, 'index'])->middleware('can:show.user_packages');
-    Route::get('user-packages/show/{user_package}', [UserPackageController::class, 'show'])->middleware('can:show.user_packages');
-    Route::post('/user-packages/{customer_id?}', [UserPackageController::class, 'store'])->middleware('can:add.user_package');
-    Route::post('/user-packages/update/{user_package}', [UserPackageController::class, 'update'])->middleware('can:edit.user_package');
+    Route::get('points/show/{customer_id?}', [PointController::class, 'show'])->middleware(['can:show.user_points', 'active.admin']);
+    Route::get('points/transactions/{customer_id?}', [PointsTransactionController::class, 'index'])->middleware(['can:show.points_transactions', 'active.admin']);
+    Route::get('points/transactions/show/{transaction}', [PointsTransactionController::class, 'show'])->middleware(['can:show.points_transactions', 'active.admin']);
+    Route::get('user-packages/{customer_id?}', [UserPackageController::class, 'index'])->middleware(['can:show.user_packages', 'active.admin']);
+    Route::get('user-packages/show/{user_package}', [UserPackageController::class, 'show'])->middleware(['can:show.user_packages', 'active.admin']);
+    Route::post('/user-packages/{customer_id?}', [UserPackageController::class, 'store'])->middleware(['can:add.user_package', 'active.user']);
+    Route::post('/user-packages/update/{user_package}', [UserPackageController::class, 'update'])->middleware(['can:edit.user_package', 'active.user']);
 
 
     //for SA & A
-    Route::get('/points', [PointController::class, 'index'])->middleware('can:show.all_user_points');
+    Route::get('/points', [PointController::class, 'index'])->middleware(['can:show.all_user_points', 'active.admin']);
     Route::get('/points-configs', [PointsConfigController::class, 'index'])->middleware('can:show.point_config');
     Route::get('/points-configs/{id}', [PointsConfigController::class, 'show'])->middleware('can:show.point_config');
 
