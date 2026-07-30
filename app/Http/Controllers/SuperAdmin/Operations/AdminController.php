@@ -85,4 +85,24 @@ class AdminController extends Controller
             message: __('Admin deleted successfully')
         );
     }
+
+    public function deactivate(User $admin): JsonResponse
+    {
+        $admin = $this->adminService->deactivate($admin);
+
+        return Response::Success(
+            data: new AdminResource($admin),
+            message: __('Admin deactivated successfully')
+        );
+    }
+
+    public function activate(User $admin): JsonResponse
+    {
+        $admin = $this->adminService->activate($admin);
+
+        return Response::Success(
+            data: new AdminResource($admin),
+            message: __('Admin activated successfully')
+        );
+    }
 }
