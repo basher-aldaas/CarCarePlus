@@ -47,4 +47,24 @@ class AdminRepository
 
         return $admin->delete();
     }
+
+    public function deactivate(User $admin): User
+    {
+        // نتأكد مرة أخرى أن المستخدم Admin
+        $admin = $this->findById($admin->id);
+
+        $admin->update(['is_active' => false]);
+
+        return $admin->refresh();
+    }
+
+    public function activate(User $admin): User
+    {
+        // نتأكد مرة أخرى أن المستخدم Admin
+        $admin = $this->findById($admin->id);
+
+        $admin->update(['is_active' => true]);
+
+        return $admin->refresh();
+    }
 }

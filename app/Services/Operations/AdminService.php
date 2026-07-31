@@ -57,4 +57,20 @@ class AdminService
             return $this->adminRepository->delete($admin);
         });
     }
+
+    public function deactivate(User $admin): User
+    {
+        return DB::transaction(function () use ($admin) {
+
+            return $this->adminRepository->deactivate($admin);
+        });
+    }
+
+    public function activate(User $admin): User
+    {
+        return DB::transaction(function () use ($admin) {
+
+            return $this->adminRepository->activate($admin);
+        });
+    }
 }

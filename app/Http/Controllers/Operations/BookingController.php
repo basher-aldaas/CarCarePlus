@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin\Operations;
+namespace App\Http\Controllers\Operations;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class SubServieController extends Controller
+class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
