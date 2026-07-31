@@ -130,7 +130,7 @@ Route::middleware('auth:sanctum')
 
 /*
 |--------------------------------------------------------------------------
-| Admin Management — Super Admin only
+| Admin Management — Super Admin only add admin
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth:sanctum')
