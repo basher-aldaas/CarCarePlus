@@ -5,6 +5,7 @@ namespace App\Enums\OrderEnums;
 enum OrderType: string
 {
     case SERVICE = 'service';
+    case WASH = 'wash';
     case ROAD_ASSISTANCE = 'road_assistance';
 
     public static function values(): array

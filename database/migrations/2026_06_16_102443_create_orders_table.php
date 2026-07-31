@@ -82,13 +82,13 @@ return new class extends Migration
             $table->decimal('base_price', 10, 2)
                 ->default(0);
             $table->decimal('vip_price', 10, 2)
-                ->nullable();
+                ->default(0);
             $table->decimal('distance_price', 10, 2)
-                ->nullable();
+                ->default(0);
             $table->decimal('sub_services_price', 10, 2)
-                ->nullable();
+                ->default(0);
             $table->decimal('order_material_price', 10, 2)
-                ->nullable();
+                ->default(0);
 
             $table->decimal('discount_amount', 10, 2)
                 ->default(0);

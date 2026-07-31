@@ -6,7 +6,8 @@ enum InventoryTransactionType: string
 {
     case IN = 'in';
     case OUT = 'out';
-    case TRANSFER = 'transfer';
+    case TRANSFER_OUT = 'transfer_out';
+    case TRANSFER_IN = 'transfer_in';
 
     public static function values(): array
     {

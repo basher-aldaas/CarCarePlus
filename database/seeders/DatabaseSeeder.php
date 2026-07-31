@@ -46,6 +46,10 @@ class DatabaseSeeder extends Seeder
             BranchSeeder::class,
             WorkshopSeeder::class,
 
+            // 5b. المخزون وحركاته (تعتمد على الفروع والمواد)
+            InventorySeeder::class,
+            InventoryTransactionSeeder::class,
+
             // 6. الموظفين والسيارات والباقات
             EmployeeSeeder::class,
             CarSeeder::class,

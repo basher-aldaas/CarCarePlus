@@ -33,6 +33,7 @@ return new class extends Migration
                 ->useCurrent()
                 ->useCurrentOnUpdate();
 
+            $table->unique(['branch_id', 'material_id']);
 
         });
     }

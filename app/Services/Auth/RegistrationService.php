@@ -18,6 +18,7 @@ use App\Repositories\Eloquent\EmployeeRepository;
 use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\Eloquent\WorkshopRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class RegistrationService
 {
@@ -110,7 +111,21 @@ class RegistrationService
      */
     public function createEmployee(RegisterEmployeeDTO $dto): array
     {
-        $result = DB::transaction(function () use ($dto) {
+        $branch = null;
+
+        if ($dto->employee->type === EmployeeType::ADMIN) {
+            $branch = Branch::with('manager')->findOrFail($dto->branchId);
+
+            // Placeholder admins (e.g. the super admin, seeded on branch creation)
+            // may be replaced, but a branch already run by a real admin may not.
+            if ($branch->manager && $branch->manager->hasRole('admin')) {
+                throw ValidationException::withMessages([
+                    'branch_id' => __('This branch already has an admin assigned.'),
+                ]);
+            }
+        }
+
+        $result = DB::transaction(function () use ($dto, $branch) {
             $user = $this->userRepository->create($dto->user);
 
             $user->assignRole($dto->employee->type->roleName());
@@ -119,8 +134,8 @@ class RegistrationService
             $employee = $this->employeeRepository->create($dto->employee);
 
             // A branch admin also manages the branch they belong to.
-            if ($dto->employee->type === EmployeeType::ADMIN) {
-                Branch::findOrFail($dto->branchId)->update(['admin_id' => $user->id]);
+            if ($branch) {
+                $branch->update(['admin_id' => $user->id]);
             }
 
             return ['user' => $user, 'employee' => $employee];

@@ -11,15 +11,24 @@ use App\Http\Controllers\Operations\PointsTransactionController;
 use App\Http\Controllers\Operations\ServiceController;
 use App\Http\Controllers\Operations\UserController;
 use App\Http\Controllers\Operations\UserPackageController;
+use App\Http\Controllers\SuperAdmin\Operations\AiRuleController;
+use App\Http\Controllers\SuperAdmin\Operations\BranchController;
 use App\Http\Controllers\SuperAdmin\Operations\CarBrandController;
 use App\Http\Controllers\SuperAdmin\Operations\CarTypeController;
+use App\Http\Controllers\SuperAdmin\Operations\InventoryController;
+use App\Http\Controllers\SuperAdmin\Operations\InventoryTransactionController;
+use App\Http\Controllers\SuperAdmin\Operations\MaterialController;
+use App\Http\Controllers\SuperAdmin\Operations\MaterialUnitController;
 use App\Http\Controllers\SuperAdmin\Operations\PackageController;
 use App\Http\Controllers\SuperAdmin\Operations\PackageServiceController;
 use App\Http\Controllers\SuperAdmin\Operations\PackageServiceSubServiceController;
 use App\Http\Controllers\SuperAdmin\Operations\PointsConfigController;
 use App\Http\Controllers\SuperAdmin\Operations\PricingRuleController;
 use App\Http\Controllers\SuperAdmin\Operations\PricingRuleTypeController;
+use App\Http\Controllers\SuperAdmin\Operations\ProblemTypeController;
 use App\Http\Controllers\SuperAdmin\Operations\SubServiceController;
+use App\Http\Controllers\SuperAdmin\Operations\SuggestedProblemController;
+use App\Http\Controllers\SuperAdmin\Operations\SystemSettingController;
 use App\Http\Controllers\SuperAdmin\Auth\RegistrationRequestController;
 use App\Http\Controllers\SuperAdmin\Auth\StaffAccountController;
 use App\Models\User;
@@ -101,7 +110,7 @@ Route::middleware(['auth:sanctum'])
     });
 
 
-Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
 
     //for all
     Route::get('/categories',[CategoryController::class,'index'])->middleware('can:show.categories');
@@ -120,16 +129,27 @@ Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
     Route::get('/package-services/{id}',[PackageServiceController::class,'show'])->middleware('can:show.package_services');
     Route::get('/package-service-sub-services',[PackageServiceSubServiceController::class,'index'])->middleware('can:show.package_service_sub_services');
     Route::get('/package-service-sub-services/{id}',[PackageServiceSubServiceController::class,'show'])->middleware('can:show.package_service_sub_services');
-    Route::get('/pricing-rule-types', [PricingRuleTypeController::class, 'index'])->middleware('can:show.pricing_rule_types');
-    Route::get('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'show'])->middleware('can:show.pricing_rule_types');
-    Route::get('/pricing-rules', [PricingRuleController::class, 'index'])->middleware('can:show.pricing_rules');
-    Route::get('/pricing-rules/{pricing_rule}', [PricingRuleController::class, 'show'])->middleware('can:show.pricing_rules');
+    Route::get('/suggested-problems', [SuggestedProblemController::class, 'index'])->middleware('can:show.suggested_problems');
+    Route::get('/suggested-problems/{suggested_problem}', [SuggestedProblemController::class, 'show'])->middleware('can:show.suggested_problems');
+    Route::get('/branches', [BranchController::class, 'index'])->middleware('can:show.branches');
+    Route::get('/branches/{branch}', [BranchController::class, 'show'])->middleware('can:show.branches');
+    Route::get('/materials', [MaterialController::class, 'index'])->middleware('can:show.materials');
+    Route::get('/materials/{material}', [MaterialController::class, 'show'])->middleware('can:show.materials');
+
     Route:: prefix('profile')
         ->group(function () {
             Route::get('/showProfile', [UserController::class, 'showProfile']);
             Route::post('/updateProfile', [UserController::class, 'updateProfile']);
         });
 
+
+    //for SA & A & Employee
+    Route::middleware('active.user')->group(function (){
+        Route::get('/users/{user}', [UserController::class, 'show'])->middleware('can:show.profile');
+        Route::get('/pricing-rules', [PricingRuleController::class, 'index'])->middleware('can:show.pricing_rules');
+        Route::get('/pricing-rules/{pricing_rule}', [PricingRuleController::class, 'show'])->middleware('can:show.pricing_rules');
+
+    });
 
 
 
@@ -138,19 +158,44 @@ Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
       customer can show his points
     */
     //for SA & A & CUSTOMER
-    Route::get('points/show/{customer_id?}', [PointController::class, 'show'])->middleware(['can:show.user_points', 'active.admin']);
-    Route::get('points/transactions/{customer_id?}', [PointsTransactionController::class, 'index'])->middleware(['can:show.points_transactions', 'active.admin']);
-    Route::get('points/transactions/show/{transaction}', [PointsTransactionController::class, 'show'])->middleware(['can:show.points_transactions', 'active.admin']);
-    Route::get('user-packages/{customer_id?}', [UserPackageController::class, 'index'])->middleware(['can:show.user_packages', 'active.admin']);
-    Route::get('user-packages/show/{user_package}', [UserPackageController::class, 'show'])->middleware(['can:show.user_packages', 'active.admin']);
-    Route::post('/user-packages/{customer_id?}', [UserPackageController::class, 'store'])->middleware(['can:add.user_package', 'active.user']);
-    Route::post('/user-packages/update/{user_package}', [UserPackageController::class, 'update'])->middleware(['can:edit.user_package', 'active.user']);
+    Route::middleware('active.user')->group(function (){
+        Route::get('points/show/{customer_id?}', [PointController::class, 'show'])->middleware('can:show.user_points');
+        Route::get('points/transactions/{customer_id?}', [PointsTransactionController::class, 'index'])->middleware('can:show.points_transactions');
+        Route::get('points/transactions/show/{transaction}', [PointsTransactionController::class, 'show'])->middleware('can:show.points_transactions');
+        Route::get('user-packages/{customer_id?}', [UserPackageController::class, 'index'])->middleware(['can:show.user_packages', 'active.user']);
+        Route::get('user-packages/show/{user_package}', [UserPackageController::class, 'show'])->middleware('can:show.user_packages');
+        Route::post('/user-packages/{customer_id?}', [UserPackageController::class, 'store'])->middleware('can:add.user_package');
+        Route::post('/user-packages/update/{user_package}', [UserPackageController::class, 'update'])->middleware('can:edit.user_package');
+
+    });
 
 
     //for SA & A
-    Route::get('/points', [PointController::class, 'index'])->middleware(['can:show.all_user_points', 'active.admin']);
-    Route::get('/points-configs', [PointsConfigController::class, 'index'])->middleware('can:show.point_config');
-    Route::get('/points-configs/{id}', [PointsConfigController::class, 'show'])->middleware('can:show.point_config');
+    Route::middleware('active.admin')->group(function () {
+        Route::get('/points', [PointController::class, 'index'])->middleware('can:show.all_user_points');
+        Route::get('/points-configs', [PointsConfigController::class, 'index'])->middleware('can:show.point_config');
+        Route::get('/points-configs/{id}', [PointsConfigController::class, 'show'])->middleware('can:show.point_config');
+        Route::get('/inventories', [InventoryController::class, 'index'])->middleware('can:show.inventory');
+        Route::get('/inventories/{inventory}', [InventoryController::class, 'show'])->middleware('can:show.inventory');
+        Route::post('/inventories', [InventoryController::class, 'store'])->middleware('can:manage.inventory');
+        Route::post('/inventories/{inventory}', [InventoryController::class, 'update'])->middleware('can:manage.inventory');
+        Route::delete('/inventories/{inventory}', [InventoryController::class, 'destroy'])->middleware('can:manage.inventory');
+        Route::get('/inventory-transactions', [InventoryTransactionController::class, 'index'])->middleware('can:show.inventory_transactions');
+        Route::get('/inventory-transactions/{inventory_transaction}', [InventoryTransactionController::class, 'show'])->middleware('can:show.inventory_transactions');
+        Route::post('/inventory-transactions', [InventoryTransactionController::class, 'store'])->middleware('can:manage.inventory_transactions');
+
+    });
+    Route::get('/material-units', [MaterialUnitController::class, 'index'])->middleware('can:show.material_units');
+    Route::get('/material-units/{material_unit}', [MaterialUnitController::class, 'show'])->middleware('can:show.material_units');
+    Route::get('/pricing-rule-types', [PricingRuleTypeController::class, 'index'])->middleware('can:show.pricing_rule_types');
+    Route::get('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'show'])->middleware('can:show.pricing_rule_types');
+    Route::get('/problem-types', [ProblemTypeController::class, 'index'])->middleware('can:show.problem_types');
+    Route::get('/problem-types/{problem_type}', [ProblemTypeController::class, 'show'])->middleware('can:show.problem_types');
+    Route::get('/system-settings', [SystemSettingController::class, 'index'])->middleware('can:show.system_settings');
+    Route::get('/system-settings/{system_setting}', [SystemSettingController::class, 'show'])->middleware('can:show.system_settings');
+    Route::get('/ai-rules', [AiRuleController::class, 'index'])->middleware('can:show.ai_rules');
+    Route::get('/ai-rules/{ai_rule}', [AiRuleController::class, 'show'])->middleware('can:show.ai_rules');
+
 
     //for SA
     //Route::post('/points/transactions', [PointsTransactionController::class, 'store']);
@@ -192,13 +237,41 @@ Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
     Route::post('/car-brands/{car_brand}',[CarBrandController::class,'update'])->middleware('can:manage.car_brands');
     Route::delete('/car-brands/{car_brand}',[CarBrandController::class,'destroy'])->middleware('can:manage.car_brands');
 
-    Route::post('/pricing-rule-types', [PricingRuleTypeController::class, 'store'])->middleware('can:add.pricing_rule_types');
-    Route::post('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'update'])->middleware('can:edit.pricing_rule_types');
-    Route::delete('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'destroy'])->middleware('can:delete.pricing_rule_types');
+    Route::post('/pricing-rule-types', [PricingRuleTypeController::class, 'store'])->middleware('can:manage.pricing_rule_types');
+    Route::post('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'update'])->middleware('can:manage.pricing_rule_types');
+    Route::delete('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'destroy'])->middleware('can:manage.pricing_rule_types');
 
-    Route::post('/pricing-rules', [PricingRuleController::class, 'store'])->middleware('can:add.pricing_rule');
-    Route::post('/pricing-rules/{pricing_rule}', [PricingRuleController::class, 'update'])->middleware('can:edit.pricing_rule');
-    Route::delete('/pricing-rules/{pricing_rule}', [PricingRuleController::class, 'destroy'])->middleware('can:delete.pricing_rule');
+    Route::post('/pricing-rules', [PricingRuleController::class, 'store'])->middleware('can:manage.pricing_rule');
+    Route::post('/pricing-rules/{pricing_rule}', [PricingRuleController::class, 'update'])->middleware('can:manage.pricing_rule');
+    Route::delete('/pricing-rules/{pricing_rule}', [PricingRuleController::class, 'destroy'])->middleware('can:manage.pricing_rule');
+
+    Route::post('/material-units', [MaterialUnitController::class, 'store'])->middleware('can:manage.material_units');
+    Route::post('/material-units/{material_unit}', [MaterialUnitController::class, 'update'])->middleware('can:manage.material_units');
+    Route::delete('/material-units/{material_unit}', [MaterialUnitController::class, 'destroy'])->middleware('can:manage.material_units');
+
+    Route::post('/materials', [MaterialController::class, 'store'])->middleware('can:manage.material');
+    Route::post('/materials/{material}', [MaterialController::class, 'update'])->middleware('can:manage.material');
+    Route::delete('/materials/{material}', [MaterialController::class, 'destroy'])->middleware('can:manage.material');
+
+    Route::post('/problem-types', [ProblemTypeController::class, 'store'])->middleware('can:manage.problem_types');
+    Route::post('/problem-types/{problem_type}', [ProblemTypeController::class, 'update'])->middleware('can:manage.problem_types');
+    Route::delete('/problem-types/{problem_type}', [ProblemTypeController::class, 'destroy'])->middleware('can:manage.problem_types');
+
+    Route::post('/suggested-problems', [SuggestedProblemController::class, 'store'])->middleware('can:manage.suggested_problems');
+    Route::post('/suggested-problems/{suggested_problem}', [SuggestedProblemController::class, 'update'])->middleware('can:manage.suggested_problems');
+    Route::delete('/suggested-problems/{suggested_problem}', [SuggestedProblemController::class, 'destroy'])->middleware('can:manage.suggested_problems');
+
+    Route::post('/system-settings', [SystemSettingController::class, 'store'])->middleware('can:manage.system_setting');
+    Route::post('/system-settings/{system_setting}', [SystemSettingController::class, 'update'])->middleware('can:manage.system_setting');
+    Route::delete('/system-settings/{system_setting}', [SystemSettingController::class, 'destroy'])->middleware('can:manage.system_setting');
+
+    Route::post('/ai-rules', [AiRuleController::class, 'store'])->middleware('can:add.ai_rule');
+    Route::post('/ai-rules/{ai_rule}', [AiRuleController::class, 'update'])->middleware('can:edit.ai_rule');
+    Route::delete('/ai-rules/{ai_rule}', [AiRuleController::class, 'destroy'])->middleware('can:delete.ai_rule');
+
+    Route::post('/branches', [BranchController::class, 'store'])->middleware('can:add.branch');
+    Route::post('/branches/{branch}', [BranchController::class, 'update'])->middleware('can:edit.branch');
+    Route::delete('/branches/{branch}', [BranchController::class, 'destroy'])->middleware('can:delete.branch');
 
     Route::get('/admins', [AdminController::class, 'index'])->middleware('can:show.admins');
     Route::get('/admins/{admin}', [AdminController::class, 'show'])->middleware('can:show.admins');

@@ -30,6 +30,12 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
+            $table->foreignId('destination_branch_id')
+                ->nullable()
+                ->constrained('branches')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
             $table->enum('type',InventoryTransactionType::values());
 
             $table->decimal('quantity', 12, 2);

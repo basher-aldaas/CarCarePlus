@@ -46,7 +46,7 @@ class PointsTransactionController extends Controller
      */
     public function show(PointsTransaction $transaction): JsonResponse
     {
-        if (!auth()->user()->hasAnyRole(['super_admin', 'admin']) && $transaction->customer_id !== auth()->id()) {
+        if (!auth()->user()->hasAnyRole(['super_admin', 'admin']) && (int) $transaction->customer_id !== (int) auth()->id()) {
             return Response::Error(
                 data: null,
                 message: __('Unauthorized'),

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OperationsRequest\UsersRequest\updateProfileRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Responses\Response;
+use App\Models\User;
 use App\Services\Operations\UserService;
 use Illuminate\Http\JsonResponse;
 
@@ -19,6 +20,16 @@ class UserController extends Controller
     public function showProfile(): JsonResponse
     {
         $result = $this->userService->getUserProfile();
+
+        return Response::Success(
+            data: new UserResource($result),
+            message: __('User profile retrieved successfully'),
+        );
+    }
+
+    public function show(User $user): JsonResponse
+    {
+        $result = $this->userService->getUserById($user);
 
         return Response::Success(
             data: new UserResource($result),

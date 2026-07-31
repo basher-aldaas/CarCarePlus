@@ -12,6 +12,7 @@ class InventoryTransaction extends Model
 
     protected $fillable = [
         'branch_id',
+        'destination_branch_id',
         'material_id',
         'created_by',
         'type',
@@ -33,6 +34,10 @@ class InventoryTransaction extends Model
     public function branch(): BelongsTo
     {
         return $this->belongsTo(Branch::class, 'branch_id');
+    }
+    public function destinationBranch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class, 'destination_branch_id');
     }
     public function material(): BelongsTo
     {

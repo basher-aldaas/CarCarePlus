@@ -18,6 +18,11 @@ class UserService
         return auth()->user();
     }
 
+    public function getUserById(User $user): User
+    {
+        return $user;
+    }
+
     public function updateUserProfile(UserDTO $DTO): User
     {
         return DB::transaction(function () use ($DTO) {

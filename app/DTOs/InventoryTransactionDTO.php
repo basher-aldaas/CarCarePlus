@@ -6,6 +6,7 @@ class InventoryTransactionDTO
 {
     public function __construct(
         public ?int $branch_id,
+        public ?int $destination_branch_id,
         public ?int $material_id,
         public ?int $created_by,
         public ?string $type,
@@ -20,6 +21,7 @@ class InventoryTransactionDTO
     {
         return new self(
             branch_id: isset($data['branch_id']) ? (int) $data['branch_id'] : null,
+            destination_branch_id: isset($data['destination_branch_id']) ? (int) $data['destination_branch_id'] : null,
             material_id: isset($data['material_id']) ? (int) $data['material_id'] : null,
             created_by: isset($data['created_by']) ? (int) $data['created_by'] : null,
             type: $data['type'] ?? null,
@@ -35,6 +37,7 @@ class InventoryTransactionDTO
     {
         return array_filter([
             'branch_id' => $this->branch_id,
+            'destination_branch_id' => $this->destination_branch_id,
             'material_id' => $this->material_id,
             'created_by' => $this->created_by,
             'type' => $this->type,

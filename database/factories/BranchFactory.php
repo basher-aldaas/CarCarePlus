@@ -17,7 +17,7 @@ class BranchFactory extends Factory
             'name' => $this->faker->city() . ' Branch',
             'name_ar' => 'فرع ' . $this->faker->word(),
             'city' => $this->faker->city(),
-            'addres' => $this->faker->address(), // مطابقة لـ "addres" في الداتا
+            'address' => $this->faker->address(),
             'latitude' => $this->faker->latitude(),
             'longitude' => $this->faker->longitude(),
             'phone' => $this->faker->phoneNumber(),
