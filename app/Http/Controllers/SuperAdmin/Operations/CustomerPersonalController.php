@@ -1,9 +1,8 @@
 <?php
 
-
 namespace App\Http\Controllers\SuperAdmin\Operations;
 
-use App\DTOs\CustomersDTOs\CustomerDTO;
+use App\DTOs\CustomerDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OperationsRequest\CustomersRequest\UpdateCustomerRequest;
 use App\Http\Resources\CustomerResource;
@@ -16,10 +15,11 @@ class CustomerPersonalController extends Controller
 {
     public function __construct(
         protected CustomerPersonalService $customerService
-    )
-    {
-    }
+    ) {}
 
+    /**
+     * List all personal customers.
+     */
     public function index(): JsonResponse
     {
         return Response::Success(
@@ -30,6 +30,9 @@ class CustomerPersonalController extends Controller
         );
     }
 
+    /**
+     * Show one personal customer.
+     */
     public function show(User $customer): JsonResponse
     {
         $customer = $this->customerService->show($customer);
@@ -40,12 +43,16 @@ class CustomerPersonalController extends Controller
         );
     }
 
+    /**
+     * Update one personal customer.
+     */
     public function update(
         UpdateCustomerRequest $request,
-        User                  $customer
-    ): JsonResponse
-    {
-        $dto = CustomerDTO::fromArray($request->validated());
+        User $customer
+    ): JsonResponse {
+        $dto = CustomerDTO::fromArray(
+            $request->validated()
+        );
 
         $customer = $this->customerService->update(
             $customer,
@@ -58,6 +65,9 @@ class CustomerPersonalController extends Controller
         );
     }
 
+    /**
+     * Delete one personal customer.
+     */
     public function destroy(User $customer): JsonResponse
     {
         $this->customerService->destroy($customer);

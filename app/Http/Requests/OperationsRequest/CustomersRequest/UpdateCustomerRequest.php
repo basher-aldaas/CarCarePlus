@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Requests\OperationsRequest\CustomersRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -10,7 +9,7 @@ class UpdateCustomerRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return auth()->check();
     }
 
     public function rules(): array
@@ -32,6 +31,7 @@ class UpdateCustomerRequest extends FormRequest
             ],
 
             'phone' => [
+                'sometimes',
                 'nullable',
                 'string',
                 'max:30',
@@ -39,6 +39,7 @@ class UpdateCustomerRequest extends FormRequest
             ],
 
             'password' => [
+                'sometimes',
                 'nullable',
                 'string',
                 'min:8',
@@ -51,6 +52,7 @@ class UpdateCustomerRequest extends FormRequest
             ],
 
             'image_url' => [
+                'sometimes',
                 'nullable',
                 'string',
                 'max:2048',

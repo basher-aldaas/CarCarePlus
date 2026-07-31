@@ -13,6 +13,8 @@ use App\Http\Controllers\Operations\UserController;
 use App\Http\Controllers\Operations\UserPackageController;
 use App\Http\Controllers\SuperAdmin\Operations\CarBrandController;
 use App\Http\Controllers\SuperAdmin\Operations\CarTypeController;
+use App\Http\Controllers\SuperAdmin\Operations\CustomerCompanyController;
+use App\Http\Controllers\SuperAdmin\Operations\CustomerPersonalController;
 use App\Http\Controllers\SuperAdmin\Operations\PackageController;
 use App\Http\Controllers\SuperAdmin\Operations\PackageServiceController;
 use App\Http\Controllers\SuperAdmin\Operations\PackageServiceSubServiceController;
@@ -104,22 +106,22 @@ Route::middleware(['auth:sanctum'])
 Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
 
     //for all
-    Route::get('/categories',[CategoryController::class,'index'])->middleware('can:show.categories');
-    Route::get('/categories/{id}',[CategoryController::class,'show'])->middleware('can:show.categories');
-    Route::get('/services',[ServiceController::class,'index'])->middleware('can:show.services');
-    Route::get('/services/{id}',[ServiceController::class,'show'])->middleware('can:show.services');
-    Route::get('/sub-services',[SubServiceController::class,'index'])->middleware('can:show.sub_services');
-    Route::get('/sub-services/{id}',[SubServiceController::class,'show'])->middleware('can:show.sub_services');
-    Route::get('/car-types',[CarTypeController::class,'index'])->middleware('can:show.car_types');
-    Route::get('/car-types/{id}',[CarTypeController::class,'show'])->middleware('can:show.car_types');
-    Route::get('/car-brands',[CarBrandController::class,'index'])->middleware('can:show.car_brands');
-    Route::get('/car-brands/{id}',[CarBrandController::class,'show'])->middleware('can:show.car_brands');
-    Route::get('/packages',[PackageController::class,'index'])->middleware('can:show.packages');
-    Route::get('/packages/{id}',[PackageController::class,'show'])->middleware('can:show.packages');
-    Route::get('/package-services',[PackageServiceController::class,'index'])->middleware('can:show.package_services');
-    Route::get('/package-services/{id}',[PackageServiceController::class,'show'])->middleware('can:show.package_services');
-    Route::get('/package-service-sub-services',[PackageServiceSubServiceController::class,'index'])->middleware('can:show.package_service_sub_services');
-    Route::get('/package-service-sub-services/{id}',[PackageServiceSubServiceController::class,'show'])->middleware('can:show.package_service_sub_services');
+    Route::get('/categories', [CategoryController::class, 'index'])->middleware('can:show.categories');
+    Route::get('/categories/{id}', [CategoryController::class, 'show'])->middleware('can:show.categories');
+    Route::get('/services', [ServiceController::class, 'index'])->middleware('can:show.services');
+    Route::get('/services/{id}', [ServiceController::class, 'show'])->middleware('can:show.services');
+    Route::get('/sub-services', [SubServiceController::class, 'index'])->middleware('can:show.sub_services');
+    Route::get('/sub-services/{id}', [SubServiceController::class, 'show'])->middleware('can:show.sub_services');
+    Route::get('/car-types', [CarTypeController::class, 'index'])->middleware('can:show.car_types');
+    Route::get('/car-types/{id}', [CarTypeController::class, 'show'])->middleware('can:show.car_types');
+    Route::get('/car-brands', [CarBrandController::class, 'index'])->middleware('can:show.car_brands');
+    Route::get('/car-brands/{id}', [CarBrandController::class, 'show'])->middleware('can:show.car_brands');
+    Route::get('/packages', [PackageController::class, 'index'])->middleware('can:show.packages');
+    Route::get('/packages/{id}', [PackageController::class, 'show'])->middleware('can:show.packages');
+    Route::get('/package-services', [PackageServiceController::class, 'index'])->middleware('can:show.package_services');
+    Route::get('/package-services/{id}', [PackageServiceController::class, 'show'])->middleware('can:show.package_services');
+    Route::get('/package-service-sub-services', [PackageServiceSubServiceController::class, 'index'])->middleware('can:show.package_service_sub_services');
+    Route::get('/package-service-sub-services/{id}', [PackageServiceSubServiceController::class, 'show'])->middleware('can:show.package_service_sub_services');
     Route::get('/pricing-rule-types', [PricingRuleTypeController::class, 'index'])->middleware('can:show.pricing_rule_types');
     Route::get('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'show'])->middleware('can:show.pricing_rule_types');
     Route::get('/pricing-rules', [PricingRuleController::class, 'index'])->middleware('can:show.pricing_rules');
@@ -129,8 +131,6 @@ Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
             Route::get('/showProfile', [UserController::class, 'showProfile']);
             Route::post('/updateProfile', [UserController::class, 'updateProfile']);
         });
-
-
 
 
     /*
@@ -160,37 +160,37 @@ Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
 
     Route::delete('/user-packages/{user_package}', [UserPackageController::class, 'destroy'])->middleware('can:manage.user_packages');
 
-    Route::post('/packages',[PackageController::class,'store'])->middleware('can:manage.packages');
-    Route::post('/packages/{package}',[PackageController::class,'update'])->middleware('can:manage.packages');
-    Route::delete('/packages/{package}',[PackageController::class,'destroy'])->middleware('can:manage.packages');
+    Route::post('/packages', [PackageController::class, 'store'])->middleware('can:manage.packages');
+    Route::post('/packages/{package}', [PackageController::class, 'update'])->middleware('can:manage.packages');
+    Route::delete('/packages/{package}', [PackageController::class, 'destroy'])->middleware('can:manage.packages');
 
-    Route::post('/package-services',[PackageServiceController::class,'store'])->middleware('can:manage.package_services');
-    Route::post('/package-services/{package_service}',[PackageServiceController::class,'update'])->middleware('can:manage.package_services');
-    Route::delete('/package-services/{package_service}',[PackageServiceController::class,'destroy'])->middleware('can:manage.package_services');
+    Route::post('/package-services', [PackageServiceController::class, 'store'])->middleware('can:manage.package_services');
+    Route::post('/package-services/{package_service}', [PackageServiceController::class, 'update'])->middleware('can:manage.package_services');
+    Route::delete('/package-services/{package_service}', [PackageServiceController::class, 'destroy'])->middleware('can:manage.package_services');
 
-    Route::post('/package-service-sub-services',[PackageServiceSubServiceController::class,'store'])->middleware('can:manage.package_service_sub_services');
-    Route::post('/package-service-sub-services/{package_service_sub_service}',[PackageServiceSubServiceController::class,'update'])->middleware('can:manage.package_service_sub_services');
-    Route::delete('/package-service-sub-services/{package_service_sub_service}',[PackageServiceSubServiceController::class,'destroy'])->middleware('can:manage.package_service_sub_services');
+    Route::post('/package-service-sub-services', [PackageServiceSubServiceController::class, 'store'])->middleware('can:manage.package_service_sub_services');
+    Route::post('/package-service-sub-services/{package_service_sub_service}', [PackageServiceSubServiceController::class, 'update'])->middleware('can:manage.package_service_sub_services');
+    Route::delete('/package-service-sub-services/{package_service_sub_service}', [PackageServiceSubServiceController::class, 'destroy'])->middleware('can:manage.package_service_sub_services');
 
-    Route::post('/categories',[CategoryController::class,'store'])->middleware('can:manage.categories');
-    Route::post('/categories/{category}',[CategoryController::class,'update'])->middleware('can:manage.categories');
-    Route::delete('/categories/{category}',[CategoryController::class,'destroy'])->middleware('can:manage.categories');
+    Route::post('/categories', [CategoryController::class, 'store'])->middleware('can:manage.categories');
+    Route::post('/categories/{category}', [CategoryController::class, 'update'])->middleware('can:manage.categories');
+    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->middleware('can:manage.categories');
 
-    Route::post('/services',[ServiceController::class,'store'])->middleware('can:manage.services');
-    Route::post('/services/{service}',[ServiceController::class,'update'])->middleware('can:manage.services');
-    Route::delete('/services/{service}',[ServiceController::class,'destroy'])->middleware('can:manage.services');
+    Route::post('/services', [ServiceController::class, 'store'])->middleware('can:manage.services');
+    Route::post('/services/{service}', [ServiceController::class, 'update'])->middleware('can:manage.services');
+    Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->middleware('can:manage.services');
 
-    Route::post('/sub-services',[SubServiceController::class,'store'])->middleware('can:manage.sub_services');
-    Route::post('/sub-services/{sub_service}',[SubServiceController::class,'update'])->middleware('can:manage.sub_services');
-    Route::delete('/sub-services/{sub_service}',[SubServiceController::class,'destroy'])->middleware('can:manage.sub_services');
+    Route::post('/sub-services', [SubServiceController::class, 'store'])->middleware('can:manage.sub_services');
+    Route::post('/sub-services/{sub_service}', [SubServiceController::class, 'update'])->middleware('can:manage.sub_services');
+    Route::delete('/sub-services/{sub_service}', [SubServiceController::class, 'destroy'])->middleware('can:manage.sub_services');
 
-    Route::post('/car-types',[CarTypeController::class,'store'])->middleware('can:manage.car_types');
-    Route::post('/car-types/{car_type}',[CarTypeController::class,'update'])->middleware('can:manage.car_types');
-    Route::delete('/car-types/{car_type}',[CarTypeController::class,'destroy'])->middleware('can:manage.car_types');
+    Route::post('/car-types', [CarTypeController::class, 'store'])->middleware('can:manage.car_types');
+    Route::post('/car-types/{car_type}', [CarTypeController::class, 'update'])->middleware('can:manage.car_types');
+    Route::delete('/car-types/{car_type}', [CarTypeController::class, 'destroy'])->middleware('can:manage.car_types');
 
-    Route::post('/car-brands',[CarBrandController::class,'store'])->middleware('can:manage.car_brands');
-    Route::post('/car-brands/{car_brand}',[CarBrandController::class,'update'])->middleware('can:manage.car_brands');
-    Route::delete('/car-brands/{car_brand}',[CarBrandController::class,'destroy'])->middleware('can:manage.car_brands');
+    Route::post('/car-brands', [CarBrandController::class, 'store'])->middleware('can:manage.car_brands');
+    Route::post('/car-brands/{car_brand}', [CarBrandController::class, 'update'])->middleware('can:manage.car_brands');
+    Route::delete('/car-brands/{car_brand}', [CarBrandController::class, 'destroy'])->middleware('can:manage.car_brands');
 
     Route::post('/pricing-rule-types', [PricingRuleTypeController::class, 'store'])->middleware('can:add.pricing_rule_types');
     Route::post('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'update'])->middleware('can:edit.pricing_rule_types');
@@ -207,6 +207,49 @@ Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
     Route::post('/admins/{admin}/deactivate', [AdminController::class, 'deactivate'])->middleware('can:edit.admin');
     Route::post('/admins/{admin}/activate', [AdminController::class, 'activate'])->middleware('can:edit.admin');
     Route::delete('/admins/{admin}', [AdminController::class, 'destroy'])->middleware('can:delete.admin');
+
+
+    /*
+|--------------------------------------------------------------------------
+| Super Admin — Personal Customers
+|--------------------------------------------------------------------------
+*/
+
+    Route::get('/customers/personal',[CustomerPersonalController::class, 'index']
+    )->middleware('can:show.personal_customers');
+
+    Route::get(
+        '/customers/personal/{customer}',[CustomerPersonalController::class, 'show']
+    )->middleware('can:show.personal_customers');
+
+    Route::post(
+        '/customers/personal/{customer}',[CustomerPersonalController::class, 'update']
+    )->middleware('can:edit.personal_customers');
+
+    Route::delete(
+        '/customers/personal/{customer}',[CustomerPersonalController::class, 'destroy']
+    )->middleware('can:delete.personal_customers');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Super Admin — Company Customers
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/customers/company',[CustomerCompanyController::class, 'index']
+    )->middleware('can:show.company_customers');
+
+    Route::get(
+        '/customers/company/{customer}',[CustomerCompanyController::class, 'show']
+    )->middleware('can:show.company_customers');
+
+    Route::post('/customers/company/{customer}',[CustomerCompanyController::class, 'update']
+    )->middleware('can:edit.company_customers');
+
+    Route::delete(
+        '/customers/company/{customer}',[CustomerCompanyController::class, 'destroy']
+    )->middleware('can:delete.company_customers');
 
 });
 Route::bind('admin', function ($value) {

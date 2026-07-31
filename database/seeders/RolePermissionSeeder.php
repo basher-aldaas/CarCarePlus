@@ -66,12 +66,25 @@ class RolePermissionSeeder extends Seeder
             'show.otp_codes', 'show.audit_logs',
             'add.staff_account', 'show.registration_requests', 'manage.registration_requests',
 
+// === إدارة العملاء الشخصيين ===
+            'show.personal_customers',
+            'edit.personal_customers',
+            'delete.personal_customers',
+
+// === إدارة عملاء الشركات ===
+            'show.company_customers',
+            'edit.company_customers',
+            'delete.company_customers',
+
             // === الشركات والفروع والموظفين ===
             'add.branch', 'edit.branch', 'delete.branch', 'show.branches',
 
             // === السيارات وأنواعها ===
             'manage.car_types', 'show.car_types',
-            'manage .car_brands', 'show.car_brands',
+            'manageq
+            eefefsf
+
+            .car_brands', 'show.car_brands',
             'add.car', 'edit.car', 'delete.car', 'show.car', 'show.cars', 'show.client.cars',
 
             // === الخدمات والأسعار والتصنيفات ===

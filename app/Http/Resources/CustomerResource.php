@@ -17,9 +17,8 @@ class CustomerResource extends JsonResource
             'image_url' => $this->image_url,
             'is_active' => (bool) $this->is_active,
             'role' => 'customer_personal',
-            'branch_id' => $this->branch_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => $this->created_at?->toDateTimeString(),
+            'updated_at' => $this->updated_at?->toDateTimeString(),
         ];
     }
 }

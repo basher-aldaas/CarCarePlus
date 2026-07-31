@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
@@ -13,17 +12,21 @@ class CustomerCompanyResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'image_url' => $this->image_url,
-            'is_active' => (bool)$this->is_active,
-            'role' => 'customer_company',
-            'branch_id' => $this->branch_id,
-            'company' => new CompanyResource(
-                $this->whenLoaded('company')
+            'name_ar' => $this->name_ar,
+            'commercial_reg' => $this->commercial_reg,
+            'tax_number' => $this->tax_number,
+            'address' => $this->address,
+
+            'status' => $this->status?->value,
+
+            'is_active' => (bool) $this->is_active,
+
+            'owner' => new UserResource(
+                $this->whenLoaded('owner')
             ),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+
+            'created_at' => $this->created_at?->toDateTimeString(),
+            'updated_at' => $this->updated_at?->toDateTimeString(),
         ];
     }
 }

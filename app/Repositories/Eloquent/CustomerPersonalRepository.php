@@ -1,32 +1,35 @@
 <?php
 
-
 namespace App\Repositories\Eloquent;
 
-use App\DTOs\CustomersDTOs\CustomerDTO;
+use App\DTOs\CustomerDTO;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class CustomerPersonalRepository
 {
-    public function getAll(?int $branchId = null): Collection
+    /**
+     * Get all personal customers.
+     */
+    public function getAll(): Collection
     {
-        $query = User::role('customer_personal')
-            ->latest('id');
-
-        if ($branchId !== null) {
-            $query->where('branch_id', $branchId);
-        }
-
-        return $query->get();
+        return User::role('customer_personal')
+            ->latest('id')
+            ->get();
     }
 
+    /**
+     * Find a personal customer by ID.
+     */
     public function findById(int $id): User
     {
         return User::role('customer_personal')
             ->findOrFail($id);
     }
 
+    /**
+     * Update personal customer.
+     */
     public function update(User $customer, CustomerDTO $dto): User
     {
         $data = $dto->toArray();
@@ -40,8 +43,11 @@ class CustomerPersonalRepository
         return $customer->refresh();
     }
 
+    /**
+     * Delete personal customer.
+     */
     public function delete(User $customer): bool
     {
-        return $customer->delete();
+        return (bool) $customer->delete();
     }
 }
