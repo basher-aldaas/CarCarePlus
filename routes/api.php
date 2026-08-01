@@ -15,6 +15,8 @@ use App\Http\Controllers\SuperAdmin\Operations\AiRuleController;
 use App\Http\Controllers\SuperAdmin\Operations\BranchController;
 use App\Http\Controllers\SuperAdmin\Operations\CarBrandController;
 use App\Http\Controllers\SuperAdmin\Operations\CarTypeController;
+use App\Http\Controllers\SuperAdmin\Operations\CustomerCompanyController;
+use App\Http\Controllers\SuperAdmin\Operations\CustomerPersonalController;
 use App\Http\Controllers\SuperAdmin\Operations\InventoryController;
 use App\Http\Controllers\SuperAdmin\Operations\InventoryTransactionController;
 use App\Http\Controllers\SuperAdmin\Operations\MaterialController;
@@ -183,6 +185,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/inventory-transactions', [InventoryTransactionController::class, 'index'])->middleware('can:show.inventory_transactions');
         Route::get('/inventory-transactions/{inventory_transaction}', [InventoryTransactionController::class, 'show'])->middleware('can:show.inventory_transactions');
         Route::post('/inventory-transactions', [InventoryTransactionController::class, 'store'])->middleware('can:manage.inventory_transactions');
+        Route::get('/customers/personal',[CustomerPersonalController::class, 'index'])->middleware('can:show.personal_customers');
+        Route::get('/customers/personal/{customer}',[CustomerPersonalController::class, 'show'])->middleware('can:show.personal_customers');
+        Route::get('/customers/company',[CustomerCompanyController::class, 'index'])->middleware('can:show.company_customers');
+        Route::get('/customers/company/{customer}',[CustomerCompanyController::class, 'show'])->middleware('can:show.company_customers');
+
+
 
     });
     Route::get('/material-units', [MaterialUnitController::class, 'index'])->middleware('can:show.material_units');
@@ -281,7 +289,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/admins/{admin}/activate', [AdminController::class, 'activate'])->middleware('can:edit.admin');
     Route::delete('/admins/{admin}', [AdminController::class, 'destroy'])->middleware('can:delete.admin');
 
+    Route::post('/customers/personal/{customer}',[CustomerPersonalController::class, 'update'])->middleware('can:edit.personal_customers');
+    Route::delete('/customers/personal/{customer}',[CustomerPersonalController::class, 'destroy'])->middleware('can:delete.personal_customers');
+
+    Route::post('/customers/company/{customer}',[CustomerCompanyController::class, 'update'])->middleware('can:edit.company_customers');
+    Route::delete('/customers/company/{customer}',[CustomerCompanyController::class, 'destroy'])->middleware('can:delete.company_customers');
+
+
+
 });
 Route::bind('admin', function ($value) {
     return User::role('admin')->findOrFail($value);
 });
+

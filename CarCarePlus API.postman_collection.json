@@ -8,297 +8,6 @@
 	},
 	"item": [
 		{
-			"name": "Auth",
-			"item": [
-				{
-					"name": "Register Customer (Type 1)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const res = pm.response.json();",
-									"const token = res?.data?.token;",
-									"if (token) { pm.collectionVariables.set('token', token); console.log('token saved'); }"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "bashir",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "bashir2.d.aldaas@gmail.com",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "0994875922",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "11111111",
-									"type": "text"
-								},
-								{
-									"key": "password_confirmation",
-									"value": "11111111",
-									"type": "text"
-								},
-								{
-									"key": "is_active",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "image_url",
-									"type": "file",
-									"src": [],
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/register/customer",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"register",
-								"customer"
-							]
-						},
-						"description": "Personal customer self-registration. Active immediately and returns a token.\n\nNote: `image_url` is an optional image upload (jpg/jpeg/png/webp, max 2MB) — use form-data if you want to send it."
-					},
-					"response": []
-				},
-				{
-					"name": "Register Company (Type 2a)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Company Owner\",\n    \"email\": \"company2@example.com\",\n    \"phone\": \"0500000222\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"is_active\": false,\n    \"company_name\": \"Acme Auto\",\n    \"company_name_ar\": \"أكمي أوتو\",\n    \"commercial_reg\": \"CR-1234562\",\n    \"tax_number\": \"TAX-1234526\",\n    \"company_address\": \"123 King Fahd Rd, Riyadh\"\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/register/company",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"register",
-								"company"
-							]
-						},
-						"description": "Company customer submits a registration request. Pending super-admin approval (no token issued)."
-					},
-					"response": []
-				},
-				{
-					"name": "Register Workshop (Type 2b)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Workshop Owner\",\n    \"email\": \"workshop@example.com\",\n    \"phone\": \"0500003003\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"is_active\": false,\n    \"workshop_name\": \"Speedy Garage\",\n    \"workshop_name_ar\": \"الكراج السريع\",\n    \"workshop_address\": \"45 Olaya St, Riyadh\",\n    \"workshop_city\": \"Riyadh\",\n    \"latitude\": 24.7136,\n    \"longitude\": 46.6753\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/register/workshop",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"register",
-								"workshop"
-							]
-						},
-						"description": "Workshop submits a registration request. Pending super-admin approval (no token issued)."
-					},
-					"response": []
-				},
-				{
-					"name": "Login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const res = pm.response.json();",
-									"const token = res?.data?.token;",
-									"if (token) { pm.collectionVariables.set('token', token); console.log('token saved'); }"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"company@system.com\",\n    \"password\": \"password123\"\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/login",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"login"
-							]
-						},
-						"description": "Log in and receive a Sanctum token. The token is saved to the `token` collection variable automatically."
-					},
-					"response": []
-				},
-				{
-					"name": "Logout",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "email",
-									"value": "",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/logout",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"logout"
-							]
-						},
-						"description": "Revoke the current access token. Requires auth:sanctum."
-					},
-					"response": []
-				},
-				{
-					"name": "Get Authenticated User",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "{{base_url}}/api/user",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"user"
-							]
-						},
-						"description": "Return the currently authenticated user. Requires auth:sanctum."
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Password",
 			"item": [
 				{
@@ -1397,6 +1106,1323 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"مدير الفرع الرئيسي\",\n        \"email\": \"admin@system.com\",\n        \"phone\": \"0500000033\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/006622?text=people+libero\",\n        \"is_active\": false,\n        \"role\": \"admin\",\n        \"created_at\": \"2026-07-30T09:31:34.000000Z\",\n        \"updated_at\": \"2026-07-30T11:06:58.000000Z\"\n    },\n    \"message\": \"Admin deactivated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T11:06:58+00:00\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "CRUD customar",
+					"item": [
+						{
+							"name": "Personal Customers",
+							"item": [
+								{
+									"name": "INDEX",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{admin}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/customers/personal",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"customers",
+												"personal"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA,A",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 19:49:03 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 27,\n            \"name\": \"Ed Thompson\",\n            \"email\": \"goyette.dayna@example.net\",\n            \"phone\": \"0982653030\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/005500?text=people+quae\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:28\",\n            \"updated_at\": \"2026-07-31 19:43:28\"\n        },\n        {\n            \"id\": 26,\n            \"name\": \"Maximilian Kulas\",\n            \"email\": \"haylee11@example.com\",\n            \"phone\": \"0901048423\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/002233?text=people+consequatur\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:28\",\n            \"updated_at\": \"2026-07-31 19:43:28\"\n        },\n        {\n            \"id\": 25,\n            \"name\": \"Prof. Lupe Cartwright\",\n            \"email\": \"augustine.braun@example.net\",\n            \"phone\": \"0953782921\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0088ff?text=people+sed\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 24,\n            \"name\": \"Darien Schaefer\",\n            \"email\": \"logan77@example.com\",\n            \"phone\": \"0901093112\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00aabb?text=people+autem\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 23,\n            \"name\": \"Caesar Buckridge\",\n            \"email\": \"kiana13@example.org\",\n            \"phone\": \"0994100735\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00aaee?text=people+excepturi\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 22,\n            \"name\": \"Peggie Bayer\",\n            \"email\": \"miller.hilbert@example.org\",\n            \"phone\": \"0941703350\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/005500?text=people+incidunt\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 21,\n            \"name\": \"Joshua Marvin\",\n            \"email\": \"wcremin@example.com\",\n            \"phone\": \"0947342383\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00aa22?text=people+dolores\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:26\",\n            \"updated_at\": \"2026-07-31 19:43:26\"\n        },\n        {\n            \"id\": 20,\n            \"name\": \"Dr. Ernie Paucek V\",\n            \"email\": \"dach.abigail@example.com\",\n            \"phone\": \"0934553196\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00bb66?text=people+cupiditate\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:26\",\n            \"updated_at\": \"2026-07-31 19:43:26\"\n        },\n        {\n            \"id\": 19,\n            \"name\": \"Enid Bechtelar\",\n            \"email\": \"dmarquardt@example.org\",\n            \"phone\": \"0999498215\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/000066?text=people+similique\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:26\",\n            \"updated_at\": \"2026-07-31 19:43:26\"\n        },\n        {\n            \"id\": 18,\n            \"name\": \"Vita D'Amore II\",\n            \"email\": \"hdubuque@example.org\",\n            \"phone\": \"0972833474\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00eebb?text=people+voluptates\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 17,\n            \"name\": \"Leif Dietrich V\",\n            \"email\": \"kennedy.heathcote@example.org\",\n            \"phone\": \"0983015328\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/003311?text=people+facere\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 16,\n            \"name\": \"Elouise Dach\",\n            \"email\": \"heidenreich.edwardo@example.net\",\n            \"phone\": \"0986978901\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ee00?text=people+architecto\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 15,\n            \"name\": \"Julia Lubowitz\",\n            \"email\": \"xkeeling@example.net\",\n            \"phone\": \"0974282380\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/006611?text=people+est\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 14,\n            \"name\": \"Greg Spencer\",\n            \"email\": \"jules.rice@example.com\",\n            \"phone\": \"0922873873\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ffbb?text=people+eum\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 13,\n            \"name\": \"Lesley Cole\",\n            \"email\": \"alberto35@example.org\",\n            \"phone\": \"0935384136\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0000cc?text=people+quidem\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 12,\n            \"name\": \"Kaci Rutherford\",\n            \"email\": \"lakin.mariane@example.org\",\n            \"phone\": \"0983601173\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0066ee?text=people+modi\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 11,\n            \"name\": \"Dr. Russ Ryan\",\n            \"email\": \"adell.dickens@example.com\",\n            \"phone\": \"0974508038\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/000011?text=people+ducimus\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 10,\n            \"name\": \"Dr. Raul Batz\",\n            \"email\": \"garett.hodkiewicz@example.net\",\n            \"phone\": \"0981416407\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ee66?text=people+sit\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:23\",\n            \"updated_at\": \"2026-07-31 19:43:23\"\n        },\n        {\n            \"id\": 9,\n            \"name\": \"Chaya Wiza\",\n            \"email\": \"jadyn24@example.org\",\n            \"phone\": \"0937256157\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0099dd?text=people+praesentium\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:23\",\n            \"updated_at\": \"2026-07-31 19:43:23\"\n        },\n        {\n            \"id\": 8,\n            \"name\": \"Madison Ratke\",\n            \"email\": \"iprosacco@example.net\",\n            \"phone\": \"0947284184\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00eedd?text=people+excepturi\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:23\",\n            \"updated_at\": \"2026-07-31 19:43:23\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"أحمد العتيبي (عميل)\",\n            \"email\": \"customer@system.com\",\n            \"phone\": \"0500000004\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0033ee?text=people+molestiae\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:21\",\n            \"updated_at\": \"2026-07-31 19:43:21\"\n        }\n    ],\n    \"message\": \"Personal customers fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:49:03+00:00\"\n}"
+										},
+										{
+											"name": "admin is active",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 01 Aug 2026 10:57:59 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
+										}
+									]
+								},
+								{
+									"name": "show {id}",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{admin}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/customers/personal/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"customers",
+												"personal",
+												"1"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA,A",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal/4",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal",
+														"4"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 19:47:12 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 4,\n        \"name\": \"أحمد العتيبي (عميل)\",\n        \"email\": \"customer@system.com\",\n        \"phone\": \"0500000004\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/0033ee?text=people+molestiae\",\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:21\",\n        \"updated_at\": \"2026-07-31 19:43:21\"\n    },\n    \"message\": \"Personal customer fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:47:12+00:00\"\n}"
+										},
+										{
+											"name": "admin inactive",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal/1",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal",
+														"1"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 01 Aug 2026 10:59:02 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
+										}
+									]
+								},
+								{
+									"name": "delete",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/super-admin/operations/customers/personal/7",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"super-admin",
+												"operations",
+												"customers",
+												"personal",
+												"7"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal/25",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal",
+														"25"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 19:50:28 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Personal customer deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:50:28+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "UPDATE customar personal",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/customers/personal/4",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"customers",
+												"personal",
+												"4"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal/16",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal",
+														"16"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 20:04:28 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 16,\n        \"name\": \"Ahmad Khaled\",\n        \"email\": \"heidenreich.edwardo@example.net\",\n        \"phone\": \"0986978901\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/00ee00?text=people+architecto\",\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:25\",\n        \"updated_at\": \"2026-07-31 20:04:28\"\n    },\n    \"message\": \"Personal customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:04:28+00:00\"\n}"
+										},
+										{
+											"name": "success update is active = 0",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "is_active",
+															"value": "0",
+															"type": "text"
+														}
+													],
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal/16",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal",
+														"16"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 20:08:52 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 16,\n        \"name\": \"Ahmad Khaled\",\n        \"email\": \"heidenreich.edwardo@example.net\",\n        \"phone\": \"0986978901\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/00ee00?text=people+architecto\",\n        \"is_active\": false,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:25\",\n        \"updated_at\": \"2026-07-31 20:08:51\"\n    },\n    \"message\": \"Personal customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:08:52+00:00\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "CustomersCompany",
+							"item": [
+								{
+									"name": "INDEX",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{admin}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/customers/company",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"customers",
+												"company"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA,A",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/customers/company",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"company"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 20:13:39 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 29,\n            \"name\": \"Company Owner\",\n            \"name_ar\": null,\n            \"commercial_reg\": null,\n            \"tax_number\": null,\n            \"address\": null,\n            \"status\": null,\n            \"is_active\": false,\n            \"created_at\": \"2026-07-31 20:13:10\",\n            \"updated_at\": \"2026-07-31 20:13:10\"\n        },\n        {\n            \"id\": 28,\n            \"name\": \"Company Owner\",\n            \"name_ar\": null,\n            \"commercial_reg\": null,\n            \"tax_number\": null,\n            \"address\": null,\n            \"status\": null,\n            \"is_active\": false,\n            \"created_at\": \"2026-07-31 20:12:33\",\n            \"updated_at\": \"2026-07-31 20:12:33\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"شركة أسطول النقل\",\n            \"name_ar\": null,\n            \"commercial_reg\": null,\n            \"tax_number\": null,\n            \"address\": null,\n            \"status\": null,\n            \"is_active\": true,\n            \"created_at\": \"2026-07-31 19:43:21\",\n            \"updated_at\": \"2026-07-31 19:43:21\"\n        }\n    ],\n    \"message\": \"Company customers fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:13:39+00:00\"\n}"
+										},
+										{
+											"name": "admin inactive",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/customers/company",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"company"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 01 Aug 2026 11:00:21 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
+										}
+									]
+								},
+								{
+									"name": "show {id}",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{admin}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/customers/company/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"customers",
+												"company",
+												"1"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA,A",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal/4",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal",
+														"4"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 19:47:12 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 4,\n        \"name\": \"أحمد العتيبي (عميل)\",\n        \"email\": \"customer@system.com\",\n        \"phone\": \"0500000004\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/0033ee?text=people+molestiae\",\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:21\",\n        \"updated_at\": \"2026-07-31 19:43:21\"\n    },\n    \"message\": \"Personal customer fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:47:12+00:00\"\n}"
+										},
+										{
+											"name": "success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/customers/company/29",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"company",
+														"29"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 20:14:20 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Company Owner\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": false,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:13:10\"\n    },\n    \"message\": \"Company customer fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:14:20+00:00\"\n}"
+										},
+										{
+											"name": "admin inactive",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/customers/company/1",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"company",
+														"1"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 01 Aug 2026 11:00:55 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
+										}
+									]
+								},
+								{
+									"name": "delete",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/customers/company/5",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"customers",
+												"company",
+												"5"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/customers/company/30",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"company",
+														"30"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 20:25:19 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Company customer deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:25:19+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "UPDATE customar company",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/customers/personal/4",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"customers",
+												"personal",
+												"4"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/customers/company/29",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"company",
+														"29"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 20:15:48 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Ahmad Khaled\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": false,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:14:55\"\n    },\n    \"message\": \"Company customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:15:48+00:00\"\n}"
+										},
+										{
+											"name": "UPDATE customar company",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "is_active",
+															"value": "1",
+															"type": "text"
+														}
+													],
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/customers/company/29",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"company",
+														"29"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 20:16:27 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Ahmad Khaled\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": true,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:16:27\"\n    },\n    \"message\": \"Company customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:16:27+00:00\"\n}"
+										},
+										{
+											"name": "success update is_active =1",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "is_active",
+															"value": "1",
+															"type": "text"
+														}
+													],
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/customers/company/29",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"company",
+														"29"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 31 Jul 2026 20:16:27 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Ahmad Khaled\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": true,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:16:27\"\n    },\n    \"message\": \"Company customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:16:27+00:00\"\n}"
+										}
+									]
 								}
 							]
 						}
@@ -8105,16 +9131,6 @@
 								{
 									"name": "admin or employee inactive Copy",
 									"originalRequest": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{customer1-token}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [
 											{
@@ -8129,21 +9145,51 @@
 											}
 										],
 										"url": {
-											"raw": "{{base_url}}/api/pricing-rules/1",
+											"raw": "{{base_url}}/api/pricing-rules",
 											"host": [
 												"{{base_url}}"
 											],
 											"path": [
 												"api",
-												"pricing-rules",
-												"1"
+												"pricing-rules"
 											]
 										}
 									},
-									"_postman_previewlanguage": "",
-									"header": "",
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 31 Jul 2026 21:19:08 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
 									"cookie": [],
-									"body": ""
+									"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
 								}
 							]
 						},
@@ -19911,6 +20957,843 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register Customer (Type 1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json();",
+									"const token = res?.data?.token;",
+									"if (token) { pm.collectionVariables.set('token', token); console.log('token saved'); }"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "bashirقق",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "bashir2.d.aldaasقق@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0994875924",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "11111111",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "11111111",
+									"type": "text"
+								},
+								{
+									"key": "is_active",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "image_url",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register/customer",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register",
+								"customer"
+							]
+						},
+						"description": "Personal customer self-registration. Active immediately and returns a token.\n\nNote: `image_url` is an optional image upload (jpg/jpeg/png/webp, max 2MB) — use form-data if you want to send it."
+					},
+					"response": [
+						{
+							"name": "Register Customer (Type 1)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "bashir",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "bashir2.d.aldaas@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "0994875922",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "11111111",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "11111111",
+											"type": "text"
+										},
+										{
+											"key": "is_active",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "image_url",
+											"type": "file",
+											"src": [],
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/register/customer",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"register",
+										"customer"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.30"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Jul 2026 04:13:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 31,\n        \"name\": \"bashir\",\n        \"email\": \"bashir2.d.aldaas@gmail.com\",\n        \"phone\": \"0994875922\",\n        \"image_url\": null,\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"token\": \"3|404kUgZgeviiiggjlXVGiKbWNPQcdnWSXRTUhUlV962c2fa7\"\n    },\n    \"message\": \"Account registered successfully\",\n    \"status_code\": 201,\n    \"timestamp\": \"2026-07-30T04:13:24+00:00\"\n}"
+						},
+						{
+							"name": "Register Customer (Type 1)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "bashirقق",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "bashir2.d.aldaasقق@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "0994875924",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "11111111",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "11111111",
+											"type": "text"
+										},
+										{
+											"key": "is_active",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "image_url",
+											"type": "file",
+											"src": [],
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/register/customer",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"register",
+										"customer"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.30"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Jul 2026 09:30:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 32,\n        \"name\": \"bashirقق\",\n        \"email\": \"bashir2.d.aldaasقق@gmail.com\",\n        \"phone\": \"0994875924\",\n        \"image_url\": null,\n        \"is_active\": true,\n        \"token\": \"5|Cn72eRAYoj7i1nOBXUsjlnKLauHVRwzruquNH2at759f64df\"\n    },\n    \"message\": \"Account registered successfully\",\n    \"status_code\": 201,\n    \"timestamp\": \"2026-07-30T09:30:02+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Register Company (Type 2a)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Company Owner\",\n    \"email\": \"company2@example.com\",\n    \"phone\": \"0500000222\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"is_active\": false,\n    \"company_name\": \"Acme Auto\",\n    \"company_name_ar\": \"أكمي أوتو\",\n    \"commercial_reg\": \"CR-1234562\",\n    \"tax_number\": \"TAX-1234526\",\n    \"company_address\": \"123 King Fahd Rd, Riyadh\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register/company",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register",
+								"company"
+							]
+						},
+						"description": "Company customer submits a registration request. Pending super-admin approval (no token issued)."
+					},
+					"response": [
+						{
+							"name": "Register Company (Type 2a)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Company Owner\",\n    \"email\": \"company2@example.com\",\n    \"phone\": \"0500000222\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"is_active\": false,\n    \"company_name\": \"Acme Auto\",\n    \"company_name_ar\": \"أكمي أوتو\",\n    \"commercial_reg\": \"CR-1234562\",\n    \"tax_number\": \"TAX-1234526\",\n    \"company_address\": \"123 King Fahd Rd, Riyadh\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/register/company",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"register",
+										"company"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.30"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Jul 2026 09:38:21 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 33,\n        \"name\": \"Company Owner\",\n        \"email\": \"company2@example.com\",\n        \"phone\": \"0500000222\",\n        \"image_url\": null,\n        \"is_active\": false\n    },\n    \"message\": \"Registration request submitted and is pending approval\",\n    \"status_code\": 201,\n    \"timestamp\": \"2026-07-30T09:38:21+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Register Workshop (Type 2b)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Workshop Owner\",\n    \"email\": \"workshop@example.com\",\n    \"phone\": \"0500003003\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"is_active\": false,\n    \"workshop_name\": \"Speedy Garage\",\n    \"workshop_name_ar\": \"الكراج السريع\",\n    \"workshop_address\": \"45 Olaya St, Riyadh\",\n    \"workshop_city\": \"Riyadh\",\n    \"latitude\": 24.7136,\n    \"longitude\": 46.6753\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register/workshop",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register",
+								"workshop"
+							]
+						},
+						"description": "Workshop submits a registration request. Pending super-admin approval (no token issued)."
+					},
+					"response": [
+						{
+							"name": "Register Workshop (Type 2b)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Workshop Owner\",\n    \"email\": \"workshop@example.com\",\n    \"phone\": \"0500003003\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\",\n    \"is_active\": false,\n    \"workshop_name\": \"Speedy Garage\",\n    \"workshop_name_ar\": \"الكراج السريع\",\n    \"workshop_address\": \"45 Olaya St, Riyadh\",\n    \"workshop_city\": \"Riyadh\",\n    \"latitude\": 24.7136,\n    \"longitude\": 46.6753\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/register/workshop",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"register",
+										"workshop"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.30"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Jul 2026 09:38:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 34,\n        \"name\": \"Workshop Owner\",\n        \"email\": \"workshop@example.com\",\n        \"phone\": \"0500003003\",\n        \"image_url\": null,\n        \"is_active\": false\n    },\n    \"message\": \"Registration request submitted and is pending approval\",\n    \"status_code\": 201,\n    \"timestamp\": \"2026-07-30T09:38:38+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res = pm.response.json();",
+									"const token = res?.data?.token;",
+									"if (token) { pm.collectionVariables.set('token', token); console.log('token saved'); }"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"bashir2.d.aldaas@gmail.com\",\n    \"password\": \"11111111\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Log in and receive a Sanctum token. The token is saved to the `token` collection variable automatically."
+					},
+					"response": [
+						{
+							"name": "as admin",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@system.com\",\n    \"password\": \"password123\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.30"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Jul 2026 00:30:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"مدير الفرع الرئيسي\",\n        \"email\": \"admin@system.com\",\n        \"phone\": \"0500000002\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/002211?text=people+et\",\n        \"is_active\": true,\n        \"role\": \"admin\",\n        \"token\": \"5|Rr2nGTBjFBg0WtspdoJfkeonWM1R7ZHbFWZmzD7Xb3c43424\"\n    },\n    \"message\": \"Logged in successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T00:30:13+00:00\"\n}"
+						},
+						{
+							"name": "as super admin",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"superadmin@system.com\",\n    \"password\": \"password123\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.30"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Jul 2026 01:02:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"المدير العام\",\n        \"email\": \"superadmin@system.com\",\n        \"phone\": \"0500000001\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/008855?text=people+at\",\n        \"is_active\": true,\n        \"role\": \"super_admin\",\n        \"token\": \"2|Bd1Qlb1iPmDA17w8nsYoLFYiHPUjdAcg9fSMaqAs0701f2b7\"\n    },\n    \"message\": \"Logged in successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T01:02:45+00:00\"\n}"
+						},
+						{
+							"name": "success as customar",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"bashir2.d.aldaas@gmail.com\",\n    \"password\": \"11111111\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.30"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Jul 2026 04:14:39 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 31,\n        \"name\": \"bashir\",\n        \"email\": \"bashir2.d.aldaas@gmail.com\",\n        \"phone\": \"0994875922\",\n        \"image_url\": null,\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"token\": \"4|uIvY8HROUnsXXQERqaTa6S3U0AiE9ai50UsGHnkj1cfca79b\"\n    },\n    \"message\": \"Logged in successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T04:14:39+00:00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Revoke the current access token. Requires auth:sanctum."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Authenticated User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{base_url}}/api/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						},
+						"description": "Return the currently authenticated user. Requires auth:sanctum."
+					},
+					"response": []
 				}
 			]
 		}
