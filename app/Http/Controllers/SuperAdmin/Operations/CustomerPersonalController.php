@@ -13,13 +13,18 @@ use Illuminate\Http\JsonResponse;
 
 class CustomerPersonalController extends Controller
 {
+    protected $customerService;
+
     public function __construct(
-        protected CustomerPersonalService $customerService
-    ) {}
+        CustomerPersonalService $customerService
+    ) {
+        $this->customerService = $customerService;
+    }
 
     /**
      * List all personal customers.
      */
+
     public function index(): JsonResponse
     {
         return Response::Success(
@@ -35,6 +40,7 @@ class CustomerPersonalController extends Controller
      */
     public function show(User $customer): JsonResponse
     {
+
         $customer = $this->customerService->show($customer);
 
         return Response::Success(
@@ -50,9 +56,22 @@ class CustomerPersonalController extends Controller
         UpdateCustomerRequest $request,
         User $customer
     ): JsonResponse {
-        $dto = CustomerDTO::fromArray(
-            $request->validated()
-        );
+
+        $user = auth()->user();
+
+        $data = $request->validated();
+
+        /*
+        customer cannot edit is_active
+        */
+
+        if (!$user->hasRole('super_admin')) {
+
+            unset($data['is_active']);
+
+        }
+
+        $dto = CustomerDTO::fromArray($data);
 
         $customer = $this->customerService->update(
             $customer,
@@ -64,7 +83,6 @@ class CustomerPersonalController extends Controller
             message: __('Personal customer updated successfully')
         );
     }
-
     /**
      * Delete one personal customer.
      */
@@ -75,6 +93,33 @@ class CustomerPersonalController extends Controller
         return Response::Success(
             data: [],
             message: __('Personal customer deleted successfully')
+        );
+    }
+
+    public function myProfile(): JsonResponse
+    {
+        return Response::Success(
+            data: new CustomerResource(auth()->user()->refresh()),
+            message: __('Profile fetched successfully')
+        );
+    }
+
+    public function updateMyProfile(
+        UpdateCustomerRequest $request
+    ): JsonResponse {
+
+        $dto = CustomerDTO::fromArray(
+            $request->validated()
+        );
+
+        $customer = $this->customerService->update(
+            auth()->user(),
+            $dto
+        );
+
+        return Response::Success(
+            data: new CustomerResource($customer),
+            message: __('Profile updated successfully')
         );
     }
 }

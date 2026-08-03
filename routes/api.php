@@ -6,11 +6,13 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Operations\CarController;
 use App\Http\Controllers\Operations\CategoryController;
+use App\Http\Controllers\Operations\CompanyController;
 use App\Http\Controllers\Operations\PointController;
 use App\Http\Controllers\Operations\PointsTransactionController;
 use App\Http\Controllers\Operations\ServiceController;
 use App\Http\Controllers\Operations\UserController;
 use App\Http\Controllers\Operations\UserPackageController;
+use App\Http\Controllers\Operations\WorkshopController;
 use App\Http\Controllers\SuperAdmin\Operations\AiRuleController;
 use App\Http\Controllers\SuperAdmin\Operations\BranchController;
 use App\Http\Controllers\SuperAdmin\Operations\CarBrandController;
@@ -144,6 +146,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/updateProfile', [UserController::class, 'updateProfile']);
         });
 
+    Route::get(
+        '/companies',[CompanyController::class,'index'])->middleware('can:show.companies');
+
+
+
+
 
     //for SA & A & Employee
     Route::middleware('active.user')->group(function (){
@@ -168,7 +176,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('user-packages/show/{user_package}', [UserPackageController::class, 'show'])->middleware('can:show.user_packages');
         Route::post('/user-packages/{customer_id?}', [UserPackageController::class, 'store'])->middleware('can:add.user_package');
         Route::post('/user-packages/update/{user_package}', [UserPackageController::class, 'update'])->middleware('can:edit.user_package');
+        Route::get('/companies/my',[CompanyController::class,'myCompany'])
+            ->middleware('can:show.companies');
 
+        Route::get('/companies/{company}',[CompanyController::class,'show'])
+            ->middleware('can:show.companies');
+
+        Route::post('/companies/{company}',[CompanyController::class,'update'])
+            ->middleware('can:edit.company');
+
+        Route::delete('/companies/{company}',[CompanyController::class,'destroy'])
+            ->middleware('can:delete.company');
     });
 
 
@@ -190,6 +208,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/customers/company',[CustomerCompanyController::class, 'index'])->middleware('can:show.company_customers');
         Route::get('/customers/company/{customer}',[CustomerCompanyController::class, 'show'])->middleware('can:show.company_customers');
 
+        Route::get('/workshops', [WorkshopController::class, 'index'])->middleware('can:show.workshops');
+        Route::get('/workshops/my', [WorkshopController::class, 'myWorkshop'])->middleware('can:show.workshops');
+        Route::get('/workshops/{workshop}', [WorkshopController::class, 'show'])->middleware('can:show.workshops');
 
 
     });
@@ -295,7 +316,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/customers/company/{customer}',[CustomerCompanyController::class, 'update'])->middleware('can:edit.company_customers');
     Route::delete('/customers/company/{customer}',[CustomerCompanyController::class, 'destroy'])->middleware('can:delete.company_customers');
 
-
+    Route::post('/workshops', [WorkshopController::class, 'store'])->middleware('can:add.workshop');
+    Route::post('/workshops/{workshop}', [WorkshopController::class, 'update'])->middleware('can:edit.workshop');
+    Route::delete('/workshops/{workshop}', [WorkshopController::class, 'destroy'])->middleware('can:delete.workshop');
 
 });
 Route::bind('admin', function ($value) {

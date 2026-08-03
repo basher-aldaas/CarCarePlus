@@ -1,18 +1,19 @@
 <?php
 
 namespace Database\Seeders;
-
+use App\Models\User;
 use App\Enums\WorkshopStatus;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class WorkshopSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
+        $owner = User::where('email', 'workshop@system.com')->first();
         DB::table('workshops')->updateOrInsert(
             ['id' => 1],
-            [
+            [   'user_id' => $owner->id,
                 'name' => 'Al-Tamyoz Workshop',
                 'name_ar' => 'مركز صيانة التميز',
                 'address' => 'المنطقة الصناعية، مخرج 18',

@@ -87,6 +87,8 @@ class RegistrationApprovalService
         return $workshop;
     }
 
+
+
     public function rejectWorkshop(Workshop $workshop, ?string $reason = null): Workshop
     {
         $workshop = DB::transaction(function () use ($workshop) {
@@ -101,4 +103,5 @@ class RegistrationApprovalService
 
         return $workshop;
     }
+
 }

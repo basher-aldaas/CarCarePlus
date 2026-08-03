@@ -36,7 +36,8 @@ class UserSeeder extends Seeder
             'phone' => '0500000003',
             'password' => bcrypt('password123'),
             'is_active' => true,
-        ]);
+           // 'owner'=>'شركة سامر '
+            ]);
         $workshop->assignRole('workshop');
 
         // 4. حساب عميل أفراد

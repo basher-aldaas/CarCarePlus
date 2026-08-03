@@ -455,21 +455,87 @@
 					]
 				},
 				{
-					"name": "CRUD admin",
+					"name": "crud and operation workshop",
 					"item": [
 						{
-							"name": "index",
+							"name": "show his profile",
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{super-token}}",
-											"type": "string"
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": [
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/workshops/my",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"workshops",
+												"my"
+											]
 										}
-									]
-								},
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.30"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 02 Aug 2026 21:24:47 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 6,\n        \"name\": \"Speedy Garage\",\n        \"name_ar\": \"الكراج السريع\",\n        \"address\": \"45 Olaya St, Riyadh\",\n        \"city\": \"Riyadh\",\n        \"latitude\": \"24.7136000\",\n        \"longitude\": \"46.6753000\",\n        \"status\": \"approved\",\n        \"rating_avg\": \"0.00\",\n        \"created_at\": \"2026-08-02\"\n    },\n    \"message\": \"Workshop retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-02T21:24:47+00:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "edit",
+							"request": {
 								"method": "GET",
 								"header": [
 									{
@@ -484,20 +550,1990 @@
 									}
 								],
 								"url": {
-									"raw": "{{base_url}}/api/admins",
+									"raw": ""
+								}
+							},
+							"response": [
+								{
+									"name": "can't edit other workshop.",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\":\"New work\",\r\n\r\n    \"name_ar\":\"اسم جديد\",\r\n\r\n    \"address\":\"New Address\",\r\n\r\n    \"city\":\"Jeddah\",\r\n\r\n    \"latitude\":21.55,\r\n\r\n    \"longitude\":39.17\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/workshops/4",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"workshops",
+												"4"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.30"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 02 Aug 2026 21:28:46 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": null,\n    \"message\": \"Unauthorized\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-02T21:28:46+00:00\"\n}"
+								},
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\":\"New work\",\r\n\r\n    \"name_ar\":\"اسم جديد\",\r\n\r\n    \"address\":\"New Address\",\r\n\r\n    \"city\":\"Jeddah\",\r\n\r\n    \"latitude\":21.55,\r\n\r\n    \"longitude\":39.17\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/workshops/6",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"workshops",
+												"6"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.30"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 02 Aug 2026 21:29:56 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 6,\n        \"name\": \"New work\",\n        \"name_ar\": \"اسم جديد\",\n        \"address\": \"New Address\",\n        \"city\": \"Jeddah\",\n        \"latitude\": \"21.5500000\",\n        \"longitude\": \"39.1700000\",\n        \"status\": \"approved\",\n        \"rating_avg\": \"0.00\",\n        \"created_at\": \"2026-08-02\"\n    },\n    \"message\": \"Workshop updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-02T21:29:56+00:00\"\n}"
+								},
+								{
+									"name": "he cant edit status from his self ints only from super",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"status\":\"rejected\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}/api/workshops/6",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"workshops",
+												"6"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.30"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 02 Aug 2026 21:32:23 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 6,\n        \"name\": \"New work\",\n        \"name_ar\": \"اسم جديد\",\n        \"address\": \"New Address\",\n        \"city\": \"Jeddah\",\n        \"latitude\": \"21.5500000\",\n        \"longitude\": \"39.1700000\",\n        \"status\": \"approved\",\n        \"rating_avg\": \"0.00\",\n        \"created_at\": \"2026-08-02\"\n    },\n    \"message\": \"Workshop updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-02T21:32:23+00:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": [
+								{
+									"name": "he cant delete its only from super",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/workshops/6",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"workshops",
+												"6"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.30"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 02 Aug 2026 21:34:03 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-02T21:34:03+00:00\"\n}"
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{auth_secret_0o54}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "crud and operation company",
+					"item": [
+						{
+							"name": "show his profile",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/companies/my",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
-										"admins"
+										"companies",
+										"my"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"name\":\"New Company\",\r\n\"address\":\"Damascus\",\r\n\"status\":\"approved\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/companies/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"companies",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{auth_secret_1dpj}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "crud and operation  customar_personal",
+					"item": [
+						{
+							"name": "CRUD customar",
+							"item": [
+								{
+									"name": "Personal Customers",
+									"item": [
+										{
+											"name": "INDEX",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{admin}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "success for SA,A",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json",
+																"type": "text"
+															},
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"url": {
+															"raw": "{{base_url}}/api/customers/personal",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"personal"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 19:49:03 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 27,\n            \"name\": \"Ed Thompson\",\n            \"email\": \"goyette.dayna@example.net\",\n            \"phone\": \"0982653030\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/005500?text=people+quae\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:28\",\n            \"updated_at\": \"2026-07-31 19:43:28\"\n        },\n        {\n            \"id\": 26,\n            \"name\": \"Maximilian Kulas\",\n            \"email\": \"haylee11@example.com\",\n            \"phone\": \"0901048423\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/002233?text=people+consequatur\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:28\",\n            \"updated_at\": \"2026-07-31 19:43:28\"\n        },\n        {\n            \"id\": 25,\n            \"name\": \"Prof. Lupe Cartwright\",\n            \"email\": \"augustine.braun@example.net\",\n            \"phone\": \"0953782921\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0088ff?text=people+sed\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 24,\n            \"name\": \"Darien Schaefer\",\n            \"email\": \"logan77@example.com\",\n            \"phone\": \"0901093112\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00aabb?text=people+autem\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 23,\n            \"name\": \"Caesar Buckridge\",\n            \"email\": \"kiana13@example.org\",\n            \"phone\": \"0994100735\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00aaee?text=people+excepturi\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 22,\n            \"name\": \"Peggie Bayer\",\n            \"email\": \"miller.hilbert@example.org\",\n            \"phone\": \"0941703350\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/005500?text=people+incidunt\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 21,\n            \"name\": \"Joshua Marvin\",\n            \"email\": \"wcremin@example.com\",\n            \"phone\": \"0947342383\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00aa22?text=people+dolores\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:26\",\n            \"updated_at\": \"2026-07-31 19:43:26\"\n        },\n        {\n            \"id\": 20,\n            \"name\": \"Dr. Ernie Paucek V\",\n            \"email\": \"dach.abigail@example.com\",\n            \"phone\": \"0934553196\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00bb66?text=people+cupiditate\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:26\",\n            \"updated_at\": \"2026-07-31 19:43:26\"\n        },\n        {\n            \"id\": 19,\n            \"name\": \"Enid Bechtelar\",\n            \"email\": \"dmarquardt@example.org\",\n            \"phone\": \"0999498215\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/000066?text=people+similique\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:26\",\n            \"updated_at\": \"2026-07-31 19:43:26\"\n        },\n        {\n            \"id\": 18,\n            \"name\": \"Vita D'Amore II\",\n            \"email\": \"hdubuque@example.org\",\n            \"phone\": \"0972833474\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00eebb?text=people+voluptates\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 17,\n            \"name\": \"Leif Dietrich V\",\n            \"email\": \"kennedy.heathcote@example.org\",\n            \"phone\": \"0983015328\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/003311?text=people+facere\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 16,\n            \"name\": \"Elouise Dach\",\n            \"email\": \"heidenreich.edwardo@example.net\",\n            \"phone\": \"0986978901\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ee00?text=people+architecto\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 15,\n            \"name\": \"Julia Lubowitz\",\n            \"email\": \"xkeeling@example.net\",\n            \"phone\": \"0974282380\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/006611?text=people+est\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 14,\n            \"name\": \"Greg Spencer\",\n            \"email\": \"jules.rice@example.com\",\n            \"phone\": \"0922873873\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ffbb?text=people+eum\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 13,\n            \"name\": \"Lesley Cole\",\n            \"email\": \"alberto35@example.org\",\n            \"phone\": \"0935384136\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0000cc?text=people+quidem\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 12,\n            \"name\": \"Kaci Rutherford\",\n            \"email\": \"lakin.mariane@example.org\",\n            \"phone\": \"0983601173\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0066ee?text=people+modi\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 11,\n            \"name\": \"Dr. Russ Ryan\",\n            \"email\": \"adell.dickens@example.com\",\n            \"phone\": \"0974508038\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/000011?text=people+ducimus\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 10,\n            \"name\": \"Dr. Raul Batz\",\n            \"email\": \"garett.hodkiewicz@example.net\",\n            \"phone\": \"0981416407\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ee66?text=people+sit\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:23\",\n            \"updated_at\": \"2026-07-31 19:43:23\"\n        },\n        {\n            \"id\": 9,\n            \"name\": \"Chaya Wiza\",\n            \"email\": \"jadyn24@example.org\",\n            \"phone\": \"0937256157\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0099dd?text=people+praesentium\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:23\",\n            \"updated_at\": \"2026-07-31 19:43:23\"\n        },\n        {\n            \"id\": 8,\n            \"name\": \"Madison Ratke\",\n            \"email\": \"iprosacco@example.net\",\n            \"phone\": \"0947284184\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00eedd?text=people+excepturi\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:23\",\n            \"updated_at\": \"2026-07-31 19:43:23\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"أحمد العتيبي (عميل)\",\n            \"email\": \"customer@system.com\",\n            \"phone\": \"0500000004\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0033ee?text=people+molestiae\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:21\",\n            \"updated_at\": \"2026-07-31 19:43:21\"\n        }\n    ],\n    \"message\": \"Personal customers fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:49:03+00:00\"\n}"
+												},
+												{
+													"name": "admin is active",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{base_url}}/api/customers/personal",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"personal"
+															]
+														}
+													},
+													"status": "Forbidden",
+													"code": 403,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.11"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Sat, 01 Aug 2026 10:57:59 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
+												}
+											]
+										},
+										{
+											"name": "show {id}",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{admin}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal/1",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal",
+														"1"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "success for SA,A",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json",
+																"type": "text"
+															},
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"url": {
+															"raw": "{{base_url}}/api/customers/personal/4",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"personal",
+																"4"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 19:47:12 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 4,\n        \"name\": \"أحمد العتيبي (عميل)\",\n        \"email\": \"customer@system.com\",\n        \"phone\": \"0500000004\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/0033ee?text=people+molestiae\",\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:21\",\n        \"updated_at\": \"2026-07-31 19:43:21\"\n    },\n    \"message\": \"Personal customer fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:47:12+00:00\"\n}"
+												},
+												{
+													"name": "admin inactive",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{base_url}}/api/customers/personal/1",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"personal",
+																"1"
+															]
+														}
+													},
+													"status": "Forbidden",
+													"code": 403,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.11"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Sat, 01 Aug 2026 10:59:02 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
+												}
+											]
+										},
+										{
+											"name": "delete",
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/super-admin/operations/customers/personal/7",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"super-admin",
+														"operations",
+														"customers",
+														"personal",
+														"7"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "success for SA",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json",
+																"type": "text"
+															},
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"url": {
+															"raw": "{{base_url}}/api/customers/personal/25",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"personal",
+																"25"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 19:50:28 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Personal customer deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:50:28+00:00\"\n}"
+												}
+											]
+										},
+										{
+											"name": "UPDATE customar personal",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal/4",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal",
+														"4"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "success for SA",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json",
+																"type": "text"
+															},
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{base_url}}/api/customers/personal/16",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"personal",
+																"16"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 20:04:28 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 16,\n        \"name\": \"Ahmad Khaled\",\n        \"email\": \"heidenreich.edwardo@example.net\",\n        \"phone\": \"0986978901\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/00ee00?text=people+architecto\",\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:25\",\n        \"updated_at\": \"2026-07-31 20:04:28\"\n    },\n    \"message\": \"Personal customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:04:28+00:00\"\n}"
+												},
+												{
+													"name": "success update is active = 0",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json",
+																"type": "text"
+															},
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "formdata",
+															"formdata": [
+																{
+																	"key": "is_active",
+																	"value": "0",
+																	"type": "text"
+																}
+															],
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{base_url}}/api/customers/personal/16",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"personal",
+																"16"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 20:08:52 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 16,\n        \"name\": \"Ahmad Khaled\",\n        \"email\": \"heidenreich.edwardo@example.net\",\n        \"phone\": \"0986978901\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/00ee00?text=people+architecto\",\n        \"is_active\": false,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:25\",\n        \"updated_at\": \"2026-07-31 20:08:51\"\n    },\n    \"message\": \"Personal customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:08:52+00:00\"\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "CustomersCompany",
+									"item": [
+										{
+											"name": "INDEX",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{admin}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/customers/company",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"company"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "success for SA,A",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{base_url}}/api/customers/company",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"company"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 20:13:39 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 29,\n            \"name\": \"Company Owner\",\n            \"name_ar\": null,\n            \"commercial_reg\": null,\n            \"tax_number\": null,\n            \"address\": null,\n            \"status\": null,\n            \"is_active\": false,\n            \"created_at\": \"2026-07-31 20:13:10\",\n            \"updated_at\": \"2026-07-31 20:13:10\"\n        },\n        {\n            \"id\": 28,\n            \"name\": \"Company Owner\",\n            \"name_ar\": null,\n            \"commercial_reg\": null,\n            \"tax_number\": null,\n            \"address\": null,\n            \"status\": null,\n            \"is_active\": false,\n            \"created_at\": \"2026-07-31 20:12:33\",\n            \"updated_at\": \"2026-07-31 20:12:33\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"شركة أسطول النقل\",\n            \"name_ar\": null,\n            \"commercial_reg\": null,\n            \"tax_number\": null,\n            \"address\": null,\n            \"status\": null,\n            \"is_active\": true,\n            \"created_at\": \"2026-07-31 19:43:21\",\n            \"updated_at\": \"2026-07-31 19:43:21\"\n        }\n    ],\n    \"message\": \"Company customers fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:13:39+00:00\"\n}"
+												},
+												{
+													"name": "admin inactive",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{base_url}}/api/customers/company",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"company"
+															]
+														}
+													},
+													"status": "Forbidden",
+													"code": 403,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.11"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Sat, 01 Aug 2026 11:00:21 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
+												}
+											]
+										},
+										{
+											"name": "show {id}",
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{admin}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/customers/company/1",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"company",
+														"1"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "success for SA,A",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json",
+																"type": "text"
+															},
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"url": {
+															"raw": "{{base_url}}/api/customers/personal/4",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"personal",
+																"4"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 19:47:12 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 4,\n        \"name\": \"أحمد العتيبي (عميل)\",\n        \"email\": \"customer@system.com\",\n        \"phone\": \"0500000004\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/0033ee?text=people+molestiae\",\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:21\",\n        \"updated_at\": \"2026-07-31 19:43:21\"\n    },\n    \"message\": \"Personal customer fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:47:12+00:00\"\n}"
+												},
+												{
+													"name": "success",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{base_url}}/api/customers/company/29",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"company",
+																"29"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 20:14:20 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Company Owner\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": false,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:13:10\"\n    },\n    \"message\": \"Company customer fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:14:20+00:00\"\n}"
+												},
+												{
+													"name": "admin inactive",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{base_url}}/api/customers/company/1",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"company",
+																"1"
+															]
+														}
+													},
+													"status": "Forbidden",
+													"code": 403,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.11"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Sat, 01 Aug 2026 11:00:55 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
+												}
+											]
+										},
+										{
+											"name": "delete",
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/customers/company/5",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"company",
+														"5"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "success for SA",
+													"originalRequest": {
+														"method": "DELETE",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json",
+																"type": "text"
+															},
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"url": {
+															"raw": "{{base_url}}/api/customers/company/30",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"company",
+																"30"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 20:25:19 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Company customer deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:25:19+00:00\"\n}"
+												}
+											]
+										},
+										{
+											"name": "UPDATE customar company",
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal/4",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"customers",
+														"personal",
+														"4"
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "success for SA",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json",
+																"type": "text"
+															},
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{base_url}}/api/customers/company/29",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"company",
+																"29"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 20:15:48 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Ahmad Khaled\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": false,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:14:55\"\n    },\n    \"message\": \"Company customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:15:48+00:00\"\n}"
+												},
+												{
+													"name": "UPDATE customar company",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json",
+																"type": "text"
+															},
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "formdata",
+															"formdata": [
+																{
+																	"key": "is_active",
+																	"value": "1",
+																	"type": "text"
+																}
+															],
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{base_url}}/api/customers/company/29",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"company",
+																"29"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 20:16:27 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Ahmad Khaled\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": true,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:16:27\"\n    },\n    \"message\": \"Company customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:16:27+00:00\"\n}"
+												},
+												{
+													"name": "success update is_active =1",
+													"originalRequest": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json",
+																"type": "text"
+															},
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "formdata",
+															"formdata": [
+																{
+																	"key": "is_active",
+																	"value": "1",
+																	"type": "text"
+																}
+															],
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{base_url}}/api/customers/company/29",
+															"host": [
+																"{{base_url}}"
+															],
+															"path": [
+																"api",
+																"customers",
+																"company",
+																"29"
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "Text",
+													"header": [
+														{
+															"key": "Host",
+															"value": "localhost:8000"
+														},
+														{
+															"key": "Connection",
+															"value": "close"
+														},
+														{
+															"key": "X-Powered-By",
+															"value": "PHP/8.3.30"
+														},
+														{
+															"key": "Cache-Control",
+															"value": "no-cache, private"
+														},
+														{
+															"key": "Date",
+															"value": "Fri, 31 Jul 2026 20:16:27 GMT"
+														},
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														},
+														{
+															"key": "Access-Control-Allow-Origin",
+															"value": "*"
+														}
+													],
+													"cookie": [],
+													"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Ahmad Khaled\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": true,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:16:27\"\n    },\n    \"message\": \"Company customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:16:27+00:00\"\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "show my profile",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/api/customers/personal/my/profile",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"customers",
+										"personal",
+										"my",
+										"profile"
 									]
 								}
 							},
 							"response": [
 								{
-									"name": "success for SA",
+									"name": "success",
 									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/customers/personal/my/profile",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"customers",
+												"personal",
+												"my",
+												"profile"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.30"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 03 Aug 2026 08:56:54 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 28,\n        \"name\": \"Ahmad Khaled\",\n        \"email\": \"bashir2.d.aldaas@gmail.com\",\n        \"phone\": \"0500000000\",\n        \"image_url\": null,\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-08-03 08:23:29\",\n        \"updated_at\": \"2026-08-03 08:56:27\"\n    },\n    \"message\": \"Profile fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-03T08:56:54+00:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "edit",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": [
+								{
+									"name": "success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\":\"Ahmad Khaled\",\r\n    \"phone\":\"0500000000\"\r\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/api/customers/personal/my/profile",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"customers",
+												"personal",
+												"my",
+												"profile"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.30"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 03 Aug 2026 08:56:27 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 28,\n        \"name\": \"Ahmad Khaled\",\n        \"email\": \"bashir2.d.aldaas@gmail.com\",\n        \"phone\": \"0500000000\",\n        \"image_url\": null,\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-08-03 08:23:29\",\n        \"updated_at\": \"2026-08-03 08:56:27\"\n    },\n    \"message\": \"Profile updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-03T08:56:27+00:00\"\n}"
+								}
+							]
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{auth_secret_0otf}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "crud and operation admin",
+					"item": [
+						{
+							"name": "CRUD admin",
+							"item": [
+								{
+									"name": "index",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
 										"method": "GET",
 										"header": [
 											{
@@ -522,86 +2558,85 @@
 											]
 										}
 									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
+									"response": [
 										{
-											"key": "Host",
-											"value": "localhost:8000"
-										},
-										{
-											"key": "Connection",
-											"value": "close"
-										},
-										{
-											"key": "X-Powered-By",
-											"value": "PHP/8.3.11"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, private"
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 30 Jul 2026 10:44:44 GMT"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 2,\n            \"name\": \"مدير الفرع الرئيسي\",\n            \"email\": \"admin@system.com\",\n            \"phone\": \"0500000002\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/006622?text=people+libero\",\n            \"is_active\": true,\n            \"role\": \"admin\",\n            \"created_at\": \"2026-07-30T09:31:34.000000Z\",\n            \"updated_at\": \"2026-07-30T09:47:25.000000Z\"\n        }\n    ],\n    \"message\": \"Admins fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T10:44:44+00:00\"\n}"
-								}
-							]
-						},
-						{
-							"name": "show",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{super-token}}",
-											"type": "string"
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/admins",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"admins"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Thu, 30 Jul 2026 10:44:44 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 2,\n            \"name\": \"مدير الفرع الرئيسي\",\n            \"email\": \"admin@system.com\",\n            \"phone\": \"0500000002\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/006622?text=people+libero\",\n            \"is_active\": true,\n            \"role\": \"admin\",\n            \"created_at\": \"2026-07-30T09:31:34.000000Z\",\n            \"updated_at\": \"2026-07-30T09:47:25.000000Z\"\n        }\n    ],\n    \"message\": \"Admins fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T10:44:44+00:00\"\n}"
 										}
 									]
 								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{base_url}}/api/admins/2",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admins",
-										"2"
-									]
-								}
-							},
-							"response": [
 								{
-									"name": "success for SA",
-									"originalRequest": {
+									"name": "show",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
 										"method": "GET",
 										"header": [
 											{
@@ -627,96 +2662,86 @@
 											]
 										}
 									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
+									"response": [
 										{
-											"key": "Host",
-											"value": "localhost:8000"
-										},
-										{
-											"key": "Connection",
-											"value": "close"
-										},
-										{
-											"key": "X-Powered-By",
-											"value": "PHP/8.3.11"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, private"
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 30 Jul 2026 10:45:59 GMT"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"مدير الفرع الرئيسي\",\n        \"email\": \"admin@system.com\",\n        \"phone\": \"0500000002\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/006622?text=people+libero\",\n        \"is_active\": true,\n        \"role\": \"admin\",\n        \"created_at\": \"2026-07-30T09:31:34.000000Z\",\n        \"updated_at\": \"2026-07-30T09:47:25.000000Z\"\n    },\n    \"message\": \"Admin fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T10:45:59+00:00\"\n}"
-								}
-							]
-						},
-						{
-							"name": "update",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{super-token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "phone",
-											"value": "0500000033",
-											"type": "text"
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/admins/2",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"admins",
+														"2"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Thu, 30 Jul 2026 10:45:59 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"مدير الفرع الرئيسي\",\n        \"email\": \"admin@system.com\",\n        \"phone\": \"0500000002\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/006622?text=people+libero\",\n        \"is_active\": true,\n        \"role\": \"admin\",\n        \"created_at\": \"2026-07-30T09:31:34.000000Z\",\n        \"updated_at\": \"2026-07-30T09:47:25.000000Z\"\n    },\n    \"message\": \"Admin fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T10:45:59+00:00\"\n}"
 										}
 									]
 								},
-								"url": {
-									"raw": "{{base_url}}/api/admins/2",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admins",
-										"2"
-									]
-								}
-							},
-							"response": [
 								{
-									"name": "success for SA",
-									"originalRequest": {
+									"name": "update",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
 										"method": "POST",
 										"header": [
 											{
@@ -752,86 +2777,96 @@
 											]
 										}
 									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
+									"response": [
 										{
-											"key": "Host",
-											"value": "localhost:8000"
-										},
-										{
-											"key": "Connection",
-											"value": "close"
-										},
-										{
-											"key": "X-Powered-By",
-											"value": "PHP/8.3.11"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, private"
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 30 Jul 2026 10:56:09 GMT"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"مدير الفرع الرئيسي\",\n        \"email\": \"admin@system.com\",\n        \"phone\": \"0500000033\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/006622?text=people+libero\",\n        \"is_active\": true,\n        \"role\": \"admin\",\n        \"created_at\": \"2026-07-30T09:31:34.000000Z\",\n        \"updated_at\": \"2026-07-30T10:50:01.000000Z\"\n    },\n    \"message\": \"Admin updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T10:56:09+00:00\"\n}"
-								}
-							]
-						},
-						{
-							"name": "delete",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{super-token}}",
-											"type": "string"
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "phone",
+															"value": "0500000033",
+															"type": "text"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{base_url}}/api/admins/2",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"admins",
+														"2"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Thu, 30 Jul 2026 10:56:09 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"مدير الفرع الرئيسي\",\n        \"email\": \"admin@system.com\",\n        \"phone\": \"0500000033\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/006622?text=people+libero\",\n        \"is_active\": true,\n        \"role\": \"admin\",\n        \"created_at\": \"2026-07-30T09:31:34.000000Z\",\n        \"updated_at\": \"2026-07-30T10:50:01.000000Z\"\n    },\n    \"message\": \"Admin updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T10:56:09+00:00\"\n}"
 										}
 									]
 								},
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{base_url}}/api/admins/27",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admins",
-										"27"
-									]
-								}
-							},
-							"response": [
 								{
-									"name": "success for SA",
-									"originalRequest": {
+									"name": "delete",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
 										"method": "DELETE",
 										"header": [
 											{
@@ -857,87 +2892,86 @@
 											]
 										}
 									},
-									"status": "Not Found",
-									"code": 404,
-									"_postman_previewlanguage": "json",
-									"header": [
+									"response": [
 										{
-											"key": "Host",
-											"value": "localhost:8000"
-										},
-										{
-											"key": "Connection",
-											"value": "close"
-										},
-										{
-											"key": "X-Powered-By",
-											"value": "PHP/8.3.11"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, private"
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 30 Jul 2026 10:55:43 GMT"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"Resource not found\",\n    \"status_code\": 404,\n    \"timestamp\": \"2026-07-30T10:55:43+00:00\"\n}"
-								}
-							]
-						},
-						{
-							"name": "active",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{super-token}}",
-											"type": "string"
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/admins/27",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"admins",
+														"27"
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Thu, 30 Jul 2026 10:55:43 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"Resource not found\",\n    \"status_code\": 404,\n    \"timestamp\": \"2026-07-30T10:55:43+00:00\"\n}"
 										}
 									]
 								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{base_url}}/api/admins/2/activate",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admins",
-										"2",
-										"activate"
-									]
-								}
-							},
-							"response": [
 								{
-									"name": "success for SA",
-									"originalRequest": {
+									"name": "active",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
 										"method": "POST",
 										"header": [
 											{
@@ -964,87 +2998,87 @@
 											]
 										}
 									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
+									"response": [
 										{
-											"key": "Host",
-											"value": "localhost:8000"
-										},
-										{
-											"key": "Connection",
-											"value": "close"
-										},
-										{
-											"key": "X-Powered-By",
-											"value": "PHP/8.3.11"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, private"
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 30 Jul 2026 11:06:28 GMT"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"مدير الفرع الرئيسي\",\n        \"email\": \"admin@system.com\",\n        \"phone\": \"0500000033\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/006622?text=people+libero\",\n        \"is_active\": true,\n        \"role\": \"admin\",\n        \"created_at\": \"2026-07-30T09:31:34.000000Z\",\n        \"updated_at\": \"2026-07-30T11:06:28.000000Z\"\n    },\n    \"message\": \"Admin activated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T11:06:28+00:00\"\n}"
-								}
-							]
-						},
-						{
-							"name": "deactive",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{super-token}}",
-											"type": "string"
+											"name": "success for SA",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}/api/admins/2/activate",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"admins",
+														"2",
+														"activate"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.11"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Thu, 30 Jul 2026 11:06:28 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"مدير الفرع الرئيسي\",\n        \"email\": \"admin@system.com\",\n        \"phone\": \"0500000033\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/006622?text=people+libero\",\n        \"is_active\": true,\n        \"role\": \"admin\",\n        \"created_at\": \"2026-07-30T09:31:34.000000Z\",\n        \"updated_at\": \"2026-07-30T11:06:28.000000Z\"\n    },\n    \"message\": \"Admin activated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T11:06:28+00:00\"\n}"
 										}
 									]
 								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{base_url}}/api/admins/2/deactivate",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admins",
-										"2",
-										"deactivate"
-									]
-								}
-							},
-							"response": [
 								{
-									"name": "success for SA",
-									"originalRequest": {
+									"name": "deactive",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{super-token}}",
+													"type": "string"
+												}
+											]
+										},
 										"method": "POST",
 										"header": [
 											{
@@ -1071,84 +3105,11 @@
 											]
 										}
 									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Host",
-											"value": "localhost:8000"
-										},
-										{
-											"key": "Connection",
-											"value": "close"
-										},
-										{
-											"key": "X-Powered-By",
-											"value": "PHP/8.3.11"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, private"
-										},
-										{
-											"key": "Date",
-											"value": "Thu, 30 Jul 2026 11:06:58 GMT"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"مدير الفرع الرئيسي\",\n        \"email\": \"admin@system.com\",\n        \"phone\": \"0500000033\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/006622?text=people+libero\",\n        \"is_active\": false,\n        \"role\": \"admin\",\n        \"created_at\": \"2026-07-30T09:31:34.000000Z\",\n        \"updated_at\": \"2026-07-30T11:06:58.000000Z\"\n    },\n    \"message\": \"Admin deactivated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T11:06:58+00:00\"\n}"
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "CRUD customar",
-					"item": [
-						{
-							"name": "Personal Customers",
-							"item": [
-								{
-									"name": "INDEX",
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{admin}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{base_url}}/api/customers/personal",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"customers",
-												"personal"
-											]
-										}
-									},
 									"response": [
 										{
-											"name": "success for SA,A",
+											"name": "success for SA",
 											"originalRequest": {
-												"method": "GET",
+												"method": "POST",
 												"header": [
 													{
 														"key": "Accept",
@@ -1162,72 +3123,20 @@
 													}
 												],
 												"url": {
-													"raw": "{{base_url}}/api/customers/personal",
+													"raw": "{{base_url}}/api/admins/2/deactivate",
 													"host": [
 														"{{base_url}}"
 													],
 													"path": [
 														"api",
-														"customers",
-														"personal"
+														"admins",
+														"2",
+														"deactivate"
 													]
 												}
 											},
 											"status": "OK",
 											"code": 200,
-											"_postman_previewlanguage": "Text",
-											"header": [
-												{
-													"key": "Host",
-													"value": "localhost:8000"
-												},
-												{
-													"key": "Connection",
-													"value": "close"
-												},
-												{
-													"key": "X-Powered-By",
-													"value": "PHP/8.3.30"
-												},
-												{
-													"key": "Cache-Control",
-													"value": "no-cache, private"
-												},
-												{
-													"key": "Date",
-													"value": "Fri, 31 Jul 2026 19:49:03 GMT"
-												},
-												{
-													"key": "Content-Type",
-													"value": "application/json"
-												},
-												{
-													"key": "Access-Control-Allow-Origin",
-													"value": "*"
-												}
-											],
-											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 27,\n            \"name\": \"Ed Thompson\",\n            \"email\": \"goyette.dayna@example.net\",\n            \"phone\": \"0982653030\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/005500?text=people+quae\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:28\",\n            \"updated_at\": \"2026-07-31 19:43:28\"\n        },\n        {\n            \"id\": 26,\n            \"name\": \"Maximilian Kulas\",\n            \"email\": \"haylee11@example.com\",\n            \"phone\": \"0901048423\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/002233?text=people+consequatur\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:28\",\n            \"updated_at\": \"2026-07-31 19:43:28\"\n        },\n        {\n            \"id\": 25,\n            \"name\": \"Prof. Lupe Cartwright\",\n            \"email\": \"augustine.braun@example.net\",\n            \"phone\": \"0953782921\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0088ff?text=people+sed\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 24,\n            \"name\": \"Darien Schaefer\",\n            \"email\": \"logan77@example.com\",\n            \"phone\": \"0901093112\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00aabb?text=people+autem\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 23,\n            \"name\": \"Caesar Buckridge\",\n            \"email\": \"kiana13@example.org\",\n            \"phone\": \"0994100735\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00aaee?text=people+excepturi\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 22,\n            \"name\": \"Peggie Bayer\",\n            \"email\": \"miller.hilbert@example.org\",\n            \"phone\": \"0941703350\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/005500?text=people+incidunt\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:27\",\n            \"updated_at\": \"2026-07-31 19:43:27\"\n        },\n        {\n            \"id\": 21,\n            \"name\": \"Joshua Marvin\",\n            \"email\": \"wcremin@example.com\",\n            \"phone\": \"0947342383\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00aa22?text=people+dolores\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:26\",\n            \"updated_at\": \"2026-07-31 19:43:26\"\n        },\n        {\n            \"id\": 20,\n            \"name\": \"Dr. Ernie Paucek V\",\n            \"email\": \"dach.abigail@example.com\",\n            \"phone\": \"0934553196\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00bb66?text=people+cupiditate\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:26\",\n            \"updated_at\": \"2026-07-31 19:43:26\"\n        },\n        {\n            \"id\": 19,\n            \"name\": \"Enid Bechtelar\",\n            \"email\": \"dmarquardt@example.org\",\n            \"phone\": \"0999498215\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/000066?text=people+similique\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:26\",\n            \"updated_at\": \"2026-07-31 19:43:26\"\n        },\n        {\n            \"id\": 18,\n            \"name\": \"Vita D'Amore II\",\n            \"email\": \"hdubuque@example.org\",\n            \"phone\": \"0972833474\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00eebb?text=people+voluptates\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 17,\n            \"name\": \"Leif Dietrich V\",\n            \"email\": \"kennedy.heathcote@example.org\",\n            \"phone\": \"0983015328\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/003311?text=people+facere\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 16,\n            \"name\": \"Elouise Dach\",\n            \"email\": \"heidenreich.edwardo@example.net\",\n            \"phone\": \"0986978901\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ee00?text=people+architecto\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 15,\n            \"name\": \"Julia Lubowitz\",\n            \"email\": \"xkeeling@example.net\",\n            \"phone\": \"0974282380\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/006611?text=people+est\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:25\",\n            \"updated_at\": \"2026-07-31 19:43:25\"\n        },\n        {\n            \"id\": 14,\n            \"name\": \"Greg Spencer\",\n            \"email\": \"jules.rice@example.com\",\n            \"phone\": \"0922873873\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ffbb?text=people+eum\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 13,\n            \"name\": \"Lesley Cole\",\n            \"email\": \"alberto35@example.org\",\n            \"phone\": \"0935384136\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0000cc?text=people+quidem\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 12,\n            \"name\": \"Kaci Rutherford\",\n            \"email\": \"lakin.mariane@example.org\",\n            \"phone\": \"0983601173\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0066ee?text=people+modi\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 11,\n            \"name\": \"Dr. Russ Ryan\",\n            \"email\": \"adell.dickens@example.com\",\n            \"phone\": \"0974508038\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/000011?text=people+ducimus\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:24\",\n            \"updated_at\": \"2026-07-31 19:43:24\"\n        },\n        {\n            \"id\": 10,\n            \"name\": \"Dr. Raul Batz\",\n            \"email\": \"garett.hodkiewicz@example.net\",\n            \"phone\": \"0981416407\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ee66?text=people+sit\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:23\",\n            \"updated_at\": \"2026-07-31 19:43:23\"\n        },\n        {\n            \"id\": 9,\n            \"name\": \"Chaya Wiza\",\n            \"email\": \"jadyn24@example.org\",\n            \"phone\": \"0937256157\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0099dd?text=people+praesentium\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:23\",\n            \"updated_at\": \"2026-07-31 19:43:23\"\n        },\n        {\n            \"id\": 8,\n            \"name\": \"Madison Ratke\",\n            \"email\": \"iprosacco@example.net\",\n            \"phone\": \"0947284184\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00eedd?text=people+excepturi\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:23\",\n            \"updated_at\": \"2026-07-31 19:43:23\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"أحمد العتيبي (عميل)\",\n            \"email\": \"customer@system.com\",\n            \"phone\": \"0500000004\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0033ee?text=people+molestiae\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-07-31 19:43:21\",\n            \"updated_at\": \"2026-07-31 19:43:21\"\n        }\n    ],\n    \"message\": \"Personal customers fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:49:03+00:00\"\n}"
-										},
-										{
-											"name": "admin is active",
-											"originalRequest": {
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": "{{base_url}}/api/customers/personal",
-													"host": [
-														"{{base_url}}"
-													],
-													"path": [
-														"api",
-														"customers",
-														"personal"
-													]
-												}
-											},
-											"status": "Forbidden",
-											"code": 403,
 											"_postman_previewlanguage": "json",
 											"header": [
 												{
@@ -1248,7 +3157,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Sat, 01 Aug 2026 10:57:59 GMT"
+													"value": "Thu, 30 Jul 2026 11:06:58 GMT"
 												},
 												{
 													"key": "Content-Type",
@@ -1260,500 +3169,39 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
-										}
-									]
-								},
-								{
-									"name": "show {id}",
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{admin}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{base_url}}/api/customers/personal/1",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"customers",
-												"personal",
-												"1"
-											]
-										}
-									},
-									"response": [
-										{
-											"name": "success for SA,A",
-											"originalRequest": {
-												"method": "GET",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json",
-														"type": "text"
-													},
-													{
-														"key": "Content-Type",
-														"value": "application/json",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{base_url}}/api/customers/personal/4",
-													"host": [
-														"{{base_url}}"
-													],
-													"path": [
-														"api",
-														"customers",
-														"personal",
-														"4"
-													]
-												}
-											},
-											"status": "OK",
-											"code": 200,
-											"_postman_previewlanguage": "Text",
-											"header": [
-												{
-													"key": "Host",
-													"value": "localhost:8000"
-												},
-												{
-													"key": "Connection",
-													"value": "close"
-												},
-												{
-													"key": "X-Powered-By",
-													"value": "PHP/8.3.30"
-												},
-												{
-													"key": "Cache-Control",
-													"value": "no-cache, private"
-												},
-												{
-													"key": "Date",
-													"value": "Fri, 31 Jul 2026 19:47:12 GMT"
-												},
-												{
-													"key": "Content-Type",
-													"value": "application/json"
-												},
-												{
-													"key": "Access-Control-Allow-Origin",
-													"value": "*"
-												}
-											],
-											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 4,\n        \"name\": \"أحمد العتيبي (عميل)\",\n        \"email\": \"customer@system.com\",\n        \"phone\": \"0500000004\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/0033ee?text=people+molestiae\",\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:21\",\n        \"updated_at\": \"2026-07-31 19:43:21\"\n    },\n    \"message\": \"Personal customer fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:47:12+00:00\"\n}"
-										},
-										{
-											"name": "admin inactive",
-											"originalRequest": {
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": "{{base_url}}/api/customers/personal/1",
-													"host": [
-														"{{base_url}}"
-													],
-													"path": [
-														"api",
-														"customers",
-														"personal",
-														"1"
-													]
-												}
-											},
-											"status": "Forbidden",
-											"code": 403,
-											"_postman_previewlanguage": "json",
-											"header": [
-												{
-													"key": "Host",
-													"value": "localhost:8000"
-												},
-												{
-													"key": "Connection",
-													"value": "close"
-												},
-												{
-													"key": "X-Powered-By",
-													"value": "PHP/8.3.11"
-												},
-												{
-													"key": "Cache-Control",
-													"value": "no-cache, private"
-												},
-												{
-													"key": "Date",
-													"value": "Sat, 01 Aug 2026 10:59:02 GMT"
-												},
-												{
-													"key": "Content-Type",
-													"value": "application/json"
-												},
-												{
-													"key": "Access-Control-Allow-Origin",
-													"value": "*"
-												}
-											],
-											"cookie": [],
-											"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
-										}
-									]
-								},
-								{
-									"name": "delete",
-									"request": {
-										"method": "DELETE",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{base_url}}/super-admin/operations/customers/personal/7",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"super-admin",
-												"operations",
-												"customers",
-												"personal",
-												"7"
-											]
-										}
-									},
-									"response": [
-										{
-											"name": "success for SA",
-											"originalRequest": {
-												"method": "DELETE",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json",
-														"type": "text"
-													},
-													{
-														"key": "Content-Type",
-														"value": "application/json",
-														"type": "text"
-													}
-												],
-												"url": {
-													"raw": "{{base_url}}/api/customers/personal/25",
-													"host": [
-														"{{base_url}}"
-													],
-													"path": [
-														"api",
-														"customers",
-														"personal",
-														"25"
-													]
-												}
-											},
-											"status": "OK",
-											"code": 200,
-											"_postman_previewlanguage": "Text",
-											"header": [
-												{
-													"key": "Host",
-													"value": "localhost:8000"
-												},
-												{
-													"key": "Connection",
-													"value": "close"
-												},
-												{
-													"key": "X-Powered-By",
-													"value": "PHP/8.3.30"
-												},
-												{
-													"key": "Cache-Control",
-													"value": "no-cache, private"
-												},
-												{
-													"key": "Date",
-													"value": "Fri, 31 Jul 2026 19:50:28 GMT"
-												},
-												{
-													"key": "Content-Type",
-													"value": "application/json"
-												},
-												{
-													"key": "Access-Control-Allow-Origin",
-													"value": "*"
-												}
-											],
-											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Personal customer deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:50:28+00:00\"\n}"
-										}
-									]
-								},
-								{
-									"name": "UPDATE customar personal",
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{base_url}}/api/customers/personal/4",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"customers",
-												"personal",
-												"4"
-											]
-										}
-									},
-									"response": [
-										{
-											"name": "success for SA",
-											"originalRequest": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json",
-														"type": "text"
-													},
-													{
-														"key": "Content-Type",
-														"value": "application/json",
-														"type": "text"
-													}
-												],
-												"body": {
-													"mode": "raw",
-													"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{base_url}}/api/customers/personal/16",
-													"host": [
-														"{{base_url}}"
-													],
-													"path": [
-														"api",
-														"customers",
-														"personal",
-														"16"
-													]
-												}
-											},
-											"status": "OK",
-											"code": 200,
-											"_postman_previewlanguage": "Text",
-											"header": [
-												{
-													"key": "Host",
-													"value": "localhost:8000"
-												},
-												{
-													"key": "Connection",
-													"value": "close"
-												},
-												{
-													"key": "X-Powered-By",
-													"value": "PHP/8.3.30"
-												},
-												{
-													"key": "Cache-Control",
-													"value": "no-cache, private"
-												},
-												{
-													"key": "Date",
-													"value": "Fri, 31 Jul 2026 20:04:28 GMT"
-												},
-												{
-													"key": "Content-Type",
-													"value": "application/json"
-												},
-												{
-													"key": "Access-Control-Allow-Origin",
-													"value": "*"
-												}
-											],
-											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 16,\n        \"name\": \"Ahmad Khaled\",\n        \"email\": \"heidenreich.edwardo@example.net\",\n        \"phone\": \"0986978901\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/00ee00?text=people+architecto\",\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:25\",\n        \"updated_at\": \"2026-07-31 20:04:28\"\n    },\n    \"message\": \"Personal customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:04:28+00:00\"\n}"
-										},
-										{
-											"name": "success update is active = 0",
-											"originalRequest": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json",
-														"type": "text"
-													},
-													{
-														"key": "Content-Type",
-														"value": "application/json",
-														"type": "text"
-													}
-												],
-												"body": {
-													"mode": "formdata",
-													"formdata": [
-														{
-															"key": "is_active",
-															"value": "0",
-															"type": "text"
-														}
-													],
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{base_url}}/api/customers/personal/16",
-													"host": [
-														"{{base_url}}"
-													],
-													"path": [
-														"api",
-														"customers",
-														"personal",
-														"16"
-													]
-												}
-											},
-											"status": "OK",
-											"code": 200,
-											"_postman_previewlanguage": "Text",
-											"header": [
-												{
-													"key": "Host",
-													"value": "localhost:8000"
-												},
-												{
-													"key": "Connection",
-													"value": "close"
-												},
-												{
-													"key": "X-Powered-By",
-													"value": "PHP/8.3.30"
-												},
-												{
-													"key": "Cache-Control",
-													"value": "no-cache, private"
-												},
-												{
-													"key": "Date",
-													"value": "Fri, 31 Jul 2026 20:08:52 GMT"
-												},
-												{
-													"key": "Content-Type",
-													"value": "application/json"
-												},
-												{
-													"key": "Access-Control-Allow-Origin",
-													"value": "*"
-												}
-											],
-											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 16,\n        \"name\": \"Ahmad Khaled\",\n        \"email\": \"heidenreich.edwardo@example.net\",\n        \"phone\": \"0986978901\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/00ee00?text=people+architecto\",\n        \"is_active\": false,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:25\",\n        \"updated_at\": \"2026-07-31 20:08:51\"\n    },\n    \"message\": \"Personal customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:08:52+00:00\"\n}"
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"مدير الفرع الرئيسي\",\n        \"email\": \"admin@system.com\",\n        \"phone\": \"0500000033\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/006622?text=people+libero\",\n        \"is_active\": false,\n        \"role\": \"admin\",\n        \"created_at\": \"2026-07-30T09:31:34.000000Z\",\n        \"updated_at\": \"2026-07-30T11:06:58.000000Z\"\n    },\n    \"message\": \"Admin deactivated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-30T11:06:58+00:00\"\n}"
 										}
 									]
 								}
 							]
 						},
 						{
-							"name": "CustomersCompany",
+							"name": "show workshop as admin",
 							"item": [
 								{
-									"name": "INDEX",
+									"name": "show workshop",
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{admin}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{base_url}}/api/customers/company",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"customers",
-												"company"
-											]
+											"raw": ""
 										}
 									},
 									"response": [
 										{
-											"name": "success for SA,A",
+											"name": "success",
 											"originalRequest": {
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{base_url}}/api/customers/company",
+													"raw": "{{base_url}}/api/workshops/2",
 													"host": [
 														"{{base_url}}"
 													],
 													"path": [
 														"api",
-														"customers",
-														"company"
+														"workshops",
+														"2"
 													]
 												}
 											},
@@ -1779,7 +3227,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Fri, 31 Jul 2026 20:13:39 GMT"
+													"value": "Sun, 02 Aug 2026 22:54:48 GMT"
 												},
 												{
 													"key": "Content-Type",
@@ -1791,28 +3239,39 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 29,\n            \"name\": \"Company Owner\",\n            \"name_ar\": null,\n            \"commercial_reg\": null,\n            \"tax_number\": null,\n            \"address\": null,\n            \"status\": null,\n            \"is_active\": false,\n            \"created_at\": \"2026-07-31 20:13:10\",\n            \"updated_at\": \"2026-07-31 20:13:10\"\n        },\n        {\n            \"id\": 28,\n            \"name\": \"Company Owner\",\n            \"name_ar\": null,\n            \"commercial_reg\": null,\n            \"tax_number\": null,\n            \"address\": null,\n            \"status\": null,\n            \"is_active\": false,\n            \"created_at\": \"2026-07-31 20:12:33\",\n            \"updated_at\": \"2026-07-31 20:12:33\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"شركة أسطول النقل\",\n            \"name_ar\": null,\n            \"commercial_reg\": null,\n            \"tax_number\": null,\n            \"address\": null,\n            \"status\": null,\n            \"is_active\": true,\n            \"created_at\": \"2026-07-31 19:43:21\",\n            \"updated_at\": \"2026-07-31 19:43:21\"\n        }\n    ],\n    \"message\": \"Company customers fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:13:39+00:00\"\n}"
-										},
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"workshop2\",\n        \"name_ar\": \"الكراج السريع\",\n        \"address\": \"45 Olaya St, Riyadh\",\n        \"city\": \"Riyadh\",\n        \"latitude\": \"24.7136000\",\n        \"longitude\": \"46.6753000\",\n        \"status\": \"approved\",\n        \"rating_avg\": \"0.00\",\n        \"owner\": {\n            \"id\": 28,\n            \"name\": \"Workshop Owner\",\n            \"email\": \"workshop@example.com\",\n            \"phone\": \"0500003003\",\n            \"image_url\": null,\n            \"is_active\": true,\n            \"role\": \"workshop\"\n        },\n        \"created_at\": \"2026-08-02\"\n    },\n    \"message\": \"Workshop retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-02T22:54:48+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "index workshop",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": [
 										{
-											"name": "admin inactive",
+											"name": "success",
 											"originalRequest": {
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{base_url}}/api/customers/company",
+													"raw": "{{base_url}}/api/workshops",
 													"host": [
 														"{{base_url}}"
 													],
 													"path": [
 														"api",
-														"customers",
-														"company"
+														"workshops"
 													]
 												}
 											},
-											"status": "Forbidden",
-											"code": 403,
-											"_postman_previewlanguage": "json",
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "Text",
 											"header": [
 												{
 													"key": "Host",
@@ -1824,7 +3283,7 @@
 												},
 												{
 													"key": "X-Powered-By",
-													"value": "PHP/8.3.11"
+													"value": "PHP/8.3.30"
 												},
 												{
 													"key": "Cache-Control",
@@ -1832,7 +3291,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Sat, 01 Aug 2026 11:00:21 GMT"
+													"value": "Sun, 02 Aug 2026 21:39:21 GMT"
 												},
 												{
 													"key": "Content-Type",
@@ -1844,41 +3303,188 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
+											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 6,\n            \"name\": \"New work\",\n            \"name_ar\": \"اسم جديد\",\n            \"address\": \"New Address\",\n            \"city\": \"Jeddah\",\n            \"latitude\": \"21.5500000\",\n            \"longitude\": \"39.1700000\",\n            \"status\": \"approved\",\n            \"rating_avg\": \"0.00\",\n            \"owner\": {\n                \"id\": 32,\n                \"name\": \"Workshop shms\",\n                \"email\": \"shmswork@example.com\",\n                \"phone\": \"0500083303\",\n                \"image_url\": null,\n                \"is_active\": true,\n                \"role\": \"workshop\"\n            },\n            \"created_at\": \"2026-08-02\"\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Speedy Garage\",\n            \"name_ar\": \"الكراج السريع\",\n            \"address\": \"45 Olaya St, Riyadh\",\n            \"city\": \"Riyadh\",\n            \"latitude\": \"24.7136000\",\n            \"longitude\": \"46.6753000\",\n            \"status\": \"pending\",\n            \"rating_avg\": \"0.00\",\n            \"owner\": {\n                \"id\": 31,\n                \"name\": \"Workshop Owner\",\n                \"email\": \"workshop3@example.com\",\n                \"phone\": \"0500003033\",\n                \"image_url\": null,\n                \"is_active\": false,\n                \"role\": \"workshop\"\n            },\n            \"created_at\": \"2026-08-02\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Fast Garage\",\n            \"name_ar\": \"الكراج السريع\",\n            \"address\": \"Olaya Street\",\n            \"city\": \"Riyadh\",\n            \"latitude\": \"24.7100000\",\n            \"longitude\": \"46.6700000\",\n            \"status\": \"approved\",\n            \"rating_avg\": \"0.00\",\n            \"owner\": {\n                \"id\": 30,\n                \"name\": \"Workshop Owner\",\n                \"email\": \"owner@test.com\",\n                \"phone\": \"0500002222\",\n                \"image_url\": null,\n                \"is_active\": true,\n                \"role\": \"workshop\"\n            },\n            \"created_at\": \"2026-08-02\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"after edit workshop\",\n            \"name_ar\": \"الكراج السريع\",\n            \"address\": \"45 Olaya St, Riyadh\",\n            \"city\": \"Riyadh\",\n            \"latitude\": \"24.7136000\",\n            \"longitude\": \"46.6753000\",\n            \"status\": \"rejected\",\n            \"rating_avg\": \"0.00\",\n            \"owner\": {\n                \"id\": 29,\n                \"name\": \"Workshop Owner\",\n                \"email\": \"workshop2@example.com\",\n                \"phone\": \"0500003303\",\n                \"image_url\": null,\n                \"is_active\": false,\n                \"role\": \"workshop\"\n            },\n            \"created_at\": \"2026-08-02\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"after edit2 workshop\",\n            \"name_ar\": \"الكراج السريع\",\n            \"address\": \"45 Olaya St, Riyadh\",\n            \"city\": \"Riyadh\",\n            \"latitude\": \"24.7136000\",\n            \"longitude\": \"46.6753000\",\n            \"status\": \"pending\",\n            \"rating_avg\": \"0.00\",\n            \"owner\": {\n                \"id\": 28,\n                \"name\": \"Workshop Owner\",\n                \"email\": \"workshop@example.com\",\n                \"phone\": \"0500003003\",\n                \"image_url\": null,\n                \"is_active\": false,\n                \"role\": \"workshop\"\n            },\n            \"created_at\": \"2026-08-02\"\n        },\n        {\n            \"id\": 1,\n            \"name\": \"Al-Tamyoz Workshop\",\n            \"name_ar\": \"مركز صيانة التميز\",\n            \"address\": \"المنطقة الصناعية، مخرج 18\",\n            \"city\": \"Riyadh\",\n            \"latitude\": \"24.6333000\",\n            \"longitude\": \"46.7167000\",\n            \"status\": \"approved\",\n            \"rating_avg\": \"4.80\",\n            \"owner\": {\n                \"id\": 3,\n                \"name\": \"مركز صيانة التميز\",\n                \"email\": \"workshop@system.com\",\n                \"phone\": \"0500000003\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/0099dd?text=people+beatae\",\n                \"is_active\": true,\n                \"role\": \"workshop\"\n            },\n            \"created_at\": \"2026-08-02\"\n        }\n    ],\n    \"message\": \"Workshops retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-02T21:39:21+00:00\"\n}"
 										}
 									]
 								},
 								{
-									"name": "show {id}",
+									"name": "delete",
 									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{admin}}",
-													"type": "string"
-												}
-											]
-										},
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{base_url}}/api/customers/company/1",
+											"raw": ""
+										}
+									},
+									"response": [
+										{
+											"name": "can't delete",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/workshops/3",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"workshops",
+														"3"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 02 Aug 2026 21:40:23 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-02T21:40:23+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "cant edit",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": [
+										{
+											"name": "can't update",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\": \"um_hdoo_workshop\",\r\n    \"name_ar\":\"ام حدو ورشة\",\r\n    \"address\":\"hama in the main street\",\r\n    \"city\" : \"hama\",\r\n    \"email\": \"work@ystem.com\",\r\n    \"phone\": \"0500000110\",\r\n    \"password\": \"ام حدو12345\",\r\n    \"password_confirmation\": \"ام حدو12345\",\r\n    \"is_active\": true,\r\n    \"image_url\": \"https://example.com/images/admin.jpg\"\r\n}"
+												},
+												"url": {
+													"raw": "{{base_url}}/api/workshops/6",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"workshops",
+														"6"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 02 Aug 2026 21:42:02 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-02T21:42:02+00:00\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "show caompanies as admin",
+							"item": [
+								{
+									"name": "index companies",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/companies",
 											"host": [
 												"{{base_url}}"
 											],
 											"path": [
 												"api",
-												"customers",
-												"company",
-												"1"
+												"companies"
 											]
 										}
 									},
 									"response": [
 										{
-											"name": "success for SA,A",
+											"name": "success",
 											"originalRequest": {
 												"method": "GET",
 												"header": [
@@ -1894,15 +3500,13 @@
 													}
 												],
 												"url": {
-													"raw": "{{base_url}}/api/customers/personal/4",
+													"raw": "{{base_url}}/api/companies",
 													"host": [
 														"{{base_url}}"
 													],
 													"path": [
 														"api",
-														"customers",
-														"personal",
-														"4"
+														"companies"
 													]
 												}
 											},
@@ -1928,7 +3532,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Fri, 31 Jul 2026 19:47:12 GMT"
+													"value": "Sun, 02 Aug 2026 23:57:31 GMT"
 												},
 												{
 													"key": "Content-Type",
@@ -1940,23 +3544,42 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 4,\n        \"name\": \"أحمد العتيبي (عميل)\",\n        \"email\": \"customer@system.com\",\n        \"phone\": \"0500000004\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/0033ee?text=people+molestiae\",\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-07-31 19:43:21\",\n        \"updated_at\": \"2026-07-31 19:43:21\"\n    },\n    \"message\": \"Personal customer fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T19:47:12+00:00\"\n}"
-										},
+											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Acme Auto\",\n            \"name_ar\": \"أكمي أوتو\",\n            \"commercial_reg\": \"CR-1234562\",\n            \"tax_number\": \"TAX-1234526\",\n            \"address\": \"123 King Fahd Rd, Riyadh\",\n            \"status\": \"approved\",\n            \"is_active\": true,\n            \"owner\": {\n                \"id\": 29,\n                \"name\": \"Company Owner\",\n                \"email\": \"company2@example.com\",\n                \"phone\": \"0500000222\",\n                \"image_url\": null,\n                \"is_active\": true,\n                \"role\": \"customer_company\"\n            },\n            \"created_at\": \"2026-08-02\"\n        }\n    ],\n    \"message\": \"Companies retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-02T23:57:31+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "show company{}",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}/api/companies/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"companies",
+												"1"
+											]
+										}
+									},
+									"response": [
 										{
 											"name": "success",
 											"originalRequest": {
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{base_url}}/api/customers/company/29",
+													"raw": "{{base_url}}/api/companies/1",
 													"host": [
 														"{{base_url}}"
 													],
 													"path": [
 														"api",
-														"customers",
-														"company",
-														"29"
+														"companies",
+														"1"
 													]
 												}
 											},
@@ -1982,7 +3605,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Fri, 31 Jul 2026 20:14:20 GMT"
+													"value": "Sun, 02 Aug 2026 23:56:49 GMT"
 												},
 												{
 													"key": "Content-Type",
@@ -1994,29 +3617,78 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Company Owner\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": false,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:13:10\"\n    },\n    \"message\": \"Company customer fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:14:20+00:00\"\n}"
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Acme Auto\",\n        \"name_ar\": \"أكمي أوتو\",\n        \"commercial_reg\": \"CR-1234562\",\n        \"tax_number\": \"TAX-1234526\",\n        \"address\": \"123 King Fahd Rd, Riyadh\",\n        \"status\": \"approved\",\n        \"is_active\": true,\n        \"owner\": {\n            \"id\": 29,\n            \"name\": \"Company Owner\",\n            \"email\": \"company2@example.com\",\n            \"phone\": \"0500000222\",\n            \"image_url\": null,\n            \"is_active\": true,\n            \"role\": \"customer_company\"\n        },\n        \"created_at\": \"2026-08-02\"\n    },\n    \"message\": \"Company retrieved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-02T23:56:49+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "false edit super",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\"name\":\"Updated\",\r\n\"status\":\"approved\",\r\n\"is_active\":true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
 										},
+										"url": {
+											"raw": "{{base_url}}/api/companies/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"companies",
+												"1"
+											]
+										}
+									},
+									"response": [
 										{
-											"name": "admin inactive",
+											"name": "false edit from admin ,only super",
 											"originalRequest": {
-												"method": "GET",
-												"header": [],
+												"method": "POST",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n\"name\":\"Updated\",\r\n\"status\":\"approved\",\r\n\"is_active\":true\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
 												"url": {
-													"raw": "{{base_url}}/api/customers/company/1",
+													"raw": "{{base_url}}/api/companies/1",
 													"host": [
 														"{{base_url}}"
 													],
 													"path": [
 														"api",
-														"customers",
-														"company",
+														"companies",
 														"1"
 													]
 												}
 											},
 											"status": "Forbidden",
 											"code": 403,
-											"_postman_previewlanguage": "json",
+											"_postman_previewlanguage": "Text",
 											"header": [
 												{
 													"key": "Host",
@@ -2028,7 +3700,7 @@
 												},
 												{
 													"key": "X-Powered-By",
-													"value": "PHP/8.3.11"
+													"value": "PHP/8.3.30"
 												},
 												{
 													"key": "Cache-Control",
@@ -2036,7 +3708,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Sat, 01 Aug 2026 11:00:55 GMT"
+													"value": "Sun, 02 Aug 2026 23:59:04 GMT"
 												},
 												{
 													"key": "Content-Type",
@@ -2048,12 +3720,12 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"message\": \"Your account is inactive.\"\n}"
+											"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-02T23:59:04+00:00\"\n}"
 										}
 									]
 								},
 								{
-									"name": "delete",
+									"name": "false delete from admin",
 									"request": {
 										"method": "DELETE",
 										"header": [
@@ -2069,21 +3741,20 @@
 											}
 										],
 										"url": {
-											"raw": "{{base_url}}/api/customers/company/5",
+											"raw": "{{base_url}}/api/companies/1",
 											"host": [
 												"{{base_url}}"
 											],
 											"path": [
 												"api",
-												"customers",
-												"company",
-												"5"
+												"companies",
+												"1"
 											]
 										}
 									},
 									"response": [
 										{
-											"name": "success for SA",
+											"name": "false delete from admin",
 											"originalRequest": {
 												"method": "DELETE",
 												"header": [
@@ -2099,15 +3770,84 @@
 													}
 												],
 												"url": {
-													"raw": "{{base_url}}/api/customers/company/30",
+													"raw": "{{base_url}}/api/companies/1",
+													"host": [
+														"{{base_url}}"
+													],
+													"path": [
+														"api",
+														"companies",
+														"1"
+													]
+												}
+											},
+											"status": "Forbidden",
+											"code": 403,
+											"_postman_previewlanguage": "Text",
+											"header": [
+												{
+													"key": "Host",
+													"value": "localhost:8000"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												},
+												{
+													"key": "X-Powered-By",
+													"value": "PHP/8.3.30"
+												},
+												{
+													"key": "Cache-Control",
+													"value": "no-cache, private"
+												},
+												{
+													"key": "Date",
+													"value": "Mon, 03 Aug 2026 00:00:36 GMT"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-03T00:00:36+00:00\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "show customer personal as admin",
+							"item": [
+								{
+									"name": "index customer personal",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": [
+										{
+											"name": "success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}/api/customers/personal",
 													"host": [
 														"{{base_url}}"
 													],
 													"path": [
 														"api",
 														"customers",
-														"company",
-														"30"
+														"personal"
 													]
 												}
 											},
@@ -2133,7 +3873,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Fri, 31 Jul 2026 20:25:19 GMT"
+													"value": "Mon, 03 Aug 2026 08:30:58 GMT"
 												},
 												{
 													"key": "Content-Type",
@@ -2145,37 +3885,17 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Company customer deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:25:19+00:00\"\n}"
+											"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 28,\n            \"name\": \"bashirقق\",\n            \"email\": \"bashir2.d.aldaas@gmail.com\",\n            \"phone\": \"0994875928\",\n            \"image_url\": null,\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:23:29\",\n            \"updated_at\": \"2026-08-03 08:24:42\"\n        },\n        {\n            \"id\": 27,\n            \"name\": \"Effie Gislason\",\n            \"email\": \"xfeil@example.net\",\n            \"phone\": \"0975972729\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/008855?text=people+modi\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:38\",\n            \"updated_at\": \"2026-08-03 08:18:38\"\n        },\n        {\n            \"id\": 26,\n            \"name\": \"Brannon Nikolaus\",\n            \"email\": \"gleichner.nicolette@example.net\",\n            \"phone\": \"0929272343\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0033aa?text=people+explicabo\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:37\",\n            \"updated_at\": \"2026-08-03 08:18:37\"\n        },\n        {\n            \"id\": 25,\n            \"name\": \"Foster Berge\",\n            \"email\": \"lenny13@example.net\",\n            \"phone\": \"0967604610\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0011cc?text=people+et\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:37\",\n            \"updated_at\": \"2026-08-03 08:18:37\"\n        },\n        {\n            \"id\": 24,\n            \"name\": \"Lisette Koch\",\n            \"email\": \"gisselle.batz@example.com\",\n            \"phone\": \"0949631144\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0099ee?text=people+iure\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:37\",\n            \"updated_at\": \"2026-08-03 08:18:37\"\n        },\n        {\n            \"id\": 23,\n            \"name\": \"Hunter Leffler\",\n            \"email\": \"verona.spencer@example.org\",\n            \"phone\": \"0977219969\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/008844?text=people+adipisci\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:37\",\n            \"updated_at\": \"2026-08-03 08:18:37\"\n        },\n        {\n            \"id\": 22,\n            \"name\": \"Enos Ryan\",\n            \"email\": \"fae.auer@example.net\",\n            \"phone\": \"0983848953\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0099ff?text=people+neque\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:36\",\n            \"updated_at\": \"2026-08-03 08:18:36\"\n        },\n        {\n            \"id\": 21,\n            \"name\": \"Beryl Dickinson\",\n            \"email\": \"leanne18@example.org\",\n            \"phone\": \"0963470343\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00bbee?text=people+optio\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:36\",\n            \"updated_at\": \"2026-08-03 08:18:36\"\n        },\n        {\n            \"id\": 20,\n            \"name\": \"Prof. Brennon Kerluke III\",\n            \"email\": \"rocio79@example.org\",\n            \"phone\": \"0995673416\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/001133?text=people+similique\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:36\",\n            \"updated_at\": \"2026-08-03 08:18:36\"\n        },\n        {\n            \"id\": 19,\n            \"name\": \"Mr. Luther Lueilwitz DVM\",\n            \"email\": \"trantow.winnifred@example.org\",\n            \"phone\": \"0974905380\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00bb66?text=people+illo\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:35\",\n            \"updated_at\": \"2026-08-03 08:18:35\"\n        },\n        {\n            \"id\": 18,\n            \"name\": \"Carter Hoeger\",\n            \"email\": \"vprohaska@example.org\",\n            \"phone\": \"0975028590\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/007777?text=people+facere\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:35\",\n            \"updated_at\": \"2026-08-03 08:18:35\"\n        },\n        {\n            \"id\": 17,\n            \"name\": \"Dr. Jaylan Torp\",\n            \"email\": \"spencer.mellie@example.org\",\n            \"phone\": \"0971246828\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0011cc?text=people+esse\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:35\",\n            \"updated_at\": \"2026-08-03 08:18:35\"\n        },\n        {\n            \"id\": 16,\n            \"name\": \"Eino Thiel V\",\n            \"email\": \"turner.scot@example.com\",\n            \"phone\": \"0984575657\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00bb00?text=people+nam\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:35\",\n            \"updated_at\": \"2026-08-03 08:18:35\"\n        },\n        {\n            \"id\": 15,\n            \"name\": \"Dr. Tanya Huel\",\n            \"email\": \"kirstin63@example.com\",\n            \"phone\": \"0990057015\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/000099?text=people+eligendi\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:34\",\n            \"updated_at\": \"2026-08-03 08:18:34\"\n        },\n        {\n            \"id\": 14,\n            \"name\": \"Jon Schulist\",\n            \"email\": \"christelle.mcclure@example.org\",\n            \"phone\": \"0990590475\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/002233?text=people+aliquam\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:34\",\n            \"updated_at\": \"2026-08-03 08:18:34\"\n        },\n        {\n            \"id\": 13,\n            \"name\": \"Priscilla Metz V\",\n            \"email\": \"green.lester@example.com\",\n            \"phone\": \"0923251872\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00cc99?text=people+aliquam\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:34\",\n            \"updated_at\": \"2026-08-03 08:18:34\"\n        },\n        {\n            \"id\": 12,\n            \"name\": \"Geovanni Purdy\",\n            \"email\": \"vaughn.gorczany@example.net\",\n            \"phone\": \"0958009531\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ee11?text=people+debitis\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:33\",\n            \"updated_at\": \"2026-08-03 08:18:33\"\n        },\n        {\n            \"id\": 11,\n            \"name\": \"Alfredo Nienow\",\n            \"email\": \"cboehm@example.com\",\n            \"phone\": \"0948972024\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/003355?text=people+cupiditate\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:33\",\n            \"updated_at\": \"2026-08-03 08:18:33\"\n        },\n        {\n            \"id\": 10,\n            \"name\": \"Mr. Hector Rodriguez II\",\n            \"email\": \"oswaldo08@example.com\",\n            \"phone\": \"0956381426\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/001144?text=people+deserunt\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:33\",\n            \"updated_at\": \"2026-08-03 08:18:33\"\n        },\n        {\n            \"id\": 9,\n            \"name\": \"Shanie Gleichner\",\n            \"email\": \"ugrady@example.net\",\n            \"phone\": \"0919034619\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/005588?text=people+ipsa\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:33\",\n            \"updated_at\": \"2026-08-03 08:18:33\"\n        },\n        {\n            \"id\": 8,\n            \"name\": \"Arnoldo Moore\",\n            \"email\": \"hohara@example.org\",\n            \"phone\": \"0922795223\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/001177?text=people+enim\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:32\",\n            \"updated_at\": \"2026-08-03 08:18:32\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"أحمد العتيبي (عميل)\",\n            \"email\": \"customer@system.com\",\n            \"phone\": \"0500000004\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ccdd?text=people+cupiditate\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\",\n            \"created_at\": \"2026-08-03 08:18:30\",\n            \"updated_at\": \"2026-08-03 08:18:30\"\n        }\n    ],\n    \"message\": \"Personal customers fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-03T08:30:57+00:00\"\n}"
 										}
 									]
 								},
 								{
-									"name": "UPDATE customar company",
+									"name": "show customer personal {}",
 									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
+										"method": "GET",
+										"header": [],
 										"url": {
-											"raw": "{{base_url}}/api/customers/personal/4",
+											"raw": "{{base_url}}/api/customers/personal/11",
 											"host": [
 												"{{base_url}}"
 											],
@@ -2183,46 +3903,26 @@
 												"api",
 												"customers",
 												"personal",
-												"4"
+												"11"
 											]
 										}
 									},
 									"response": [
 										{
-											"name": "success for SA",
+											"name": "success",
 											"originalRequest": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json",
-														"type": "text"
-													},
-													{
-														"key": "Content-Type",
-														"value": "application/json",
-														"type": "text"
-													}
-												],
-												"body": {
-													"mode": "raw",
-													"raw": "{\r\n    \"name\": \"Ahmad Khaled\"\r\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
+												"method": "GET",
+												"header": [],
 												"url": {
-													"raw": "{{base_url}}/api/customers/company/29",
+													"raw": "{{base_url}}/api/customers/personal/11",
 													"host": [
 														"{{base_url}}"
 													],
 													"path": [
 														"api",
 														"customers",
-														"company",
-														"29"
+														"personal",
+														"11"
 													]
 												}
 											},
@@ -2248,7 +3948,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Fri, 31 Jul 2026 20:15:48 GMT"
+													"value": "Mon, 03 Aug 2026 08:32:06 GMT"
 												},
 												{
 													"key": "Content-Type",
@@ -2260,54 +3960,40 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Ahmad Khaled\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": false,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:14:55\"\n    },\n    \"message\": \"Company customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:15:48+00:00\"\n}"
-										},
+											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 11,\n        \"name\": \"Alfredo Nienow\",\n        \"email\": \"cboehm@example.com\",\n        \"phone\": \"0948972024\",\n        \"image_url\": \"https://via.placeholder.com/200x200.png/003355?text=people+cupiditate\",\n        \"is_active\": true,\n        \"role\": \"customer_personal\",\n        \"created_at\": \"2026-08-03 08:18:33\",\n        \"updated_at\": \"2026-08-03 08:18:33\"\n    },\n    \"message\": \"Personal customer fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-03T08:32:06+00:00\"\n}"
+										}
+									]
+								},
+								{
+									"name": "false delete",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": [
 										{
-											"name": "UPDATE customar company",
+											"name": "false delete",
 											"originalRequest": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json",
-														"type": "text"
-													},
-													{
-														"key": "Content-Type",
-														"value": "application/json",
-														"type": "text"
-													}
-												],
-												"body": {
-													"mode": "formdata",
-													"formdata": [
-														{
-															"key": "is_active",
-															"value": "1",
-															"type": "text"
-														}
-													],
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
+												"method": "DELETE",
+												"header": [],
 												"url": {
-													"raw": "{{base_url}}/api/customers/company/29",
+													"raw": "{{base_url}}/api/customers/personal/9",
 													"host": [
 														"{{base_url}}"
 													],
 													"path": [
 														"api",
 														"customers",
-														"company",
-														"29"
+														"personal",
+														"9"
 													]
 												}
 											},
-											"status": "OK",
-											"code": 200,
+											"status": "Forbidden",
+											"code": 403,
 											"_postman_previewlanguage": "Text",
 											"header": [
 												{
@@ -2328,7 +4014,7 @@
 												},
 												{
 													"key": "Date",
-													"value": "Fri, 31 Jul 2026 20:16:27 GMT"
+													"value": "Mon, 03 Aug 2026 08:32:48 GMT"
 												},
 												{
 													"key": "Content-Type",
@@ -2340,91 +4026,45 @@
 												}
 											],
 											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Ahmad Khaled\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": true,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:16:27\"\n    },\n    \"message\": \"Company customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:16:27+00:00\"\n}"
-										},
-										{
-											"name": "success update is_active =1",
-											"originalRequest": {
-												"method": "POST",
-												"header": [
-													{
-														"key": "Accept",
-														"value": "application/json",
-														"type": "text"
-													},
-													{
-														"key": "Content-Type",
-														"value": "application/json",
-														"type": "text"
-													}
-												],
-												"body": {
-													"mode": "formdata",
-													"formdata": [
-														{
-															"key": "is_active",
-															"value": "1",
-															"type": "text"
-														}
-													],
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{base_url}}/api/customers/company/29",
-													"host": [
-														"{{base_url}}"
-													],
-													"path": [
-														"api",
-														"customers",
-														"company",
-														"29"
-													]
-												}
-											},
-											"status": "OK",
-											"code": 200,
-											"_postman_previewlanguage": "Text",
-											"header": [
-												{
-													"key": "Host",
-													"value": "localhost:8000"
-												},
-												{
-													"key": "Connection",
-													"value": "close"
-												},
-												{
-													"key": "X-Powered-By",
-													"value": "PHP/8.3.30"
-												},
-												{
-													"key": "Cache-Control",
-													"value": "no-cache, private"
-												},
-												{
-													"key": "Date",
-													"value": "Fri, 31 Jul 2026 20:16:27 GMT"
-												},
-												{
-													"key": "Content-Type",
-													"value": "application/json"
-												},
-												{
-													"key": "Access-Control-Allow-Origin",
-													"value": "*"
-												}
-											],
-											"cookie": [],
-											"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 29,\n        \"name\": \"Ahmad Khaled\",\n        \"name_ar\": null,\n        \"commercial_reg\": null,\n        \"tax_number\": null,\n        \"address\": null,\n        \"status\": null,\n        \"is_active\": true,\n        \"created_at\": \"2026-07-31 20:13:10\",\n        \"updated_at\": \"2026-07-31 20:16:27\"\n    },\n    \"message\": \"Company customer updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T20:16:27+00:00\"\n}"
+											"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-03T08:32:48+00:00\"\n}"
 										}
 									]
 								}
 							]
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{auth_secret_0wx6}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {},
+								"exec": [
+									""
+								]
+							}
 						}
 					]
 				}
@@ -12322,7 +13962,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{company1-token}}",
+											"value": "{{admin}}",
 											"type": "string"
 										}
 									]
@@ -12345,20 +13985,20 @@
 									"formdata": [
 										{
 											"key": "name",
-											"value": "company",
+											"value": "مدير تعديل",
 											"type": "text"
 										}
 									]
 								},
 								"url": {
-									"raw": "{{base_url}}/api/profile/editProfile",
+									"raw": "{{base_url}}/api/profile/updateProfile",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"profile",
-										"editProfile"
+										"updateProfile"
 									]
 								}
 							},

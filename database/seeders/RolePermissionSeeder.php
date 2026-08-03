@@ -90,17 +90,15 @@ class RolePermissionSeeder extends Seeder
             // === الخدمات والأسعار والتصنيفات ===
             'manage.categories', 'show.categories',
             'manage.services', 'show.services',
-            'manage.car_brands',
             'manage.sub_services', 'show.sub_services',
-            'manage.pricing_rule', 'show.pricing_rules',
-            'manage.pricing_rule_types', 'show.pricing_rule_types',
+            'add.pricing_rule', 'edit.pricing_rule', 'delete.pricing_rule', 'show.pricing_rules',
+            'add.pricing_rule_types', 'edit.pricing_rule_types', 'delete.pricing_rule_types', 'show.pricing_rule_types',
 
             // === المواد، المخزون، والمشتريات ===
-            'manage.material', 'show.materials',
-            'manage.material_units', 'show.material_units',
+            'add.material', 'edit.material', 'delete.material', 'show.materials',
+            'manage.material_units',
             'manage.inventory', 'show.inventory',
             'show.inventory_transactions',
-            'manage.inventory_transactions',
             'manage.purchase_requests', 'approve.purchase_request', 'reject.purchase_request',
             'manage.purchase_request_items',
 
@@ -118,7 +116,7 @@ class RolePermissionSeeder extends Seeder
             'show.employee_reports',
             'show.spare_part_requests', 'approve.spare_part_request', 'reject.spare_part_request',
             'show.gps_tracking', 'show.gps_logs',
-            'show.profile',
+
             // === المساعدة على الطريق وأعطال السيارات ===
             'show.road_assistance_details',
             'manage.problem_types', 'show.problem_types',
@@ -141,7 +139,7 @@ class RolePermissionSeeder extends Seeder
             'show.ratings',
             'show.reports', 'show.financial_reports',
             'add.ai_rule', 'edit.ai_rule', 'delete.ai_rule', 'show.ai_rules',
-            'manage.system_setting', 'show.system_settings',
+            'add.system_setting', 'edit.system_setting', 'delete.system_setting', 'show.system_settings',
         ];
     }
 
@@ -152,8 +150,7 @@ class RolePermissionSeeder extends Seeder
             'show.customers', 'show.users',
             'add.employee', 'edit.employee', 'show.employees',
             'show.otp_codes',
-            'show.ai_rules',
-            'show.system_settings',
+            'show.personal_customers',
 
             // === الشركات والفروع والسيارات ===
             'show.companies',
@@ -167,12 +164,9 @@ class RolePermissionSeeder extends Seeder
 
             // === المواد، المخزون، والمشتريات (صلاحيات كاملة للفرع) ===
             'show.materials',
-            'show.material_units',
             'manage.inventory', 'show.inventory',
-            'manage.inventory_transactions',
             'show.inventory_transactions',
             'manage.purchase_requests', 'manage.purchase_request_items',
-            'show.profile',
 
             // === الباقات والاشتراكات ===
             'show.packages', 'show.package_services', 'show.package_service_sub_services',
@@ -214,10 +208,6 @@ class RolePermissionSeeder extends Seeder
             'show.car',
             'show.car_types',
             'show.car_brands',
-            'show.branches',
-            'show.packages',
-            'show.package_services',
-            'show.package_service_sub_services',
 
             // إدارة فنيي الورشة
             'add.employee', 'edit.employee', 'show.employees',
@@ -228,11 +218,11 @@ class RolePermissionSeeder extends Seeder
             // إدارة فواتير وطلبات الورشة المسندة إليها
             'show.orders', 'assign.order', 'edit.order',
             'show.order_sub_services', 'show.order_status_history',
-            'show.suggested_problems',
+
             // العمليات والتقارير المالية
             'show.employee_reports',
             'show.spare_part_requests', 'approve.spare_part_request', 'reject.spare_part_request',
-            'show.payments', 'show.ratings', 'show.materials',
+            'show.payments', 'show.ratings',
         ];
     }
 
@@ -250,7 +240,9 @@ class RolePermissionSeeder extends Seeder
             'show.notifications', 'edit.notification_status',
             'show.car_types',
             'show.car_brands',
-            'show.package_service_sub_services', 'show.materials',
+            'show.package_service_sub_services',
+            'show.pricing_rule_types',
+            'show.pricing_rules',
         ];
     }
 
@@ -270,20 +262,13 @@ class RolePermissionSeeder extends Seeder
             'show.employees',
             'show.car',
             'show.orders', 'edit.order', 'show.order_sub_services', 'show.order_status_history',
-            'manage.gps_logs','show.suggested_problems',
+            'manage.gps_logs',
             'show.categories', 'show.services', 'show.sub_services', 'show.materials', 'manage.order_materials',
             'create.employee_report', 'show.employee_reports', 'show.ratings',
             'show.car_types',
             'show.car_brands',
+            'show.pricing_rule_types',
             'show.pricing_rules',
-            'show.branches',
-            'show.profile',
-            'show.packages',
-            'show.package_services',
-            'show.package_service_sub_services',
-
-
-
         ];
     }
 
@@ -300,14 +285,8 @@ class RolePermissionSeeder extends Seeder
             'show.ratings',
             'show.car_types',
             'show.car_brands',
+            'show.pricing_rule_types',
             'show.pricing_rules',
-            'show.branches',
-            'show.profile',
-            'show.packages',
-            'show.package_services',
-            'show.package_service_sub_services',
-
-
         ];
     }
 }
