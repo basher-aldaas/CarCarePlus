@@ -24,4 +24,35 @@ class WorkshopRepository
             ->latest()
             ->get();
     }
+
+    public function getAll(): Collection
+    {
+        return Workshop::with('owner')
+            ->latest()
+            ->get();
+    }
+
+    public function findById(int $id): Workshop
+    {
+        return Workshop::with('owner')->findOrFail($id);
+    }
+
+    public function update(Workshop $workshop, WorkshopDTO $dto): Workshop
+    {
+        $workshop->update($dto->toArray());
+
+        return $workshop->refresh();
+    }
+
+    public function delete(Workshop $workshop): bool
+    {
+        return $workshop->delete();
+    }
+
+    public function findByOwnerId(int $ownerId)
+    {
+        return Workshop::where('user_id', $ownerId)->first();
+    }
+
+
 }

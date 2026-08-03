@@ -11,6 +11,7 @@ use App\Http\Controllers\Operations\PointsTransactionController;
 use App\Http\Controllers\Operations\ServiceController;
 use App\Http\Controllers\Operations\UserController;
 use App\Http\Controllers\Operations\UserPackageController;
+use App\Http\Controllers\Operations\WorkshopController;
 use App\Http\Controllers\SuperAdmin\Operations\CarBrandController;
 use App\Http\Controllers\SuperAdmin\Operations\CarTypeController;
 use App\Http\Controllers\SuperAdmin\Operations\CustomerCompanyController;
@@ -28,6 +29,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SuperAdmin\Operations\AdminController;
+use App\Http\Controllers\Operations\CompanyController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -59,6 +61,35 @@ Route::prefix('auth')->group(function () {
     Route::post('password/otp/reset', [PasswordResetController::class, 'resetWithOtp']);// for all
 
 });
+
+Route::middleware([
+    'auth:sanctum',
+    'active.user',
+    'role:super_admin|admin'
+])
+    ->group(function(){
+
+        Route::get('/customers/personal',[CustomerPersonalController::class,'index'])
+            ->middleware('can:show.personal_customers');
+
+
+        Route::get('/customers/personal/{customer}',[CustomerPersonalController::class,'show'])
+            ->middleware('can:show.personal_customers');
+
+
+        Route::post('/customers/personal/{customer}',[CustomerPersonalController::class,'update'])
+            ->middleware('can:edit.personal_customers');
+
+
+        Route::delete('/customers/personal/{customer}',[CustomerPersonalController::class,'destroy'])
+            ->middleware('can:delete.personal_customers');
+
+    });
+
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -132,6 +163,28 @@ Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
             Route::post('/updateProfile', [UserController::class, 'updateProfile']);
         });
 
+    /*
+    |--------------------------------------------------------------------------
+    | Companies
+    |--------------------------------------------------------------------------
+    */
+
+
+    Route::get(
+        '/companies',[CompanyController::class,'index'])->middleware('can:show.companies');
+
+
+    Route::get('/companies/my',[CompanyController::class,'myCompany'])
+        ->middleware('can:show.companies');
+
+    Route::get('/companies/{company}',[CompanyController::class,'show'])
+        ->middleware('can:show.companies');
+
+    Route::post('/companies/{company}',[CompanyController::class,'update'])
+        ->middleware('can:edit.company');
+
+    Route::delete('/companies/{company}',[CompanyController::class,'destroy'])
+        ->middleware('can:delete.company');
 
     /*
      (SA , A) : can enter customer id and show his points or show all users points
@@ -147,13 +200,78 @@ Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
     Route::post('/user-packages/update/{user_package}', [UserPackageController::class, 'update'])->middleware(['can:edit.user_package', 'active.user']);
 
 
+//true
+//    Route::get('/customers/personal',[CustomerPersonalController::class,'index']
+//    )->middleware('can:show.personal_customers');
+//
+//    Route::get('/customers/personal/{customer}',[CustomerPersonalController::class,'show']
+//    )->middleware('can:show.personal_customers');
+
+
+
+
+    // without admin
+//    Route::post('/customers/personal/{customer}',[CustomerPersonalController::class,'update']
+//    )->middleware('can:edit.personal_customers');
+//
+//    Route::delete(
+//        '/customers/personal/{customer}',
+//        [CustomerPersonalController::class,'destroy']
+//    )->middleware('can:delete.personal_customers');
+//
+
+
+    // for customar personal only
+
+    Route::middleware([
+        'auth:sanctum',
+        'active.user',
+    ])->group(function () {
+
+        Route::get('customers/personal/my/profile', [CustomerPersonalController::class,'myProfile']);
+
+        Route::post('customers/personal/my/profile', [CustomerPersonalController::class,'updateMyProfile']);
+    });
+
+
+
+
     //for SA & A
     Route::get('/points', [PointController::class, 'index'])->middleware(['can:show.all_user_points', 'active.admin']);
     Route::get('/points-configs', [PointsConfigController::class, 'index'])->middleware('can:show.point_config');
     Route::get('/points-configs/{id}', [PointsConfigController::class, 'show'])->middleware('can:show.point_config');
 
+    /*
+|--------------------------------------------------------------------------
+| Workshops
+|--------------------------------------------------------------------------
+*/
+
+    Route::get('/workshops', [WorkshopController::class, 'index'])
+        ->middleware('can:show.workshops');
+
+    Route::get('/workshops/my', [WorkshopController::class, 'myWorkshop'])
+        ->middleware('can:show.workshops');
+
+    Route::get('/workshops/{workshop}', [WorkshopController::class, 'show'])
+        ->middleware('can:show.workshops');
+
+    Route::post('/workshops', [WorkshopController::class, 'store'])
+        ->middleware('can:add.workshop');
+
+    Route::post('/workshops/{workshop}', [WorkshopController::class, 'update'])
+        ->middleware('can:edit.workshop');
+
+    Route::delete('/workshops/{workshop}', [WorkshopController::class, 'destroy'])
+        ->middleware('can:delete.workshop');
+
+
+
     //for SA
     //Route::post('/points/transactions', [PointsTransactionController::class, 'store']);
+
+
+
     Route::post('/points-configs', [PointsConfigController::class, 'store'])->middleware('can:manage.point_config');
     Route::post('/points-configs/{points_config}', [PointsConfigController::class, 'update'])->middleware('can:manage.point_config');
     Route::delete('/points-configs/{points_config}', [PointsConfigController::class, 'destroy'])->middleware('can:manage.point_config');
@@ -209,26 +327,40 @@ Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
     Route::delete('/admins/{admin}', [AdminController::class, 'destroy'])->middleware('can:delete.admin');
 
 
+// true
+//    Route::delete(
+//        '/customers/personal/{customer}',
+//        [CustomerPersonalController::class,'destroy']
+//    )->middleware('can:delete.personal_customers');
+
     /*
 |--------------------------------------------------------------------------
 | Super Admin — Personal Customers
 |--------------------------------------------------------------------------
 */
+// true
+//    Route::post('/customers/personal/{customer}',[CustomerPersonalController::class,'update']
+//    )->middleware('can:edit.personal_customers');
 
-    Route::get('/customers/personal',[CustomerPersonalController::class, 'index']
-    )->middleware('can:show.personal_customers');
 
-    Route::get(
-        '/customers/personal/{customer}',[CustomerPersonalController::class, 'show']
-    )->middleware('can:show.personal_customers');
 
-    Route::post(
-        '/customers/personal/{customer}',[CustomerPersonalController::class, 'update']
-    )->middleware('can:edit.personal_customers');
 
-    Route::delete(
-        '/customers/personal/{customer}',[CustomerPersonalController::class, 'destroy']
-    )->middleware('can:delete.personal_customers');
+
+    // no its + admin
+//    Route::get('/customers/personal',[CustomerPersonalController::class, 'index']
+//    )->middleware('can:show.personal_customers');
+//
+//    Route::get(
+//        '/customers/personal/{customer}',[CustomerPersonalController::class, 'show']
+//    )->middleware('can:show.personal_customers');
+
+
+
+
+    // only super cant customar personal delete his account
+//    Route::delete(
+//        '/customers/personal/{customer}',[CustomerPersonalController::class, 'destroy']
+//    )->middleware('can:delete.personal_customers');
 
 
     /*
@@ -250,6 +382,10 @@ Route::middleware(['auth:sanctum', 'active.user'])->group(function () {
     Route::delete(
         '/customers/company/{customer}',[CustomerCompanyController::class, 'destroy']
     )->middleware('can:delete.company_customers');
+
+
+
+
 
 });
 Route::bind('admin', function ($value) {

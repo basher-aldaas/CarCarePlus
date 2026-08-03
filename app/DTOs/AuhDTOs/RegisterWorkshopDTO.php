@@ -20,7 +20,7 @@ class RegisterWorkshopDTO
             workshop: WorkshopDTO::fromArray([
                 'name' => $data['workshop_name'] ?? null,
                 'name_ar' => $data['workshop_name_ar'] ?? null,
-                'phone' => $data['workshop_phone'] ?? null,
+        //        'phone' => $data['workshop_phone'] ?? null,
                 'address' => $data['workshop_address'] ?? null,
                 'city' => $data['workshop_city'] ?? null,
                 'latitude' => isset($data['latitude']) ? (float) $data['latitude'] : null,

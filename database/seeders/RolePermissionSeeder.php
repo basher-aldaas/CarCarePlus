@@ -30,7 +30,7 @@ class RolePermissionSeeder extends Seeder
             $this->customerPersonalPermissions(),
             $this->customerCompanyPermissions(),
             $this->employeeWasherPermissions(),
-            $this->employeeMechanicPermissions(),
+            $this->employeeMechanicPermissions()
         ));
 
         foreach ($allPermissions as $permission) {
@@ -147,10 +147,11 @@ class RolePermissionSeeder extends Seeder
     {
         return [
             // === إدارة المستخدمين والموظفين (ضمن نطاقه) ===
-            'show.customers', 'show.users',
+            'show.customers', 'show.users','show.personal_customers',
             'add.employee', 'edit.employee', 'show.employees',
             'show.otp_codes',
-
+            "show.workshops",
+            'show.companies',
             // === الشركات والفروع والسيارات ===
             'show.companies',
             'edit.branch', 'show.branches',
@@ -228,15 +229,24 @@ class RolePermissionSeeder extends Seeder
     private function customerPersonalPermissions(): array
     {
         return [
-            'add.car', 'edit.car', 'delete.car', 'show.car', 'show.client.cars',
-            'show.users',
+            "customer_personal",//"show.personal_customers","edit.personal_customers",
+            'add.car', 'edit.car', 'delete.car', 'show.car',// خطأ فقط  سيارته
+
+            'show.client.cars','show.personal.cars',
+            'manage.personal.cars',
+            'show.users','show.personal.profile','edit.personal.profile',
+
+
             'show.branches', 'show.categories', 'show.services', 'show.sub_services', 'show.packages', 'show.package_services',
             'create.order', 'cancel.order', 'show.orders', 'show.order_sub_services', 'show.order_status_history', 'show.gps_tracking',
             'create.road_assistance', 'show.road_assistance_details', 'show.suggested_problems', 'manage.ai_chat',
             'show.wallets', 'show.wallet_transactions', 'show.user_packages', 'add.user_package', 'edit.user_package',
             'show.user_points', 'show.points_transactions',
             'create.payment', 'show.payments', 'create.refund', 'show.refunds', 'create.rating', 'show.ratings',
-            'show.notifications', 'edit.notification_status',
+            'show.personal.notifications',
+
+            'show.notifications' // and this need edit
+        , 'edit.notification_status',
             'show.car_types',
             'show.car_brands',
             'show.package_service_sub_services',

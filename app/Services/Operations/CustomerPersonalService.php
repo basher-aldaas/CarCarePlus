@@ -10,9 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerPersonalService
 {
+    protected $customerRepository;
+
     public function __construct(
-        protected CustomerPersonalRepository $customerRepository
-    ) {}
+        CustomerPersonalRepository $customerRepository
+    ) {
+        $this->customerRepository = $customerRepository;
+    }
 
     /**
      * Get all personal customers.
@@ -26,15 +30,51 @@ class CustomerPersonalService
      */
     public function index(): Collection
     {
+        $user = auth()->user();
+
+        /*
+         * Personal customer:
+         * only his own account.
+         */
+        if ($user->hasRole('customer_personal')) {
+
+            return User::whereKey($user->id)->get();
+
+        }
+
+        /*
+         * Admin & Super Admin:
+         * all personal customers.
+         */
         return $this->customerRepository->getAll();
     }
-
     /**
      * Show one personal customer.
      */
-    public function show(User $customer): User
+    public function show(
+        User $customer
+    ): User
     {
         $this->ensureCustomer($customer);
+
+        $user = auth()->user();
+
+        /*
+         * Personal customer
+         * can view only himself.
+         */
+        if (
+            $user->hasRole('customer_personal')
+            &&
+            $customer->id != $user->id
+        ) {
+
+            abort(
+                403,
+                __('Unauthorized')
+            );
+
+        }
 
         return $customer->refresh();
     }
@@ -45,6 +85,19 @@ class CustomerPersonalService
     public function update(User $customer, CustomerDTO $dto): User
     {
         $this->ensureCustomer($customer);
+
+
+        $user = auth()->user();
+
+        if (
+            $user->hasRole('customer_personal')
+            &&
+            $customer->id != $user->id
+        ) {
+
+            abort(403);
+
+        }
 
         return DB::transaction(function () use ($customer, $dto) {
             return $this->customerRepository->update(
