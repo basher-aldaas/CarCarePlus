@@ -23,7 +23,7 @@ class UserService
         return $user;
     }
 
-    public function updateUserProfile(UserDTO $DTO): User
+    public function updateUserProfile(UserDTO $DTO): array
     {
         return DB::transaction(function () use ($DTO) {
             // Owner-only: a user can edit nothing but their own authenticated profile.
