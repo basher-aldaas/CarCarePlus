@@ -30,6 +30,9 @@ return new class extends Migration
             $table->boolean('is_vip_material')
                 ->default(false);
 
+            $table->boolean('is_visible_to_customer')
+                ->default(false);
+
             $table->boolean('is_active')
                 ->default(true);
 

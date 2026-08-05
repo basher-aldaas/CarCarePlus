@@ -39,6 +39,16 @@ class SubServiceController extends Controller
         );
     }
 
+    public function indexByService(int $service)
+    {
+        return Response::Success(
+            SubServiceResource::collection(
+                $this->subServiceService->indexByService($service)
+            ),
+            'Sub services fetched successfully'
+        );
+    }
+
     public function store(CreateSubServiceRequest $request)
     {
         $dto = SubServiceDTO::fromArray(

@@ -81,10 +81,7 @@ class RolePermissionSeeder extends Seeder
 
             // === السيارات وأنواعها ===
             'manage.car_types', 'show.car_types',
-            'manageq
-            eefefsf
-
-            .car_brands', 'show.car_brands',
+            'manage.car_brands', 'show.car_brands',
             'add.car', 'edit.car', 'delete.car', 'show.car', 'show.cars', 'show.client.cars',
 
             // === الخدمات والأسعار والتصنيفات ===

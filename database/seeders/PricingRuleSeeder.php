@@ -185,6 +185,28 @@ class PricingRuleSeeder extends Seeder
                 ],
                 'is_active' => true,
             ],
+
+            [
+                'id' => 15,
+                'pricing_rule_type_id' => 11,
+                'name' => 'Extra Distance Charge',
+                'name_ar' => 'رسوم المسافة الإضافية',
+                'value' => 2, // price per km beyond the included distance
+                'conditions' => [
+                    'included_km' => 20,
+                ],
+                'is_active' => true,
+            ],
+
+            [
+                'id' => 16,
+                'pricing_rule_type_id' => 12,
+                'name' => 'Off Working Hours Charge',
+                'name_ar' => 'رسوم خارج أوقات العمل',
+                'value' => 15,
+                'conditions' => null,
+                'is_active' => true,
+            ],
         ];
         foreach ($rules as $rule) {
             PricingRule::create($rule);

@@ -57,6 +57,11 @@ class CreateMaterialRequest extends FormRequest
                 'boolean'
             ],
 
+            'is_visible_to_customer' => [
+                'nullable',
+                'boolean'
+            ],
+
             'is_active' => [
                 'nullable',
                 'boolean'

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderStatusHistory extends Model
 {
-    protected $table = 'order_status_history';
+    protected $table = 'order_status_histories';
     public $timestamps = false;
 
     protected $fillable = [
@@ -24,7 +24,7 @@ class OrderStatusHistory extends Model
     }
     public function employee(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'employee_id');
+        return $this->belongsTo(Employee::class, 'employee_id');
     }
 
 }

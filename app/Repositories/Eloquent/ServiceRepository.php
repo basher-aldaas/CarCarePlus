@@ -14,6 +14,14 @@ class ServiceRepository
             ->get();
     }
 
+    public function getAllByCategory(int $categoryId)
+    {
+        return Service::with('category')
+            ->where('category_id', $categoryId)
+            ->latest()
+            ->get();
+    }
+
     public function findById(int $id): Service
     {
         return Service::with('category')

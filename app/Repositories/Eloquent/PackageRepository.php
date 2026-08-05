@@ -12,6 +12,13 @@ class PackageRepository
         return Package::latest()->get();
     }
 
+    public function getAllForCustomerType(bool $isCompanyPackage)
+    {
+        return Package::where('is_company_package', $isCompanyPackage)
+            ->latest()
+            ->get();
+    }
+
     public function findById(int $id): Package
     {
         return Package::findOrFail($id);

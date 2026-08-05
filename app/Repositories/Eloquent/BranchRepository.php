@@ -18,6 +18,11 @@ class BranchRepository
         return $branch->load('manager');
     }
 
+    public function findByIdOrNull(int $id): ?Branch
+    {
+        return Branch::find($id);
+    }
+
     public function create(BranchesDTO $dto): Branch
     {
         return Branch::create($dto->toArray());

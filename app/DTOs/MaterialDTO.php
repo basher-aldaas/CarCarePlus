@@ -11,6 +11,7 @@ class MaterialDTO
         public ?string $description,
         public ?float $unit_price,
         public ?bool $is_vip_material,
+        public ?bool $is_visible_to_customer,
         public ?bool $is_active,
     ) {}
 
@@ -23,6 +24,7 @@ class MaterialDTO
             description: $data['description'] ?? null,
             unit_price: isset($data['unit_price']) ? (float) $data['unit_price'] : null,
             is_vip_material: isset($data['is_vip_material']) ? (bool) $data['is_vip_material'] : null,
+            is_visible_to_customer: isset($data['is_visible_to_customer']) ? (bool) $data['is_visible_to_customer'] : null,
             is_active: isset($data['is_active']) ? (bool) $data['is_active'] : null,
         );
     }
@@ -36,6 +38,7 @@ class MaterialDTO
             'description' => $this->description,
             'unit_price' => $this->unit_price,
             'is_vip_material' => $this->is_vip_material,
+            'is_visible_to_customer' => $this->is_visible_to_customer,
             'is_active' => $this->is_active,
         ], fn ($value) => $value !== null);
     }

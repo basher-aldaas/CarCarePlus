@@ -5538,6 +5538,113 @@
 									"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Service deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-17T21:21:25+00:00\"\n}"
 								}
 							]
+						},
+						{
+							"name": "get services in special category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/categories/1/services",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"categories",
+										"1",
+										"services"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success for all",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/categories/1/services",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"categories",
+												"1",
+												"services"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 05 Aug 2026 16:31:10 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"category_id\": 1,\n            \"category\": {\n                \"id\": 1,\n                \"name\": \"Car Wash\",\n                \"name_ar\": \"غسيل سيارات\",\n                \"description\": \"تنظيف وتلميع السيارات الداخلي والخارجي\",\n                \"is_active\": true,\n                \"created_at\": \"2026-08-05 12:45:35\",\n                \"updated_at\": null\n            },\n            \"name\": \"Exterior Wash\",\n            \"name_ar\": \"غسيل خارجي\",\n            \"description\": \"غسيل خارجي شامل للسيارة\",\n            \"base_price\": \"50.00\",\n            \"is_vip_available\": true,\n            \"vip_extra_price\": \"20.00\",\n            \"duration_minutes\": 30,\n            \"created_at\": \"2026-08-05 12:45:36\",\n            \"updated_at\": \"2026-08-05 12:45:36\"\n        },\n        {\n            \"id\": 2,\n            \"category_id\": 1,\n            \"category\": {\n                \"id\": 1,\n                \"name\": \"Car Wash\",\n                \"name_ar\": \"غسيل سيارات\",\n                \"description\": \"تنظيف وتلميع السيارات الداخلي والخارجي\",\n                \"is_active\": true,\n                \"created_at\": \"2026-08-05 12:45:35\",\n                \"updated_at\": null\n            },\n            \"name\": \"Interior Cleaning\",\n            \"name_ar\": \"تنظيف داخلي\",\n            \"description\": \"تنظيف داخلي شامل للمقاعد والسجاد\",\n            \"base_price\": \"70.00\",\n            \"is_vip_available\": true,\n            \"vip_extra_price\": \"25.00\",\n            \"duration_minutes\": 45,\n            \"created_at\": \"2026-08-05 12:45:36\",\n            \"updated_at\": \"2026-08-05 12:45:36\"\n        }\n    ],\n    \"message\": \"Services fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-05T16:31:10+00:00\"\n}"
+								}
+							]
 						}
 					]
 				},
@@ -6069,6 +6176,113 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "get sub services in special service",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/services/1/sub-services",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"services",
+										"1",
+										"sub-services"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success for all",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/services/1/sub-services",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"services",
+												"1",
+												"sub-services"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 05 Aug 2026 16:35:20 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 2,\n            \"service_id\": 1,\n            \"service\": {\n                \"id\": 1,\n                \"category_id\": 1,\n                \"name\": \"Exterior Wash\",\n                \"name_ar\": \"غسيل خارجي\",\n                \"description\": \"غسيل خارجي شامل للسيارة\",\n                \"base_price\": \"50.00\",\n                \"is_vip_available\": true,\n                \"vip_extra_price\": \"20.00\",\n                \"duration_minutes\": 30,\n                \"created_at\": \"2026-08-05 12:45:36\",\n                \"updated_at\": \"2026-08-05 12:45:36\"\n            },\n            \"name\": \"Window Cleaning\",\n            \"name_ar\": \"تنظيف زجاج\",\n            \"description\": \"تنظيف الزجاج الخارجي\",\n            \"price\": \"5.00\",\n            \"is_active\": true\n        },\n        {\n            \"id\": 1,\n            \"service_id\": 1,\n            \"service\": {\n                \"id\": 1,\n                \"category_id\": 1,\n                \"name\": \"Exterior Wash\",\n                \"name_ar\": \"غسيل خارجي\",\n                \"description\": \"غسيل خارجي شامل للسيارة\",\n                \"base_price\": \"50.00\",\n                \"is_vip_available\": true,\n                \"vip_extra_price\": \"20.00\",\n                \"duration_minutes\": 30,\n                \"created_at\": \"2026-08-05 12:45:36\",\n                \"updated_at\": \"2026-08-05 12:45:36\"\n            },\n            \"name\": \"Tire Shine\",\n            \"name_ar\": \"تلميع كفرات\",\n            \"description\": \"تلميع الإطارات بمواد خاصة\",\n            \"price\": \"10.00\",\n            \"is_active\": true\n        }\n    ],\n    \"message\": \"Sub services fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-05T16:35:20+00:00\"\n}"
+								}
+							]
 						}
 					]
 				},
@@ -7107,7 +7321,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{company1-token}}",
+											"value": "{{customer1-token}}",
 											"type": "string"
 										}
 									]
@@ -7137,6 +7351,69 @@
 								}
 							},
 							"response": [
+								{
+									"name": "index",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/packages",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"packages"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 05 Aug 2026 17:35:59 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"Unauthenticated\",\n    \"status_code\": 401,\n    \"timestamp\": \"2026-08-05T17:35:59+00:00\"\n}"
+								},
 								{
 									"name": "success for all",
 									"originalRequest": {
@@ -7186,7 +7463,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Fri, 31 Jul 2026 21:52:52 GMT"
+											"value": "Wed, 05 Aug 2026 17:36:13 GMT"
 										},
 										{
 											"key": "Content-Type",
@@ -7198,7 +7475,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Monthly Shiny Package\",\n            \"description\": \"باقة اللمعان الشهري تشمل 4 غسلات كاملة وبسعر موفر\",\n            \"type\": \"monthly\",\n            \"price\": \"350.00\",\n            \"discount_pct\": \"0.00\",\n            \"services_count\": 4,\n            \"valid_days\": 30,\n            \"is_active\": true,\n            \"created_at\": \"2026-07-31 14:27:03\",\n            \"updated_at\": \"2026-07-31 14:27:03\"\n        }\n    ],\n    \"message\": \"Packages fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T21:52:52+00:00\"\n}"
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 5,\n            \"name\": \"name\",\n            \"description\": \"description\",\n            \"type\": \"monthly\",\n            \"is_company_package\": false,\n            \"price\": \"50.00\",\n            \"discount_pct\": \"0.00\",\n            \"services_count\": 5,\n            \"valid_days\": 30,\n            \"is_active\": true,\n            \"created_at\": \"2026-08-05 17:34:28\",\n            \"updated_at\": \"2026-08-05 17:34:28\"\n        },\n        {\n            \"id\": 1,\n            \"name\": \"update\",\n            \"description\": \"باقة اللمعان الشهري تشمل 4 غسلات كاملة وبسعر موفر\",\n            \"type\": \"monthly\",\n            \"is_company_package\": false,\n            \"price\": \"350.00\",\n            \"discount_pct\": \"0.00\",\n            \"services_count\": 4,\n            \"valid_days\": 30,\n            \"is_active\": true,\n            \"created_at\": \"2026-08-05 12:45:44\",\n            \"updated_at\": \"2026-08-05 17:35:03\"\n        }\n    ],\n    \"message\": \"Packages fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-05T17:36:13+00:00\"\n}"
 								}
 							]
 						},
@@ -7213,7 +7490,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{company1-token}}",
+											"value": "{{customer1-token}}",
 											"type": "string"
 										}
 									]
@@ -7302,7 +7579,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Fri, 31 Jul 2026 21:53:02 GMT"
+											"value": "Wed, 05 Aug 2026 17:35:42 GMT"
 										},
 										{
 											"key": "Content-Type",
@@ -7314,7 +7591,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Monthly Shiny Package\",\n        \"description\": \"باقة اللمعان الشهري تشمل 4 غسلات كاملة وبسعر موفر\",\n        \"type\": \"monthly\",\n        \"price\": \"350.00\",\n        \"discount_pct\": \"0.00\",\n        \"services_count\": 4,\n        \"valid_days\": 30,\n        \"is_active\": true,\n        \"created_at\": \"2026-07-31 14:27:03\",\n        \"updated_at\": \"2026-07-31 14:27:03\"\n    },\n    \"message\": \"Package fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T21:53:02+00:00\"\n}"
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"update\",\n        \"description\": \"باقة اللمعان الشهري تشمل 4 غسلات كاملة وبسعر موفر\",\n        \"type\": \"monthly\",\n        \"is_company_package\": false,\n        \"price\": \"350.00\",\n        \"discount_pct\": \"0.00\",\n        \"services_count\": 4,\n        \"valid_days\": 30,\n        \"is_active\": true,\n        \"created_at\": \"2026-08-05 12:45:44\",\n        \"updated_at\": \"2026-08-05 17:35:03\"\n    },\n    \"message\": \"Package fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-05T17:35:42+00:00\"\n}"
 								}
 							]
 						},
@@ -7375,6 +7652,11 @@
 										{
 											"key": "valid_days",
 											"value": "30",
+											"type": "text"
+										},
+										{
+											"key": "is_company_package",
+											"value": "0",
 											"type": "text"
 										}
 									]
@@ -7439,6 +7721,11 @@
 													"key": "valid_days",
 													"value": "30",
 													"type": "text"
+												},
+												{
+													"key": "is_company_package",
+													"value": "0",
+													"type": "text"
 												}
 											]
 										},
@@ -7475,7 +7762,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Wed, 22 Jul 2026 02:57:29 GMT"
+											"value": "Wed, 05 Aug 2026 17:34:28 GMT"
 										},
 										{
 											"key": "Content-Type",
@@ -7487,7 +7774,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"name\",\n        \"description\": \"description\",\n        \"type\": \"monthly\",\n        \"price\": \"50.00\",\n        \"discount_pct\": null,\n        \"services_count\": 5,\n        \"valid_days\": 30,\n        \"is_active\": false,\n        \"created_at\": \"2026-07-22 02:57:29\",\n        \"updated_at\": \"2026-07-22 02:57:29\"\n    },\n    \"message\": \"Package created successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-22T02:57:29+00:00\"\n}"
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 5,\n        \"name\": \"name\",\n        \"description\": \"description\",\n        \"type\": \"monthly\",\n        \"is_company_package\": false,\n        \"price\": \"50.00\",\n        \"discount_pct\": null,\n        \"services_count\": 5,\n        \"valid_days\": 30,\n        \"is_active\": false,\n        \"created_at\": \"2026-08-05 17:34:28\",\n        \"updated_at\": \"2026-08-05 17:34:28\"\n    },\n    \"message\": \"Package created successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-05T17:34:28+00:00\"\n}"
 								}
 							]
 						},
@@ -7528,14 +7815,14 @@
 									]
 								},
 								"url": {
-									"raw": "{{base_url}}/api/packages/2",
+									"raw": "{{base_url}}/api/packages/1",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"packages",
-										"2"
+										"1"
 									]
 								}
 							},
@@ -7567,19 +7854,19 @@
 											]
 										},
 										"url": {
-											"raw": "{{base_url}}/api/packages/2",
+											"raw": "{{base_url}}/api/packages/1",
 											"host": [
 												"{{base_url}}"
 											],
 											"path": [
 												"api",
 												"packages",
-												"2"
+												"1"
 											]
 										}
 									},
-									"status": "Not Found",
-									"code": 404,
+									"status": "OK",
+									"code": 200,
 									"_postman_previewlanguage": "json",
 									"header": [
 										{
@@ -7600,7 +7887,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Fri, 31 Jul 2026 21:53:37 GMT"
+											"value": "Wed, 05 Aug 2026 17:35:03 GMT"
 										},
 										{
 											"key": "Content-Type",
@@ -7612,7 +7899,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"Resource not found\",\n    \"status_code\": 404,\n    \"timestamp\": \"2026-07-31T21:53:37+00:00\"\n}"
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"update\",\n        \"description\": \"باقة اللمعان الشهري تشمل 4 غسلات كاملة وبسعر موفر\",\n        \"type\": \"monthly\",\n        \"is_company_package\": false,\n        \"price\": \"350.00\",\n        \"discount_pct\": \"0.00\",\n        \"services_count\": 4,\n        \"valid_days\": 30,\n        \"is_active\": true,\n        \"created_at\": \"2026-08-05 12:45:44\",\n        \"updated_at\": \"2026-08-05 17:35:03\"\n    },\n    \"message\": \"Package updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-05T17:35:03+00:00\"\n}"
 								}
 							]
 						},
@@ -10019,7 +10306,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Fri, 31 Jul 2026 15:14:32 GMT"
+											"value": "Wed, 05 Aug 2026 12:05:16 GMT"
 										},
 										{
 											"key": "Content-Type",
@@ -10031,7 +10318,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"material_unit_id\": 1,\n            \"unit\": {\n                \"id\": 1,\n                \"name\": \"Litre\",\n                \"name_ar\": \"لتر\",\n                \"is_decimal\": true\n            },\n            \"name\": \"Synthetic Engine Oil 5W-30\",\n            \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n            \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n            \"unit_price\": \"45.00\",\n            \"is_vip_material\": false,\n            \"is_active\": true\n        },\n        {\n            \"id\": 2,\n            \"material_unit_id\": 2,\n            \"unit\": {\n                \"id\": 2,\n                \"name\": \"Piece\",\n                \"name_ar\": \"قطعة\",\n                \"is_decimal\": false\n            },\n            \"name\": \"Premium Car Shampoo\",\n            \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n            \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n            \"unit_price\": \"15.00\",\n            \"is_vip_material\": false,\n            \"is_active\": true\n        },\n        {\n            \"id\": 3,\n            \"material_unit_id\": 2,\n            \"unit\": {\n                \"id\": 2,\n                \"name\": \"Piece\",\n                \"name_ar\": \"قطعة\",\n                \"is_decimal\": false\n            },\n            \"name\": \"Microfiber Towel (Ultra Soft)\",\n            \"name_ar\": \"منشفة مايكروفايبر ناعمة فائقة الامتصاص\",\n            \"description\": \"مناشف خاصة لتجفيف حماية من الخدوش\",\n            \"unit_price\": \"8.00\",\n            \"is_vip_material\": false,\n            \"is_active\": true\n        }\n    ],\n    \"message\": \"materials fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T15:14:32+00:00\"\n}"
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"material_unit_id\": 1,\n            \"unit\": {\n                \"id\": 1,\n                \"name\": \"Litre\",\n                \"name_ar\": \"لتر\",\n                \"is_decimal\": true\n            },\n            \"name\": \"Synthetic Engine Oil 5W-30\",\n            \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n            \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n            \"unit_price\": \"45.00\",\n            \"is_vip_material\": false,\n            \"is_visible_to_customer\": null,\n            \"is_active\": true\n        },\n        {\n            \"id\": 2,\n            \"material_unit_id\": 2,\n            \"unit\": {\n                \"id\": 2,\n                \"name\": \"Piece\",\n                \"name_ar\": \"قطعة\",\n                \"is_decimal\": false\n            },\n            \"name\": \"Premium Car Shampoo\",\n            \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n            \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n            \"unit_price\": \"15.00\",\n            \"is_vip_material\": false,\n            \"is_visible_to_customer\": null,\n            \"is_active\": true\n        },\n        {\n            \"id\": 3,\n            \"material_unit_id\": 2,\n            \"unit\": {\n                \"id\": 2,\n                \"name\": \"Piece\",\n                \"name_ar\": \"قطعة\",\n                \"is_decimal\": false\n            },\n            \"name\": \"Microfiber Towel (Ultra Soft)\",\n            \"name_ar\": \"منشفة مايكروفايبر ناعمة فائقة الامتصاص\",\n            \"description\": \"مناشف خاصة لتجفيف حماية من الخدوش\",\n            \"unit_price\": \"8.00\",\n            \"is_vip_material\": false,\n            \"is_visible_to_customer\": null,\n            \"is_active\": true\n        },\n        {\n            \"id\": 4,\n            \"material_unit_id\": 1,\n            \"unit\": {\n                \"id\": 1,\n                \"name\": \"Litre\",\n                \"name_ar\": \"لتر\",\n                \"is_decimal\": true\n            },\n            \"name\": \"feule\",\n            \"name_ar\": \"وقود\",\n            \"description\": null,\n            \"unit_price\": \"20.00\",\n            \"is_vip_material\": false,\n            \"is_visible_to_customer\": null,\n            \"is_active\": true\n        },\n        {\n            \"id\": 5,\n            \"material_unit_id\": 1,\n            \"unit\": {\n                \"id\": 1,\n                \"name\": \"Litre\",\n                \"name_ar\": \"لتر\",\n                \"is_decimal\": true\n            },\n            \"name\": \"feule update\",\n            \"name_ar\": \"وقود\",\n            \"description\": null,\n            \"unit_price\": \"20.00\",\n            \"is_vip_material\": false,\n            \"is_visible_to_customer\": null,\n            \"is_active\": true\n        }\n    ],\n    \"message\": \"materials fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-05T12:05:16+00:00\"\n}"
 								}
 							]
 						},
@@ -10124,7 +10411,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Fri, 31 Jul 2026 15:16:05 GMT"
+											"value": "Wed, 05 Aug 2026 12:07:13 GMT"
 										},
 										{
 											"key": "Content-Type",
@@ -10136,7 +10423,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"material_unit_id\": 1,\n        \"unit\": {\n            \"id\": 1,\n            \"name\": \"Litre\",\n            \"name_ar\": \"لتر\",\n            \"is_decimal\": true\n        },\n        \"name\": \"Synthetic Engine Oil 5W-30\",\n        \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n        \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n        \"unit_price\": \"45.00\",\n        \"is_vip_material\": false,\n        \"is_active\": true\n    },\n    \"message\": \"material fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T15:16:05+00:00\"\n}"
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"material_unit_id\": 1,\n        \"unit\": {\n            \"id\": 1,\n            \"name\": \"Litre\",\n            \"name_ar\": \"لتر\",\n            \"is_decimal\": true\n        },\n        \"name\": \"Synthetic Engine Oil 5W-30\",\n        \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n        \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n        \"unit_price\": \"45.00\",\n        \"is_vip_material\": false,\n        \"is_visible_to_customer\": null,\n        \"is_active\": true\n    },\n    \"message\": \"material fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-05T12:07:13+00:00\"\n}"
 								}
 							]
 						},
@@ -10204,6 +10491,12 @@
 										{
 											"key": "description",
 											"value": "ttt",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "is_visible_to_customer",
+											"value": "0",
 											"type": "text",
 											"disabled": true
 										}
@@ -10277,6 +10570,12 @@
 													"value": "ttt",
 													"type": "text",
 													"disabled": true
+												},
+												{
+													"key": "is_visible_to_customer",
+													"value": "0",
+													"type": "text",
+													"disabled": true
 												}
 											]
 										},
@@ -10313,7 +10612,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Fri, 31 Jul 2026 15:19:28 GMT"
+											"value": "Wed, 05 Aug 2026 12:37:16 GMT"
 										},
 										{
 											"key": "Content-Type",
@@ -10325,7 +10624,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 5,\n        \"material_unit_id\": 1,\n        \"name\": \"feule\",\n        \"name_ar\": \"وقود\",\n        \"description\": null,\n        \"unit_price\": \"20.00\",\n        \"is_vip_material\": null,\n        \"is_active\": null\n    },\n    \"message\": \"material created successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T15:19:28+00:00\"\n}"
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 8,\n        \"material_unit_id\": 1,\n        \"name\": \"feule\",\n        \"name_ar\": \"وقود\",\n        \"description\": null,\n        \"unit_price\": \"20.00\",\n        \"is_vip_material\": null,\n        \"is_visible_to_customer\": null,\n        \"is_active\": null\n    },\n    \"message\": \"material created successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-05T12:37:16+00:00\"\n}"
 								}
 							]
 						},
@@ -10438,7 +10737,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Fri, 31 Jul 2026 15:20:23 GMT"
+											"value": "Wed, 05 Aug 2026 12:37:35 GMT"
 										},
 										{
 											"key": "Content-Type",
@@ -10450,7 +10749,7 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 5,\n        \"material_unit_id\": 1,\n        \"unit\": {\n            \"id\": 1,\n            \"name\": \"Litre\",\n            \"name_ar\": \"لتر\",\n            \"is_decimal\": true\n        },\n        \"name\": \"feule update\",\n        \"name_ar\": \"وقود\",\n        \"description\": null,\n        \"unit_price\": \"20.00\",\n        \"is_vip_material\": false,\n        \"is_active\": true\n    },\n    \"message\": \"material updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-07-31T15:20:23+00:00\"\n}"
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 5,\n        \"material_unit_id\": 1,\n        \"unit\": {\n            \"id\": 1,\n            \"name\": \"Litre\",\n            \"name_ar\": \"لتر\",\n            \"is_decimal\": true\n        },\n        \"name\": \"feule update\",\n        \"name_ar\": \"وقود\",\n        \"description\": null,\n        \"unit_price\": \"20.00\",\n        \"is_vip_material\": false,\n        \"is_visible_to_customer\": null,\n        \"is_active\": true\n    },\n    \"message\": \"material updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-05T12:37:35+00:00\"\n}"
 								}
 							]
 						},
@@ -23114,8 +23413,7 @@
 									"if (token) { pm.collectionVariables.set('token', token); console.log('token saved'); }"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
+								"packages": {}
 							}
 						}
 					],
@@ -23133,7 +23431,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"bashir2.d.aldaas@gmail.com\",\n    \"password\": \"11111111\"\n}"
+							"raw": "{\n    \"email\": \"customer@system.com\",\n    \"password\": \"password123\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/auth/login",

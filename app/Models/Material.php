@@ -15,12 +15,14 @@ class Material extends Model
         'description',
         'unit_price',
         'is_vip_material',
+        'is_visible_to_customer',
         'is_active',
     ];
 
     protected $casts = [
         'unit_price' => 'decimal:2',
         'is_vip_material' => 'boolean',
+        'is_visible_to_customer' => 'boolean',
         'is_active' => 'boolean',
     ];
 

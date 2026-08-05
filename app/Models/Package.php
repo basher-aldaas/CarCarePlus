@@ -12,6 +12,7 @@ class Package extends Model
         'name',
         'description',
         'type',
+        'is_company_package',
         'price',
         'discount_pct',
         'services_count',
@@ -21,6 +22,7 @@ class Package extends Model
 
     protected $casts = [
         'type' => PackageType::class,
+        'is_company_package' => 'boolean',
         'price' => 'decimal:2',
         'discount_pct' => 'decimal:2',
         'is_active' => 'boolean',

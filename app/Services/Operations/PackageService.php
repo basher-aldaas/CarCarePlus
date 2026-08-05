@@ -3,6 +3,7 @@
 namespace App\Services\Operations;
 
 use App\DTOs\PackageDTO;
+use App\Exceptions\PackageViewUnauthorizedException;
 use App\Models\Package;
 use App\Repositories\Eloquent\PackageRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -15,14 +16,35 @@ class PackageService
     ) {
     }
 
+    /**
+     * A customer only sees packages targeted at their own account type
+     * (personal vs. company); super admin/admin see every package.
+     */
     public function index(): Collection
     {
-        return $this->packageRepository->getAll();
+        $user = auth()->user();
+
+        if ($user->hasAnyRole(['super_admin', 'admin'])) {
+            return $this->packageRepository->getAll();
+        }
+
+        return $this->packageRepository->getAllForCustomerType($user->hasRole('customer_company'));
     }
 
     public function show(int $id): Package
     {
-        return $this->packageRepository->findById($id);
+        $package = $this->packageRepository->findById($id);
+        $user = auth()->user();
+
+        if ($user->hasAnyRole(['super_admin', 'admin'])) {
+            return $package;
+        }
+
+        if ($package->is_company_package !== $user->hasRole('customer_company')) {
+            throw new PackageViewUnauthorizedException();
+        }
+
+        return $package;
     }
 
     public function store(PackageDTO $dto): Package

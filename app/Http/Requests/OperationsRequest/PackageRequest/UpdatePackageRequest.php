@@ -34,6 +34,11 @@ class UpdatePackageRequest extends FormRequest
                 Rule::in(PackageType::values())
             ],
 
+            'is_company_package' => [
+                'sometimes',
+                'boolean'
+            ],
+
             'price' => [
                 'sometimes',
                 'numeric',

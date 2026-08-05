@@ -40,6 +40,16 @@ class ServiceController extends Controller
         );
     }
 
+    public function indexByCategory(int $category)
+    {
+        return Response::Success(
+            ServiceResource::collection(
+                $this->serviceService->indexByCategory($category)
+            ),
+            'Services fetched successfully'
+        );
+    }
+
     public function store(CreateServiceRequest $request)
     {
         $dto = ServiceDTO::fromArray(

@@ -28,6 +28,7 @@ class OrderFactory extends Factory
         $branchId = DB::table('branches')->inRandomOrder()->first()?->id;
         $employeeId = DB::table('employees')->inRandomOrder()->first()?->id;
         $serviceId = DB::table('services')->inRandomOrder()->first()?->id;
+        $categoryId = DB::table('categories')->inRandomOrder()->first()?->id;
 
         return [
             'customer_id' => User::inRandomOrder()->first()?->id ?? User::factory(),
@@ -36,7 +37,7 @@ class OrderFactory extends Factory
             'branch_id' => $branchId,
             'employee_id' => $employeeId,
             'service_id' => $serviceId,
-            'type' => $this->faker->randomElement(['wash', 'maintenance', 'road_assistance']), // حسب الـ ENUM عندك
+            'category_id' => $categoryId,
             'booking_type' => $this->faker->randomElement(['immed', 'sched']),
             'is_vip' => $isVip,
             'scheduled_at' => $this->faker->dateTimeBetween('now', '+1 week'),
@@ -48,11 +49,6 @@ class OrderFactory extends Factory
             'location_lng' => $this->faker->longitude(46.0, 47.0),
             'location_address' => $this->faker->address(),
             'distance_km' => $this->faker->randomFloat(2, 1, 30),
-            'base_price' => $basePrice,
-            'vip_price' => $vipPrice,
-            'distance_price' => $this->faker->randomFloat(2, 0, 25),
-            'sub_services_price' => $this->faker->randomFloat(2, 0, 100),
-            'order_material_price' => $this->faker->randomFloat(2, 0, 150),
             'discount_amount' => 0.00,
             'total_price' => $basePrice + ($vipPrice ?? 0),
             'notes' => $this->faker->sentence(),

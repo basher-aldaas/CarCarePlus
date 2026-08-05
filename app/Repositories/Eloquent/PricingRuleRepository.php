@@ -33,4 +33,16 @@ class PricingRuleRepository
     {
         return $pricingRule->delete();
     }
+
+    /**
+     * The single active rule for a given rule type name (e.g. "distance",
+     * "off_hours"), used by the pricing engine to price a booking.
+     */
+    public function findActiveByType(string $typeName): ?PricingRule
+    {
+        return PricingRule::query()
+            ->whereHas('ruleType', fn ($query) => $query->where('name', $typeName))
+            ->where('is_active', true)
+            ->first();
+    }
 }

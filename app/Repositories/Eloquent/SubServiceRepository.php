@@ -14,6 +14,14 @@ class SubServiceRepository
             ->get();
     }
 
+    public function getAllByService(int $serviceId)
+    {
+        return SubService::with('service')
+            ->where('service_id', $serviceId)
+            ->latest('id')
+            ->get();
+    }
+
     public function findById(int $id): SubService
     {
         return SubService::with('service')

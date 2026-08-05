@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Operations\BookingController;
 use App\Http\Controllers\Operations\CarController;
 use App\Http\Controllers\Operations\CategoryController;
 use App\Http\Controllers\Operations\CompanyController;
@@ -94,6 +95,28 @@ Route::middleware('auth:sanctum')
 
 /*
 |--------------------------------------------------------------------------
+| Authenticated user — bookings (orders)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:sanctum', 'active.user'])
+    ->group(function () {
+        // list is auto-scoped per role: super admin/workshop see all, admin sees their branch's,
+        // employee sees bookings assigned to them, customer sees their own
+        Route::get('bookings/', [BookingController::class, 'index'])->middleware('can:show.orders');
+        Route::get('bookings/{id}', [BookingController::class, 'show'])->middleware('can:show.orders');
+        // only customer_personal / customer_company hold create.order
+        // two-step booking: quote (price + branch receipt, no DB write) then confirm (creates the order(s))
+        Route::post('bookings/quote', [BookingController::class, 'quote'])->middleware('can:create.order');
+        Route::post('bookings/confirm', [BookingController::class, 'confirm'])->middleware('can:create.order');
+        Route::post('bookings/{id}', [BookingController::class, 'update'])->middleware('can:edit.order'); //super admin, admin, workshop, employee
+        Route::delete('bookings/{id}', [BookingController::class, 'destroy'])->middleware('can:cancel.order'); //super admin, admin, customer
+        Route::post('bookings/{id}/assign', [BookingController::class, 'assign'])->middleware('can:assign.order'); //super admin, admin, workshop
+        Route::post('bookings/{id}/start', [BookingController::class, 'start'])->middleware('can:edit.order'); //super admin, admin, workshop, employee
+        Route::post('bookings/{id}/complete', [BookingController::class, 'complete'])->middleware('can:edit.order'); //super admin, admin, workshop, employee
+    });
+
+/*
+|--------------------------------------------------------------------------
 | Super Admin — Staff accounts & registration approvals
 |--------------------------------------------------------------------------
 */
@@ -121,8 +144,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/categories/{id}',[CategoryController::class,'show'])->middleware('can:show.categories');
     Route::get('/services',[ServiceController::class,'index'])->middleware('can:show.services');
     Route::get('/services/{id}',[ServiceController::class,'show'])->middleware('can:show.services');
+    Route::get('/categories/{category}/services',[ServiceController::class,'indexByCategory'])->middleware('can:show.services');
     Route::get('/sub-services',[SubServiceController::class,'index'])->middleware('can:show.sub_services');
     Route::get('/sub-services/{id}',[SubServiceController::class,'show'])->middleware('can:show.sub_services');
+    Route::get('/services/{service}/sub-services',[SubServiceController::class,'indexByService'])->middleware('can:show.sub_services');
     Route::get('/car-types',[CarTypeController::class,'index'])->middleware('can:show.car_types');
     Route::get('/car-types/{id}',[CarTypeController::class,'show'])->middleware('can:show.car_types');
     Route::get('/car-brands',[CarBrandController::class,'index'])->middleware('can:show.car_brands');
@@ -278,9 +303,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/material-units/{material_unit}', [MaterialUnitController::class, 'update'])->middleware('can:manage.material_units');
     Route::delete('/material-units/{material_unit}', [MaterialUnitController::class, 'destroy'])->middleware('can:manage.material_units');
 
-    Route::post('/materials', [MaterialController::class, 'store'])->middleware('can:manage.material');
-    Route::post('/materials/{material}', [MaterialController::class, 'update'])->middleware('can:manage.material');
-    Route::delete('/materials/{material}', [MaterialController::class, 'destroy'])->middleware('can:manage.material');
+    Route::post('/materials', [MaterialController::class, 'store'])->middleware('can:add.material');
+    Route::post('/materials/{material}', [MaterialController::class, 'update'])->middleware('can:edit.material');
+    Route::delete('/materials/{material}', [MaterialController::class, 'destroy'])->middleware('can:delete.material');
 
     Route::post('/problem-types', [ProblemTypeController::class, 'store'])->middleware('can:manage.problem_types');
     Route::post('/problem-types/{problem_type}', [ProblemTypeController::class, 'update'])->middleware('can:manage.problem_types');

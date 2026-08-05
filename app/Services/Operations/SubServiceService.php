@@ -20,6 +20,11 @@ class SubServiceService
         return $this->subServiceRepository->getAll();
     }
 
+    public function indexByService(int $serviceId): Collection
+    {
+        return $this->subServiceRepository->getAllByService($serviceId);
+    }
+
     public function show(int $id): SubService
     {
         return $this->subServiceRepository->findById($id);

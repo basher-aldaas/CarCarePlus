@@ -14,6 +14,7 @@ class PackageResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'type' => $this->type?->value,
+            'is_company_package' => (bool) $this->is_company_package,
             'price' => $this->price,
             'discount_pct' => $this->discount_pct,
             'services_count' => $this->services_count,

@@ -22,6 +22,11 @@ class ServiceService
         return $this->serviceRepository->getAll();
     }
 
+    public function indexByCategory(int $categoryId): Collection
+    {
+        return $this->serviceRepository->getAllByCategory($categoryId);
+    }
+
     public function show(int $id): Service
     {
         return $this->serviceRepository->findById($id);

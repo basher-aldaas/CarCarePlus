@@ -20,6 +20,8 @@ class PricingRuleTypeSeeder extends Seeder
             ['id' => 8, 'name' => 'time_period',     'name_ar' => 'الفترة الزمنية'],
             ['id' => 9, 'name' => 'season',           'name_ar' => 'الموسم'],
             ['id' => 10, 'name' => 'booking_type',   'name_ar' => 'نوع الحجز'],
+            ['id' => 11, 'name' => 'distance',       'name_ar' => 'مسافة إضافية'],
+            ['id' => 12, 'name' => 'off_hours',      'name_ar' => 'خارج أوقات العمل'],
         ];
         foreach ($types as $type) {
             DB::table('pricing_rule_types')->updateOrInsert(['id' => $type['id']], $type);

@@ -1,7 +1,6 @@
 <?php
 
 use App\Enums\OrderEnums\OrderStatus;
-use App\Enums\OrderEnums\OrderType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +14,10 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+
+            $table->uuid('booking_group_id')
+                ->nullable()
+                ->index();
 
             $table->foreignId('customer_id')
                 ->constrained('users')
@@ -44,14 +47,17 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
 
+            $table->foreignId('category_id')
+                ->constrained('categories')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+
             $table->foreignId('service_id')
                 ->constrained('services')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->enum('type', OrderType::values());
-
-            $table->boolean('booking_type');
+            $table->boolean('booking_type'); // immediate or scheduled
 
             $table->boolean('is_vip')
                 ->default(false);
@@ -79,16 +85,6 @@ return new class extends Migration
             $table->decimal('distance_km', 10, 2)
                 ->nullable();
 
-            $table->decimal('base_price', 10, 2)
-                ->default(0);
-            $table->decimal('vip_price', 10, 2)
-                ->default(0);
-            $table->decimal('distance_price', 10, 2)
-                ->default(0);
-            $table->decimal('sub_services_price', 10, 2)
-                ->default(0);
-            $table->decimal('order_material_price', 10, 2)
-                ->default(0);
 
             $table->decimal('discount_amount', 10, 2)
                 ->default(0);

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\OrderEnums\OrderStatus;
-use App\Enums\OrderEnums\OrderType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,13 +13,14 @@ class Order extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'booking_group_id',
         'customer_id',
         'company_id',
         'car_id',
         'branch_id',
         'employee_id',
         'service_id',
-        'type',
+        'category_id',
         'booking_type',
         'is_vip',
         'scheduled_at',
@@ -32,11 +32,6 @@ class Order extends Model
         'location_lng',
         'location_address',
         'distance_km',
-        'base_price',
-        'vip_price',
-        'distance_price',
-        'sub_services_price',
-        'order_material_price',
         'discount_amount',
         'total_price',
         'notes',
@@ -45,7 +40,6 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'type' => OrderType::class,
         'status' => OrderStatus::class,
         'is_vip' => 'boolean',
         'booking_type' => 'boolean',
@@ -57,11 +51,6 @@ class Order extends Model
         'location_lat' => 'decimal:7',
         'location_lng' => 'decimal:7',
         'distance_km' => 'decimal:2',
-        'base_price' => 'decimal:2',
-        'vip_price' => 'decimal:2',
-        'distance_price' => 'decimal:2',
-        'sub_services_price' => 'decimal:2',
-        'order_material_price' => 'decimal:2',
         'discount_amount' => 'decimal:2',
         'total_price' => 'decimal:2',
     ];
@@ -90,6 +79,10 @@ class Order extends Model
     {
         return $this->belongsTo(Service::class, 'service_id');
     }
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 
     public function subServices(): HasMany
     {
@@ -98,6 +91,10 @@ class Order extends Model
     public function materials(): HasMany
     {
         return $this->hasMany(OrderMaterial::class, 'order_id');
+    }
+    public function priceItems(): HasMany
+    {
+        return $this->hasMany(OrderPriceItem::class, 'order_id');
     }
     public function statusHistory(): HasMany
     {

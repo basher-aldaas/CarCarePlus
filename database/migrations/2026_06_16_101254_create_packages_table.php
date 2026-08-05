@@ -15,6 +15,9 @@ return new class extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
 
+            $table->boolean('is_company_package')
+                ->default(false)
+            ;
             $table->string('name');
 
             $table->text('description')

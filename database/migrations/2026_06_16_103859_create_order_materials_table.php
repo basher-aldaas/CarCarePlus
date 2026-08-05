@@ -25,7 +25,7 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreignId('requested_by')
+            $table->foreignId('requested_by')//by employee or customer himself
                 ->constrained('users')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
