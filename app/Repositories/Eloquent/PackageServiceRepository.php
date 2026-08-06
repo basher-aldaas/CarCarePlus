@@ -4,14 +4,15 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\PackageServiceDTO;
 use App\Models\PackageService;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PackageServiceRepository
 {
-    public function getAll()
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
         return PackageService::with(['package', 'service'])
             ->latest('id')
-            ->get();
+            ->paginate($perPage);
     }
 
     public function findById(int $id): PackageService

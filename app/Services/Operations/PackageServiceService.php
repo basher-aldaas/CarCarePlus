@@ -5,7 +5,7 @@ namespace App\Services\Operations;
 use App\DTOs\PackageServiceDTO;
 use App\Models\PackageService as PackageServiceModel;
 use App\Repositories\Eloquent\PackageServiceRepository;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class PackageServiceService
@@ -15,9 +15,9 @@ class PackageServiceService
     ) {
     }
 
-    public function index(): Collection
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->packageServiceRepository->getAll();
+        return $this->packageServiceRepository->getAll($perPage);
     }
 
     public function show(int $id): PackageServiceModel

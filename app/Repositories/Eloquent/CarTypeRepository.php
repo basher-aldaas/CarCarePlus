@@ -4,12 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\CarTypeDTO;
 use App\Models\CarType;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CarTypeRepository
 {
-    public function getAll()
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return CarType::latest()->get();
+        return CarType::latest()->paginate($perPage);
     }
 
     public function findById(int $id): CarType

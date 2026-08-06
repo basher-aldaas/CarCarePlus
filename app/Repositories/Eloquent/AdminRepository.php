@@ -4,15 +4,15 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\AdminDTO;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminRepository
 {
-    public function getAll(): Collection
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
         return User::role('admin')
             ->latest('id')
-            ->get();
+            ->paginate($perPage);
     }
 
     public function findById(int $id): User

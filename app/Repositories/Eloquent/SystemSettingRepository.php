@@ -4,13 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\SystemSettingDTO;
 use App\Models\SystemSetting;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class SystemSettingRepository
 {
-    public function getAll(): Collection
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return SystemSetting::get();
+        return SystemSetting::paginate($perPage);
     }
 
     public function findById(SystemSetting $systemSetting): SystemSetting

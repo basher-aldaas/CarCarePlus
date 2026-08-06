@@ -4,13 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\BranchesDTO;
 use App\Models\Branch;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BranchRepository
 {
-    public function getAll(): Collection
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return Branch::with('manager')->get();
+        return Branch::with('manager')->paginate($perPage);
     }
 
     public function findById(Branch $branch): Branch

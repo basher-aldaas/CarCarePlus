@@ -5,7 +5,7 @@ namespace App\Services\Operations;
 use App\DTOs\CategoryDTO;
 use App\Models\Category;
 use App\Repositories\Eloquent\CategoryRepository;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class CategoryService
@@ -18,9 +18,9 @@ class CategoryService
     /**
      * List Categories
      */
-    public function index(): Collection
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->categoryRepository->getAll();
+        return $this->categoryRepository->getAll($perPage);
     }
 
     /**

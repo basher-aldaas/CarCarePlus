@@ -5,15 +5,16 @@ namespace App\Services\Operations;
 use App\DTOs\AiRuleDTO;
 use App\Models\AiRule;
 use App\Repositories\Eloquent\AiRuleRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class AiRuleService
 {
     public function __construct(protected AiRuleRepository $aiRuleRepository)
     {}
-    public function index()
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->aiRuleRepository->getAll();
+        return $this->aiRuleRepository->getAll($perPage);
     }
 
     public function show(AiRule $aiRule): AiRule

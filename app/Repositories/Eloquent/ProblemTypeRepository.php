@@ -4,13 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\ProblemTypeDTO;
 use App\Models\ProblemType;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProblemTypeRepository
 {
-    public function getAll(): Collection
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return ProblemType::get();
+        return ProblemType::paginate($perPage);
     }
 
     public function findById(ProblemType $problemType): ProblemType

@@ -12,6 +12,7 @@ use App\Http\Responses\Response;
 use App\Models\User;
 use App\Services\Operations\AdminService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -21,11 +22,11 @@ class AdminController extends Controller
     {
 
     }
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return Response::Success(
             data: AdminResource::collection(
-                $this->adminService->index()
+                $this->adminService->index($request->integer('per_page', 15))
             ),
             message: __('Admins fetched successfully')
         );

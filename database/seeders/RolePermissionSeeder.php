@@ -136,7 +136,7 @@ class RolePermissionSeeder extends Seeder
             'show.ratings',
             'show.reports', 'show.financial_reports',
             'add.ai_rule', 'edit.ai_rule', 'delete.ai_rule', 'show.ai_rules',
-            'add.system_setting', 'edit.system_setting', 'delete.system_setting', 'show.system_settings',
+            'manage.system_setting', 'show.system_settings',
         ];
     }
 
@@ -155,16 +155,17 @@ class RolePermissionSeeder extends Seeder
             'show.car_types',
             'show.car_brands',
             'add.car', 'edit.car', 'show.car', 'show.cars', 'show.client.cars',
-
+            'show.ai_rules',
             // === الخدمات والأسعار (عرض فقط) ===
             'show.categories', 'show.services', 'show.sub_services', 'show.pricing_rules',
 
             // === المواد، المخزون، والمشتريات (صلاحيات كاملة للفرع) ===
             'show.materials',
+            'show.material_units',
             'manage.inventory', 'show.inventory',
             'show.inventory_transactions',
             'manage.purchase_requests', 'manage.purchase_request_items',
-
+            'show.system_settings',
             // === الباقات والاشتراكات ===
             'show.packages', 'show.package_services', 'show.package_service_sub_services',
             'show.user_packages', 'add.user_package', 'edit.user_package',
@@ -261,6 +262,8 @@ class RolePermissionSeeder extends Seeder
             'show.orders', 'edit.order', 'show.order_sub_services', 'show.order_status_history',
             'manage.gps_logs',
             'show.categories', 'show.services', 'show.sub_services', 'show.materials', 'manage.order_materials',
+            'show.material_units',
+
             'create.employee_report', 'show.employee_reports', 'show.ratings',
             'show.car_types',
             'show.car_brands',

@@ -11,6 +11,7 @@ use App\Http\Responses\Response;
 use App\Models\ProblemType;
 use App\Services\Operations\ProblemTypeService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ProblemTypeController extends Controller
 {
@@ -22,10 +23,10 @@ class ProblemTypeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return Response::Success(
-            data: ProblemTypeResource::collection($this->problemTypeService->index()),
+            data: ProblemTypeResource::collection($this->problemTypeService->index($request->integer('per_page', 15))),
             message: 'problem types fetched successfully'
         );
     }

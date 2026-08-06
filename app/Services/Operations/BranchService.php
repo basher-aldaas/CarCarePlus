@@ -5,6 +5,7 @@ namespace App\Services\Operations;
 use App\DTOs\BranchesDTO;
 use App\Models\Branch;
 use App\Repositories\Eloquent\BranchRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -12,9 +13,9 @@ class BranchService
 {
     public function __construct(protected BranchRepository $branchRepository)
     {}
-    public function index()
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->branchRepository->getAll();
+        return $this->branchRepository->getAll($perPage);
     }
 
     public function show(Branch $branch): Branch

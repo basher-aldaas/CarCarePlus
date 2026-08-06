@@ -23,10 +23,10 @@ class PricingRuleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return Response::Success(
-            data: PricingRuleResource::collection($this->pricingRuleService->index()),
+            data: PricingRuleResource::collection($this->pricingRuleService->index($request->integer('per_page', 15))),
             message: 'pricing rules fetched successfully'
         );
     }

@@ -11,6 +11,7 @@ use App\Http\Responses\Response;
 use App\Models\AiRule;
 use App\Services\Operations\AiRuleService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AiRuleController extends Controller
 {
@@ -22,10 +23,10 @@ class AiRuleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return Response::Success(
-            data: AiRuleResource::collection($this->aiRuleService->index()),
+            data: AiRuleResource::collection($this->aiRuleService->index($request->integer('per_page', 15))),
             message: 'ai rules fetched successfully'
         );
     }

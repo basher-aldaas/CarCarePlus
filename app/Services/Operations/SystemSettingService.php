@@ -5,15 +5,16 @@ namespace App\Services\Operations;
 use App\DTOs\SystemSettingDTO;
 use App\Models\SystemSetting;
 use App\Repositories\Eloquent\SystemSettingRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class SystemSettingService
 {
     public function __construct(protected SystemSettingRepository $systemSettingRepository)
     {}
-    public function index()
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->systemSettingRepository->getAll();
+        return $this->systemSettingRepository->getAll($perPage);
     }
 
     public function show(SystemSetting $systemSetting): SystemSetting

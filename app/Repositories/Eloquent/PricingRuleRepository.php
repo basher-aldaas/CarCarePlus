@@ -4,13 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\PricingRuleDTO;
 use App\Models\PricingRule;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PricingRuleRepository
 {
-    public function getAll(): Collection
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return PricingRule::with('ruleType')->get();
+        return PricingRule::with('ruleType')->paginate($perPage);
     }
 
     public function findById(PricingRule $pricingRule): PricingRule

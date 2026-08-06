@@ -12,6 +12,7 @@ use App\Http\Responses\Response;
 use App\Models\Category;
 use App\Services\Operations\CategoryService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -21,11 +22,11 @@ class CategoryController extends Controller
     {
     }
 
-    public function index()
+    public function index(Request $request)
     {
         return Response::Success(
             CategoryResource::collection(
-                $this->categoryService->index()
+                $this->categoryService->index($request->integer('per_page', 15))
             ),
             'Categories fetched successfully'
         );

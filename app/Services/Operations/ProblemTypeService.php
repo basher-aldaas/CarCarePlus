@@ -5,15 +5,16 @@ namespace App\Services\Operations;
 use App\DTOs\ProblemTypeDTO;
 use App\Models\ProblemType;
 use App\Repositories\Eloquent\ProblemTypeRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class ProblemTypeService
 {
     public function __construct(protected ProblemTypeRepository $problemTypeRepository)
     {}
-    public function index()
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->problemTypeRepository->getAll();
+        return $this->problemTypeRepository->getAll($perPage);
     }
 
     public function show(ProblemType $problemType): ProblemType

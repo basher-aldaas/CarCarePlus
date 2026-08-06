@@ -4,13 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\SuggestedProblemDTO;
 use App\Models\SuggestedProblem;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class SuggestedProblemRepository
 {
-    public function getAll(): Collection
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return SuggestedProblem::get();
+        return SuggestedProblem::paginate($perPage);
     }
 
     public function findById(SuggestedProblem $suggestedProblem): SuggestedProblem

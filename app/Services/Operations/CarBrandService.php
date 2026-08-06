@@ -5,7 +5,7 @@ namespace App\Services\Operations;
 use App\DTOs\CarBrandDTO;
 use App\Models\CarBrand;
 use App\Repositories\Eloquent\CarBrandRepository;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class CarBrandService
@@ -15,9 +15,9 @@ class CarBrandService
     ) {
     }
 
-    public function index(): Collection
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->carBrandRepository->getAll();
+        return $this->carBrandRepository->getAll($perPage);
     }
 
     public function show(int $id): CarBrand

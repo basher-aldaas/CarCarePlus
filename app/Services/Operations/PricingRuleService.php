@@ -5,15 +5,16 @@ namespace App\Services\Operations;
 use App\DTOs\PricingRuleDTO;
 use App\Models\PricingRule;
 use App\Repositories\Eloquent\PricingRuleRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class PricingRuleService
 {
     public function __construct(protected PricingRuleRepository $pricingRuleRepository)
     {}
-    public function index()
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->pricingRuleRepository->getAll();
+        return $this->pricingRuleRepository->getAll($perPage);
     }
 
     public function show(PricingRule $pricingRule): PricingRule

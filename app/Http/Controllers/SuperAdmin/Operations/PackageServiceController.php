@@ -10,6 +10,7 @@ use App\Http\Resources\PackageServiceResource;
 use App\Http\Responses\Response;
 use App\Models\PackageService as PackageServiceModel;
 use App\Services\Operations\PackageServiceService;
+use Illuminate\Http\Request;
 
 class PackageServiceController extends Controller
 {
@@ -19,11 +20,11 @@ class PackageServiceController extends Controller
     {
     }
 
-    public function index()
+    public function index(Request $request)
     {
         return Response::Success(
             PackageServiceResource::collection(
-                $this->packageServiceService->index()
+                $this->packageServiceService->index($request->integer('per_page', 15))
             ),
             'Package services fetched successfully'
         );

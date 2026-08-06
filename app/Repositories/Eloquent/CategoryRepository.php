@@ -4,12 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\CategoryDTO;
 use App\Models\Category;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CategoryRepository
 {
-    public function getAll()
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return Category::latest()->get();
+        return Category::latest()->paginate($perPage);
     }
 
     public function findById(int $id): Category

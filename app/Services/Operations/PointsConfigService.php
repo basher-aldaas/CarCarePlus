@@ -5,7 +5,7 @@ namespace App\Services\Operations;
 use App\DTOs\PointsConfigDTO;
 use App\Models\PointsConfig;
 use App\Repositories\Eloquent\PointsConfigRepository;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class PointsConfigService
@@ -15,9 +15,9 @@ class PointsConfigService
     ) {
     }
 
-    public function index(): Collection
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->pointsConfigRepository->getAll();
+        return $this->pointsConfigRepository->getAll($perPage);
     }
 
     public function show(int $id): PointsConfig

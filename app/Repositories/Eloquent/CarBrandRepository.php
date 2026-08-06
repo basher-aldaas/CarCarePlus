@@ -4,12 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\CarBrandDTO;
 use App\Models\CarBrand;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CarBrandRepository
 {
-    public function getAll()
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return CarBrand::latest()->get();
+        return CarBrand::latest()->paginate($perPage);
     }
 
     public function findById(int $id): CarBrand

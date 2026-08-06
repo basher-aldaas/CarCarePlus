@@ -11,6 +11,7 @@ use App\Http\Responses\Response;
 use App\Models\Material;
 use App\Services\Operations\MaterialService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {
@@ -22,10 +23,10 @@ class MaterialController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return Response::Success(
-            data: MaterialResource::collection($this->materialService->index()),
+            data: MaterialResource::collection($this->materialService->index($request->integer('per_page', 15))),
             message: 'materials fetched successfully'
         );
     }

@@ -4,13 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\MaterialDTO;
 use App\Models\Material;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class MaterialRepository
 {
-    public function getAll(): Collection
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return Material::with('unit')->get();
+        return Material::with('unit')->paginate($perPage);
     }
 
     public function findById(Material $material): Material

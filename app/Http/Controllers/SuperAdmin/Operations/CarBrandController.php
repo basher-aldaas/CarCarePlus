@@ -10,6 +10,7 @@ use App\Http\Resources\CarBrandResource;
 use App\Http\Responses\Response;
 use App\Models\CarBrand;
 use App\Services\Operations\CarBrandService;
+use Illuminate\Http\Request;
 
 class CarBrandController extends Controller
 {
@@ -19,11 +20,11 @@ class CarBrandController extends Controller
     {
     }
 
-    public function index()
+    public function index(Request $request)
     {
         return Response::Success(
             CarBrandResource::collection(
-                $this->carBrandService->index()
+                $this->carBrandService->index($request->integer('per_page', 15))
             ),
             'Car brands fetched successfully'
         );

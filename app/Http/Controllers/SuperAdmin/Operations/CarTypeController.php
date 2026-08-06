@@ -10,6 +10,7 @@ use App\Http\Resources\CarTypeResource;
 use App\Http\Responses\Response;
 use App\Models\CarType;
 use App\Services\Operations\CarTypeService;
+use Illuminate\Http\Request;
 
 class CarTypeController extends Controller
 {
@@ -19,11 +20,11 @@ class CarTypeController extends Controller
     {
     }
 
-    public function index()
+    public function index(Request $request)
     {
         return Response::Success(
             CarTypeResource::collection(
-                $this->carTypeService->index()
+                $this->carTypeService->index($request->integer('per_page', 15))
             ),
             'Car types fetched successfully'
         );

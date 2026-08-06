@@ -4,13 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\PointsConfigDTO;
 use App\Models\PointsConfig;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PointsConfigRepository
 {
-    public function getAll(): Collection
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return PointsConfig::get();
+        return PointsConfig::paginate($perPage);
     }
 
     public function findById(int $id): PointsConfig

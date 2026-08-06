@@ -10,6 +10,7 @@ use App\Http\Resources\PointsConfigResource;
 use App\Http\Responses\Response;
 use App\Models\PointsConfig;
 use App\Services\Operations\PointsConfigService;
+use Illuminate\Http\Request;
 
 class PointsConfigController extends Controller
 {
@@ -19,11 +20,11 @@ class PointsConfigController extends Controller
     {
     }
 
-    public function index()
+    public function index(Request $request)
     {
         return Response::Success(
             PointsConfigResource::collection(
-                $this->pointsConfigService->index()
+                $this->pointsConfigService->index($request->integer('per_page', 15))
             ),
             'Points configs fetched successfully'
         );

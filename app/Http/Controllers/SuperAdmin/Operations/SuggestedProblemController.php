@@ -11,6 +11,7 @@ use App\Http\Responses\Response;
 use App\Models\SuggestedProblem;
 use App\Services\Operations\SuggestedProblemService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class SuggestedProblemController extends Controller
 {
@@ -22,10 +23,10 @@ class SuggestedProblemController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return Response::Success(
-            data: SuggestedProblemResource::collection($this->suggestedProblemService->index()),
+            data: SuggestedProblemResource::collection($this->suggestedProblemService->index($request->integer('per_page', 15))),
             message: 'suggested problems fetched successfully'
         );
     }

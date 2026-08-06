@@ -5,7 +5,7 @@ namespace App\Services\Operations;
 use App\DTOs\AdminDTO;
 use App\Models\User;
 use App\Repositories\Eloquent\AdminRepository;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class AdminService
@@ -15,9 +15,9 @@ class AdminService
     ) {
     }
 
-    public function index(): Collection
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->adminRepository->getAll();
+        return $this->adminRepository->getAll($perPage);
     }
 
     public function show(int $id): User

@@ -11,6 +11,7 @@ use App\Http\Responses\Response;
 use App\Models\Branch;
 use App\Services\Operations\BranchService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class BranchController extends Controller
 {
@@ -22,10 +23,10 @@ class BranchController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return Response::Success(
-            data: BranchResource::collection($this->branchService->index()),
+            data: BranchResource::collection($this->branchService->index($request->integer('per_page', 15))),
             message: 'branches fetched successfully'
         );
     }

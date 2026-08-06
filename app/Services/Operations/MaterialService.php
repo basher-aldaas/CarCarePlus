@@ -5,15 +5,16 @@ namespace App\Services\Operations;
 use App\DTOs\MaterialDTO;
 use App\Models\Material;
 use App\Repositories\Eloquent\MaterialRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
 class MaterialService
 {
     public function __construct(protected MaterialRepository $materialRepository)
     {}
-    public function index()
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->materialRepository->getAll();
+        return $this->materialRepository->getAll($perPage);
     }
 
     public function show(Material $material): Material

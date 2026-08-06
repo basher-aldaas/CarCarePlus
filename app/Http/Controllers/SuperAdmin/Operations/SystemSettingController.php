@@ -11,6 +11,7 @@ use App\Http\Responses\Response;
 use App\Models\SystemSetting;
 use App\Services\Operations\SystemSettingService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class SystemSettingController extends Controller
 {
@@ -22,10 +23,10 @@ class SystemSettingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         return Response::Success(
-            data: SystemSettingResource::collection($this->systemSettingService->index()),
+            data: SystemSettingResource::collection($this->systemSettingService->index($request->integer('per_page', 15))),
             message: 'system settings fetched successfully'
         );
     }

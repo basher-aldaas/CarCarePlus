@@ -4,13 +4,13 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\AiRuleDTO;
 use App\Models\AiRule;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AiRuleRepository
 {
-    public function getAll(): Collection
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return AiRule::get();
+        return AiRule::paginate($perPage);
     }
 
     public function findById(AiRule $aiRule): AiRule
