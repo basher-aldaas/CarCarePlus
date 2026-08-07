@@ -29,12 +29,6 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreignId('branch_id')
-                ->nullable()
-                ->constrained('branches')
-                ->cascadeOnUpdate()
-                ->nullOnDelete();
-
             $table->string('plate_number')
                 ->unique();
 

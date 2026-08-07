@@ -34,6 +34,7 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
 
+            //employee confirmed cash payment
             $table->foreignId('cash_confirmed_by')
                 ->nullable()
                 ->constrained('users')

@@ -25,7 +25,7 @@ class OrderRepository
 
         $query = Order::with($this->with)->latest();
 
-        if ($user->hasAnyRole(['super_admin', 'workshop'])) {
+        if ($user->hasRole('super_admin')) {
             return $query;
         }
 

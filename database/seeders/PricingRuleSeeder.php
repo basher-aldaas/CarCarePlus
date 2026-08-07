@@ -26,53 +26,8 @@ class PricingRuleSeeder extends Seeder
                 'is_active' => true,
             ],
 
-            [
-                'id' => 2,
-                'pricing_rule_type_id' => 1,
-                'name' => 'Luxury Vehicle Extra Charge',
-                'name_ar' => 'زيادة سعر السيارات الفاخرة',
-                'value' => 30,
-                'conditions' => [
-                    'vehicle_type' => 'Luxury',
-                ],
-                'is_active' => true,
-            ],
 
-            [
-                'id' => 3,
-                'pricing_rule_type_id' => 2,
-                'name' => 'Washing Service Extra Charge',
-                'name_ar' => 'زيادة سعر خدمة الغسيل',
-                'value' => 10,
-                'conditions' => [
-                    'service_type' => 'washing',
-                ],
-                'is_active' => true,
-            ],
 
-            [
-                'id' => 4,
-                'pricing_rule_type_id' => 2,
-                'name' => 'Maintenance Service Extra Charge',
-                'name_ar' => 'زيادة سعر خدمة الصيانة',
-                'value' => 25,
-                'conditions' => [
-                    'service_type' => 'maintenance',
-                ],
-                'is_active' => true,
-            ],
-
-            [
-                'id' => 5,
-                'pricing_rule_type_id' => 3,
-                'name' => 'Interior Cleaning Extra',
-                'name_ar' => 'زيادة سعر تنظيف المقصورة',
-                'value' => 15,
-                'conditions' => [
-                    'sub_service' => 'interior_cleaning',
-                ],
-                'is_active' => true,
-            ],
 
             [
                 'id' => 6,
@@ -86,41 +41,6 @@ class PricingRuleSeeder extends Seeder
                 'is_active' => true,
             ],
 
-            [
-                'id' => 7,
-                'pricing_rule_type_id' => 4,
-                'name' => 'Personal Customer Price',
-                'name_ar' => 'السعر الأساسي للعميل الشخصي',
-                'value' => 0,
-                'conditions' => [
-                    'customer_type' => 'personal',
-                ],
-                'is_active' => true,
-            ],
-
-            [
-                'id' => 8,
-                'pricing_rule_type_id' => 5,
-                'name' => 'Gold Package Discount',
-                'name_ar' => 'خصم الباقة الذهبية',
-                'value' => -15,
-                'conditions' => [
-                    'package' => 'gold',
-                ],
-                'is_active' => true,
-            ],
-
-            [
-                'id' => 9,
-                'pricing_rule_type_id' => 5,
-                'name' => 'Silver Package Discount',
-                'name_ar' => 'خصم الباقة الفضية',
-                'value' => -5,
-                'conditions' => [
-                    'package' => 'silver',
-                ],
-                'is_active' => true,
-            ],
 
             [
                 'id' => 10,
@@ -149,30 +69,6 @@ class PricingRuleSeeder extends Seeder
                 'is_active' => true,
             ],
 
-            [
-                'id' => 12,
-                'pricing_rule_type_id' => 8,
-                'name' => 'Peak Hours Extra Charge',
-                'name_ar' => 'زيادة سعر ساعات الذروة',
-                'value' => 15,
-                'conditions' => [
-                    'start_time' => '17:00',
-                    'end_time' => '21:00',
-                ],
-                'is_active' => true,
-            ],
-
-            [
-                'id' => 13,
-                'pricing_rule_type_id' => 9,
-                'name' => 'Summer Extra Charge',
-                'name_ar' => 'زيادة سعر موسم الصيف',
-                'value' => 10,
-                'conditions' => [
-                    'season' => 'summer',
-                ],
-                'is_active' => true,
-            ],
 
             [
                 'id' => 14,
@@ -204,7 +100,10 @@ class PricingRuleSeeder extends Seeder
                 'name' => 'Off Working Hours Charge',
                 'name_ar' => 'رسوم خارج أوقات العمل',
                 'value' => 15,
-                'conditions' => null,
+                'conditions' => [
+                    'start_time' => '18:00',
+                    'end_time' => '08:00',
+                ],
                 'is_active' => true,
             ],
         ];

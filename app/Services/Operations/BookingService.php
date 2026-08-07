@@ -7,10 +7,10 @@ use App\Enums\OrderEnums\OrderStatus;
 use App\Enums\PaymentEnums\PaymentMethod;
 use App\Exceptions\BookingCancelUnauthorizedException;
 use App\Exceptions\BookingEditWindowExpiredException;
+use App\Exceptions\BookingShowUnauthorizedException;
 use App\Exceptions\BookingUpdateUnauthorizedException;
 use App\Exceptions\InvalidBookingStatusTransitionException;
 use App\Models\Order;
-use App\Repositories\Eloquent\BranchRepository;
 use App\Repositories\Eloquent\OrderRepository;
 use App\Repositories\Eloquent\ServiceRepository;
 use App\Traits\AuthorizesResourceOwnership;
@@ -25,7 +25,6 @@ class BookingService
     public function __construct(
         protected OrderRepository $orderRepository,
         protected ServiceRepository $serviceRepository,
-        protected BranchRepository $branchRepository,
         protected PricingEngineService $pricingEngine,
     ) {}
 
@@ -69,7 +68,7 @@ class BookingService
         $isOwner = $order->customer_id === $user->id;
 
         if (! $isOwner && ! $this->canManage($order)) {
-            throw new BookingUpdateUnauthorizedException();
+            throw new BookingShowUnauthorizedException();
         }
 
         return $order;
@@ -83,7 +82,7 @@ class BookingService
     {
         $user = auth()->user();
 
-        if ($user->hasAnyRole(['super_admin', 'workshop'])) {
+        if ($user->hasRole('super_admin')) {
             return true;
         }
 
@@ -133,14 +132,16 @@ class BookingService
         }
 
         $service = $this->serviceRepository->findById($order->service_id);
-        $branch = $order->branch_id ? $this->branchRepository->findByIdOrNull($order->branch_id) : null;
+        $priceMultiplier = (float) ($order->car?->carType?->price_multiplier ?? 1.0);
 
         $breakdown = $this->pricingEngine->calculate(
             service: $service,
             isVip: (bool) $order->is_vip,
             distanceKm: $order->distance_km !== null ? (float) $order->distance_km : null,
-            branch: $branch,
             scheduledAt: $order->scheduled_at ?? now(),
+            isImmediate: (bool) $order->booking_type,
+            priceMultiplier: $priceMultiplier,
+            isCompanyCustomer: $order->company_id !== null,
         );
 
         $order->priceItems()->delete();

@@ -22,7 +22,7 @@ class OrderMaterial extends Model
     ];
 
     protected $casts = [
-        'type' => OrderMaterialStatus::class,
+        'status' => OrderMaterialStatus::class,
         'quantity' => 'decimal:2',
         'unit_price' => 'decimal:2',
         'total_price' => 'decimal:2',

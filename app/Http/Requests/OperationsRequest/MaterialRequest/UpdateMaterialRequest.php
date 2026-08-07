@@ -52,11 +52,6 @@ class UpdateMaterialRequest extends FormRequest
                 'min:0'
             ],
 
-            'is_vip_material' => [
-                'nullable',
-                'boolean'
-            ],
-
             'is_visible_to_customer' => [
                 'nullable',
                 'boolean'

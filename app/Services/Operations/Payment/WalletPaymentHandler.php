@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Payment;
 use App\Models\User;
 use App\Models\Wallet;
+use App\Models\WalletTransaction;
 use App\Repositories\Eloquent\WalletRepository;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -39,8 +40,8 @@ class WalletPaymentHandler implements PaymentMethodHandlerInterface
     {
         $this->walletRepository->debit(
             userId: $order->customer_id,
-            amount: $amount,
             reason: WalletTransactionReason::ORDER_PAYMENT,
+            amount: $amount,
             note: __('Booking #:id', ['id' => $order->id]),
         );
 

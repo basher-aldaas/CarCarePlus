@@ -45,4 +45,18 @@ class PricingRuleRepository
             ->where('is_active', true)
             ->first();
     }
+
+    /**
+     * Some rule types (e.g. "customer_type", "service") have multiple
+     * active rows distinguished by a condition value rather than one rule
+     * per type — this narrows by that condition too.
+     */
+    public function findActiveByTypeAndCondition(string $typeName, string $conditionKey, string $conditionValue): ?PricingRule
+    {
+        return PricingRule::query()
+            ->whereHas('ruleType', fn ($query) => $query->where('name', $typeName))
+            ->where('is_active', true)
+            ->where("conditions->{$conditionKey}", $conditionValue)
+            ->first();
+    }
 }

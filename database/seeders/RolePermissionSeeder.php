@@ -214,7 +214,7 @@ class RolePermissionSeeder extends Seeder
             'show.categories', 'show.services', 'show.sub_services',
 
             // إدارة فواتير وطلبات الورشة المسندة إليها
-            'show.orders', 'assign.order', 'edit.order',
+             'assign.order', 'edit.order',
             'show.order_sub_services', 'show.order_status_history',
 
             // العمليات والتقارير المالية
@@ -241,6 +241,7 @@ class RolePermissionSeeder extends Seeder
             'show.package_service_sub_services',
             'show.pricing_rule_types',
             'show.pricing_rules',
+            'show.client.cars',
         ];
     }
 
@@ -269,6 +270,7 @@ class RolePermissionSeeder extends Seeder
             'show.car_brands',
             'show.pricing_rule_types',
             'show.pricing_rules',
+            'show.client.cars',
         ];
     }
 
@@ -287,6 +289,7 @@ class RolePermissionSeeder extends Seeder
             'show.car_brands',
             'show.pricing_rule_types',
             'show.pricing_rules',
+            'show.client.cars',
         ];
     }
 }

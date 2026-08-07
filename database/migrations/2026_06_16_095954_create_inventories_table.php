@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //هاد الجدول خاص بالمستودعات تبع الافرع
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('branch_id')

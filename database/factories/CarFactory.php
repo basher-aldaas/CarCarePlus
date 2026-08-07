@@ -17,12 +17,10 @@ class CarFactory extends Factory
 
         $brandId = DB::table('car_brands')->inRandomOrder()->first()?->id ?? 1;
         $carTypeId = DB::table('car_types')->inRandomOrder()->first()?->id ?? 1;
-        $branchId = DB::table('branches')->inRandomOrder()->first()?->id;
         return [
             'user_id' => User::inRandomOrder()->first()?->id ?? User::factory(),
             'brand_id' => $brandId,
             'car_type_id' => $carTypeId,
-            'branch_id' => $branchId,
             'plate_number' => $this->faker->bothify('???-####'),
             'model' => $this->faker->randomElement(['Camry', 'Elantra', 'Accent', 'Sonata', 'Land Cruiser', 'Model Y']),
             'year' => $this->faker->year(),

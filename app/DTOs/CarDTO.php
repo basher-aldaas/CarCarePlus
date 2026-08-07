@@ -8,7 +8,6 @@ class CarDTO
         public ?int $user_id,
         public ?int $brand_id,
         public ?int $car_type_id,
-        public ?int $branch_id,
         public ?string $plate_number,
         public ?string $model,
         public ?int $year,
@@ -26,7 +25,6 @@ class CarDTO
             user_id: isset($data['user_id']) ? (int) $data['user_id'] : null,
             brand_id: isset($data['brand_id']) ? (int) $data['brand_id'] : null,
             car_type_id: isset($data['car_type_id']) ? (int) $data['car_type_id'] : null,
-            branch_id: isset($data['branch_id']) ? (int) $data['branch_id'] : null,
 
             plate_number: $data['plate_number'] ?? null,
             model: $data['model'] ?? null,
@@ -50,7 +48,6 @@ class CarDTO
             'user_id' => $this->user_id,
             'brand_id' => $this->brand_id,
             'car_type_id' => $this->car_type_id,
-            'branch_id' => $this->branch_id,
             'plate_number' => $this->plate_number,
             'model' => $this->model,
             'year' => $this->year,

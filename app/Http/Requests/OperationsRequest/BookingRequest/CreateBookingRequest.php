@@ -29,8 +29,8 @@ class CreateBookingRequest extends FormRequest
             'car_ids' => ['required', 'array', 'min:1'],
             'car_ids.*' => ['distinct', 'integer', 'exists:cars,id'],
             'branch_id' => ['nullable', 'integer', 'exists:branches,id'],
-            'service_id' => ['required', 'integer', 'exists:services,id'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'service_id' => ['required', 'integer', 'exists:services,id'],
             'booking_type' => ['required', 'boolean'],
             'is_vip' => ['sometimes', 'boolean'],
             'scheduled_at' => ['nullable', 'date', 'after_or_equal:now'],
@@ -48,6 +48,12 @@ class CreateBookingRequest extends FormRequest
             'problem_description' => ['required_with:problem_type_id', 'string', 'max:1000'],
             'problem_image_url' => ['nullable', 'string', 'max:2000'],
             'towing_required' => ['sometimes', 'boolean'],
+
+            // Flatbed towing only — TowingBookingHandler enforces these as
+            // required when the booked category is towing.
+            'destination_lat' => ['nullable', 'numeric', 'between:-90,90'],
+            'destination_lng' => ['nullable', 'numeric', 'between:-180,180'],
+            'destination_address' => ['nullable', 'string', 'max:500'],
         ];
     }
 }

@@ -27,9 +27,6 @@ return new class extends Migration
 
             $table->decimal('unit_price', 10, 2);
 
-            $table->boolean('is_vip_material')
-                ->default(false);
-
             $table->boolean('is_visible_to_customer')
                 ->default(false);
 

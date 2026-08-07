@@ -4,8 +4,8 @@ namespace App\Enums\WalletTransactionEnums;
 
 enum WalletTransactionType: string
 {
-    case CREDIT = 'credit';
-    case DEBIT = 'debit';
+    case CREDIT = 'credit';//تغذية حساب
+    case DEBIT = 'debit';// دفع للطلب
 
     public static function values(): array
     {

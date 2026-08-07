@@ -16,7 +16,6 @@ class Car extends Model
         'user_id',
         'car_type_id',
         'brand_id',
-        'branch_id',
         'plate_number',
         'model',
         'year',
@@ -40,10 +39,6 @@ class Car extends Model
     public function carType(): BelongsTo
     {
         return $this->belongsTo(CarType::class, 'car_type_id');
-    }
-    public function branch(): BelongsTo
-    {
-        return $this->belongsTo(Branch::class, 'branch_id');
     }
     public function orders(): HasMany
     {

@@ -13,6 +13,7 @@ class CategorySeeder extends Seeder
             ['name' => 'Car Wash', 'name_ar' => 'غسيل سيارات', 'description' => 'تنظيف وتلميع السيارات الداخلي والخارجي', 'is_active' => true],
             ['name' => 'Maintenance', 'name_ar' => 'صيانة ميكانيكية', 'description' => 'خدمات الصيانة السريعة والميكانيكا العامة', 'is_active' => true],
             ['name' => 'Roadside Assistance', 'name_ar' => 'المساعدة على الطريق', 'description' => 'خدمات الطوارئ والإنقاذ أثناء السير', 'is_active' => true],
+            ['name' => 'Flatbed Towing', 'name_ar' => 'سحب بالسطحة', 'description' => 'نقل السيارة بواسطة سطحة من موقعها إلى الوجهة المطلوبة', 'is_active' => true],
         ];
 
         foreach ($categories as $category) {

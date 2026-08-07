@@ -22,7 +22,6 @@ class MaterialResource extends JsonResource
             'name_ar' => $this->name_ar,
             'description' => $this->description,
             'unit_price' => $this->unit_price,
-            'is_vip_material' => $this->is_vip_material,
             'is_visible_to_customer' => $this->is_visible_to_customer,
             'is_active' => $this->is_active,
         ];

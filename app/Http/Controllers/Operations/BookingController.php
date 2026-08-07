@@ -51,9 +51,8 @@ class BookingController extends Controller
             data: [
                 'quote_token' => $result['quote_token'],
                 'branch' => $result['branch'] ? new BranchResource($result['branch']) : null,
-                'price_items' => $result['price_items'],
+                'cars' => $result['cars'],
                 'car_count' => $result['car_count'],
-                'total_price_per_car' => $result['total_price_per_car'],
                 'total_price' => $result['total_price'],
                 'expires_at' => $result['expires_at'],
             ],

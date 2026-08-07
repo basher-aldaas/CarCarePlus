@@ -80,7 +80,6 @@ class InventoryTransactionStoreTest extends TestCase
             'name' => 'Oil',
             'name_ar' => 'زيت',
             'unit_price' => 10,
-            'is_vip_material' => false,
             'is_active' => true,
         ]);
     }

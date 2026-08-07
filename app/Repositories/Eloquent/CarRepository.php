@@ -3,7 +3,6 @@
 namespace App\Repositories\Eloquent;
 
 use App\DTOs\CarDTO;
-use App\Models\Branch;
 use App\Models\Car;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,19 +13,8 @@ class CarRepository
      */
     public function getAllDashboard(): Builder
     {
-
-        $user = auth()->user();
-
-        $query = Car::with(['owner', 'carType', 'branch'])
+        return Car::with(['owner', 'carType'])
             ->latest();
-
-        // مدير الفرع (admin) يرى فقط سيارات الفروع التي يديرها
-        if ($user->hasRole('admin')) {
-            $branchIds = Branch::where('admin_id', $user->id)->pluck('id');
-            $query->whereIn('branch_id', $branchIds);
-        }
-
-        return $query;
     }
 
     /**
@@ -56,7 +44,7 @@ class CarRepository
 
     public function findById(int $id): Car
     {
-        return Car::with(['owner', 'carType', 'branch'])->findOrFail($id);
+        return Car::with(['owner', 'carType'])->findOrFail($id);
     }
 
     public function delete(int $id): void

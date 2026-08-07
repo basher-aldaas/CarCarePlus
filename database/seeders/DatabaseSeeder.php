@@ -59,7 +59,14 @@ class DatabaseSeeder extends Seeder
             PackageServiceSeeder::class,                  // <-- أضفه هنا
             PackageServiceSubServiceSeeder::class,        // <-- أضفه هنا
 
+            // 7. الطلبات (تعتمد على العملاء والسيارات والفروع والموظفين والخدمات)
+            OrderSeeder::class,
 
+            // 8. تفاصيل الطلبات (تعتمد على الطلبات أعلاه وتتوافق مع حالتها الفعلية)
+            OrderSubServiceSeeder::class,
+            OrderMaterialSeeder::class,
+            OrderStatusHistorySeeder::class,
+            OrderPriceItemSeeder::class,
         ]);
     }
 }

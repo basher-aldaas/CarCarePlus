@@ -72,42 +72,11 @@ Route::prefix('auth')->group(function () {
 
 });
 
-/*
-|--------------------------------------------------------------------------
-| Authenticated user — cars
-|--------------------------------------------------------------------------
-*/
-Route::middleware('auth:sanctum')
-    ->prefix('cars')
-    ->group(function () {
-        //get all cars in system for super admin and all car in branch for admin
-        Route::get('/all', [CarController::class, 'indexDashboard'])->middleware(['can:show.cars', 'active.user']);//super admin, admin
-        //for super admin and admin we send customer id to show all his cars
-        //for customer we don't send customer id
-        Route::get('/indexClient/{customer_id?}', [CarController::class, 'indexClient'])->middleware(['can:show.client.cars', 'active.admin']);//super admin, admin, customer
-        //for super admin and admin we send customer id to add car for him
-        //for customer we don't send customer id
-        Route::post('/{customer_id?}', [CarController::class, 'store'])->middleware(['can:add.car', 'active.user']); //super admin, admin, customer
-        Route::get('/show/{id}', [CarController::class, 'show'])->middleware('can:show.car'); //for all
-        Route::post('/update/{id}', [CarController::class, 'update'])->middleware(['can:edit.car', 'active.user']); //super admin, admin, customer
-        Route::get('/delete/{id}', [CarController::class, 'destroy'])->middleware(['can:delete.car', 'active.user']); //super admin, customer
-    });
 
-/*
-|--------------------------------------------------------------------------
-| Authenticated user — bookings (orders)
-|--------------------------------------------------------------------------
-*/
+
 Route::middleware(['auth:sanctum', 'active.user'])
     ->group(function () {
-        // list is auto-scoped per role: super admin/workshop see all, admin sees their branch's,
-        // employee sees bookings assigned to them, customer sees their own
-        Route::get('bookings/', [BookingController::class, 'index'])->middleware('can:show.orders');
-        Route::get('bookings/{id}', [BookingController::class, 'show'])->middleware('can:show.orders');
-        // only customer_personal / customer_company hold create.order
-        // two-step booking: quote (price + branch receipt, no DB write) then confirm (creates the order(s))
-        Route::post('bookings/quote', [BookingController::class, 'quote'])->middleware('can:create.order');
-        Route::post('bookings/confirm', [BookingController::class, 'confirm'])->middleware('can:create.order');
+
         Route::post('bookings/{id}', [BookingController::class, 'update'])->middleware('can:edit.order'); //super admin, admin, workshop, employee
         Route::delete('bookings/{id}', [BookingController::class, 'destroy'])->middleware('can:cancel.order'); //super admin, admin, customer
         Route::post('bookings/{id}/assign', [BookingController::class, 'assign'])->middleware('can:assign.order'); //super admin, admin, workshop
@@ -171,8 +140,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/updateProfile', [UserController::class, 'updateProfile']);
         });
 
-    Route::get(
-        '/companies',[CompanyController::class,'index'])->middleware('can:show.companies');
+    Route::get('/companies',[CompanyController::class,'index'])->middleware('can:show.companies');
+
+    Route::middleware('active.user')->group(function (){
+        // list is auto-scoped per role: super admin/workshop see all, admin sees their branch's,
+        // employee sees bookings assigned to them, customer sees their own
+        Route::get('bookings/', [BookingController::class, 'index'])->middleware('can:show.orders');
+        Route::get('bookings/{id}', [BookingController::class, 'show'])->middleware('can:show.orders');
+
+    });
+
+    Route::get('/indexClient/{customer_id?}', [CarController::class, 'indexClient'])->middleware('can:show.client.cars');
+    Route::get('/show/{id}', [CarController::class, 'show'])->middleware('can:show.car');
 
 
 
@@ -201,17 +180,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('user-packages/show/{user_package}', [UserPackageController::class, 'show'])->middleware('can:show.user_packages');
         Route::post('/user-packages/{customer_id?}', [UserPackageController::class, 'store'])->middleware('can:add.user_package');
         Route::post('/user-packages/update/{user_package}', [UserPackageController::class, 'update'])->middleware('can:edit.user_package');
-        Route::get('/companies/my',[CompanyController::class,'myCompany'])
-            ->middleware('can:show.companies');
 
-        Route::get('/companies/{company}',[CompanyController::class,'show'])
-            ->middleware('can:show.companies');
+        Route::get('/companies/my',[CompanyController::class,'myCompany'])->middleware('can:show.companies');
+        Route::get('/companies/{company}',[CompanyController::class,'show'])->middleware('can:show.companies');
+        Route::post('/companies/{company}',[CompanyController::class,'update'])->middleware('can:edit.company');
+        Route::delete('/companies/{company}',[CompanyController::class,'destroy'])->middleware('can:delete.company');
 
-        Route::post('/companies/{company}',[CompanyController::class,'update'])
-            ->middleware('can:edit.company');
+        Route::post('/{customer_id?}', [CarController::class, 'store'])->middleware(['can:add.car', 'active.user']); //super admin, admin, customer
+        Route::post('/update/{id}', [CarController::class, 'update'])->middleware(['can:edit.car', 'active.user']); //super admin, admin, customer
+        Route::get('/delete/{id}', [CarController::class, 'destroy'])->middleware(['can:delete.car', 'active.user']); //super admin, customer
 
-        Route::delete('/companies/{company}',[CompanyController::class,'destroy'])
-            ->middleware('can:delete.company');
     });
 
 
@@ -237,6 +215,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/workshops/my', [WorkshopController::class, 'myWorkshop'])->middleware('can:show.workshops');
         Route::get('/workshops/{workshop}', [WorkshopController::class, 'show'])->middleware('can:show.workshops');
 
+        Route::get('/all', [CarController::class, 'indexDashboard'])->middleware('can:show.cars');
+
 
     });
     Route::get('/material-units', [MaterialUnitController::class, 'index'])->middleware('can:show.material_units');
@@ -250,6 +230,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/ai-rules', [AiRuleController::class, 'index'])->middleware('can:show.ai_rules');
     Route::get('/ai-rules/{ai_rule}', [AiRuleController::class, 'show'])->middleware('can:show.ai_rules');
 
+
+    //for Customer
+    Route::middleware('active.user')->group(function () {
+        Route::post('bookings/quote', [BookingController::class, 'quote'])->middleware('can:create.order');
+        Route::post('bookings/confirm', [BookingController::class, 'confirm'])->middleware('can:create.order');
+    });
 
     //for SA
     //Route::post('/points/transactions', [PointsTransactionController::class, 'store']);

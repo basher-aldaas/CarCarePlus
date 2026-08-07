@@ -30,7 +30,7 @@ class CarController extends Controller
     //Get all Cars in system for clients
     public function indexClient(?int $customer_id = null): JsonResponse
     {
-        if (auth()->user()->hasAnyRole(['super_admin', 'admin'])) {
+        if (auth()->user()->hasAnyRole(['super_admin', 'admin', 'workshop', 'employee_washer', 'employee_mechanic'])) {
 
             if ($customer_id === null) {
                 return Response::Error(data:null,message: 'customer_id is required');

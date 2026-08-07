@@ -16,10 +16,21 @@ class BookingTypeHandlerResolver
 
     public function __construct(
         RoadAssistanceBookingHandler $roadAssistanceBookingHandler,
+        TowingBookingHandler $towingBookingHandler,
+        WashServiceBookingHandler $washServiceBookingHandler,
+        MaintenanceBookingHandler $maintenanceBookingHandler,
         RegularServiceBookingHandler $regularServiceBookingHandler,
     ) {
+        // Order matters: the first handler whose supports() returns true
+        // wins. RoadAssistance is checked first since it's keyed off
+        // submitted fields, not category. RegularService stays last as the
+        // catch-all fallback, so a category added later with no dedicated
+        // handler still books successfully with default behavior.
         $this->handlers = [
             $roadAssistanceBookingHandler,
+            $towingBookingHandler,
+            $washServiceBookingHandler,
+            $maintenanceBookingHandler,
             $regularServiceBookingHandler,
         ];
     }

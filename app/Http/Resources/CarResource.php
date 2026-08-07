@@ -23,7 +23,6 @@ class CarResource extends JsonResource
             'user_id' => $this->user_id,
             'brand_id' => $this->brand_id,
             'car_type_id' => $this->car_type_id,
-            'branch_id' => $this->branch_id,
 
             // البيانات الأساسية للسيارة
             'plate_number' => $this->plate_number,
@@ -45,12 +44,6 @@ class CarResource extends JsonResource
             // العلاقات — تظهر فقط عند تحميلها مسبقاً (eager loaded)
             'owner' => new UserResource($this->whenLoaded('owner')),
             'car_type' => new CarTypeResource($this->whenLoaded('carType')),
-            'branch' => $this->whenLoaded('branch', fn () => [
-                'id'      => $this->branch->id,
-                'name'    => $this->branch->name,
-                'name_ar' => $this->branch->name_ar,
-                'city'    => $this->branch->city,
-            ]),
 
             // تنسيق التواريخ
             'created_at' => $this->created_at->toDateString(),
