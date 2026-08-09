@@ -2,12 +2,13 @@
 
 namespace App\Services\Operations\Booking;
 
-use App\Repositories\Eloquent\CategoryRepository;
+use App\Repositories\Eloquent\ServiceRepository;
 use Illuminate\Support\Str;
 
 /**
- * Matches by the submitted category_id's name (e.g. "Maintenance").
- * CreateBookingRequest already requires and validates category_id.
+ * Matches by the booked service's category name (e.g. "Maintenance").
+ * Category is derived from service_id rather than accepted from the
+ * client, so it can never mismatch the service actually being booked.
  *
  * Matching is done against the category's name text rather than its id,
  * since ids are seed-order-dependent. If categories ever get a stable
@@ -17,17 +18,17 @@ use Illuminate\Support\Str;
  */
 class MaintenanceBookingHandler extends AbstractBookingTypeHandler
 {
-    public function __construct(protected CategoryRepository $categoryRepository)
+    public function __construct(protected ServiceRepository $serviceRepository)
     {}
 
     public function supports(array $data): bool
     {
-        if (! isset($data['category_id'])) {
+        if (! isset($data['service_id'])) {
             return false;
         }
 
-        $category = $this->categoryRepository->findById((int) $data['category_id']);
+        $service = $this->serviceRepository->findById((int) $data['service_id']);
 
-        return Str::contains(strtolower($category->name), 'maintenance');
+        return Str::contains(strtolower($service->category?->name ?? ''), 'maintenance');
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Requests\OperationsRequest\BookingRequest\CreateBookingRequest;
 use App\Http\Requests\OperationsRequest\BookingRequest\UpdateBookingRequest;
 use App\Http\Resources\BranchResource;
 use App\Http\Resources\OrderResource;
+use App\Http\Resources\SubServiceResource;
 use App\Http\Responses\Response;
 use App\Services\Operations\BookingQuoteService;
 use App\Services\Operations\BookingService;
@@ -38,11 +39,7 @@ class BookingController extends Controller
         );
     }
 
-    /**
-     * Step 1 of booking: validate + price the submission (without creating
-     * anything) and return a short-lived quote_token plus the branch info
-     * and price receipt for the customer to review.
-     */
+
     public function quote(CreateBookingRequest $request): JsonResponse
     {
         $result = $this->bookingQuoteService->quote($request->validated());
@@ -51,8 +48,10 @@ class BookingController extends Controller
             data: [
                 'quote_token' => $result['quote_token'],
                 'branch' => $result['branch'] ? new BranchResource($result['branch']) : null,
-                'cars' => $result['cars'],
+                'sub_services' => SubServiceResource::collection($result['sub_services']),
+                'materials' => $result['materials'],
                 'car_count' => $result['car_count'],
+                'invoice' => $result['cars'],
                 'total_price' => $result['total_price'],
                 'expires_at' => $result['expires_at'],
             ],

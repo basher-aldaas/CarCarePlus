@@ -689,10 +689,10 @@ Index/show wrapped in `active.admin`; mutations are not.
 | /api/points-configs/{points_config} | POST | manage.point_config | super_admin only |
 | /api/points-configs/{points_config} | DELETE | manage.point_config | super_admin only |
 
-Body: `earn_per_amount` (required, numeric, min:0), `redeem_value` (required, numeric, min:0), `min_redeem` (required, integer, min:0), `expiry_days` (required, integer, min:0), `max_earn_per_order` (required, integer, min:0), `is_active` (sometimes, boolean). Update: all `sometimes`.
+Body: `earn_per_amount` (required, numeric, min:0), `redeem_value` (required, numeric, min:0), `min_redeem` (required, integer, min:0), `max_earn_per_order` (required, integer, min:0), `is_active` (sometimes, boolean). Update: all `sometimes`.
 
 ```json
-{ "id": 1, "earn_per_amount": 0, "redeem_value": 0, "min_redeem": 0, "expiry_days": 0, "max_earn_per_order": 0, "is_active": true, "updated_at": "..." }
+{ "id": 1, "earn_per_amount": 0, "redeem_value": 0, "min_redeem": 0, "max_earn_per_order": 0, "is_active": true, "updated_at": "..." }
 ```
 
 ---

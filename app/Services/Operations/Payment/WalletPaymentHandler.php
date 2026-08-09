@@ -31,7 +31,7 @@ class WalletPaymentHandler implements PaymentMethodHandlerInterface
 
         if ($balance < $totalAmountForGroup) {
             throw ValidationException::withMessages([
-                'wallet' => [__('Insufficient wallet balance')],
+                'wallet' => [__('Not Enough in your wallet balance')],
             ]);
         }
     }

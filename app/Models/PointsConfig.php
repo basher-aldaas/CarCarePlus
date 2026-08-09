@@ -12,7 +12,6 @@ class PointsConfig extends Model
         'earn_per_amount',
         'redeem_value',
         'min_redeem',
-        'expiry_days',
         'max_earn_per_order',
         'is_active',
     ];

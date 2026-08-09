@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class OrderRepository
 {
-    protected array $with = ['customer', 'car', 'branch', 'employee.user', 'service', 'category', 'priceItems'];
+    protected array $with = ['customer', 'car', 'branch', 'employee.user', 'service', 'category', 'priceItems', 'subServices.subService', 'materials.material'];
 
     /**
      * Bookings scoped to the currently authenticated user's role:

@@ -15,16 +15,6 @@ use Carbon\Carbon;
  */
 class PricingEngineService
 {
-    /**
-     * Category name -> the "service_type" condition value used by the
-     * seeded "service" pricing rules. Categories with no mapping (road
-     * assistance, towing) carry no service-type surcharge.
-     */
-    protected const CATEGORY_SERVICE_TYPES = [
-        'Car Wash' => 'washing',
-        'Maintenance' => 'maintenance',
-    ];
-
     public function __construct(protected PricingRuleRepository $pricingRuleRepository)
     {}
 
@@ -38,52 +28,62 @@ class PricingEngineService
         bool $isCompanyCustomer = false,
     ): PriceBreakdownDTO {
         $items = [];
+        $subtotal = 0.0;
 
+        $baseAmount = round((float) $service->base_price * $priceMultiplier, 2);
         $items[] = [
             'pricing_rule_id' => null,
             'label' => 'Base Price',
-            'amount' => round((float) $service->base_price * $priceMultiplier, 2),
+            'amount' => $baseAmount,
         ];
+        $subtotal += $baseAmount;
 
         if ($isVip && (float) ($service->vip_extra_price ?? 0) > 0) {
+            $vipAmount = (float) $service->vip_extra_price;
             $items[] = [
                 'pricing_rule_id' => null,
                 'label' => 'VIP Service Charge',
-                'amount' => (float) $service->vip_extra_price,
+                'amount' => $vipAmount,
             ];
+            $subtotal += $vipAmount;
         }
 
         if ($distanceItem = $this->buildDistanceItem($distanceKm)) {
             $items[] = $distanceItem;
-        }
-
-        if ($offHoursItem = $this->buildOffHoursItem($scheduledAt)) {
-            $items[] = $offHoursItem;
+            $subtotal += $distanceItem['amount'];
         }
 
         if ($bookingTypeItem = $this->buildBookingTypeItem($isImmediate)) {
             $items[] = $bookingTypeItem;
+            $subtotal += $bookingTypeItem['amount'];
         }
+
+        // A discount rule's amount is only ever subtracted once, via
+        // discountAmount below — it isn't folded into $subtotal too, or
+        // the discount would be applied twice.
+        $discountAmount = 0.0;
 
         if ($customerTypeItem = $this->buildCustomerTypeItem($isCompanyCustomer)) {
             $items[] = $customerTypeItem;
-        }
 
-        if ($serviceTypeItem = $this->buildServiceTypeItem($service)) {
-            $items[] = $serviceTypeItem;
+            if ($customerTypeItem['amount'] < 0) {
+                $discountAmount = abs($customerTypeItem['amount']);
+            } else {
+                $subtotal += $customerTypeItem['amount'];
+            }
         }
 
         if ($dayOfWeekItem = $this->buildDayOfWeekItem($scheduledAt)) {
             $items[] = $dayOfWeekItem;
+            $subtotal += $dayOfWeekItem['amount'];
         }
 
-        $discountAmount = 0.0;
-        $totalPrice = array_sum(array_column($items, 'amount')) - $discountAmount;
+        $servicePrice = round($subtotal - $discountAmount, 2);
 
         return new PriceBreakdownDTO(
             items: $items,
             discountAmount: $discountAmount,
-            totalPrice: round($totalPrice, 2),
+            servicePrice: $servicePrice,
         );
     }
 
@@ -98,7 +98,7 @@ class PricingEngineService
             return null;
         }
 
-        $rule = $this->pricingRuleRepository->findActiveByType('distance');
+        $rule = $this->pricingRuleRepository->findActiveByType('Extra Distance Charge');
 
         if (! $rule) {
             return null;
@@ -118,36 +118,6 @@ class PricingEngineService
         ];
     }
 
-    /**
-     * Surcharges whenever the booking time falls inside the active
-     * "off_hours" rule's own conditions.start_time/end_time window — one
-     * global window (e.g. 18:00-08:00), independent of any branch.
-     */
-    protected function buildOffHoursItem(Carbon $scheduledAt): ?array
-    {
-        $rule = $this->pricingRuleRepository->findActiveByType('off_hours');
-
-        if (! $rule) {
-            return null;
-        }
-
-        $start = $rule->conditions['start_time'] ?? null;
-        $end = $rule->conditions['end_time'] ?? null;
-
-        if (! $start || ! $end) {
-            return null;
-        }
-
-        if (! TimeWindow::contains($scheduledAt->format('H:i'), $start, $end)) {
-            return null;
-        }
-
-        return [
-            'pricing_rule_id' => $rule->id,
-            'label' => $rule->name,
-            'amount' => (float) $rule->value,
-        ];
-    }
 
     /**
      * Immediate (non-scheduled) bookings carry a surcharge, configured as
@@ -160,7 +130,7 @@ class PricingEngineService
             return null;
         }
 
-        $rule = $this->pricingRuleRepository->findActiveByType('booking_type');
+        $rule = $this->pricingRuleRepository->findActiveByType('Immediate Booking Charge');
 
         if (! $rule) {
             return null;
@@ -197,30 +167,6 @@ class PricingEngineService
         ];
     }
 
-    /**
-     * Washing/maintenance categories carry their own "service" surcharge;
-     * categories with no mapping (road assistance, towing) never do.
-     */
-    protected function buildServiceTypeItem(Service $service): ?array
-    {
-        $serviceType = self::CATEGORY_SERVICE_TYPES[$service->category?->name] ?? null;
-
-        if (! $serviceType) {
-            return null;
-        }
-
-        $rule = $this->pricingRuleRepository->findActiveByTypeAndCondition('service', 'service_type', $serviceType);
-
-        if (! $rule) {
-            return null;
-        }
-
-        return [
-            'pricing_rule_id' => $rule->id,
-            'label' => $rule->name,
-            'amount' => (float) $rule->value,
-        ];
-    }
 
     /**
      * Weekend surcharge — applies when the booking day is in the active
@@ -228,7 +174,7 @@ class PricingEngineService
      */
     protected function buildDayOfWeekItem(Carbon $scheduledAt): ?array
     {
-        $rule = $this->pricingRuleRepository->findActiveByType('day_of_week');
+        $rule = $this->pricingRuleRepository->findActiveByType('Weekend Extra Charge');
 
         if (! $rule) {
             return null;

@@ -29,16 +29,27 @@ class CreateBookingRequest extends FormRequest
             'car_ids' => ['required', 'array', 'min:1'],
             'car_ids.*' => ['distinct', 'integer', 'exists:cars,id'],
             'branch_id' => ['nullable', 'integer', 'exists:branches,id'],
-            'category_id' => ['required', 'integer', 'exists:categories,id'],
             'service_id' => ['required', 'integer', 'exists:services,id'],
             'booking_type' => ['required', 'boolean'],
             'is_vip' => ['sometimes', 'boolean'],
-            'scheduled_at' => ['nullable', 'date', 'after_or_equal:now'],
-            'location_lat' => ['nullable', 'numeric', 'between:-90,90'],
+            'scheduled_at' => [
+                'required_if:booking_type,0',
+                'prohibited_if:booking_type,1',
+                'nullable',
+                'date',
+                'after_or_equal:now',
+            ],            'location_lat' => ['nullable', 'numeric', 'between:-90,90'],
             'location_lng' => ['nullable', 'numeric', 'between:-180,180'],
             'location_address' => ['nullable', 'string', 'max:500'],
-            'distance_km' => ['nullable', 'numeric', 'min:0'],
+            'distance_km' => ['nullable', 'numeric', 'min:0'],//يجب حذفها لان النظام ياخذها من خلال المسافة بين موقع العميل والفرع
             'notes' => ['nullable', 'string', 'max:1000'],
+
+            'sub_service_ids' => ['nullable', 'array'],
+            'sub_service_ids.*' => ['distinct', 'integer', 'exists:sub_services,id'],
+
+            'materials' => ['nullable', 'array'],
+            'materials.*.material_id' => ['distinct', 'required', 'integer', 'exists:materials,id'],
+            'materials.*.quantity' => ['required', 'numeric', 'min:0.01'],
 
             'payment_method' => ['required', Rule::in(PaymentMethod::values())],
 

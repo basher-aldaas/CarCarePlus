@@ -77,11 +77,11 @@ Route::prefix('auth')->group(function () {
 Route::middleware(['auth:sanctum', 'active.user'])
     ->group(function () {
 
-        Route::post('bookings/{id}', [BookingController::class, 'update'])->middleware('can:edit.order'); //super admin, admin, workshop, employee
-        Route::delete('bookings/{id}', [BookingController::class, 'destroy'])->middleware('can:cancel.order'); //super admin, admin, customer
-        Route::post('bookings/{id}/assign', [BookingController::class, 'assign'])->middleware('can:assign.order'); //super admin, admin, workshop
-        Route::post('bookings/{id}/start', [BookingController::class, 'start'])->middleware('can:edit.order'); //super admin, admin, workshop, employee
-        Route::post('bookings/{id}/complete', [BookingController::class, 'complete'])->middleware('can:edit.order'); //super admin, admin, workshop, employee
+        Route::post('bookings/{id}', [BookingController::class, 'update'])->whereNumber('id')->middleware('can:edit.order'); //super admin, admin, workshop, employee
+        Route::delete('bookings/{id}', [BookingController::class, 'destroy'])->whereNumber('id')->middleware('can:cancel.order'); //super admin, admin, customer
+        Route::post('bookings/{id}/assign', [BookingController::class, 'assign'])->whereNumber('id')->middleware('can:assign.order'); //super admin, admin, workshop
+        Route::post('bookings/{id}/start', [BookingController::class, 'start'])->whereNumber('id')->middleware('can:edit.order'); //super admin, admin, workshop, employee
+        Route::post('bookings/{id}/complete', [BookingController::class, 'complete'])->whereNumber('id')->middleware('can:edit.order'); //super admin, admin, workshop, employee
     });
 
 /*

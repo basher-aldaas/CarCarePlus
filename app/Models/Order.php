@@ -37,6 +37,9 @@ class Order extends Model
         'distance_km',
         'discount_amount',
         'total_price',
+        'service_price',
+        'sub_service_price',
+        'materials_price',
         'notes',
         'status',
         'assigned_at',
@@ -56,6 +59,9 @@ class Order extends Model
         'distance_km' => 'decimal:2',
         'discount_amount' => 'decimal:2',
         'total_price' => 'decimal:2',
+        'service_price' => 'decimal:2',
+        'sub_service_price' => 'decimal:2',
+        'materials_price' => 'decimal:2',
     ];
 
     public function customer(): BelongsTo

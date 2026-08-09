@@ -2,6 +2,7 @@
 
 namespace App\Services\Operations\Payment;
 
+use App\Enums\OrderEnums\OrderStatus;
 use App\Enums\PaymentEnums\PaymentMethod;
 use App\Enums\PaymentEnums\PaymentStatus;
 use App\Enums\PaymentEnums\PaymentType;
@@ -40,14 +41,15 @@ class PointsPaymentHandler implements PaymentMethodHandlerInterface
 
         if ($balance < $pointsNeeded) {
             throw ValidationException::withMessages([
-                'points' => [__('Insufficient points balance')],
+                'points' => [__('Not Enough points in your balance to complete this order')],
             ]);
         }
     }
 
     public function settle(Order $order, float $amount, array $context): Payment
     {
-        $pointsUsed = $this->pointsFor($amount, $this->activeConfig());
+        $config = $this->activeConfig();
+        $pointsUsed = $this->pointsFor($amount, $config);
 
         $this->pointRepository->createTransaction(
             customer_id: $order->customer_id,
@@ -55,7 +57,7 @@ class PointsPaymentHandler implements PaymentMethodHandlerInterface
             points: $pointsUsed,
             reference_type: 'order',
             reference_id: $order->id,
-            note: __('Booking #:id', ['id' => $order->id]),
+            note: __('Booking Paid #:id', ['id' => $order->id]),
         );
 
         return Payment::create([

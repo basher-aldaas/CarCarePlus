@@ -33,6 +33,23 @@ class BookingService
         return $this->orderRepository->getAllScoped()->paginate(10);
     }
 
+
+    public function getBookingById(int $id): Order
+    {
+        $order = $this->orderRepository->findById($id);
+        $user = auth()->user();
+
+        $isOwner = $order->customer_id === $user->id;
+
+        if (! $isOwner && ! $this->canManage($order)) {
+            throw new BookingShowUnauthorizedException();
+        }
+
+        return $order;
+    }
+
+
+
     /**
      * The customer may edit their own booking (until the edit window
      * closes); staff who can manage it may edit it regardless of timing.
@@ -57,21 +74,7 @@ class BookingService
             $this->repriceBooking($updated);
         }
 
-        return $updated->fresh(['priceItems', 'payments']);
-    }
-
-    public function getBookingById(int $id): Order
-    {
-        $order = $this->orderRepository->findById($id);
-        $user = auth()->user();
-
-        $isOwner = $order->customer_id === $user->id;
-
-        if (! $isOwner && ! $this->canManage($order)) {
-            throw new BookingShowUnauthorizedException();
-        }
-
-        return $order;
+        return $updated->fresh(['priceItems', 'payments', 'subServices.subService', 'materials.material']);
     }
 
     /**
@@ -146,9 +149,16 @@ class BookingService
 
         $order->priceItems()->delete();
         $order->priceItems()->createMany($breakdown->items);
+
+        // sub_service_price/materials_price aren't affected by a reprice
+        // (selection isn't editable), so they're carried over as-is and
+        // only the service portion + combined total are recomputed.
+        $servicePrice = round($breakdown->servicePrice, 2);
+
         $order->update([
             'discount_amount' => $breakdown->discountAmount,
-            'total_price' => $breakdown->totalPrice,
+            'service_price' => $servicePrice,
+            'total_price' => round($servicePrice + (float) $order->sub_service_price + (float) $order->materials_price, 2),
         ]);
     }
 

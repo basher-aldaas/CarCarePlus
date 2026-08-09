@@ -57,7 +57,9 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->boolean('booking_type'); // immediate or scheduled
+
+
+            $table->boolean('booking_type'); // 1->immediate or 0->scheduled
 
             $table->boolean('is_vip')
                 ->default(false);
@@ -91,6 +93,11 @@ return new class extends Migration
 
             $table->decimal('total_price', 10, 2)
                 ->default(0);
+
+            $table->decimal('service_price', 10, 2)->default(0);
+            $table->decimal('sub_service_price', 10, 2)->default(0);
+            $table->decimal('materials_price', 10, 2)->default(0);
+
 
             $table->text('notes')
                 ->nullable();

@@ -33,12 +33,6 @@ class UpdatePointsConfigRequest extends FormRequest
                 'min:0'
             ],
 
-            'expiry_days' => [
-                'sometimes',
-                'integer',
-                'min:0'
-            ],
-
             'max_earn_per_order' => [
                 'sometimes',
                 'integer',

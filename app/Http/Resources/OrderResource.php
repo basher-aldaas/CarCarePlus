@@ -55,8 +55,13 @@ class OrderResource extends JsonResource
             'distance_km' => $this->distance_km,
 
             'discount_amount' => $this->discount_amount,
+            'service_price' => $this->service_price,
+            'sub_service_price' => $this->sub_service_price,
+            'materials_price' => $this->materials_price,
             'total_price' => $this->total_price,
             'price_items' => OrderPriceItemResource::collection($this->whenLoaded('priceItems')),
+            'sub_services' => OrderSubServiceResource::collection($this->whenLoaded('subServices')),
+            'materials' => OrderMaterialResource::collection($this->whenLoaded('materials')),
             'payments' => PaymentResource::collection($this->whenLoaded('payments')),
 
             'notes' => $this->notes,

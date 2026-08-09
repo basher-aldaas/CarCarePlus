@@ -10,6 +10,6 @@ class PriceBreakdownDTO
     public function __construct(
         public array $items,
         public float $discountAmount,
-        public float $totalPrice,
+        public float $servicePrice,
     ) {}
 }

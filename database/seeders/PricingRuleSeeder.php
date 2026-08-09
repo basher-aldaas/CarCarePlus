@@ -14,23 +14,10 @@ class PricingRuleSeeder extends Seeder
     public function run(): void
     {
         $rules = [
+
+
             [
                 'id' => 1,
-                'pricing_rule_type_id' => 1,
-                'name' => 'SUV Extra Charge',
-                'name_ar' => 'زيادة سعر سيارات SUV',
-                'value' => 20,
-                'conditions' => [
-                    'vehicle_type' => 'SUV',
-                ],
-                'is_active' => true,
-            ],
-
-
-
-
-            [
-                'id' => 6,
                 'pricing_rule_type_id' => 4,
                 'name' => 'Company Customer Discount',
                 'name_ar' => 'خصم عملاء الشركات',
@@ -43,11 +30,11 @@ class PricingRuleSeeder extends Seeder
 
 
             [
-                'id' => 10,
+                'id' => 2,
                 'pricing_rule_type_id' => 6,
                 'name' => 'Premium Branch Extra Charge',
                 'name_ar' => 'زيادة سعر الفرع المميز',
-                'value' => 10,
+                'value' => 15,
                 'conditions' => [
                     'branch_type' => 'premium',
                 ],
@@ -55,11 +42,11 @@ class PricingRuleSeeder extends Seeder
             ],
 
             [
-                'id' => 11,
+                'id' => 3,
                 'pricing_rule_type_id' => 7,
                 'name' => 'Weekend Extra Charge',
                 'name_ar' => 'زيادة سعر عطلة نهاية الأسبوع',
-                'value' => 10,
+                'value' => 15,
                 'conditions' => [
                     'days' => [
                         'saturday',
@@ -71,11 +58,11 @@ class PricingRuleSeeder extends Seeder
 
 
             [
-                'id' => 14,
+                'id' => 4,
                 'pricing_rule_type_id' => 10,
                 'name' => 'Emergency Booking Extra',
                 'name_ar' => 'زيادة سعر الحجز الطارئ',
-                'value' => 20,
+                'value' => 25,
                 'conditions' => [
                     'booking_type' => 'emergency',
                 ],
@@ -83,29 +70,26 @@ class PricingRuleSeeder extends Seeder
             ],
 
             [
-                'id' => 15,
+                'id' => 5,
                 'pricing_rule_type_id' => 11,
                 'name' => 'Extra Distance Charge',
                 'name_ar' => 'رسوم المسافة الإضافية',
-                'value' => 2, // price per km beyond the included distance
+                'value' => 0.5, // price per km beyond the included distance
                 'conditions' => [
                     'included_km' => 20,
                 ],
                 'is_active' => true,
             ],
-
             [
-                'id' => 16,
-                'pricing_rule_type_id' => 12,
-                'name' => 'Off Working Hours Charge',
-                'name_ar' => 'رسوم خارج أوقات العمل',
+                'id' => 6,
+                'pricing_rule_type_id' => 10,
+                'name' => 'Immediate Booking Charge',
+                'name_ar' => 'حجز فوري',
                 'value' => 15,
-                'conditions' => [
-                    'start_time' => '18:00',
-                    'end_time' => '08:00',
-                ],
+                'conditions' => [],
                 'is_active' => true,
             ],
+
         ];
         foreach ($rules as $rule) {
             PricingRule::create($rule);

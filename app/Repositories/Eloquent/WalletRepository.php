@@ -17,8 +17,8 @@ class WalletRepository
      */
     public function debit(
         int $userId,
-        float $amount,
         WalletTransactionReason $reason,
+        float $amount,
         ?string $note = null,
     ): WalletTransaction {
         $wallet = Wallet::lockForUpdate()->firstOrCreate(
