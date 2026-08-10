@@ -29,6 +29,9 @@ class OrderResource extends JsonResource
             'branch_id' => $this->branch_id,
             'branch' => new BranchResource($this->whenLoaded('branch')),
 
+            'workshop_id' => $this->workshop_id,
+            'workshop' => new WorkshopResource($this->whenLoaded('workshop')),
+
             'employee_id' => $this->employee_id,
             'employee' => new EmployeeResource($this->whenLoaded('employee')),
 
@@ -59,6 +62,11 @@ class OrderResource extends JsonResource
             'sub_service_price' => $this->sub_service_price,
             'materials_price' => $this->materials_price,
             'total_price' => $this->total_price,
+
+            'user_package_id' => $this->user_package_id,
+            'user_package' => new UserPackageResource($this->whenLoaded('userPackage')),
+            'package_covered_amount' => $this->package_covered_amount,
+            'cash_due_amount' => $this->cash_due_amount,
             'price_items' => OrderPriceItemResource::collection($this->whenLoaded('priceItems')),
             'sub_services' => OrderSubServiceResource::collection($this->whenLoaded('subServices')),
             'materials' => OrderMaterialResource::collection($this->whenLoaded('materials')),

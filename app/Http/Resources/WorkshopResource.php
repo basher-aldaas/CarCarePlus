@@ -19,6 +19,7 @@ class WorkshopResource extends JsonResource
             'longitude'  => $this->longitude,
             'status'     => $this->status?->value,
             'rating_avg' => $this->rating_avg,
+            'distance_km' => $this->when(isset($this->distance_km), $this->distance_km),
             'owner'      => new UserResource($this->whenLoaded('owner')),
             'created_at' => $this->created_at->toDateString(),
         ];

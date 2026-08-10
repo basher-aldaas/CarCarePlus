@@ -4,7 +4,11 @@
 namespace App\Services\Operations;
 
 use App\DTOs\WorkshopDTO;
+use App\Exceptions\CarHistoryUnauthorizedException;
+use App\Exceptions\WorkshopNotFoundForOwnerException;
+use App\Models\Order;
 use App\Models\Workshop;
+use App\Repositories\Eloquent\OrderRepository;
 use App\Repositories\Eloquent\WorkshopRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +18,8 @@ class WorkshopService
     protected $workshopRepository;
 
     public function __construct(
-        WorkshopRepository $workshopRepository
+        WorkshopRepository $workshopRepository,
+        protected OrderRepository $orderRepository,
     )
     {
         $this->workshopRepository = $workshopRepository;
@@ -87,5 +92,39 @@ class WorkshopService
     {
         return $this->workshopRepository
             ->findByOwnerId($ownerId);
+    }
+
+    /**
+     * Active workshops within radiusKm of the given point, nearest first —
+     * used by customers to pick a workshop when booking maintenance.
+     *
+     * @return Collection<int, Workshop>
+     */
+    public function nearby(float $lat, float $lng, float $radiusKm): Collection
+    {
+        return $this->workshopRepository->nearby($lat, $lng, $radiusKm);
+    }
+
+    /**
+     * A car's Maintenance + Roadside Assistance history, for the workshop
+     * manager currently logged in. Only cars that have actually had an
+     * order at this workshop are visible — a workshop can't browse an
+     * arbitrary car's record just because it knows the id.
+     *
+     * @return Collection<int, Order>
+     */
+    public function carHistoryFor(int $ownerId, int $carId): Collection
+    {
+        $workshop = $this->workshopRepository->findByOwnerId($ownerId);
+
+        if (! $workshop) {
+            throw new WorkshopNotFoundForOwnerException();
+        }
+
+        if (! $this->orderRepository->carHasVisitedWorkshop($carId, $workshop->id)) {
+            throw new CarHistoryUnauthorizedException();
+        }
+
+        return $this->orderRepository->carServiceHistory($carId);
     }
 }

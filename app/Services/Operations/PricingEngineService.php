@@ -132,6 +132,7 @@ class PricingEngineService
 
         $rule = $this->pricingRuleRepository->findActiveByType('Immediate Booking Charge');
 
+
         if (! $rule) {
             return null;
         }

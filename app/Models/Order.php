@@ -21,6 +21,7 @@ class Order extends Model
         'company_id',
         'car_id',
         'branch_id',
+        'workshop_id',
         'employee_id',
         'service_id',
         'category_id',
@@ -40,6 +41,9 @@ class Order extends Model
         'service_price',
         'sub_service_price',
         'materials_price',
+        'user_package_id',
+        'package_covered_amount',
+        'cash_due_amount',
         'notes',
         'status',
         'assigned_at',
@@ -62,6 +66,8 @@ class Order extends Model
         'service_price' => 'decimal:2',
         'sub_service_price' => 'decimal:2',
         'materials_price' => 'decimal:2',
+        'package_covered_amount' => 'decimal:2',
+        'cash_due_amount' => 'decimal:2',
     ];
 
     public function customer(): BelongsTo
@@ -80,6 +86,10 @@ class Order extends Model
     {
         return $this->belongsTo(Branch::class, 'branch_id');
     }
+    public function workshop(): BelongsTo
+    {
+        return $this->belongsTo(Workshop::class, 'workshop_id');
+    }
     public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class, 'employee_id');
@@ -91,6 +101,10 @@ class Order extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+    public function userPackage(): BelongsTo
+    {
+        return $this->belongsTo(UserPackage::class, 'user_package_id');
     }
 
     public function subServices(): HasMany
@@ -112,6 +126,10 @@ class Order extends Model
     public function roadAssistance(): HasOne
     {
         return $this->hasOne(RoadAssistanceDetail::class, 'order_id');
+    }
+    public function maintenanceDetail(): HasOne
+    {
+        return $this->hasOne(MaintenanceDetail::class, 'order_id');
     }
     public function payments(): HasMany
     {

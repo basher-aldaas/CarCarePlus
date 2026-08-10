@@ -2,16 +2,19 @@
 
 namespace Tests\Feature\Operations;
 
+use App\Models\Branch;
 use App\Models\Car;
 use App\Models\CarBrand;
 use App\Models\CarType;
 use App\Models\Category;
+use App\Models\Inventory;
 use App\Models\Material;
 use App\Models\MaterialUnit;
 use App\Models\Order;
 use App\Models\Service;
 use App\Models\SubService;
 use App\Models\User;
+use App\Models\Wallet;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
@@ -96,11 +99,37 @@ class BookingQuoteSubServiceMaterialTest extends TestCase
         ]);
     }
 
-    private function basePayload(Car $car, Service $service): array
+    private function branch(): Branch
+    {
+        $admin = User::factory()->create(['is_active' => true]);
+
+        return Branch::create([
+            'admin_id' => $admin->id,
+            'name' => 'Branch ' . uniqid(),
+            'name_ar' => 'فرع',
+            'city' => 'City',
+            'address' => 'Address',
+            'phone' => '0000000000',
+            'is_active' => true,
+        ]);
+    }
+
+    private function stock(Branch $branch, Material $material, float $quantity): Inventory
+    {
+        return Inventory::create([
+            'branch_id' => $branch->id,
+            'material_id' => $material->id,
+            'quantity' => $quantity,
+            'min_quantity' => 0,
+        ]);
+    }
+
+    private function basePayload(Car $car, Service $service, ?Branch $branch = null): array
     {
         return [
             'car_ids' => [$car->id],
             'service_id' => $service->id,
+            'branch_id' => $branch?->id,
             'booking_type' => false,
             'scheduled_at' => now()->addDay()->toDateTimeString(),
             'payment_method' => 'cash',
@@ -114,9 +143,11 @@ class BookingQuoteSubServiceMaterialTest extends TestCase
         $service = $this->service();
         $subService = $this->subServiceFor($service, 20);
         $material = $this->material(15);
+        $branch = $this->branch();
+        $this->stock($branch, $material, 5);
 
         $res = $this->postJson('/api/bookings/quote', [
-            ...$this->basePayload($car, $service),
+            ...$this->basePayload($car, $service, $branch),
             'sub_service_ids' => [$subService->id],
             'materials' => [['material_id' => $material->id, 'quantity' => 2]],
         ]);
@@ -136,9 +167,11 @@ class BookingQuoteSubServiceMaterialTest extends TestCase
         $service = $this->service();
         $subService = $this->subServiceFor($service, 20);
         $material = $this->material(15);
+        $branch = $this->branch();
+        $this->stock($branch, $material, 5);
 
         $quote = $this->postJson('/api/bookings/quote', [
-            ...$this->basePayload($car, $service),
+            ...$this->basePayload($car, $service, $branch),
             'sub_service_ids' => [$subService->id],
             'materials' => [['material_id' => $material->id, 'quantity' => 2]],
         ])->json('data');
@@ -224,9 +257,10 @@ class BookingQuoteSubServiceMaterialTest extends TestCase
         $car = $this->carFor($customer);
         $service = $this->service();
         $hiddenMaterial = $this->material(15, visible: false);
+        $branch = $this->branch();
 
         $res = $this->postJson('/api/bookings/quote', [
-            ...$this->basePayload($car, $service),
+            ...$this->basePayload($car, $service, $branch),
             'materials' => [['material_id' => $hiddenMaterial->id, 'quantity' => 1]],
         ]);
 
@@ -239,9 +273,10 @@ class BookingQuoteSubServiceMaterialTest extends TestCase
         $car = $this->carFor($customer);
         $service = $this->service();
         $inactiveMaterial = $this->material(15, visible: true, active: false);
+        $branch = $this->branch();
 
         $res = $this->postJson('/api/bookings/quote', [
-            ...$this->basePayload($car, $service),
+            ...$this->basePayload($car, $service, $branch),
             'materials' => [['material_id' => $inactiveMaterial->id, 'quantity' => 1]],
         ]);
 
@@ -254,9 +289,10 @@ class BookingQuoteSubServiceMaterialTest extends TestCase
         $car = $this->carFor($customer);
         $service = $this->service();
         $material = $this->material(15);
+        $branch = $this->branch();
 
         $res = $this->postJson('/api/bookings/quote', [
-            ...$this->basePayload($car, $service),
+            ...$this->basePayload($car, $service, $branch),
             'materials' => [
                 ['material_id' => $material->id, 'quantity' => 1],
                 ['material_id' => $material->id, 'quantity' => 2],
@@ -279,5 +315,80 @@ class BookingQuoteSubServiceMaterialTest extends TestCase
         ]);
 
         $res->assertStatus(422)->assertJsonValidationErrors('materials.quantity', 'data');
+    }
+
+    public function test_material_requires_a_branch(): void
+    {
+        $customer = $this->customer();
+        $car = $this->carFor($customer);
+        $service = $this->service();
+        $material = $this->material(15);
+
+        $res = $this->postJson('/api/bookings/quote', [
+            ...$this->basePayload($car, $service),
+            'materials' => [['material_id' => $material->id, 'quantity' => 1]],
+        ]);
+
+        $res->assertStatus(422)->assertJsonValidationErrors('branch_id', 'data');
+    }
+
+    public function test_material_exceeding_branch_stock_is_rejected(): void
+    {
+        $customer = $this->customer();
+        $car = $this->carFor($customer);
+        $service = $this->service();
+        $material = $this->material(15);
+        $branch = $this->branch();
+        $this->stock($branch, $material, 1);
+
+        $res = $this->postJson('/api/bookings/quote', [
+            ...$this->basePayload($car, $service, $branch),
+            'materials' => [['material_id' => $material->id, 'quantity' => 2]],
+        ]);
+
+        $res->assertStatus(422)->assertJsonValidationErrors('materials', 'data');
+    }
+
+    public function test_confirm_deducts_inventory_and_logs_transaction_once_paid(): void
+    {
+        $customer = $this->customer();
+        Wallet::create(['user_id' => $customer->id, 'balance' => 1000]);
+        $car = $this->carFor($customer);
+        $service = $this->service();
+        $material = $this->material(15);
+        $branch = $this->branch();
+        $this->stock($branch, $material, 5);
+
+        $quote = $this->postJson('/api/bookings/quote', [
+            ...$this->basePayload($car, $service, $branch),
+            'payment_method' => 'wallet',
+            'materials' => [['material_id' => $material->id, 'quantity' => 2]],
+        ])->json('data');
+
+        $res = $this->postJson('/api/bookings/confirm', ['quote_token' => $quote['quote_token']]);
+        $res->assertOk();
+
+        $order = Order::firstOrFail();
+
+        $this->assertDatabaseHas('inventories', [
+            'branch_id' => $branch->id,
+            'material_id' => $material->id,
+            'quantity' => 3,
+        ]);
+
+        $this->assertDatabaseHas('inventory_transactions', [
+            'branch_id' => $branch->id,
+            'material_id' => $material->id,
+            'type' => 'out',
+            'quantity' => 2,
+            'quantity_before' => 5,
+            'quantity_after' => 3,
+        ]);
+
+        $this->assertDatabaseHas('order_materials', [
+            'order_id' => $order->id,
+            'material_id' => $material->id,
+            'status' => 'used',
+        ]);
     }
 }

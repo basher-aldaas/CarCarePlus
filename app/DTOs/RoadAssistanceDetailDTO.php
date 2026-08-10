@@ -12,7 +12,6 @@ class RoadAssistanceDetailDTO
         public ?string $problem_image_url,
         public ?string $ai_diagnosis,
         public ?array $ai_chat_log,
-        public ?bool $towing_required,
     ) {}
 
     public static function fromArray(array $data): self
@@ -25,7 +24,6 @@ class RoadAssistanceDetailDTO
             problem_image_url: $data['problem_image_url'] ?? null,
             ai_diagnosis: $data['ai_diagnosis'] ?? null,
             ai_chat_log: $data['ai_chat_log'] ?? null,
-            towing_required: isset($data['towing_required']) ? (bool) $data['towing_required'] : null,
         );
     }
 
@@ -39,7 +37,6 @@ class RoadAssistanceDetailDTO
             'problem_image_url' => $this->problem_image_url,
             'ai_diagnosis' => $this->ai_diagnosis,
             'ai_chat_log' => $this->ai_chat_log,
-            'towing_required' => $this->towing_required,
         ], fn ($value) => $value !== null);
     }
 }

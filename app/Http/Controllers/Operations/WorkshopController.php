@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Operations;
 use App\DTOs\WorkshopDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OperationsRequest\WorkshopRequest\CreateWorkshopRequest;
+use App\Http\Requests\OperationsRequest\WorkshopRequest\NearbyWorkshopsRequest;
 use App\Http\Requests\OperationsRequest\WorkshopRequest\UpdateWorkshopRequest;
+use App\Http\Resources\OrderResource;
 use App\Http\Resources\WorkshopResource;
 use App\Http\Responses\Response;
+use App\Models\Car;
 use App\Models\Workshop;
 use App\Services\Operations\WorkshopService;
 use Illuminate\Http\JsonResponse;
@@ -175,6 +178,24 @@ class WorkshopController extends Controller
     }
 
     /**
+     * Active workshops near the given point, nearest first — used by a
+     * customer to pick a workshop when booking maintenance.
+     */
+    public function nearby(NearbyWorkshopsRequest $request): JsonResponse
+    {
+        $workshops = $this->workshopService->nearby(
+            lat: (float) $request->validated('latitude'),
+            lng: (float) $request->validated('longitude'),
+            radiusKm: (float) ($request->validated('radius_km') ?? 25),
+        );
+
+        return Response::Success(
+            data: WorkshopResource::collection($workshops),
+            message: __('Nearby workshops retrieved successfully')
+        );
+    }
+
+    /**
      * Logged workshop owner profile.
      */
     public function myWorkshop(): JsonResponse
@@ -197,6 +218,21 @@ class WorkshopController extends Controller
                 $workshop->load('owner')
             ),
             message: __('Workshop retrieved successfully')
+        );
+    }
+
+    /**
+     * A car's Maintenance + Roadside Assistance history — for the logged-in
+     * workshop manager, scoped to cars that have actually visited their
+     * workshop.
+     */
+    public function carHistory(Car $car): JsonResponse
+    {
+        $orders = $this->workshopService->carHistoryFor(auth()->id(), $car->id);
+
+        return Response::Success(
+            data: OrderResource::collection($orders),
+            message: __('Car service history retrieved successfully')
         );
     }
 }

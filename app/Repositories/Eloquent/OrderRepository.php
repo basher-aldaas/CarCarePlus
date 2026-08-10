@@ -7,17 +7,22 @@ use App\Enums\OrderEnums\OrderStatus;
 use App\Models\Branch;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class OrderRepository
 {
-    protected array $with = ['customer', 'car', 'branch', 'employee.user', 'service', 'category', 'priceItems', 'subServices.subService', 'materials.material'];
+    protected array $with = ['customer', 'car', 'branch', 'workshop', 'employee.user', 'service', 'category', 'priceItems', 'subServices.subService', 'materials.material', 'payments', 'userPackage.package'];
+
+    public function __construct(
+        protected WorkshopRepository $workshopRepository,
+    ) {}
 
     /**
-     * Bookings scoped to the currently authenticated user's role:
-     * super admin/workshop see everything (the schema has no workshop-order
-     * link to scope by), an admin sees their managed branch's bookings, an
-     * employee sees the bookings assigned to them, and a customer sees only
-     * their own bookings.
+     * Bookings scoped to the currently authenticated user's role: super
+     * admin sees everything, an admin sees their managed branch's bookings,
+     * an employee sees the bookings assigned to them, a workshop owner sees
+     * only the maintenance bookings placed at their workshop, and a
+     * customer sees only their own bookings.
      */
     public function getAllScoped(): Builder
     {
@@ -36,6 +41,16 @@ class OrderRepository
 
         if ($user->hasAnyRole(['employee_washer', 'employee_mechanic'])) {
             return $query->where('employee_id', $user->employee?->id);
+        }
+
+        if ($user->hasRole('workshop')) {
+            $workshop = $this->workshopRepository->findByOwnerId($user->id);
+
+            if (! $workshop) {
+                return $query->whereRaw('1 = 0');
+            }
+
+            return $query->where('workshop_id', $workshop->id);
         }
 
         return $query->where('customer_id', $user->id);
@@ -81,5 +96,35 @@ class OrderRepository
         ]);
 
         return $order->refresh()->load($this->with);
+    }
+
+    /**
+     * A car's Maintenance + Roadside Assistance orders, latest first —
+     * matched by category name the same way the booking handlers do, since
+     * category ids are seed-order-dependent.
+     *
+     * @return Collection<int, Order>
+     */
+    public function carServiceHistory(int $carId): Collection
+    {
+        return Order::with(array_merge($this->with, ['roadAssistance.problemType']))
+            ->where('car_id', $carId)
+            ->whereHas('category', function (Builder $query) {
+                $query->where('name', 'like', '%maintenance%')
+                    ->orWhere('name', 'like', '%roadside%');
+            })
+            ->latest()
+            ->get();
+    }
+
+    /**
+     * Whether this car has ever had an order at the given workshop —
+     * used to gate a workshop manager's access to a car's full history.
+     */
+    public function carHasVisitedWorkshop(int $carId, int $workshopId): bool
+    {
+        return Order::where('car_id', $carId)
+            ->where('workshop_id', $workshopId)
+            ->exists();
     }
 }

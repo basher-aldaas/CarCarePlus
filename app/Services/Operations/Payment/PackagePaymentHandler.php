@@ -10,55 +10,55 @@ use App\Models\Payment;
 use App\Models\Service;
 use App\Models\User;
 use App\Models\UserPackage;
-use App\Repositories\Eloquent\UserPackageRepository;
+use App\Services\Operations\Package\PackageCoverageService;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * Settles the portion of a booking a package covers and, when the booking
+ * isn't fully covered, delegates the remainder to CashPaymentHandler so the
+ * customer's cash_due is charged through the normal cash flow rather than
+ * silently dropped.
+ */
 class PackagePaymentHandler implements PaymentMethodHandlerInterface
 {
-    public function __construct(protected UserPackageRepository $userPackageRepository)
-    {}
-
-    public function pricingIsSkipped(): bool
-    {
-        return true;
-    }
+    public function __construct(
+        protected PackageCoverageService $packageCoverageService,
+        protected CashPaymentHandler $cashPaymentHandler,
+    ) {}
 
     public function validate(User $customer, float $totalAmountForGroup, array $context): void
     {
         /** @var Service $service */
         $service = $context['service'];
         $carCount = count($context['car_ids']);
+        $userPackageId = $context['user_package_id'] ?? null;
 
-        $userPackage = $this->userPackageRepository->findActiveCoveringService($customer->id, $service->id);
-
-        if (! $userPackage) {
+        if (! $userPackageId) {
             throw ValidationException::withMessages([
-                'payment_method' => [__('You have no active package covering this service')],
+                'user_package_id' => [__('Select which of your packages to use for this booking.')],
             ]);
         }
 
+        $userPackage = $this->packageCoverageService->resolveSelected($customer, (int) $userPackageId, $service);
+
         if ($userPackage->remaining_count < $carCount) {
             throw ValidationException::withMessages([
-                'payment_method' => [__('Your package does not have enough remaining uses for this booking')],
+                'user_package_id' => [__('Your package does not have enough remaining uses for this booking')],
             ]);
         }
     }
 
     public function settle(Order $order, float $amount, array $context): Payment
     {
-        /** @var Service $service */
-        $service = $context['service'];
-
-        $userPackageId = $this->userPackageRepository
-            ->findActiveCoveringService($order->customer_id, $service->id)
-            ?->id;
-
-        $userPackage = UserPackage::lockForUpdate()->findOrFail($userPackageId);
+        $userPackage = UserPackage::lockForUpdate()->findOrFail($context['user_package_id']);
 
         $userPackage->update(['remaining_count' => $userPackage->remaining_count - 1]);
 
-        return Payment::create([
+        $packageCoveredAmount = round((float) ($context['package_covered_amount'] ?? 0), 2);
+        $cashDueAmount = round((float) ($context['cash_due_amount'] ?? 0), 2);
+
+        $payment = Payment::create([
             'order_id' => $order->id,
             'user_id' => $order->customer_id,
             'package_id' => $userPackage->package_id,
@@ -66,7 +66,13 @@ class PackagePaymentHandler implements PaymentMethodHandlerInterface
             'type' => PaymentType::ORDER,
             'method' => PaymentMethod::PACKAGE,
             'status' => PaymentStatus::PAID,
-            'amount' => 0,
+            'amount' => $packageCoveredAmount,
         ]);
+
+        if ($cashDueAmount > 0.0) {
+            $this->cashPaymentHandler->settle($order, $cashDueAmount, $context);
+        }
+
+        return $payment;
     }
 }

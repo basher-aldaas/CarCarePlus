@@ -14,6 +14,7 @@ class OrderSubService extends Model
         'order_id',
         'sub_service_id',
         'price',
+        'covered_by_package',
         'status',
         'notes',
         'checked_at',
@@ -22,6 +23,7 @@ class OrderSubService extends Model
     protected $casts = [
         'status' => OrderSubServiceStatus::class,
         'price' => 'decimal:2',
+        'covered_by_package' => 'boolean',
         'checked_at' => 'datetime',
     ];
 

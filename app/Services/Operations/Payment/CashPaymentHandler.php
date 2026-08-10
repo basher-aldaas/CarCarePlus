@@ -12,11 +12,6 @@ use Illuminate\Support\Str;
 
 class CashPaymentHandler implements PaymentMethodHandlerInterface
 {
-    public function pricingIsSkipped(): bool
-    {
-        return false;
-    }
-
     public function validate(User $customer, float $totalAmountForGroup, array $context): void
     {
         // Nothing to check upfront — cash is settled with staff on delivery.

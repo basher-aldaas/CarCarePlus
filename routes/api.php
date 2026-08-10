@@ -133,6 +133,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/branches/{branch}', [BranchController::class, 'show'])->middleware('can:show.branches');
     Route::get('/materials', [MaterialController::class, 'index'])->middleware('can:show.materials');
     Route::get('/materials/{material}', [MaterialController::class, 'show'])->middleware('can:show.materials');
+    Route::get('bookings/', [BookingController::class, 'index'])->middleware('can:show.orders');
 
     Route:: prefix('profile')
         ->group(function () {
@@ -145,9 +146,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware('active.user')->group(function (){
         // list is auto-scoped per role: super admin/workshop see all, admin sees their branch's,
         // employee sees bookings assigned to them, customer sees their own
-        Route::get('bookings/', [BookingController::class, 'index'])->middleware('can:show.orders');
         Route::get('bookings/{id}', [BookingController::class, 'show'])->middleware('can:show.orders');
 
+        // customer picks a workshop from this list when booking maintenance
+        Route::get('/workshops/nearby', [WorkshopController::class, 'nearby'])->middleware('can:browse.workshops');
+
+        // workshop manager viewing a visiting car's maintenance + road assistance history
+        Route::get('/workshops/cars/{car}/history', [WorkshopController::class, 'carHistory'])->middleware('can:show.car_service_history');
     });
 
     Route::get('/indexClient/{customer_id?}', [CarController::class, 'indexClient'])->middleware('can:show.client.cars');

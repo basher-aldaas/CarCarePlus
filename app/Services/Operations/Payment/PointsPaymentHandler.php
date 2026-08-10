@@ -21,11 +21,6 @@ class PointsPaymentHandler implements PaymentMethodHandlerInterface
     public function __construct(protected PointRepository $pointRepository)
     {}
 
-    public function pricingIsSkipped(): bool
-    {
-        return false;
-    }
-
     public function validate(User $customer, float $totalAmountForGroup, array $context): void
     {
         $config = $this->activeConfig();

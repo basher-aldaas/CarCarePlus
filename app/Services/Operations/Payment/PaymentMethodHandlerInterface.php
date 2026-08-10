@@ -9,13 +9,6 @@ use App\Models\User;
 interface PaymentMethodHandlerInterface
 {
     /**
-     * True when this payment method already covers the price (e.g. a
-     * prepaid package) — the pricing engine should be skipped entirely
-     * rather than compute charges the customer already paid for.
-     */
-    public function pricingIsSkipped(): bool;
-
-    /**
      * Check the customer can actually pay $totalAmountForGroup (the sum
      * across every car in this booking submission). Throws
      * ValidationException on failure.

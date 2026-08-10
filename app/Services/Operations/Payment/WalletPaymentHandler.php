@@ -20,11 +20,6 @@ class WalletPaymentHandler implements PaymentMethodHandlerInterface
     public function __construct(protected WalletRepository $walletRepository)
     {}
 
-    public function pricingIsSkipped(): bool
-    {
-        return false;
-    }
-
     public function validate(User $customer, float $totalAmountForGroup, array $context): void
     {
         $balance = Wallet::where('user_id', $customer->id)->value('balance') ?? 0;

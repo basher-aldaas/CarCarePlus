@@ -41,9 +41,10 @@ class PricingRuleRepository
     public function findActiveByType(string $typeName): ?PricingRule
     {
         return PricingRule::query()
-            ->whereHas('ruleType', fn ($query) => $query->where('name', $typeName))
+            ->where('name', $typeName)
             ->where('is_active', true)
             ->first();
+
     }
 
     /**

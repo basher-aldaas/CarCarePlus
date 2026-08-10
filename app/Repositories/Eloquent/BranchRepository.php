@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\BranchesDTO;
 use App\Models\Branch;
+use App\Support\GeoDistance;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class BranchRepository
@@ -21,6 +22,26 @@ class BranchRepository
     public function findByIdOrNull(int $id): ?Branch
     {
         return Branch::find($id);
+    }
+
+    /**
+     * The active branch closest to the given point, or null if no active
+     * branch has coordinates. Distance is computed in PHP so it behaves the
+     * same across every DB driver (see GeoDistance).
+     */
+    public function nearest(float $lat, float $lng): ?Branch
+    {
+        return Branch::where('is_active', true)
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->get()
+            ->sortBy(fn (Branch $branch) => GeoDistance::km(
+                $lat,
+                $lng,
+                (float) $branch->latitude,
+                (float) $branch->longitude,
+            ))
+            ->first();
     }
 
     public function create(BranchesDTO $dto): Branch

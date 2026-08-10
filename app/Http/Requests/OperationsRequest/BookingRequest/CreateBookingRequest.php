@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\OperationsRequest\BookingRequest;
 
-use App\Enums\CarEnums\CarTypeSize;
 use App\Enums\PaymentEnums\PaymentMethod;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -38,10 +37,14 @@ class CreateBookingRequest extends FormRequest
                 'nullable',
                 'date',
                 'after_or_equal:now',
-            ],            'location_lat' => ['nullable', 'numeric', 'between:-90,90'],
-            'location_lng' => ['nullable', 'numeric', 'between:-180,180'],
+            ],
+            // when the customer sends their location the system auto-selects the
+            // nearest branch (unless they picked a branch_id) and derives distance_km
+            'location_lat' => ['nullable', 'numeric', 'between:-90,90', 'required_with:location_lng'],
+            'location_lng' => ['nullable', 'numeric', 'between:-180,180', 'required_with:location_lat'],
             'location_address' => ['nullable', 'string', 'max:500'],
-            'distance_km' => ['nullable', 'numeric', 'min:0'],//يجب حذفها لان النظام ياخذها من خلال المسافة بين موقع العميل والفرع
+            // distance_km is derived server-side from the customer's location and the
+            // chosen branch — never accepted from the client
             'notes' => ['nullable', 'string', 'max:1000'],
 
             'sub_service_ids' => ['nullable', 'array'],
@@ -52,19 +55,26 @@ class CreateBookingRequest extends FormRequest
             'materials.*.quantity' => ['required', 'numeric', 'min:0.01'],
 
             'payment_method' => ['required', Rule::in(PaymentMethod::values())],
+            //only meaningful once payment_method=package; omit it to get the list of eligible packages back instead of a priced quote
+            'user_package_id' => ['nullable', 'integer', 'exists:user_packages,id'],
 
             // Road assistance only — required together when problem_type_id is sent.
+            // car_type_size is never accepted from the client — it's derived
+            // server-side from the customer's own car (see RoadAssistanceBookingHandler).
             'problem_type_id' => ['nullable', 'integer', 'exists:problem_types,id'],
-            'car_type_size' => ['required_with:problem_type_id', Rule::in(CarTypeSize::values())],
             'problem_description' => ['required_with:problem_type_id', 'string', 'max:1000'],
             'problem_image_url' => ['nullable', 'string', 'max:2000'],
-            'towing_required' => ['sometimes', 'boolean'],
 
             // Flatbed towing only — TowingBookingHandler enforces these as
             // required when the booked category is towing.
             'destination_lat' => ['nullable', 'numeric', 'between:-90,90'],
             'destination_lng' => ['nullable', 'numeric', 'between:-180,180'],
             'destination_address' => ['nullable', 'string', 'max:500'],
+
+            // Maintenance only — the workshop the customer picked from the
+            // nearby-workshops list. MaintenanceBookingHandler enforces this
+            // as required (and active) when the booked category is maintenance.
+            'workshop_id' => ['nullable', 'integer', 'exists:workshops,id'],
         ];
     }
 }

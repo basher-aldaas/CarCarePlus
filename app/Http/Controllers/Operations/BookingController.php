@@ -12,6 +12,7 @@ use App\Http\Requests\OperationsRequest\BookingRequest\UpdateBookingRequest;
 use App\Http\Resources\BranchResource;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\SubServiceResource;
+use App\Http\Resources\UserPackageResource;
 use App\Http\Responses\Response;
 use App\Services\Operations\BookingQuoteService;
 use App\Services\Operations\BookingService;
@@ -44,15 +45,35 @@ class BookingController extends Controller
     {
         $result = $this->bookingQuoteService->quote($request->validated());
 
+        // payment_method=package without a chosen user_package_id: no price
+        // was computed yet — the customer must pick one of these first.
+        if ($result['requires_package_selection'] ?? false) {
+            return Response::Success(
+                data: [
+                    'requires_package_selection' => true,
+                    'eligible_packages' => UserPackageResource::collection($result['eligible_packages']),
+                    'branch' => $result['branch'] ? new BranchResource($result['branch']) : null,
+                    'distance_km' => $result['distance_km'] ?? null,
+                    'sub_services' => SubServiceResource::collection($result['sub_services']),
+                    'materials' => $result['materials'],
+                    'car_count' => $result['car_count'],
+                ],
+                message: __('Choose which package to use for this booking')
+            );
+        }
+
         return Response::Success(
             data: [
                 'quote_token' => $result['quote_token'],
                 'branch' => $result['branch'] ? new BranchResource($result['branch']) : null,
+                'distance_km' => $result['distance_km'] ?? null,
                 'sub_services' => SubServiceResource::collection($result['sub_services']),
                 'materials' => $result['materials'],
+                'user_package' => $result['user_package'] ? new UserPackageResource($result['user_package']) : null,
                 'car_count' => $result['car_count'],
                 'invoice' => $result['cars'],
                 'total_price' => $result['total_price'],
+                'cash_due_total' => $result['cash_due_total'],
                 'expires_at' => $result['expires_at'],
             ],
             message: __('Quote generated successfully')

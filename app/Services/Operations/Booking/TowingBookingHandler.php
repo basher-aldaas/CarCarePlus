@@ -3,6 +3,7 @@
 namespace App\Services\Operations\Booking;
 
 use App\DTOs\TowingDetailDTO;
+use App\Enums\CarEnums\CarTypeSize;
 use App\Models\Order;
 use App\Models\TowingDetail;
 use App\Repositories\Eloquent\ServiceRepository;
@@ -17,6 +18,10 @@ use Illuminate\Validation\ValidationException;
  * Matching is done against the category's name text rather than its id,
  * since ids are seed-order-dependent. If categories ever get a stable
  * slug/code column, switch to matching that instead.
+ *
+ * car_type_size is never taken from the client — it's derived from the
+ * customer's own car (via its CarType) in afterCreate(), same as
+ * RoadAssistanceBookingHandler.
  */
 class TowingBookingHandler extends AbstractBookingTypeHandler
 {
@@ -31,26 +36,29 @@ class TowingBookingHandler extends AbstractBookingTypeHandler
 
         $service = $this->serviceRepository->findById((int) $data['service_id']);
 
-        return Str::contains(strtolower($service->category?->name ?? ''), 'tow');
+        return Str::contains(strtolower($service->category?->name ?? ''), 'towing');
     }
 
     public function validate(array $data): void
     {
-        $missing = array_filter(
-            ['car_type_size', 'destination_address'],
-            fn (string $field) => empty($data[$field]),
-        );
-
-        if ($missing !== []) {
-            throw ValidationException::withMessages(
-                array_fill_keys($missing, [__('This field is required for a flatbed towing booking.')])
-            );
+        if (empty($data['destination_address'])) {
+            throw ValidationException::withMessages([
+                'destination_address' => [__('This field is required for a flatbed towing booking.')],
+            ]);
         }
     }
 
     public function afterCreate(Order $order, array $data): void
     {
-        $dto = TowingDetailDTO::fromArray([...$data, 'order_id' => $order->id]);
+        $carTypeSize = $order->car?->carType
+            ? CarTypeSize::fromCarTypeName($order->car->carType->name)
+            : null;
+
+        $dto = TowingDetailDTO::fromArray([
+            ...$data,
+            'order_id' => $order->id,
+            'car_type_size' => $carTypeSize?->value,
+        ]);
 
         TowingDetail::create($dto->toArray());
     }
