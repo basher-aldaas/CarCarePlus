@@ -154,10 +154,10 @@ class BookingQuoteSubServiceMaterialTest extends TestCase
 
         $res->assertOk();
         $res->assertJsonPath('data.total_price', 100 + 20 + 30);
-        $res->assertJsonPath('data.cars.0.service_price', 100.0);
-        $res->assertJsonPath('data.cars.0.sub_service_price', 20.0);
-        $res->assertJsonPath('data.cars.0.materials_price', 30.0);
-        $res->assertJsonPath('data.cars.0.total_price', 150.0);
+        $this->assertEquals(100.0, (float) $res->json('data.invoice.0.service_price'));
+        $this->assertEquals(20.0, (float) $res->json('data.invoice.0.sub_service_price'));
+        $this->assertEquals(30.0, (float) $res->json('data.invoice.0.materials_price'));
+        $this->assertEquals(150.0, (float) $res->json('data.invoice.0.total_price'));
     }
 
     public function test_confirm_persists_order_sub_services_and_materials(): void
@@ -314,7 +314,7 @@ class BookingQuoteSubServiceMaterialTest extends TestCase
             'materials' => [['material_id' => $material->id, 'quantity' => 0]],
         ]);
 
-        $res->assertStatus(422)->assertJsonValidationErrors('materials.quantity', 'data');
+        $res->assertStatus(422)->assertJsonValidationErrors('materials.0.quantity', 'data');
     }
 
     public function test_material_requires_a_branch(): void

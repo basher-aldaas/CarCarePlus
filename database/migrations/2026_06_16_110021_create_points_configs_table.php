@@ -19,7 +19,6 @@ return new class extends Migration
 
             $table->unsignedInteger('min_redeem');
 
-            $table->unsignedInteger('expiry_days');
 
             $table->unsignedInteger('max_earn_per_order');
 

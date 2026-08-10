@@ -27,6 +27,9 @@ return new class extends Migration
 
             $table->decimal('price', 10, 2);
 
+            $table->boolean('covered_by_package')->default(false);
+
+
             $table->enum('status', OrderSubServiceStatus::values());
 
             $table->text('notes')

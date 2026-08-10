@@ -31,9 +31,13 @@ class CreateBookingRequest extends FormRequest
             'service_id' => ['required', 'integer', 'exists:services,id'],
             'booking_type' => ['required', 'boolean'],
             'is_vip' => ['sometimes', 'boolean'],
+            // booking_type is a boolean (1/true = immediate, 0/false = scheduled).
+            // The *_declined / *_accepted variants evaluate truthiness, so they fire
+            // for JSON booleans — unlike required_if/prohibited_if, which only match
+            // the literal strings "0"/"1".
             'scheduled_at' => [
-                'required_if:booking_type,0',
-                'prohibited_if:booking_type,1',
+                'required_if_declined:booking_type',
+                'prohibited_if_accepted:booking_type',
                 'nullable',
                 'date',
                 'after_or_equal:now',

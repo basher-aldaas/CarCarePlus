@@ -30,6 +30,12 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
 
+            $table->foreignId('user_package_id')
+                ->nullable()
+                ->constrained('user_packages')
+                ->nullOnDelete()
+                ->cascadeOnUpdate();
+
             $table->foreignId('car_id')
                 ->constrained('cars')
                 ->cascadeOnUpdate()
@@ -38,6 +44,12 @@ return new class extends Migration
             $table->foreignId('branch_id')
                 ->nullable()
                 ->constrained('branches')
+                ->cascadeOnUpdate()
+                ->nullOnDelete();
+
+            $table->foreignId('workshop_id')
+                ->nullable()
+                ->constrained('workshops')
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
 
@@ -97,6 +109,10 @@ return new class extends Migration
             $table->decimal('service_price', 10, 2)->default(0);
             $table->decimal('sub_service_price', 10, 2)->default(0);
             $table->decimal('materials_price', 10, 2)->default(0);
+
+            $table->decimal('package_covered_amount', 10, 2)->default(0);
+            $table->decimal('cash_due_amount', 10, 2)->default(0);
+
 
 
             $table->text('notes')

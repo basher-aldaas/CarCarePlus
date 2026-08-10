@@ -1,0 +1,1068 @@
+{
+  "info": {
+    "name": "CarCarePlus — Booking APIs",
+    "description": "Complete booking API surface for CarCarePlus.\n\n**Flow**\n1. `Create → Quote` prices a submission and returns a single-use `quote_token`.\n2. `Create → Confirm` redeems it and creates the order(s); it saves the first order id into `booking_id`.\n3. `Read` and `Lifecycle` operate on `booking_id`.\n\nQuote requests auto-save `quote_token`; Confirm auto-saves `booking_id`, so you can run a Quote → Confirm → Show/Update chain without copy-pasting ids.\n\n**Endpoints**\n- POST /api/bookings/quote\n- POST /api/bookings/confirm\n- GET /api/bookings\n- GET /api/bookings/{id}\n- POST /api/bookings/{id} (update)\n- DELETE /api/bookings/{id} (cancel)\n- POST /api/bookings/{id}/assign\n- POST /api/bookings/{id}/start\n- POST /api/bookings/{id}/complete\n- GET /api/workshops/nearby (helper)\n\n**Setup** — set the collection variables: tokens (`customer1-token`, `company1-token`, `admin`) and resource ids (`car_id`, `service_id`, `branch_id`, `sub_service_id`, `material_id`, `user_package_id`, `problem_type_id`, `workshop_id`, `employee_id`, `company_car_a`, `company_car_b`).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "583d97ca-366e-417c-889f-4056571ae767"
+  },
+  "item": [
+    {
+      "name": "Create (Quote → Confirm)",
+      "item": [
+        {
+          "name": "1. Quote — cash (happy path)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/quote",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "quote"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"car_ids\": [\n    \"{{car_id}}\"\n  ],\n  \"service_id\": \"{{service_id}}\",\n  \"branch_id\": \"{{branch_id}}\",\n  \"booking_type\": false,\n  \"scheduled_at\": \"2026-12-31 10:00:00\",\n  \"payment_method\": \"cash\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Step 1: prices the booking and returns a single-use `quote_token` (+ `expires_at`). Saves `quote_token` to a collection variable. Fill `car_id`, `service_id`, `branch_id`."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "if (res.data && res.data.quote_token) {",
+                  "    pm.collectionVariables.set('quote_token', res.data.quote_token);",
+                  "    console.log('Saved quote_token =', res.data.quote_token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "1b. Quote — immediate (no scheduled_at)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/quote",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "quote"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"car_ids\": [\n    \"{{car_id}}\"\n  ],\n  \"service_id\": \"{{service_id}}\",\n  \"branch_id\": \"{{branch_id}}\",\n  \"booking_type\": true,\n  \"scheduled_at\": null,\n  \"payment_method\": \"cash\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Immediate booking: `booking_type=true`, omit `scheduled_at`. Confirmed order is scheduled ~60 min out."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "if (res.data && res.data.quote_token) {",
+                  "    pm.collectionVariables.set('quote_token', res.data.quote_token);",
+                  "    console.log('Saved quote_token =', res.data.quote_token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "1c. Quote — with sub-services & materials",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/quote",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "quote"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"car_ids\": [\n    \"{{car_id}}\"\n  ],\n  \"service_id\": \"{{service_id}}\",\n  \"branch_id\": \"{{branch_id}}\",\n  \"booking_type\": false,\n  \"scheduled_at\": \"2026-12-31 10:00:00\",\n  \"payment_method\": \"cash\",\n  \"sub_service_ids\": [\n    \"{{sub_service_id}}\"\n  ],\n  \"materials\": [\n    {\n      \"material_id\": \"{{material_id}}\",\n      \"quantity\": 2\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Add-ons priced additively; materials need a branch with stock."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "if (res.data && res.data.quote_token) {",
+                  "    pm.collectionVariables.set('quote_token', res.data.quote_token);",
+                  "    console.log('Saved quote_token =', res.data.quote_token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "1d. Quote — package payment (choose package)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/quote",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "quote"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"car_ids\": [\n    \"{{car_id}}\"\n  ],\n  \"service_id\": \"{{service_id}}\",\n  \"branch_id\": \"{{branch_id}}\",\n  \"booking_type\": false,\n  \"scheduled_at\": \"2026-12-31 10:00:00\",\n  \"payment_method\": \"package\",\n  \"user_package_id\": \"{{user_package_id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Omit `user_package_id` to get the eligible-packages list back instead of a priced quote."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "if (res.data && res.data.quote_token) {",
+                  "    pm.collectionVariables.set('quote_token', res.data.quote_token);",
+                  "    console.log('Saved quote_token =', res.data.quote_token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "1e. Quote — road assistance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/quote",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "quote"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"car_ids\": [\n    \"{{car_id}}\"\n  ],\n  \"service_id\": \"{{service_id}}\",\n  \"branch_id\": \"{{branch_id}}\",\n  \"booking_type\": true,\n  \"scheduled_at\": null,\n  \"payment_method\": \"cash\",\n  \"problem_type_id\": \"{{problem_type_id}}\",\n  \"problem_description\": \"Battery seems dead.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Sending `problem_type_id` routes to the road-assistance handler. car_type_size is derived server-side from the car."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "if (res.data && res.data.quote_token) {",
+                  "    pm.collectionVariables.set('quote_token', res.data.quote_token);",
+                  "    console.log('Saved quote_token =', res.data.quote_token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "1f. Quote — towing",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/quote",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "quote"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"car_ids\": [\n    \"{{car_id}}\"\n  ],\n  \"service_id\": \"{{service_id}}\",\n  \"branch_id\": \"{{branch_id}}\",\n  \"booking_type\": true,\n  \"scheduled_at\": null,\n  \"payment_method\": \"cash\",\n  \"destination_lat\": 24.7,\n  \"destination_lng\": 46.7,\n  \"destination_address\": \"Central Garage, Riyadh\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Towing category requires destination_* fields."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "if (res.data && res.data.quote_token) {",
+                  "    pm.collectionVariables.set('quote_token', res.data.quote_token);",
+                  "    console.log('Saved quote_token =', res.data.quote_token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "1g. Quote — maintenance (workshop)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/quote",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "quote"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"car_ids\": [\n    \"{{car_id}}\"\n  ],\n  \"service_id\": \"{{service_id}}\",\n  \"branch_id\": \"{{branch_id}}\",\n  \"booking_type\": true,\n  \"scheduled_at\": null,\n  \"payment_method\": \"cash\",\n  \"workshop_id\": \"{{workshop_id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Maintenance category requires an active workshop_id (see 'Workshops nearby')."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "if (res.data && res.data.quote_token) {",
+                  "    pm.collectionVariables.set('quote_token', res.data.quote_token);",
+                  "    console.log('Saved quote_token =', res.data.quote_token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "1h. Quote — company multi-car",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/quote",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "quote"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{company1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"car_ids\": [\n    \"{{company_car_a}}\",\n    \"{{company_car_b}}\"\n  ],\n  \"service_id\": \"{{service_id}}\",\n  \"branch_id\": \"{{branch_id}}\",\n  \"booking_type\": false,\n  \"scheduled_at\": \"2026-12-31 10:00:00\",\n  \"payment_method\": \"cash\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "customer_company may book several owned cars; orders share a booking_group_id."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "if (res.data && res.data.quote_token) {",
+                  "    pm.collectionVariables.set('quote_token', res.data.quote_token);",
+                  "    console.log('Saved quote_token =', res.data.quote_token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "2. Confirm — redeem token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/confirm",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "confirm"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quote_token\": \"{{quote_token}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Step 2: redeems `quote_token` and creates the PENDING order(s). Saves the first order id to `booking_id` for the lifecycle requests below."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('status 200', () => pm.response.to.have.status(200));",
+                  "if (res.data && res.data.length && res.data[0].id) {",
+                  "    pm.collectionVariables.set('booking_id', res.data[0].id);",
+                  "    console.log('Saved booking_id =', res.data[0].id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Read",
+      "item": [
+        {
+          "name": "List bookings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Scoped to the caller: super admin = all, admin = branch, employee = assigned, customer = own. Supports pagination."
+          },
+          "response": []
+        },
+        {
+          "name": "Show booking",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/{{booking_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "{{booking_id}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Single booking by id (authorization-scoped)."
+          },
+          "response": []
+        },
+        {
+          "name": "Workshops nearby (for maintenance quote)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/workshops/nearby?lat=24.7136&lng=46.6753",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "workshops",
+                "nearby?lat=24.7136&lng=46.6753"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "The list a customer picks workshop_id from when booking maintenance."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Lifecycle",
+      "item": [
+        {
+          "name": "Update booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/{{booking_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "{{booking_id}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scheduled_at\": \"2026-12-31 12:00:00\",\n  \"notes\": \"Please call on arrival.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Editable fields: car_id, branch_id, scheduled_at, location_lat/lng, location_address, notes. Requires can:edit.order (admin/workshop/employee)."
+          },
+          "response": []
+        },
+        {
+          "name": "Assign booking to employee",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/{{booking_id}}/assign",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "{{booking_id}}",
+                "assign"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employee_id\": \"{{employee_id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Assigns an employee. Requires can:assign.order (super admin/admin/workshop)."
+          },
+          "response": []
+        },
+        {
+          "name": "Start booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/{{booking_id}}/start",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "{{booking_id}}",
+                "start"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Transitions the order to in-progress. Requires can:edit.order."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('success 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Complete booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/{{booking_id}}/complete",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "{{booking_id}}",
+                "complete"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "description": "Transitions the order to completed. Requires can:edit.order."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('success 200', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cancel booking",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/bookings/{{booking_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "bookings",
+                "{{booking_id}}"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{customer1-token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cancel_reason\": \"Customer no longer needs the service.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Cancels the booking; cancel_reason is optional. Requires can:cancel.order (super admin/admin/customer)."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "customer1-token",
+      "value": ""
+    },
+    {
+      "key": "company1-token",
+      "value": ""
+    },
+    {
+      "key": "admin",
+      "value": ""
+    },
+    {
+      "key": "quote_token",
+      "value": ""
+    },
+    {
+      "key": "booking_id",
+      "value": ""
+    },
+    {
+      "key": "car_id",
+      "value": "1"
+    },
+    {
+      "key": "service_id",
+      "value": "1"
+    },
+    {
+      "key": "branch_id",
+      "value": "1"
+    },
+    {
+      "key": "sub_service_id",
+      "value": "1"
+    },
+    {
+      "key": "material_id",
+      "value": "1"
+    },
+    {
+      "key": "user_package_id",
+      "value": "1"
+    },
+    {
+      "key": "problem_type_id",
+      "value": "1"
+    },
+    {
+      "key": "workshop_id",
+      "value": "1"
+    },
+    {
+      "key": "employee_id",
+      "value": "1"
+    },
+    {
+      "key": "company_car_a",
+      "value": "1"
+    },
+    {
+      "key": "company_car_b",
+      "value": "2"
+    }
+  ]
+}

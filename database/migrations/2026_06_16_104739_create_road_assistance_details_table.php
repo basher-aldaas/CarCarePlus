@@ -37,9 +37,6 @@ return new class extends Migration
             $table->json('ai_chat_log')
                 ->nullable();
 
-            $table->boolean('towing_required')
-                ->default(false);
-
             $table->timestamp('created_at')
                 ->useCurrent();
         });

@@ -23276,7 +23276,3255 @@
 							]
 						},
 						{
-							"name": "store",
+							"name": "submit booking personal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{super-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{base_url}}/api/bookings/quote",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings",
+										"quote"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "SA, A, Employee, Workshop does not have permission",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 18:17:33 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-08T18:17:33+00:00\"\n}"
+								},
+								{
+									"name": "customer inactive",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 18:17:33 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-08T18:17:33+00:00\"\n}"
+								},
+								{
+									"name": "information are required",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 18:21:54 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"car_ids\": [\n            \"The car ids field is required.\"\n        ],\n        \"service_id\": [\n            \"The service id field is required.\"\n        ],\n        \"booking_type\": [\n            \"The booking type field is required.\"\n        ],\n        \"payment_method\": [\n            \"The payment method field is required.\"\n        ]\n    },\n    \"message\": \"The car ids field is required. (and 3 more errors)\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-08T18:21:54+00:00\"\n}"
+								},
+								{
+									"name": "carid must be array",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 18:27:02 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"car_ids\": [\n            \"The car ids field must be an array.\"\n        ],\n        \"payment_method\": [\n            \"The payment method field is required.\"\n        ]\n    },\n    \"message\": \"The car ids field must be an array. (and 1 more error)\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-08T18:27:02+00:00\"\n}"
+								},
+								{
+									"name": "car does not belongs to same customer",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 18:28:10 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"car_ids\": [\n            \"One or more selected cars do not belong to you.\"\n        ]\n    },\n    \"message\": \"One or more selected cars do not belong to you.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-08T18:28:10+00:00\"\n}"
+								},
+								{
+									"name": "scheduled_at is required when booking_type =0 and not required when =1",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "0",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 18:53:16 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"scheduled_at\": [\n            \"The scheduled at field is required when booking type is 0.\"\n        ]\n    },\n    \"message\": \"The scheduled at field is required when booking type is 0.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-08T18:53:16+00:00\"\n}"
+								},
+								{
+									"name": "success when add booking type =0 and add scheduled_at",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "0",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 18:54:49 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"quote_token\": \"7eb03738-f627-4274-ba09-7d1ae379603f\",\n        \"branch\": null,\n        \"sub_services\": [],\n        \"materials\": [],\n        \"cars\": [\n            {\n                \"car_id\": 2,\n                \"price_items\": [\n                    {\n                        \"pricing_rule_id\": null,\n                        \"label\": \"Base Price\",\n                        \"amount\": 70\n                    }\n                ],\n                \"service_price\": 70,\n                \"sub_service_price\": 0,\n                \"materials_price\": 0,\n                \"total_price\": 70\n            }\n        ],\n        \"car_count\": 1,\n        \"total_price\": 70,\n        \"expires_at\": \"2026-08-08T19:09:49+00:00\"\n    },\n    \"message\": \"Quote generated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-08T18:54:49+00:00\"\n}"
+								},
+								{
+									"name": "customer personal can only selet one car",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "car_ids[1]",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 19:14:55 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"car_ids\": [\n            \"Personal customers may only book one car at a time.\"\n        ]\n    },\n    \"message\": \"Personal customers may only book one car at a time.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-08T19:14:55+00:00\"\n}"
+								},
+								{
+									"name": "point not enught",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "point",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 19:38:50 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"points\": [\n            \"Not Enough points balance\"\n        ]\n    },\n    \"message\": \"Not Enough points balance\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-08T19:38:50+00:00\"\n}"
+								},
+								{
+									"name": "This order is below the minimum redeemable points amount",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "point",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 19:38:50 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"points\": [\n            \"Not Enough points balance\"\n        ]\n    },\n    \"message\": \"Not Enough points balance\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-08T19:38:50+00:00\"\n}"
+								},
+								{
+									"name": "chose your package paid to conteniue",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "package",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 00:42:25 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"requires_package_selection\": true,\n        \"eligible_packages\": [],\n        \"branch\": null,\n        \"sub_services\": [],\n        \"materials\": [],\n        \"car_count\": 1\n    },\n    \"message\": \"Choose which package to use for this booking\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-09T00:42:25+00:00\"\n}"
+								},
+								{
+									"name": "package doest not belong to you",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "package",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 00:49:20 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"user_package_id\": [\n            \"This package subscription does not belong to you.\"\n        ]\n    },\n    \"message\": \"This package subscription does not belong to you.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T00:49:20+00:00\"\n}"
+								},
+								{
+									"name": "package inactive or expired",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "package",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 00:57:18 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"user_package_id\": [\n            \"Your package does not have enough remaining uses for this booking\"\n        ]\n    },\n    \"message\": \"Your package does not have enough remaining uses for this booking\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T00:57:18+00:00\"\n}"
+								},
+								{
+									"name": "package does not cover selected service",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "package",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 00:58:50 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"user_package_id\": [\n            \"This package does not cover the selected service.\"\n        ]\n    },\n    \"message\": \"This package does not cover the selected service.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T00:58:50+00:00\"\n}"
+								},
+								{
+									"name": "sub service does not belongs to selected service",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "sub_service_ids[2]",
+													"value": "3",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 01:14:52 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"sub_service_ids\": [\n            \"One or more selected sub-services are invalid for this service.\"\n        ]\n    },\n    \"message\": \"One or more selected sub-services are invalid for this service.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T01:14:52+00:00\"\n}"
+								},
+								{
+									"name": "material not avaliable",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 01:26:54 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"materials\": [\n            \"One or more selected materials are not available for booking.\"\n        ]\n    },\n    \"message\": \"One or more selected materials are not available for booking.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T01:26:54+00:00\"\n}"
+								},
+								{
+									"name": "material out of stock",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][material_id]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][quantity]",
+													"value": "300",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 02:14:55 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"materials\": [\n            \"Not enough stock available for Microfiber Towel (Ultra Soft) at this branch.\"\n        ]\n    },\n    \"message\": \"Not enough stock available for Microfiber Towel (Ultra Soft) at this branch.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T02:14:55+00:00\"\n}"
+								},
+								{
+									"name": "problem_description is required when customer add problem_typ_id",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "point",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][material_id]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][quantity]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "problem_type_id",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 20:06:38 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"problem_description\": [\n            \"The problem description field is required when problem type id is present.\"\n        ]\n    },\n    \"message\": \"The problem description field is required when problem type id is present.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T20:06:38+00:00\"\n}"
+								},
+								{
+									"name": "selected service does not belongs to road assistant services",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "point",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][material_id]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][quantity]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "problem_type_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "problem_description",
+													"value": "engine problem",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 20:07:44 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"service_id\": [\n            \"The selected service does not belong to the Road Assistance category.\"\n        ]\n    },\n    \"message\": \"The selected service does not belong to the Road Assistance category.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T20:07:44+00:00\"\n}"
+								},
+								{
+									"name": "success for road assistant for all payment methode",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "6",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "point",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "4",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][material_id]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][quantity]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "problem_type_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "problem_description",
+													"value": "engine problem",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 20:13:11 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"quote_token\": \"96c6d517-481a-4d47-a0b2-d5ca32643888\",\n        \"branch\": {\n            \"id\": 1,\n            \"admin_id\": 1,\n            \"name\": \"Main Riyadh Branch\",\n            \"name_ar\": \"فرع الرياض الرئيسي\",\n            \"city\": \"Riyadh\",\n            \"address\": \"طريق الملك فهد، العليا\",\n            \"latitude\": \"24.7136000\",\n            \"longitude\": \"46.6753000\",\n            \"phone\": \"0511111111\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": false\n        },\n        \"sub_services\": [\n            {\n                \"id\": 3,\n                \"service_id\": 6,\n                \"name\": \"Seat Shampoo\",\n                \"name_ar\": \"غسيل مقاعد\",\n                \"description\": \"غسيل وتعقيم المقاعد القماشية\",\n                \"price\": \"30.00\",\n                \"is_active\": true\n            },\n            {\n                \"id\": 4,\n                \"service_id\": 6,\n                \"name\": \"Oil Filter Replacement\",\n                \"name_ar\": \"تغيير فلتر زيت\",\n                \"description\": \"استبدال فلتر الزيت\",\n                \"price\": \"20.00\",\n                \"is_active\": true\n            }\n        ],\n        \"materials\": [\n            {\n                \"material_id\": 1,\n                \"quantity\": 5,\n                \"unit_price\": 45,\n                \"total_price\": 225\n            },\n            {\n                \"material_id\": 3,\n                \"quantity\": 3,\n                \"unit_price\": 8,\n                \"total_price\": 24\n            }\n        ],\n        \"user_package\": null,\n        \"car_count\": 1,\n        \"invoice\": [\n            {\n                \"car_id\": 2,\n                \"price_items\": [\n                    {\n                        \"pricing_rule_id\": null,\n                        \"label\": \"Base Price\",\n                        \"amount\": 84\n                    }\n                ],\n                \"service_price\": 84,\n                \"sub_service_price\": 50,\n                \"materials_price\": 249,\n                \"total_price\": 383,\n                \"package_covered_amount\": null,\n                \"cash_due_amount\": null,\n                \"sub_services_coverage\": null\n            }\n        ],\n        \"total_price\": 383,\n        \"cash_due_total\": null,\n        \"expires_at\": \"2026-08-09T20:28:11+00:00\"\n    },\n    \"message\": \"Quote generated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-09T20:13:11+00:00\"\n}"
+								},
+								{
+									"name": "success for wash booking for all payment methode",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][material_id]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][quantity]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "problem_type_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "problem_description",
+													"value": "engine problem",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 20:34:02 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"quote_token\": \"c6414ad6-cef5-4a0f-a87d-566331dfd63d\",\n        \"branch\": {\n            \"id\": 1,\n            \"admin_id\": 1,\n            \"name\": \"Main Riyadh Branch\",\n            \"name_ar\": \"فرع الرياض الرئيسي\",\n            \"city\": \"Riyadh\",\n            \"address\": \"طريق الملك فهد، العليا\",\n            \"latitude\": \"24.7136000\",\n            \"longitude\": \"46.6753000\",\n            \"phone\": \"0511111111\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": false\n        },\n        \"sub_services\": [\n            {\n                \"id\": 1,\n                \"service_id\": 1,\n                \"name\": \"Tire Shine\",\n                \"name_ar\": \"تلميع كفرات\",\n                \"description\": \"تلميع الإطارات بمواد خاصة\",\n                \"price\": \"10.00\",\n                \"is_active\": true\n            },\n            {\n                \"id\": 2,\n                \"service_id\": 1,\n                \"name\": \"Window Cleaning\",\n                \"name_ar\": \"تنظيف زجاج\",\n                \"description\": \"تنظيف الزجاج الخارجي\",\n                \"price\": \"5.00\",\n                \"is_active\": true\n            }\n        ],\n        \"materials\": [\n            {\n                \"material_id\": 1,\n                \"quantity\": 5,\n                \"unit_price\": 45,\n                \"total_price\": 225\n            },\n            {\n                \"material_id\": 3,\n                \"quantity\": 3,\n                \"unit_price\": 8,\n                \"total_price\": 24\n            }\n        ],\n        \"user_package\": null,\n        \"car_count\": 1,\n        \"invoice\": [\n            {\n                \"car_id\": 2,\n                \"price_items\": [\n                    {\n                        \"pricing_rule_id\": null,\n                        \"label\": \"Base Price\",\n                        \"amount\": 70\n                    }\n                ],\n                \"service_price\": 70,\n                \"sub_service_price\": 15,\n                \"materials_price\": 249,\n                \"total_price\": 334,\n                \"package_covered_amount\": null,\n                \"cash_due_amount\": null,\n                \"sub_services_coverage\": null\n            }\n        ],\n        \"total_price\": 334,\n        \"cash_due_total\": null,\n        \"expires_at\": \"2026-08-09T20:49:02+00:00\"\n    },\n    \"message\": \"Quote generated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-09T20:34:02+00:00\"\n}"
+								},
+								{
+									"name": "destination_address is required when sevice is towing",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "7",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][material_id]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][quantity]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "problem_type_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "problem_description",
+													"value": "engine problem",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "destination_address",
+													"value": "douma",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 20:51:23 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"destination_address\": [\n            \"This field is required for a flatbed towing booking.\"\n        ]\n    },\n    \"message\": \"This field is required for a flatbed towing booking.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T20:51:23+00:00\"\n}"
+								},
+								{
+									"name": "sub serivice id does not belongs to this service",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "7",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][material_id]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][quantity]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "problem_type_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "problem_description",
+													"value": "engine problem",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "destination_address",
+													"value": "douma",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 20:51:58 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"sub_service_ids\": [\n            \"One or more selected sub-services are invalid for this service.\"\n        ]\n    },\n    \"message\": \"One or more selected sub-services are invalid for this service.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T20:51:58+00:00\"\n}"
+								},
+								{
+									"name": "success  for towing for all payment methode",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "7",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "4",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][material_id]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "materials[1][quantity]",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "problem_type_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "problem_description",
+													"value": "engine problem",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "destination_address",
+													"value": "douma",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 20:54:14 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"quote_token\": \"dac4cc1b-7cb0-414e-b871-48dca533a8f5\",\n        \"branch\": {\n            \"id\": 1,\n            \"admin_id\": 1,\n            \"name\": \"Main Riyadh Branch\",\n            \"name_ar\": \"فرع الرياض الرئيسي\",\n            \"city\": \"Riyadh\",\n            \"address\": \"طريق الملك فهد، العليا\",\n            \"latitude\": \"24.7136000\",\n            \"longitude\": \"46.6753000\",\n            \"phone\": \"0511111111\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": false\n        },\n        \"sub_services\": [\n            {\n                \"id\": 3,\n                \"service_id\": 7,\n                \"name\": \"Seat Shampoo\",\n                \"name_ar\": \"غسيل مقاعد\",\n                \"description\": \"غسيل وتعقيم المقاعد القماشية\",\n                \"price\": \"30.00\",\n                \"is_active\": true\n            },\n            {\n                \"id\": 4,\n                \"service_id\": 7,\n                \"name\": \"Oil Filter Replacement\",\n                \"name_ar\": \"تغيير فلتر زيت\",\n                \"description\": \"استبدال فلتر الزيت\",\n                \"price\": \"20.00\",\n                \"is_active\": true\n            }\n        ],\n        \"materials\": [\n            {\n                \"material_id\": 1,\n                \"quantity\": 5,\n                \"unit_price\": 45,\n                \"total_price\": 225\n            },\n            {\n                \"material_id\": 3,\n                \"quantity\": 3,\n                \"unit_price\": 8,\n                \"total_price\": 24\n            }\n        ],\n        \"user_package\": null,\n        \"car_count\": 1,\n        \"invoice\": [\n            {\n                \"car_id\": 2,\n                \"price_items\": [\n                    {\n                        \"pricing_rule_id\": null,\n                        \"label\": \"Base Price\",\n                        \"amount\": 210\n                    }\n                ],\n                \"service_price\": 210,\n                \"sub_service_price\": 50,\n                \"materials_price\": 249,\n                \"total_price\": 509,\n                \"package_covered_amount\": null,\n                \"cash_due_amount\": null,\n                \"sub_services_coverage\": null\n            }\n        ],\n        \"total_price\": 509,\n        \"cash_due_total\": null,\n        \"expires_at\": \"2026-08-09T21:09:14+00:00\"\n    },\n    \"message\": \"Quote generated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-09T20:54:14+00:00\"\n}"
+								},
+								{
+									"name": "workshop_id is required for this service",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "4",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[1][material_id]",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[1][quantity]",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "problem_type_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "problem_description",
+													"value": "engine problem",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "destination_address",
+													"value": "douma",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "workshop_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 23:16:24 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"workshop_id\": [\n            \"Select a workshop for this maintenance booking.\"\n        ]\n    },\n    \"message\": \"Select a workshop for this maintenance booking.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T23:16:24+00:00\"\n}"
+								},
+								{
+									"name": "in booking workshop only cash",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "point",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "4",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[1][material_id]",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[1][quantity]",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "problem_type_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "problem_description",
+													"value": "engine problem",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "destination_address",
+													"value": "douma",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "workshop_id",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 23:20:39 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"payment_method\": [\n            \"Maintenance bookings are paid in cash only.\"\n        ]\n    },\n    \"message\": \"Maintenance bookings are paid in cash only.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-09T23:20:39+00:00\"\n}"
+								},
+								{
+									"name": "success  for mainanence for just cash payment methode",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "car_ids[0]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "service_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "booking_type",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "payment_method",
+													"value": "cash",
+													"type": "text"
+												},
+												{
+													"key": "scheduled_at",
+													"value": "1-2-2027",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "branch_id",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "user_package_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[0]",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "sub_service_ids[1]",
+													"value": "4",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[0][material_id]",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[0][quantity]",
+													"value": "5",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[1][material_id]",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "materials[1][quantity]",
+													"value": "3",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "problem_type_id",
+													"value": "1",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "problem_description",
+													"value": "engine problem",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "destination_address",
+													"value": "douma",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "workshop_id",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/quote",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"quote"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 23:23:05 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"quote_token\": \"8f54196e-1074-494d-a7eb-34f6ea8d75df\",\n        \"branch\": {\n            \"id\": 1,\n            \"admin_id\": 1,\n            \"name\": \"Main Riyadh Branch\",\n            \"name_ar\": \"فرع الرياض الرئيسي\",\n            \"city\": \"Riyadh\",\n            \"address\": \"طريق الملك فهد، العليا\",\n            \"latitude\": \"24.7136000\",\n            \"longitude\": \"46.6753000\",\n            \"phone\": \"0511111111\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": false\n        },\n        \"sub_services\": [],\n        \"materials\": [],\n        \"user_package\": null,\n        \"car_count\": 1,\n        \"invoice\": [\n            {\n                \"car_id\": 2,\n                \"price_items\": [\n                    {\n                        \"pricing_rule_id\": null,\n                        \"label\": \"Base Price\",\n                        \"amount\": 168\n                    }\n                ],\n                \"service_price\": 168,\n                \"sub_service_price\": 0,\n                \"materials_price\": 0,\n                \"total_price\": 168,\n                \"package_covered_amount\": null,\n                \"cash_due_amount\": null,\n                \"sub_services_coverage\": null\n            }\n        ],\n        \"total_price\": 168,\n        \"cash_due_total\": null,\n        \"expires_at\": \"2026-08-09T23:38:05+00:00\"\n    },\n    \"message\": \"Quote generated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-09T23:23:05+00:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "confirm booking",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -23316,7 +26564,600 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "quote token is expires",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "quote_token",
+													"value": "04fd6937-b8af-49a3-a3e7-48ed8ef6f240",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/confirm",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"confirm"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 18:41:17 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"quote_token\": [\n            \"This quote has expired or is invalid. Please request a new one.\"\n        ]\n    },\n    \"message\": \"This quote has expired or is invalid. Please request a new one.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-08T18:41:17+00:00\"\n}"
+								},
+								{
+									"name": "you already  use this token",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "quote_token",
+													"value": "3feebab0-c5a8-41d0-91ca-49cff363d24b",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/confirm",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"confirm"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 18:42:04 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"quote_token\": [\n            \"This quote has expired or is invalid. Please request a new one.\"\n        ]\n    },\n    \"message\": \"This quote has expired or is invalid. Please request a new one.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-08T18:42:04+00:00\"\n}"
+								},
+								{
+									"name": "token does not belongs to same user",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "quote_token",
+													"value": "a0c69189-860e-4c08-ae07-5bf7f05471b0",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/confirm",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"confirm"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 19:32:17 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"quote_token\": [\n            \"This quote has expired or is invalid. Please request a new one.\"\n        ]\n    },\n    \"message\": \"This quote has expired or is invalid. Please request a new one.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-08T19:32:17+00:00\"\n}"
+								},
+								{
+									"name": "success for same customer for wash for all payment methode",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "quote_token",
+													"value": "62288b81-bd8a-4070-a9f2-061f119087cc",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/confirm",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"confirm"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 08 Aug 2026 19:33:48 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 49,\n            \"booking_group_id\": null,\n            \"customer_id\": 4,\n            \"customer\": {\n                \"id\": 4,\n                \"name\": \"أحمد العتيبي (عميل)\",\n                \"email\": \"customer@system.com\",\n                \"phone\": \"0500000004\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/00ddaa?text=people+quo\",\n                \"is_active\": true,\n                \"role\": \"customer_personal\"\n            },\n            \"company_id\": null,\n            \"car_id\": 2,\n            \"car\": {\n                \"id\": 2,\n                \"user_id\": 4,\n                \"brand_id\": 13,\n                \"car_type_id\": 3,\n                \"plate_number\": \"tjm-4509\",\n                \"model\": \"Elantra\",\n                \"year\": \"2025\",\n                \"color\": \"fuchsia\",\n                \"fuel_type\": \"petrol\",\n                \"cylinders\": 4,\n                \"mileage\": 166821,\n                \"image_url\": \"http://localhost:8000/storage/https://via.placeholder.com/400x300.png/00ccdd?text=transport+assumenda\",\n                \"is_active\": true,\n                \"created_at\": \"2026-08-08\",\n                \"updated_at\": \"2026-08-08\"\n            },\n            \"branch_id\": null,\n            \"branch\": null,\n            \"employee_id\": null,\n            \"employee\": null,\n            \"service_id\": 1,\n            \"service\": {\n                \"id\": 1,\n                \"category_id\": 1,\n                \"name\": \"Exterior Wash\",\n                \"name_ar\": \"غسيل خارجي\",\n                \"description\": \"غسيل خارجي شامل للسيارة\",\n                \"base_price\": \"50.00\",\n                \"is_vip_available\": true,\n                \"vip_extra_price\": \"20.00\",\n                \"duration_minutes\": 30,\n                \"created_at\": \"2026-08-08 18:15:07\",\n                \"updated_at\": \"2026-08-08 18:15:07\"\n            },\n            \"category_id\": 1,\n            \"category\": {\n                \"id\": 1,\n                \"name\": \"Car Wash\",\n                \"name_ar\": \"غسيل سيارات\",\n                \"description\": \"تنظيف وتلميع السيارات الداخلي والخارجي\",\n                \"is_active\": true,\n                \"created_at\": \"2026-08-08 18:15:06\",\n                \"updated_at\": null\n            },\n            \"booking_type\": true,\n            \"is_vip\": false,\n            \"status\": \"pending\",\n            \"scheduled_at\": \"2026-08-08T20:03:48+00:00\",\n            \"started_at\": null,\n            \"completed_at\": null,\n            \"cancelled_at\": null,\n            \"cancel_reason\": null,\n            \"assigned_at\": null,\n            \"location_lat\": null,\n            \"location_lng\": null,\n            \"location_address\": null,\n            \"distance_km\": null,\n            \"discount_amount\": \"0.00\",\n            \"service_price\": \"70.00\",\n            \"sub_service_price\": \"0.00\",\n            \"materials_price\": \"0.00\",\n            \"total_price\": \"70.00\",\n            \"price_items\": [\n                {\n                    \"id\": 57,\n                    \"pricing_rule_id\": null,\n                    \"label\": \"Base Price\",\n                    \"amount\": \"70.00\"\n                }\n            ],\n            \"sub_services\": [],\n            \"materials\": [],\n            \"payments\": [\n                {\n                    \"id\": 9,\n                    \"payment_number\": \"9ee0a72d-9b61-4f69-9d42-621d0f0ef424\",\n                    \"type\": \"order\",\n                    \"method\": \"cash\",\n                    \"status\": \"pending\",\n                    \"amount\": \"70.00\",\n                    \"points_used\": 0\n                }\n            ],\n            \"notes\": null,\n            \"created_at\": \"2026-08-08T19:33:48+00:00\",\n            \"updated_at\": \"2026-08-08T19:33:48+00:00\"\n        }\n    ],\n    \"message\": \"Booking confirmed successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-08T19:33:48+00:00\"\n}"
+								},
+								{
+									"name": "success for same customer for road assistant for all payment methode for personal",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "quote_token",
+													"value": "96c6d517-481a-4d47-a0b2-d5ca32643888",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/confirm",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"confirm"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 20:14:29 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 62,\n            \"booking_group_id\": null,\n            \"customer_id\": 4,\n            \"customer\": {\n                \"id\": 4,\n                \"name\": \"أحمد العتيبي (عميل)\",\n                \"email\": \"customer@system.com\",\n                \"phone\": \"0500000004\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/00ddaa?text=people+quo\",\n                \"is_active\": true,\n                \"role\": \"customer_personal\"\n            },\n            \"company_id\": null,\n            \"car_id\": 2,\n            \"car\": {\n                \"id\": 2,\n                \"user_id\": 4,\n                \"brand_id\": 13,\n                \"car_type_id\": 3,\n                \"plate_number\": \"tjm-4509\",\n                \"model\": \"Elantra\",\n                \"year\": \"2025\",\n                \"color\": \"fuchsia\",\n                \"fuel_type\": \"petrol\",\n                \"cylinders\": 4,\n                \"mileage\": 166821,\n                \"image_url\": \"http://localhost:8000/storage/https://via.placeholder.com/400x300.png/00ccdd?text=transport+assumenda\",\n                \"is_active\": true,\n                \"car_type\": {\n                    \"id\": 3,\n                    \"name\": \"Truck / Pickup\",\n                    \"name_ar\": \"بيك أب / شاحنة\",\n                    \"price_multiplier\": \"1.40\",\n                    \"is_active\": true,\n                    \"created_at\": \"2026-08-08 18:15:06\",\n                    \"updated_at\": null\n                },\n                \"created_at\": \"2026-08-08\",\n                \"updated_at\": \"2026-08-08\"\n            },\n            \"branch_id\": 1,\n            \"branch\": {\n                \"id\": 1,\n                \"admin_id\": 1,\n                \"name\": \"Main Riyadh Branch\",\n                \"name_ar\": \"فرع الرياض الرئيسي\",\n                \"city\": \"Riyadh\",\n                \"address\": \"طريق الملك فهد، العليا\",\n                \"latitude\": \"24.7136000\",\n                \"longitude\": \"46.6753000\",\n                \"phone\": \"0511111111\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": false\n            },\n            \"employee_id\": null,\n            \"employee\": null,\n            \"service_id\": 6,\n            \"service\": {\n                \"id\": 6,\n                \"category_id\": 3,\n                \"name\": \"Flat Tire Change\",\n                \"name_ar\": \"تغيير إطار\",\n                \"description\": \"تغيير الإطار المثقوب على الطريق\",\n                \"base_price\": \"60.00\",\n                \"is_vip_available\": false,\n                \"vip_extra_price\": null,\n                \"duration_minutes\": 25,\n                \"created_at\": \"2026-08-08 18:15:07\",\n                \"updated_at\": \"2026-08-08 18:15:07\"\n            },\n            \"category_id\": 3,\n            \"category\": {\n                \"id\": 3,\n                \"name\": \"Roadside Assistance\",\n                \"name_ar\": \"المساعدة على الطريق\",\n                \"description\": \"خدمات الطوارئ والإنقاذ أثناء السير\",\n                \"is_active\": true,\n                \"created_at\": \"2026-08-08 18:15:06\",\n                \"updated_at\": null\n            },\n            \"booking_type\": true,\n            \"is_vip\": false,\n            \"status\": \"pending\",\n            \"scheduled_at\": \"2026-08-09T21:14:29+00:00\",\n            \"started_at\": null,\n            \"completed_at\": null,\n            \"cancelled_at\": null,\n            \"cancel_reason\": null,\n            \"assigned_at\": null,\n            \"location_lat\": null,\n            \"location_lng\": null,\n            \"location_address\": null,\n            \"distance_km\": null,\n            \"discount_amount\": \"0.00\",\n            \"service_price\": \"84.00\",\n            \"sub_service_price\": \"50.00\",\n            \"materials_price\": \"249.00\",\n            \"total_price\": \"383.00\",\n            \"user_package_id\": null,\n            \"user_package\": null,\n            \"package_covered_amount\": \"0.00\",\n            \"cash_due_amount\": \"0.00\",\n            \"price_items\": [\n                {\n                    \"id\": 70,\n                    \"pricing_rule_id\": null,\n                    \"label\": \"Base Price\",\n                    \"amount\": \"84.00\"\n                }\n            ],\n            \"sub_services\": [\n                {\n                    \"id\": 33,\n                    \"sub_service_id\": 3,\n                    \"sub_service\": {\n                        \"id\": 3,\n                        \"service_id\": 6,\n                        \"name\": \"Seat Shampoo\",\n                        \"name_ar\": \"غسيل مقاعد\",\n                        \"description\": \"غسيل وتعقيم المقاعد القماشية\",\n                        \"price\": \"30.00\",\n                        \"is_active\": true\n                    },\n                    \"price\": \"30.00\",\n                    \"covered_by_package\": false,\n                    \"status\": \"pending\",\n                    \"notes\": null,\n                    \"checked_at\": null\n                },\n                {\n                    \"id\": 34,\n                    \"sub_service_id\": 4,\n                    \"sub_service\": {\n                        \"id\": 4,\n                        \"service_id\": 6,\n                        \"name\": \"Oil Filter Replacement\",\n                        \"name_ar\": \"تغيير فلتر زيت\",\n                        \"description\": \"استبدال فلتر الزيت\",\n                        \"price\": \"20.00\",\n                        \"is_active\": true\n                    },\n                    \"price\": \"20.00\",\n                    \"covered_by_package\": false,\n                    \"status\": \"pending\",\n                    \"notes\": null,\n                    \"checked_at\": null\n                }\n            ],\n            \"materials\": [\n                {\n                    \"id\": 86,\n                    \"material_id\": 1,\n                    \"material\": {\n                        \"id\": 1,\n                        \"material_unit_id\": 1,\n                        \"name\": \"Synthetic Engine Oil 5W-30\",\n                        \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                        \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                        \"unit_price\": \"45.00\",\n                        \"is_visible_to_customer\": true,\n                        \"is_active\": true\n                    },\n                    \"requested_by\": 4,\n                    \"quantity\": \"5.00\",\n                    \"unit_price\": \"45.00\",\n                    \"total_price\": \"225.00\",\n                    \"status\": \"used\",\n                    \"approved_at\": \"2026-08-09T20:14:29+00:00\"\n                },\n                {\n                    \"id\": 87,\n                    \"material_id\": 3,\n                    \"material\": {\n                        \"id\": 3,\n                        \"material_unit_id\": 2,\n                        \"name\": \"Microfiber Towel (Ultra Soft)\",\n                        \"name_ar\": \"منشفة مايكروفايبر ناعمة فائقة الامتصاص\",\n                        \"description\": \"مناشف خاصة لتجفيف حماية من الخدوش\",\n                        \"unit_price\": \"8.00\",\n                        \"is_visible_to_customer\": true,\n                        \"is_active\": true\n                    },\n                    \"requested_by\": 4,\n                    \"quantity\": \"3.00\",\n                    \"unit_price\": \"8.00\",\n                    \"total_price\": \"24.00\",\n                    \"status\": \"used\",\n                    \"approved_at\": \"2026-08-09T20:14:29+00:00\"\n                }\n            ],\n            \"payments\": [\n                {\n                    \"id\": 20,\n                    \"payment_number\": \"e7cfc97d-376d-4765-b133-f76c55f6d788\",\n                    \"type\": \"order\",\n                    \"method\": \"point\",\n                    \"status\": \"paid\",\n                    \"amount\": \"383.00\",\n                    \"points_used\": 7660\n                }\n            ],\n            \"notes\": null,\n            \"created_at\": \"2026-08-09T20:14:29+00:00\",\n            \"updated_at\": \"2026-08-09T20:14:29+00:00\"\n        }\n    ],\n    \"message\": \"Booking confirmed successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-09T20:14:29+00:00\"\n}"
+								},
+								{
+									"name": "success for same customer for towing for all payment methode",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "quote_token",
+													"value": "dac4cc1b-7cb0-414e-b871-48dca533a8f5",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/confirm",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"confirm"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 20:55:13 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 63,\n            \"booking_group_id\": null,\n            \"customer_id\": 4,\n            \"customer\": {\n                \"id\": 4,\n                \"name\": \"أحمد العتيبي (عميل)\",\n                \"email\": \"customer@system.com\",\n                \"phone\": \"0500000004\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/00ddaa?text=people+quo\",\n                \"is_active\": true,\n                \"role\": \"customer_personal\"\n            },\n            \"company_id\": null,\n            \"car_id\": 2,\n            \"car\": {\n                \"id\": 2,\n                \"user_id\": 4,\n                \"brand_id\": 13,\n                \"car_type_id\": 3,\n                \"plate_number\": \"tjm-4509\",\n                \"model\": \"Elantra\",\n                \"year\": \"2025\",\n                \"color\": \"fuchsia\",\n                \"fuel_type\": \"petrol\",\n                \"cylinders\": 4,\n                \"mileage\": 166821,\n                \"image_url\": \"http://localhost:8000/storage/https://via.placeholder.com/400x300.png/00ccdd?text=transport+assumenda\",\n                \"is_active\": true,\n                \"car_type\": {\n                    \"id\": 3,\n                    \"name\": \"Truck / Pickup\",\n                    \"name_ar\": \"بيك أب / شاحنة\",\n                    \"price_multiplier\": \"1.40\",\n                    \"is_active\": true,\n                    \"created_at\": \"2026-08-08 18:15:06\",\n                    \"updated_at\": null\n                },\n                \"created_at\": \"2026-08-08\",\n                \"updated_at\": \"2026-08-08\"\n            },\n            \"branch_id\": 1,\n            \"branch\": {\n                \"id\": 1,\n                \"admin_id\": 1,\n                \"name\": \"Main Riyadh Branch\",\n                \"name_ar\": \"فرع الرياض الرئيسي\",\n                \"city\": \"Riyadh\",\n                \"address\": \"طريق الملك فهد، العليا\",\n                \"latitude\": \"24.7136000\",\n                \"longitude\": \"46.6753000\",\n                \"phone\": \"0511111111\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": false\n            },\n            \"employee_id\": null,\n            \"employee\": null,\n            \"service_id\": 7,\n            \"service\": {\n                \"id\": 7,\n                \"category_id\": 4,\n                \"name\": \"Flatbed Towing\",\n                \"name_ar\": \"سحب بالسطحة\",\n                \"description\": \"نقل السيارة بواسطة سطحة إلى الوجهة المطلوبة\",\n                \"base_price\": \"150.00\",\n                \"is_vip_available\": false,\n                \"vip_extra_price\": null,\n                \"duration_minutes\": 60,\n                \"created_at\": \"2026-08-08 18:15:07\",\n                \"updated_at\": \"2026-08-08 18:15:07\"\n            },\n            \"category_id\": 4,\n            \"category\": {\n                \"id\": 4,\n                \"name\": \"Flatbed Towing\",\n                \"name_ar\": \"سحب بالسطحة\",\n                \"description\": \"نقل السيارة بواسطة سطحة من موقعها إلى الوجهة المطلوبة\",\n                \"is_active\": true,\n                \"created_at\": \"2026-08-08 18:15:06\",\n                \"updated_at\": null\n            },\n            \"booking_type\": true,\n            \"is_vip\": false,\n            \"status\": \"pending\",\n            \"scheduled_at\": \"2026-08-09T21:55:13+00:00\",\n            \"started_at\": null,\n            \"completed_at\": null,\n            \"cancelled_at\": null,\n            \"cancel_reason\": null,\n            \"assigned_at\": null,\n            \"location_lat\": null,\n            \"location_lng\": null,\n            \"location_address\": null,\n            \"distance_km\": null,\n            \"discount_amount\": \"0.00\",\n            \"service_price\": \"210.00\",\n            \"sub_service_price\": \"50.00\",\n            \"materials_price\": \"249.00\",\n            \"total_price\": \"509.00\",\n            \"user_package_id\": null,\n            \"user_package\": null,\n            \"package_covered_amount\": \"0.00\",\n            \"cash_due_amount\": \"0.00\",\n            \"price_items\": [\n                {\n                    \"id\": 71,\n                    \"pricing_rule_id\": null,\n                    \"label\": \"Base Price\",\n                    \"amount\": \"210.00\"\n                }\n            ],\n            \"sub_services\": [\n                {\n                    \"id\": 35,\n                    \"sub_service_id\": 3,\n                    \"sub_service\": {\n                        \"id\": 3,\n                        \"service_id\": 7,\n                        \"name\": \"Seat Shampoo\",\n                        \"name_ar\": \"غسيل مقاعد\",\n                        \"description\": \"غسيل وتعقيم المقاعد القماشية\",\n                        \"price\": \"30.00\",\n                        \"is_active\": true\n                    },\n                    \"price\": \"30.00\",\n                    \"covered_by_package\": false,\n                    \"status\": \"pending\",\n                    \"notes\": null,\n                    \"checked_at\": null\n                },\n                {\n                    \"id\": 36,\n                    \"sub_service_id\": 4,\n                    \"sub_service\": {\n                        \"id\": 4,\n                        \"service_id\": 7,\n                        \"name\": \"Oil Filter Replacement\",\n                        \"name_ar\": \"تغيير فلتر زيت\",\n                        \"description\": \"استبدال فلتر الزيت\",\n                        \"price\": \"20.00\",\n                        \"is_active\": true\n                    },\n                    \"price\": \"20.00\",\n                    \"covered_by_package\": false,\n                    \"status\": \"pending\",\n                    \"notes\": null,\n                    \"checked_at\": null\n                }\n            ],\n            \"materials\": [\n                {\n                    \"id\": 88,\n                    \"material_id\": 1,\n                    \"material\": {\n                        \"id\": 1,\n                        \"material_unit_id\": 1,\n                        \"name\": \"Synthetic Engine Oil 5W-30\",\n                        \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                        \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                        \"unit_price\": \"45.00\",\n                        \"is_visible_to_customer\": true,\n                        \"is_active\": true\n                    },\n                    \"requested_by\": 4,\n                    \"quantity\": \"5.00\",\n                    \"unit_price\": \"45.00\",\n                    \"total_price\": \"225.00\",\n                    \"status\": \"approved\",\n                    \"approved_at\": \"2026-08-09T20:55:13+00:00\"\n                },\n                {\n                    \"id\": 89,\n                    \"material_id\": 3,\n                    \"material\": {\n                        \"id\": 3,\n                        \"material_unit_id\": 2,\n                        \"name\": \"Microfiber Towel (Ultra Soft)\",\n                        \"name_ar\": \"منشفة مايكروفايبر ناعمة فائقة الامتصاص\",\n                        \"description\": \"مناشف خاصة لتجفيف حماية من الخدوش\",\n                        \"unit_price\": \"8.00\",\n                        \"is_visible_to_customer\": true,\n                        \"is_active\": true\n                    },\n                    \"requested_by\": 4,\n                    \"quantity\": \"3.00\",\n                    \"unit_price\": \"8.00\",\n                    \"total_price\": \"24.00\",\n                    \"status\": \"approved\",\n                    \"approved_at\": \"2026-08-09T20:55:13+00:00\"\n                }\n            ],\n            \"payments\": [\n                {\n                    \"id\": 21,\n                    \"payment_number\": \"3cee5a2e-6dbd-49ea-ac66-7a5cf056456a\",\n                    \"type\": \"order\",\n                    \"method\": \"cash\",\n                    \"status\": \"pending\",\n                    \"amount\": \"509.00\",\n                    \"points_used\": 0\n                }\n            ],\n            \"notes\": null,\n            \"created_at\": \"2026-08-09T20:55:13+00:00\",\n            \"updated_at\": \"2026-08-09T20:55:13+00:00\"\n        }\n    ],\n    \"message\": \"Booking confirmed successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-09T20:55:13+00:00\"\n}"
+								},
+								{
+									"name": "success for same customer for mainanence for just cash payment methode",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "quote_token",
+													"value": "8f54196e-1074-494d-a7eb-34f6ea8d75df",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/confirm",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"confirm"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sun, 09 Aug 2026 23:24:33 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 64,\n            \"booking_group_id\": null,\n            \"customer_id\": 4,\n            \"customer\": {\n                \"id\": 4,\n                \"name\": \"أحمد العتيبي (عميل)\",\n                \"email\": \"customer@system.com\",\n                \"phone\": \"0500000004\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/00ddaa?text=people+quo\",\n                \"is_active\": true,\n                \"role\": \"customer_personal\"\n            },\n            \"company_id\": null,\n            \"car_id\": 2,\n            \"car\": {\n                \"id\": 2,\n                \"user_id\": 4,\n                \"brand_id\": 13,\n                \"car_type_id\": 3,\n                \"plate_number\": \"tjm-4509\",\n                \"model\": \"Elantra\",\n                \"year\": \"2025\",\n                \"color\": \"fuchsia\",\n                \"fuel_type\": \"petrol\",\n                \"cylinders\": 4,\n                \"mileage\": 166821,\n                \"image_url\": \"http://localhost:8000/storage/https://via.placeholder.com/400x300.png/00ccdd?text=transport+assumenda\",\n                \"is_active\": true,\n                \"created_at\": \"2026-08-08\",\n                \"updated_at\": \"2026-08-08\"\n            },\n            \"branch_id\": 1,\n            \"branch\": {\n                \"id\": 1,\n                \"admin_id\": 1,\n                \"name\": \"Main Riyadh Branch\",\n                \"name_ar\": \"فرع الرياض الرئيسي\",\n                \"city\": \"Riyadh\",\n                \"address\": \"طريق الملك فهد، العليا\",\n                \"latitude\": \"24.7136000\",\n                \"longitude\": \"46.6753000\",\n                \"phone\": \"0511111111\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": false\n            },\n            \"workshop_id\": 1,\n            \"workshop\": {\n                \"id\": 1,\n                \"name\": \"Al-Tamyoz Workshop\",\n                \"name_ar\": \"مركز صيانة التميز\",\n                \"address\": \"المنطقة الصناعية، مخرج 18\",\n                \"city\": \"Riyadh\",\n                \"latitude\": \"24.6333000\",\n                \"longitude\": \"46.7167000\",\n                \"status\": \"active\",\n                \"rating_avg\": \"4.80\",\n                \"created_at\": \"2026-08-08\"\n            },\n            \"employee_id\": null,\n            \"employee\": null,\n            \"service_id\": 3,\n            \"service\": {\n                \"id\": 3,\n                \"category_id\": 2,\n                \"name\": \"oin change Maintenance\",\n                \"name_ar\": \"تغيير زيت\",\n                \"description\": \"تغيير زيت المحرك والفلتر\",\n                \"base_price\": \"120.00\",\n                \"is_vip_available\": false,\n                \"vip_extra_price\": null,\n                \"duration_minutes\": 45,\n                \"created_at\": \"2026-08-08 18:15:07\",\n                \"updated_at\": \"2026-08-08 18:15:07\"\n            },\n            \"category_id\": 2,\n            \"category\": {\n                \"id\": 2,\n                \"name\": \"Maintenance\",\n                \"name_ar\": \"صيانة ميكانيكية\",\n                \"description\": \"خدمات الصيانة السريعة والميكانيكا العامة\",\n                \"is_active\": true,\n                \"created_at\": \"2026-08-08 18:15:06\",\n                \"updated_at\": null\n            },\n            \"booking_type\": true,\n            \"is_vip\": false,\n            \"status\": \"pending\",\n            \"scheduled_at\": \"2026-08-10T00:24:33+00:00\",\n            \"started_at\": null,\n            \"completed_at\": null,\n            \"cancelled_at\": null,\n            \"cancel_reason\": null,\n            \"assigned_at\": null,\n            \"location_lat\": null,\n            \"location_lng\": null,\n            \"location_address\": null,\n            \"distance_km\": null,\n            \"discount_amount\": \"0.00\",\n            \"service_price\": \"168.00\",\n            \"sub_service_price\": \"0.00\",\n            \"materials_price\": \"0.00\",\n            \"total_price\": \"168.00\",\n            \"user_package_id\": null,\n            \"user_package\": null,\n            \"package_covered_amount\": \"0.00\",\n            \"cash_due_amount\": \"0.00\",\n            \"price_items\": [\n                {\n                    \"id\": 72,\n                    \"pricing_rule_id\": null,\n                    \"label\": \"Base Price\",\n                    \"amount\": \"168.00\"\n                }\n            ],\n            \"sub_services\": [],\n            \"materials\": [],\n            \"payments\": [\n                {\n                    \"id\": 22,\n                    \"payment_number\": \"cde95021-6abd-4f9a-bda9-597aacfcd70a\",\n                    \"type\": \"order\",\n                    \"method\": \"cash\",\n                    \"status\": \"pending\",\n                    \"amount\": \"168.00\",\n                    \"points_used\": 0\n                }\n            ],\n            \"notes\": null,\n            \"created_at\": \"2026-08-09T23:24:33+00:00\",\n            \"updated_at\": \"2026-08-09T23:24:33+00:00\"\n        }\n    ],\n    \"message\": \"Booking confirmed successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-09T23:24:33+00:00\"\n}"
+								},
+								{
+									"name": "confirm booking",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "quote_token",
+													"value": "d1926de4-8b20-4459-902e-e90877f06ffa",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/confirm",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"confirm"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 10 Aug 2026 00:42:33 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 65,\n            \"booking_group_id\": null,\n            \"customer_id\": 4,\n            \"customer\": {\n                \"id\": 4,\n                \"name\": \"أحمد العتيبي (عميل)\",\n                \"email\": \"customer@system.com\",\n                \"phone\": \"0500000004\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/00ddaa?text=people+quo\",\n                \"is_active\": true,\n                \"role\": \"customer_personal\"\n            },\n            \"company_id\": null,\n            \"car_id\": 2,\n            \"car\": {\n                \"id\": 2,\n                \"user_id\": 4,\n                \"brand_id\": 13,\n                \"car_type_id\": 3,\n                \"plate_number\": \"tjm-4509\",\n                \"model\": \"Elantra\",\n                \"year\": \"2025\",\n                \"color\": \"fuchsia\",\n                \"fuel_type\": \"petrol\",\n                \"cylinders\": 4,\n                \"mileage\": 166821,\n                \"image_url\": \"http://localhost:8000/storage/https://via.placeholder.com/400x300.png/00ccdd?text=transport+assumenda\",\n                \"is_active\": true,\n                \"created_at\": \"2026-08-08\",\n                \"updated_at\": \"2026-08-08\"\n            },\n            \"branch_id\": 1,\n            \"branch\": {\n                \"id\": 1,\n                \"admin_id\": 1,\n                \"name\": \"Main Riyadh Branch\",\n                \"name_ar\": \"فرع الرياض الرئيسي\",\n                \"city\": \"Riyadh\",\n                \"address\": \"طريق الملك فهد، العليا\",\n                \"latitude\": \"24.7136000\",\n                \"longitude\": \"46.6753000\",\n                \"phone\": \"0511111111\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": false\n            },\n            \"workshop_id\": null,\n            \"workshop\": null,\n            \"employee_id\": null,\n            \"employee\": null,\n            \"service_id\": 1,\n            \"service\": {\n                \"id\": 1,\n                \"category_id\": 1,\n                \"name\": \"Exterior Wash\",\n                \"name_ar\": \"غسيل خارجي\",\n                \"description\": \"غسيل خارجي شامل للسيارة\",\n                \"base_price\": \"50.00\",\n                \"is_vip_available\": true,\n                \"vip_extra_price\": \"20.00\",\n                \"duration_minutes\": 30,\n                \"created_at\": \"2026-08-08 18:15:07\",\n                \"updated_at\": \"2026-08-08 18:15:07\"\n            },\n            \"category_id\": 1,\n            \"category\": {\n                \"id\": 1,\n                \"name\": \"Car Wash\",\n                \"name_ar\": \"غسيل سيارات\",\n                \"description\": \"تنظيف وتلميع السيارات الداخلي والخارجي\",\n                \"is_active\": true,\n                \"created_at\": \"2026-08-08 18:15:06\",\n                \"updated_at\": null\n            },\n            \"booking_type\": true,\n            \"is_vip\": true,\n            \"status\": \"pending\",\n            \"scheduled_at\": \"2026-08-10T04:42:33+03:00\",\n            \"started_at\": null,\n            \"completed_at\": null,\n            \"cancelled_at\": null,\n            \"cancel_reason\": null,\n            \"assigned_at\": null,\n            \"location_lat\": null,\n            \"location_lng\": null,\n            \"location_address\": null,\n            \"distance_km\": null,\n            \"discount_amount\": \"0.00\",\n            \"service_price\": \"105.00\",\n            \"sub_service_price\": \"0.00\",\n            \"materials_price\": \"0.00\",\n            \"total_price\": \"105.00\",\n            \"user_package_id\": null,\n            \"user_package\": null,\n            \"package_covered_amount\": \"0.00\",\n            \"cash_due_amount\": \"0.00\",\n            \"price_items\": [\n                {\n                    \"id\": 73,\n                    \"pricing_rule_id\": null,\n                    \"label\": \"Base Price\",\n                    \"amount\": \"70.00\"\n                },\n                {\n                    \"id\": 74,\n                    \"pricing_rule_id\": null,\n                    \"label\": \"VIP Service Charge\",\n                    \"amount\": \"20.00\"\n                },\n                {\n                    \"id\": 75,\n                    \"pricing_rule_id\": 6,\n                    \"label\": \"Immediate Booking Charge\",\n                    \"amount\": \"15.00\"\n                }\n            ],\n            \"sub_services\": [],\n            \"materials\": [],\n            \"payments\": [\n                {\n                    \"id\": 23,\n                    \"payment_number\": \"c3efb85d-e431-4355-a5d9-d30dd2551cf6\",\n                    \"type\": \"order\",\n                    \"method\": \"cash\",\n                    \"status\": \"pending\",\n                    \"amount\": \"105.00\",\n                    \"points_used\": 0\n                }\n            ],\n            \"notes\": null,\n            \"created_at\": \"2026-08-10T03:42:33+03:00\",\n            \"updated_at\": \"2026-08-10T03:42:33+03:00\"\n        }\n    ],\n    \"message\": \"Booking confirmed successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-10T03:42:33+03:00\"\n}"
+								}
+							]
 						},
 						{
 							"name": "update",
@@ -24144,7 +27985,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"mechanic@system.com\",\n    \"password\": \"password123\"\n}"
+							"raw": "{\n    \"email\": \"workshop@system.com\",\n    \"password\": \"password123\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/auth/login",
@@ -24493,6 +28334,10 @@
 			"value": ""
 		},
 		{
+			"key": "customer2-token",
+			"value": ""
+		},
+		{
 			"key": "company1-token",
 			"value": "",
 			"type": "string"
@@ -24506,7 +28351,7 @@
 			"value": ""
 		},
 		{
-			"key": "token",
+			"key": "workshop",
 			"value": ""
 		}
 	]
