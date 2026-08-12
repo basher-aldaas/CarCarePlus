@@ -130,6 +130,8 @@ class BookingQuoteSubServiceMaterialTest extends TestCase
             'car_ids' => [$car->id],
             'service_id' => $service->id,
             'branch_id' => $branch?->id,
+            'location_lat' => 24.7136,
+            'location_lng' => 46.6753,
             'booking_type' => false,
             'scheduled_at' => now()->addDay()->toDateTimeString(),
             'payment_method' => 'cash',

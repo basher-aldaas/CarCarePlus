@@ -142,6 +142,8 @@ class RoadAssistanceBookingPaymentTest extends TestCase
             'car_ids' => [$car->id],
             'service_id' => $service->id,
             'branch_id' => $branch?->id,
+            'location_lat' => 24.7136,
+            'location_lng' => 46.6753,
             'booking_type' => true,
             'payment_method' => $paymentMethod,
             'problem_type_id' => $problemType->id,
@@ -280,5 +282,23 @@ class RoadAssistanceBookingPaymentTest extends TestCase
         $res = $this->postJson('/api/bookings/quote', $this->basePayload($car, $washService, $problemType, PaymentMethod::CASH->value));
 
         $res->assertStatus(422)->assertJsonValidationErrors('service_id', 'data');
+    }
+
+    public function test_road_assistance_service_requires_problem_type_id(): void
+    {
+        $customer = $this->customer();
+        $car = $this->carFor($customer);
+        $service = $this->roadAssistanceService(100);
+        $problemType = $this->problemType();
+
+        // A roadside-category service booked without a problem_type_id is
+        // rejected — routing is by category, so it can't fall through to a
+        // regular booking.
+        $payload = $this->basePayload($car, $service, $problemType, PaymentMethod::CASH->value);
+        unset($payload['problem_type_id'], $payload['problem_description']);
+
+        $this->postJson('/api/bookings/quote', $payload)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors('problem_type_id', 'data');
     }
 }

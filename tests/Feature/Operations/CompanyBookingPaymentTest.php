@@ -178,6 +178,8 @@ class CompanyBookingPaymentTest extends TestCase
             'car_ids' => $carIds,
             'service_id' => $service->id,
             'branch_id' => $branch?->id,
+            'location_lat' => 24.7136,
+            'location_lng' => 46.6753,
             'booking_type' => false,
             // a fixed weekday so the seeded "Weekend Extra Charge" rule never applies
             'scheduled_at' => now()->next(\Carbon\Carbon::MONDAY)->setTime(10, 0)->toDateTimeString(),

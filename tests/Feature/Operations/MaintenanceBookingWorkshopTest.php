@@ -98,6 +98,8 @@ class MaintenanceBookingWorkshopTest extends TestCase
         return [
             'car_ids' => [$car->id],
             'service_id' => $service->id,
+            'location_lat' => 24.7136,
+            'location_lng' => 46.6753,
             'booking_type' => true,
             'payment_method' => $paymentMethod,
             'workshop_id' => $workshopId,

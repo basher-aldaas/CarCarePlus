@@ -348,7 +348,7 @@ class BookingQuoteService
 
         //immediate bookings are scheduled 30 minutes from the moment the order is actually confirmed, not from when the quote was taken
         if ((int) $data['booking_type'] === 1) {
-            $scheduledAt = now()->addMinutes(60);
+            $scheduledAt = now()->addHour();
         } else {
             $scheduledAt = Carbon::parse($data['scheduled_at']);
         }

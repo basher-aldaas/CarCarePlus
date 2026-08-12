@@ -214,7 +214,7 @@ class RolePermissionSeeder extends Seeder
             'show.categories', 'show.services', 'show.sub_services',
 
             // إدارة فواتير وطلبات الورشة المسندة إليها
-             'assign.order', 'edit.order',
+              'edit.order',
             'show.order_sub_services', 'show.order_status_history', 'show.car_service_history',
 
             // العمليات والتقارير المالية

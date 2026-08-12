@@ -51,8 +51,7 @@ class BookingController extends Controller
             return Response::Success(
                 data: [
                     'requires_package_selection' => true,
-                    'eligible_packages' => UserPackageResource::collection($result['eligible_packages']),
-                    'branch' => $result['branch'] ? new BranchResource($result['branch']) : null,
+                    'available_packages' => UserPackageResource::collection($result['eligible_packages']),
                     'distance_km' => $result['distance_km'] ?? null,
                     'sub_services' => SubServiceResource::collection($result['sub_services']),
                     'materials' => $result['materials'],
@@ -118,7 +117,7 @@ class BookingController extends Controller
     /**
      * Cancel the booking. Accepts an optional cancel_reason in the body.
      */
-    public function destroy(CancelBookingRequest $request, int $id): JsonResponse
+    public function cancel(CancelBookingRequest $request, int $id): JsonResponse
     {
         $result = $this->bookingService->cancelBooking($id, $request->validated('cancel_reason'));
 
@@ -133,7 +132,7 @@ class BookingController extends Controller
         $result = $this->bookingService->assignBooking($id, (int) $request->validated('employee_id'));
 
         return Response::Success(
-            data: new OrderResource($result),
+            data: [],
             message: __('Booking assigned successfully')
         );
     }

@@ -128,6 +128,10 @@ class BookingQuoteConfirmTest extends TestCase
             'car_ids' => $carIds,
             'service_id' => $service->id,
             'branch_id' => $branch?->id,
+            // Flow A (share GPS) satisfies the booking's location requirement
+            // without needing a seeded branch; a passed branch_id still wins.
+            'location_lat' => 24.7136,
+            'location_lng' => 46.6753,
             'booking_type' => false,
             'scheduled_at' => now()->addDay()->toDateTimeString(),
             'payment_method' => PaymentMethod::CASH->value,
@@ -263,7 +267,7 @@ class BookingQuoteConfirmTest extends TestCase
 
         $payload = $this->basePayload([$car->id], $service);
         $payload['location_lat'] = 24.7;
-        // location_lng deliberately omitted
+        unset($payload['location_lng']); // deliberately omitted
 
         $this->postJson('/api/bookings/quote', $payload)
             ->assertStatus(422)

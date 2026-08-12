@@ -3,10 +3,15 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\UserPoint;
+use App\Models\Wallet;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
+    /** Points every seeded user starts with. */
+    private const STARTING_POINTS = 10;
+
     public function run(): void
     {
         // 1. حساب Super Admin
@@ -84,5 +89,25 @@ class UserSeeder extends Seeder
         User::factory(20)->create()->each(function ($user) {
             $user->assignRole('customer_personal');
         });
+
+        // Every seeded user starts with a points balance of 10 and a wallet at 0.
+        User::all()->each(fn (User $user) => $this->seedBalances($user));
+    }
+
+    /**
+     * Give the user their starting points balance and an empty wallet.
+     * firstOrCreate keeps this safe to re-run and avoids duplicates.
+     */
+    private function seedBalances(User $user): void
+    {
+        Wallet::firstOrCreate(
+            ['user_id' => $user->id],
+            ['balance' => 0],
+        );
+
+        UserPoint::firstOrCreate(
+            ['customer_id' => $user->id],
+            ['balance' => self::STARTING_POINTS],
+        );
     }
 }

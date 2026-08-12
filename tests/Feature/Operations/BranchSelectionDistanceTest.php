@@ -232,6 +232,7 @@ class BranchSelectionDistanceTest extends TestCase
         $res = $this->postJson('/api/bookings/quote', [
             ...$this->basePayload($car, $service),
             'branch_id' => $branch->id,
+            'location_address' => 'King Fahd Road, Riyadh',
             'distance_km' => 9999,
         ]);
 
