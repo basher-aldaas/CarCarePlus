@@ -47,4 +47,20 @@ class UserController extends Controller
             message: __('User profile updated successfully'),
         );
     }
+
+    public function activate(User $user): JsonResponse
+    {
+        return Response::Success(
+            data: new UserResource($this->userService->setActiveStatus($user, true)),
+            message: __('User activated successfully'),
+        );
+    }
+
+    public function deactivate(User $user): JsonResponse
+    {
+        return Response::Success(
+            data: new UserResource($this->userService->setActiveStatus($user, false)),
+            message: __('User deactivated successfully'),
+        );
+    }
 }

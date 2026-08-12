@@ -23,6 +23,7 @@ class TowingDetail extends Model
         'car_type_size' => CarTypeSize::class,
         'destination_lat' => 'decimal:7',
         'destination_lng' => 'decimal:7',
+        'created_at' => 'datetime',
     ];
 
     public function order(): BelongsTo

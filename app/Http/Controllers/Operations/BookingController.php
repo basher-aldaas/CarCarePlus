@@ -9,11 +9,22 @@ use App\Http\Requests\OperationsRequest\BookingRequest\CancelBookingRequest;
 use App\Http\Requests\OperationsRequest\BookingRequest\ConfirmBookingRequest;
 use App\Http\Requests\OperationsRequest\BookingRequest\CreateBookingRequest;
 use App\Http\Requests\OperationsRequest\BookingRequest\UpdateBookingRequest;
+use App\Http\Requests\OperationsRequest\OrderDetailRequest\UpdateMaintenanceDetailRequest;
+use App\Http\Requests\OperationsRequest\OrderDetailRequest\UpdateRoadDetailRequest;
+use App\Http\Requests\OperationsRequest\OrderDetailRequest\UpdateTowingDetailRequest;
 use App\Http\Resources\BranchResource;
+use App\Http\Resources\MaintenanceDetailResource;
+use App\Http\Resources\OrderMaterialResource;
+use App\Http\Resources\OrderPriceItemResource;
 use App\Http\Resources\OrderResource;
+use App\Http\Resources\OrderStatusHistoryResource;
+use App\Http\Resources\OrderSubServiceResource;
+use App\Http\Resources\RoadAssistanceDetailResource;
 use App\Http\Resources\SubServiceResource;
+use App\Http\Resources\TowingDetailResource;
 use App\Http\Resources\UserPackageResource;
 use App\Http\Responses\Response;
+use App\Models\OrderPriceItem;
 use App\Services\Operations\BookingQuoteService;
 use App\Services\Operations\BookingService;
 use Illuminate\Http\JsonResponse;
@@ -154,6 +165,122 @@ class BookingController extends Controller
         return Response::Success(
             data: new OrderResource($result),
             message: __('Booking completed successfully')
+        );
+    }
+
+    /**
+     * The booking's status-transition history (audit trail).
+     */
+    public function statusHistory(int $id): JsonResponse
+    {
+        $result = $this->bookingService->getStatusHistory($id);
+
+        return Response::Success(
+            data: OrderStatusHistoryResource::collection($result),
+            message: __('Booking status history retrieved successfully')
+        );
+    }
+
+    /**
+     * The booking's price breakdown line items.
+     */
+    public function priceItems(int $id): JsonResponse
+    {
+        $result = $this->bookingService->getPriceItems($id);
+
+        return Response::Success(
+            data: [
+                'price_items' => OrderPriceItemResource::collection($result['items']),
+                'total_items_price' => $result['total_items_price'],
+            ],
+            message: __('Booking price items retrieved successfully')
+        );
+    }
+
+    /**
+     * The sub-services selected on the booking.
+     */
+    public function subServices(int $id): JsonResponse
+    {
+        $result = $this->bookingService->getSubServices($id);
+
+        return Response::Success(
+            data: [
+                'sub_services' => OrderSubServiceResource::collection($result['items']),
+                'total_sub_service_price' => $result['total_sub_service_price'],
+            ],
+            message: __('Booking sub-services retrieved successfully')
+        );
+    }
+
+    /**
+     * The materials consumed/requested on the booking.
+     */
+    public function materials(int $id): JsonResponse
+    {
+        $result = $this->bookingService->getMaterials($id);
+
+        return Response::Success(
+            data: [
+                'materials' => OrderMaterialResource::collection($result['items']),
+                'total_materials_price' => $result['total_materials_price'],
+            ],
+            message: __('Booking materials retrieved successfully')
+        );
+    }
+
+
+    public function maintenanceDetail(int $id): JsonResponse
+    {
+        $detail = $this->bookingService->getMaintenanceDetail($id);
+
+        return Response::Success(
+            data: $detail ? new MaintenanceDetailResource($detail) : null,
+            message: __('Maintenance detail retrieved successfully')
+        );
+    }
+
+    public function updateMaintenanceDetail(UpdateMaintenanceDetailRequest $request, int $id): JsonResponse
+    {
+        return Response::Success(
+            data: new MaintenanceDetailResource($this->bookingService->updateMaintenanceDetail($id, $request->validated())),
+            message: __('Maintenance detail updated successfully')
+        );
+    }
+
+    public function roadDetail(int $id): JsonResponse
+    {
+        $detail = $this->bookingService->getRoadDetail($id);
+
+        return Response::Success(
+            data: $detail ? new RoadAssistanceDetailResource($detail) : null,
+            message: __('Road assistance detail retrieved successfully')
+        );
+    }
+
+    public function updateRoadDetail(UpdateRoadDetailRequest $request, int $id): JsonResponse
+    {
+        return Response::Success(
+            data: new RoadAssistanceDetailResource($this->bookingService->updateRoadDetail($id, $request->validated())),
+            message: __('Road assistance detail updated successfully')
+        );
+    }
+
+    public function towingDetail(int $id): JsonResponse
+    {
+        $detail = $this->bookingService->getTowingDetail($id);
+
+        return Response::Success(
+            data: $detail ? new TowingDetailResource($detail) : null,
+            message: __('Towing detail retrieved successfully')
+        );
+    }
+
+    public function updateTowingDetail(UpdateTowingDetailRequest $request, int $id): JsonResponse
+    {
+        return Response::Success(
+            data: new TowingDetailResource($this->bookingService->updateTowingDetail($id, $request->validated())),
+            message: __('Towing detail updated successfully')
         );
     }
 }

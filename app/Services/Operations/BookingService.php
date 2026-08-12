@@ -15,6 +15,7 @@ use App\Repositories\Eloquent\OrderRepository;
 use App\Repositories\Eloquent\ServiceRepository;
 use App\Traits\AuthorizesResourceOwnership;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 class BookingService
 {
@@ -36,19 +37,167 @@ class BookingService
 
     public function getBookingById(int $id): Order
     {
+        return $this->authorizeView($id);
+    }
+
+    /**
+     * Load a booking and assert the caller may view it — its owning
+     * customer, or any staff member who can manage it. Shared by the
+     * booking's detail endpoints (status history, price items, etc.).
+     */
+    protected function authorizeView(int $id): Order
+    {
         $order = $this->orderRepository->findById($id);
         $user = auth()->user();
 
         $isOwner = $order->customer_id === $user->id;
 
-        if (! $isOwner && ! $this->canManage($order)) {
+        if (! $isOwner && ! $this->canManageAll($order)) {
             throw new BookingShowUnauthorizedException();
         }
 
         return $order;
     }
 
+    /**
+     * The booking's status-transition log, oldest first, with the employee
+     * (and their user) who performed each transition eager-loaded.
+     */
+    public function getStatusHistory(int $id): Collection
+    {
+        return $this->authorizeView($id)
+            ->statusHistory()
+            ->with('employee.user')
+            ->orderBy('created_at')
+            ->get();
+    }
 
+    /**
+     * The booking's price breakdown line items (service, VIP, distance, …).
+     */
+    public function getPriceItems(int $id): array
+    {
+        $order = $this->authorizeView($id);
+
+        return [
+            'items' =>$order->priceItems()->orderBy('created_at')->get(),
+            'total_items_price' => $order->service_price,
+        ];
+    }
+
+    /**
+     * The sub-services selected on the booking (each with its sub-service),
+     * together with the booking's stored sub-services total.
+     *
+     * @return array{items: Collection, total_price: string|null}
+     */
+    public function getSubServices(int $id): array
+    {
+        $order = $this->authorizeView($id);
+
+        return [
+            'items' => $order->subServices()->with('subService')->get(),
+            'total_sub_service_price' => $order->sub_service_price,
+        ];
+    }
+
+    /**
+     * The materials consumed/requested on the booking (each with the material
+     * and requester), together with the booking's stored materials total.
+     *
+     * @return array{items: Collection, total_price: string|null}
+     */
+    public function getMaterials(int $id): array
+    {
+        $order = $this->authorizeView($id);
+
+        return [
+            'items' => $order->materials()->with(['material', 'requester'])->get(),
+            'total_materials_price' => $order->materials_price,
+        ];
+    }
+
+
+    public function getMaintenanceDetail(int $id): ?\App\Models\MaintenanceDetail
+    {
+        return $this->authorizeView($id)->maintenanceDetail()->with('workshop')->first();
+    }
+
+    public function updateMaintenanceDetail(int $id, array $data): \App\Models\MaintenanceDetail
+    {
+        $order = $this->authorizeManage($id);
+
+        $order->maintenanceDetail()->updateOrCreate(
+            ['order_id' => $order->id],
+            $this->only($data, ['workshop_id', 'notes']),
+        );
+
+        return $order->maintenanceDetail()->with('workshop')->firstOrFail();
+    }
+
+    public function getRoadDetail(int $id): ?\App\Models\RoadAssistanceDetail
+    {
+        return $this->authorizeView($id)->roadAssistance()->with('problemType')->first();
+    }
+
+    public function updateRoadDetail(int $id, array $data): \App\Models\RoadAssistanceDetail
+    {
+        $order = $this->authorizeManage($id);
+
+        $order->roadAssistance()->updateOrCreate(
+            ['order_id' => $order->id],
+            $this->only($data, [
+                'problem_type_id', 'car_type_size', 'problem_description', 'problem_image_url', 'ai_diagnosis',
+            ]),
+        );
+
+        return $order->roadAssistance()->with('problemType')->firstOrFail();
+    }
+
+    public function getTowingDetail(int $id): ?\App\Models\TowingDetail
+    {
+        return $this->authorizeView($id)->towingDetail()->first();
+    }
+
+    public function updateTowingDetail(int $id, array $data): \App\Models\TowingDetail
+    {
+        $order = $this->authorizeManage($id);
+
+        $order->towingDetail()->updateOrCreate(
+            ['order_id' => $order->id],
+            $this->only($data, [
+                'car_type_size', 'destination_lat', 'destination_lng', 'destination_address', 'notes',
+            ]),
+        );
+
+        return $order->towingDetail()->firstOrFail();
+    }
+
+    /**
+     * Load a booking and assert the caller may manage it as staff (the
+     * assigned employee, the branch's admin, or a super admin). Used by the
+     * detail-record write endpoints, which customers may not perform.
+     */
+    protected function authorizeManage(int $id): Order
+    {
+        $order = $this->orderRepository->findById($id);
+        $user = auth()->user();
+
+        $allowed = $user->hasAnyRole(['super_admin', 'admin', 'workshop'])
+            || ($order->employee_id !== null && $order->employee_id === $user->employee?->id);
+
+        if (! $allowed) {
+            throw new BookingUpdateUnauthorizedException();
+        }
+
+        return $order;
+    }
+
+    /** Keep only the given keys that are actually present in the input. */
+    private function only(array $data, array $keys): array
+    {
+        return array_intersect_key($data, array_flip($keys));
+    }
 
     /**
      * The customer may edit their own booking (until the edit window
@@ -91,6 +240,25 @@ class BookingService
 
         if ($user->hasRole('admin')) {
             return $order->branch_id !== null && $order->branch?->admin_id === $user->id;
+        }
+
+        return $order->employee_id !== null && $order->employee_id === $user->employee?->id;
+    }
+
+    protected function canManageAll(Order $order): bool
+    {
+        $user = auth()->user();
+
+        if ($user->hasRole('super_admin')) {
+            return true;
+        }
+
+        if ($user->hasRole('admin')) {
+            return $order->branch_id !== null && $order->branch?->admin_id === $user->id;
+        }
+
+        if ($user->hasRole('workshop')){
+            return $order->workshop_id !== null && $order->workshop_id === $user->workshop?->id;
         }
 
         return $order->employee_id !== null && $order->employee_id === $user->employee?->id;

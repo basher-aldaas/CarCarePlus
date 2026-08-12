@@ -12,7 +12,6 @@ class PointsTransactionDTO
         public ?int $balance_after,
         public ?string $reference_type,
         public ?int $reference_id,
-        public ?string $expires_at,
         public ?string $note,
     ) {}
 
@@ -26,7 +25,6 @@ class PointsTransactionDTO
             balance_after: isset($data['balance_after']) ? (int) $data['balance_after'] : null,
             reference_type: $data['reference_type'] ?? null,
             reference_id: isset($data['reference_id']) ? (int) $data['reference_id'] : null,
-            expires_at: $data['expires_at'] ?? null,
             note: $data['note'] ?? null,
         );
     }
@@ -41,7 +39,6 @@ class PointsTransactionDTO
             'balance_after' => $this->balance_after,
             'reference_type' => $this->reference_type,
             'reference_id' => $this->reference_id,
-            'expires_at' => $this->expires_at,
             'note' => $this->note,
         ], fn ($value) => $value !== null);
     }

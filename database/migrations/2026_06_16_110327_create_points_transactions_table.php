@@ -31,9 +31,6 @@ return new class extends Migration
 
             $table->unsignedBigInteger('reference_id');
 
-            $table->timestamp('expires_at')
-                ->nullable();
-
             $table->text('note')
                 ->nullable();
 

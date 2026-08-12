@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Operations;
 
 use App\Constants\HttpStatusConstants;
 use App\DTOs\AdjustPointsDTO;
+use App\Enums\PointsTransactionType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OperationsRequest\PointRequest\AdjustPointsRequest;
 use App\Http\Resources\PointsTransactionResource;
@@ -61,11 +62,15 @@ class PointsTransactionController extends Controller
     }
 
     /**
-     * Add or deduct points for a customer, recording the transaction.
+     * Credit points to a customer, recording the transaction. The customer is
+     * taken from the route; the adjustment is always an EARN (see PointService).
      */
-    public function store(AdjustPointsRequest $request): JsonResponse
+    public function store(AdjustPointsRequest $request, int $customer_id): JsonResponse
     {
-        $dto = AdjustPointsDTO::fromArray($request->validated());
+        $dto = AdjustPointsDTO::fromArray(array_merge($request->validated(), [
+            'customer_id' => $customer_id,
+            'type' => PointsTransactionType::EARN->value,
+        ]));
 
         $transaction = $this->pointService->adjustPoints($dto);
 

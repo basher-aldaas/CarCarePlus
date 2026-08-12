@@ -18,6 +18,10 @@ class OrderStatusHistory extends Model
         'note',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class, 'order_id');

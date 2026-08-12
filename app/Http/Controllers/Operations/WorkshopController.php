@@ -186,7 +186,7 @@ class WorkshopController extends Controller
         $workshops = $this->workshopService->nearby(
             lat: (float) $request->validated('latitude'),
             lng: (float) $request->validated('longitude'),
-            radiusKm: (float) ($request->validated('radius_km') ?? 25),
+            radiusKm: (float) ($request->validated('radius_km') ?? 20),
         );
 
         return Response::Success(

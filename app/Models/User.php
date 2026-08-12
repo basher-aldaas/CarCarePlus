@@ -101,6 +101,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Employee::class, 'user_id');
     }
+    public function workshop(): HasOne
+    {
+        return $this->hasOne(Workshop::class, 'user_id');
+    }
     public function managedBranch(): HasOne
     {
         return $this->hasOne(Branch::class, 'admin_id');

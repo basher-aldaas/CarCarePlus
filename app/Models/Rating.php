@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Rating extends Model
 {
+    // The ratings table only has created_at (no updated_at); it is set by the
+    // DB default, so Eloquent's automatic timestamp handling stays off.
+    public $timestamps = false;
+
     protected $fillable = [
         'order_id',
         'customer_id',
@@ -23,6 +27,7 @@ class Rating extends Model
         'employee_rating' => 'integer',
         'workshop_rating' => 'integer',
         'image_urls' => 'array',
+        'created_at' => 'datetime',
     ];
 
     public function order(): BelongsTo

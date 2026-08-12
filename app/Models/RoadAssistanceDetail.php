@@ -23,6 +23,7 @@ class RoadAssistanceDetail extends Model
     protected $casts = [
         'car_type_size' => CarTypeSize::class,
         'ai_chat_log' => 'array',
+        'created_at' => 'datetime',
     ];
 
     public function order(): BelongsTo

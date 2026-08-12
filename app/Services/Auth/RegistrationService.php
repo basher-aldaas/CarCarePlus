@@ -10,6 +10,9 @@ use App\Enums\CompanyStatus;
 use App\Enums\EmployeeType;
 use App\Enums\WorkshopStatus;
 use App\Models\Branch;
+use App\Models\User;
+use App\Models\UserPoint;
+use App\Models\Wallet;
 use App\Notifications\RegistrationPendingNotification;
 use App\Notifications\StaffAccountCreatedNotification;
 use App\Notifications\WelcomeNotification;
@@ -22,6 +25,9 @@ use Illuminate\Validation\ValidationException;
 
 class RegistrationService
 {
+    /** Welcome points every newly created user starts with. */
+    private const STARTING_POINTS = 10;
+
     public function __construct(
         protected UserRepository $userRepository,
         protected CompanyRepository $companyRepository,
@@ -40,6 +46,7 @@ class RegistrationService
         $result = DB::transaction(function () use ($dto) {
             $user = $this->userRepository->create($dto);
             $user->assignRole('customer_personal');
+            $this->initBalances($user);
 
             $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -63,6 +70,7 @@ class RegistrationService
             $dto->userDto->is_active = false;
             $user = $this->userRepository->create($dto->userDto);
             $user->assignRole('customer_company');
+            $this->initBalances($user);
 
             $dto->companyDto->customer_id = $user->id;
             $dto->companyDto->status = CompanyStatus::PENDING->value;
@@ -89,6 +97,7 @@ class RegistrationService
             $dto->user->is_active = false;
             $user = $this->userRepository->create($dto->user);
             $user->assignRole('workshop');
+            $this->initBalances($user);
 
             $dto->workshop->user_id = $user->id;
             $dto->workshop->status = WorkshopStatus::PENDING->value;
@@ -129,6 +138,7 @@ class RegistrationService
             $user = $this->userRepository->create($dto->user);
 
             $user->assignRole($dto->employee->type->roleName());
+            $this->initBalances($user);
 
             $dto->employee->user_id = $user->id;
             $employee = $this->employeeRepository->create($dto->employee);
@@ -145,5 +155,23 @@ class RegistrationService
         $result['user']->notify(new StaffAccountCreatedNotification($accountType));
 
         return $result;
+    }
+
+    /**
+     * Give a newly created user their starting balances: an empty wallet and
+     * a small welcome points balance. Runs inside the caller's registration
+     * transaction, so it rolls back with the user if anything fails.
+     */
+    private function initBalances(User $user): void
+    {
+        Wallet::firstOrCreate(
+            ['user_id' => $user->id],
+            ['balance' => 0],
+        );
+
+        UserPoint::firstOrCreate(
+            ['customer_id' => $user->id],
+            ['balance' => self::STARTING_POINTS],
+        );
     }
 }

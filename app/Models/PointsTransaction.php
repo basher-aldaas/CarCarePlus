@@ -18,7 +18,6 @@ class PointsTransaction extends Model
         'balance_after',
         'reference_type',
         'reference_id',
-        'expires_at',
         'note',
     ];
 
@@ -27,7 +26,6 @@ class PointsTransaction extends Model
         'points' => 'integer',
         'balance_before' => 'integer',
         'balance_after' => 'integer',
-        'expires_at' => 'datetime',
     ];
 
     public function customer(): BelongsTo

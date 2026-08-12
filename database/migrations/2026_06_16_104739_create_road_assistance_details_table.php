@@ -19,7 +19,10 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
+            // Optional: the problem may not be categorised yet (e.g. set later
+            // from the AI diagnosis or by staff).
             $table->foreignId('problem_type_id')
+                ->nullable()
                 ->constrained('problem_types')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

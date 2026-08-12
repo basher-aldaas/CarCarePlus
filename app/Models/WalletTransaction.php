@@ -28,6 +28,7 @@ class WalletTransaction extends Model
         'amount' => 'decimal:2',
         'balance_before' => 'decimal:2',
         'balance_after' => 'decimal:2',
+        'created_at' => 'datetime',
     ];
 
     public function wallet(): BelongsTo

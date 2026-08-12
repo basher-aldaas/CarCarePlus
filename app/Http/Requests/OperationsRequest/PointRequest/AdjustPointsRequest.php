@@ -17,17 +17,6 @@ class AdjustPointsRequest extends FormRequest
     {
         return [
 
-            'customer_id' => [
-                'required',
-                'integer',
-                'exists:users,id'
-            ],
-
-            'type' => [
-                'required',
-                Rule::in(PointsTransactionType::values())
-            ],
-
             'points' => [
                 'required',
                 'integer',

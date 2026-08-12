@@ -19,7 +19,10 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
+            // Optional: a maintenance record may exist before a workshop is
+            // assigned to the order.
             $table->foreignId('workshop_id')
+                ->nullable()
                 ->constrained('workshops')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();

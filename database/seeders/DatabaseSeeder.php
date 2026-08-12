@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
 
             // 4. الحسابات والأدوار (قبل الفروع والورش لأنها تعتمد على المستخدمين)
             UserSeeder::class,
+            CompanySeeder::class, // ملف شركة عميل الأسطول (يعتمد على مستخدم الشركة)
 
             // 5. البنية التحتية والمقرات (تعتمد على المستخدمين)
             BranchSeeder::class,

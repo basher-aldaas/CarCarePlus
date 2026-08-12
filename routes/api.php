@@ -8,8 +8,12 @@ use App\Http\Controllers\Operations\BookingController;
 use App\Http\Controllers\Operations\CarController;
 use App\Http\Controllers\Operations\CategoryController;
 use App\Http\Controllers\Operations\CompanyController;
+use App\Http\Controllers\Operations\PaymentController;
 use App\Http\Controllers\Operations\PointController;
 use App\Http\Controllers\Operations\PointsTransactionController;
+use App\Http\Controllers\Operations\RatingController;
+use App\Http\Controllers\Operations\WalletController;
+use App\Http\Controllers\Operations\WalletTransactionController;
 use App\Http\Controllers\Operations\ServiceController;
 use App\Http\Controllers\Operations\UserController;
 use App\Http\Controllers\Operations\UserPackageController;
@@ -134,29 +138,35 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/materials', [MaterialController::class, 'index'])->middleware('can:show.materials');
     Route::get('/materials/{material}', [MaterialController::class, 'show'])->middleware('can:show.materials');
     Route::get('bookings/', [BookingController::class, 'index'])->middleware('can:show.orders');
+    Route::get('/companies',[CompanyController::class,'index'])->middleware('can:show.companies');
+    Route::get('/indexClient/{customer_id?}', [CarController::class, 'indexClient'])->middleware('can:show.client.cars');
+    Route::get('/show/{id}', [CarController::class, 'show'])->middleware('can:show.car');
 
-    Route:: prefix('profile')
-        ->group(function () {
+    Route:: prefix('profile')->group(function () {
             Route::get('/showProfile', [UserController::class, 'showProfile']);
             Route::post('/updateProfile', [UserController::class, 'updateProfile']);
         });
 
-    Route::get('/companies',[CompanyController::class,'index'])->middleware('can:show.companies');
 
     Route::middleware('active.user')->group(function (){
-        // list is auto-scoped per role: super admin/workshop see all, admin sees their branch's,
-        // employee sees bookings assigned to them, customer sees their own
-        Route::get('bookings/{id}', [BookingController::class, 'show'])->middleware('can:show.orders');
+        Route::get('bookings/{id}', [BookingController::class, 'show'])->whereNumber('id')->middleware('can:show.orders');
+        Route::get('bookings/{id}/status-history', [BookingController::class, 'statusHistory'])->whereNumber('id')->middleware('can:show.order_status_history');//all except workshop
+        Route::get('bookings/{id}/price-items', [BookingController::class, 'priceItems'])->whereNumber('id')->middleware('can:show.order_price_items');//all except workshop
+        Route::get('bookings/{id}/sub-services', [BookingController::class, 'subServices'])->whereNumber('id')->middleware('can:show.order_sub_services');//all except workshop
+        Route::get('bookings/{id}/materials', [BookingController::class, 'materials'])->whereNumber('id')->middleware('can:show.order_materials');//all except workshop
 
-        // customer picks a workshop from this list when booking maintenance
-        Route::get('/workshops/nearby', [WorkshopController::class, 'nearby'])->middleware('can:browse.workshops');
+        Route::get('bookings/{id}/maintenance-detail', [BookingController::class, 'maintenanceDetail'])->whereNumber('id')->middleware('can:show.maintenance_details');
+        Route::post('bookings/{id}/maintenance-detail', [BookingController::class, 'updateMaintenanceDetail'])->whereNumber('id')->middleware('can:manage.maintenance_details');//for SA, A, Employee, workshop
+        Route::get('bookings/{id}/road-detail', [BookingController::class, 'roadDetail'])->whereNumber('id')->middleware('can:show.road_assistance_details');
+        Route::post('bookings/{id}/road-detail', [BookingController::class, 'updateRoadDetail'])->whereNumber('id')->middleware('can:manage.road_assistance_details');//for SA, A, Employee, workshop
+        Route::get('bookings/{id}/towing-detail', [BookingController::class, 'towingDetail'])->whereNumber('id')->middleware('can:show.towing_details');//for SA, A, Employee, Customer
+        Route::post('bookings/{id}/towing-detail', [BookingController::class, 'updateTowingDetail'])->whereNumber('id')->middleware('can:manage.towing_details');// for SA, A, Employee
 
-        // workshop manager viewing a visiting car's maintenance + road assistance history
-        Route::get('/workshops/cars/{car}/history', [WorkshopController::class, 'carHistory'])->middleware('can:show.car_service_history');
+        Route::get('/workshops/nearby', [WorkshopController::class, 'nearby'])->middleware('can:browse.workshops');// customer picks a workshop
+        //Route::get('/workshops/cars/{car}/history', [WorkshopController::class, 'carHistory'])->middleware('can:show.car_service_history');// workshop manager viewing a visiting car's maintenance + road assistance history
     });
 
-    Route::get('/indexClient/{customer_id?}', [CarController::class, 'indexClient'])->middleware('can:show.client.cars');
-    Route::get('/show/{id}', [CarController::class, 'show'])->middleware('can:show.car');
+
 
 
 
@@ -172,15 +182,25 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
-    /*
-     (SA , A) : can enter customer id and show his points or show all users points
-      customer can show his points
-    */
+
+
     //for SA & A & CUSTOMER
+    //SA,A : can enter customer id and show his points or show all users points customer can show his points
     Route::middleware('active.user')->group(function (){
         Route::get('points/show/{customer_id?}', [PointController::class, 'show'])->middleware('can:show.user_points');
         Route::get('points/transactions/{customer_id?}', [PointsTransactionController::class, 'index'])->middleware('can:show.points_transactions');
         Route::get('points/transactions/show/{transaction}', [PointsTransactionController::class, 'show'])->middleware('can:show.points_transactions');
+
+        Route::get('payments', [PaymentController::class, 'index'])->middleware('can:show.payments');
+        Route::get('payments/{id}', [PaymentController::class, 'show'])->whereNumber('id')->middleware('can:show.payment');// for SA, A,Customer, employee
+        Route::post('payments/{id}/confirm-cash', [PaymentController::class, 'confirmCash'])->whereNumber('id')->middleware('can:confirm.cash_payment');
+
+        Route::get('ratings', [RatingController::class, 'index'])->middleware('can:show.ratings');
+        Route::get('ratings/{id}', [RatingController::class, 'show'])->whereNumber('id')->middleware('can:show.ratings');
+
+        Route::get('wallet-transactions/{customer_id?}', [WalletTransactionController::class, 'index'])->whereNumber('customer_id')->middleware('can:show.wallet_transactions');
+        Route::get('wallet-transactions/show/{id}', [WalletTransactionController::class, 'show'])->whereNumber('id')->middleware('can:show.wallet_transactions');
+
         Route::get('user-packages/{customer_id?}', [UserPackageController::class, 'index'])->middleware(['can:show.user_packages', 'active.user']);
         Route::get('user-packages/show/{user_package}', [UserPackageController::class, 'show'])->middleware('can:show.user_packages');
         Route::post('/user-packages/{customer_id?}', [UserPackageController::class, 'store'])->middleware('can:add.user_package');
@@ -191,9 +211,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/companies/{company}',[CompanyController::class,'update'])->middleware('can:edit.company');
         Route::delete('/companies/{company}',[CompanyController::class,'destroy'])->middleware('can:delete.company');
 
-        Route::post('/{customer_id?}', [CarController::class, 'store'])->middleware(['can:add.car', 'active.user']); //super admin, admin, customer
-        Route::post('/update/{id}', [CarController::class, 'update'])->middleware(['can:edit.car', 'active.user']); //super admin, admin, customer
-        Route::get('/delete/{id}', [CarController::class, 'destroy'])->middleware(['can:delete.car', 'active.user']); //super admin, customer
+        Route::post('/{customer_id?}', [CarController::class, 'store'])->whereNumber('customer_id')->middleware(['can:add.car', 'active.user']);
+        Route::post('/update/{id}', [CarController::class, 'update'])->middleware(['can:edit.car', 'active.user']);
+        Route::get('/delete/{id}', [CarController::class, 'destroy'])->middleware(['can:delete.car', 'active.user']);
 
     });
 
@@ -201,8 +221,17 @@ Route::middleware(['auth:sanctum'])->group(function () {
     //for SA & A
     Route::middleware('active.admin')->group(function () {
         Route::get('/points', [PointController::class, 'index'])->middleware('can:show.all_user_points');
+
+        Route::post('/users/{user}/activate', [UserController::class, 'activate'])->whereNumber('user')->middleware('can:manage.user_status');
+        Route::post('/users/{user}/deactivate', [UserController::class, 'deactivate'])->whereNumber('user')->middleware('can:manage.user_status');
+
+        Route::get('/wallets', [WalletController::class, 'index'])->middleware('can:show.wallets');
+        Route::get('wallets/{customer_id}', [WalletController::class, 'show'])->whereNumber('customer_id')->middleware('can:show.wallets');
+        Route::post('/wallets/{customer_id}/adjust', [WalletController::class, 'adjust'])->whereNumber('customer_id')->middleware('can:adjust.wallet_balance');
+
         Route::get('/points-configs', [PointsConfigController::class, 'index'])->middleware('can:show.point_config');
         Route::get('/points-configs/{id}', [PointsConfigController::class, 'show'])->middleware('can:show.point_config');
+
         Route::get('/inventories', [InventoryController::class, 'index'])->middleware('can:show.inventory');
         Route::get('/inventories/{inventory}', [InventoryController::class, 'show'])->middleware('can:show.inventory');
         Route::post('/inventories', [InventoryController::class, 'store'])->middleware('can:manage.inventory');
@@ -211,6 +240,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/inventory-transactions', [InventoryTransactionController::class, 'index'])->middleware('can:show.inventory_transactions');
         Route::get('/inventory-transactions/{inventory_transaction}', [InventoryTransactionController::class, 'show'])->middleware('can:show.inventory_transactions');
         Route::post('/inventory-transactions', [InventoryTransactionController::class, 'store'])->middleware('can:manage.inventory_transactions');
+
         Route::get('/customers/personal',[CustomerPersonalController::class, 'index'])->middleware('can:show.personal_customers');
         Route::get('/customers/personal/{customer}',[CustomerPersonalController::class, 'show'])->middleware('can:show.personal_customers');
         Route::get('/customers/company',[CustomerCompanyController::class, 'index'])->middleware('can:show.company_customers');
@@ -221,17 +251,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/workshops/{workshop}', [WorkshopController::class, 'show'])->middleware('can:show.workshops');
 
         Route::get('/all', [CarController::class, 'indexDashboard'])->middleware('can:show.cars');
-
-
     });
     Route::get('/material-units', [MaterialUnitController::class, 'index'])->middleware('can:show.material_units');
     Route::get('/material-units/{material_unit}', [MaterialUnitController::class, 'show'])->middleware('can:show.material_units');
+
     Route::get('/pricing-rule-types', [PricingRuleTypeController::class, 'index'])->middleware('can:show.pricing_rule_types');
     Route::get('/pricing-rule-types/{pricing_rule_type}', [PricingRuleTypeController::class, 'show'])->middleware('can:show.pricing_rule_types');
+
     Route::get('/problem-types', [ProblemTypeController::class, 'index'])->middleware('can:show.problem_types');
     Route::get('/problem-types/{problem_type}', [ProblemTypeController::class, 'show'])->middleware('can:show.problem_types');
+
     Route::get('/system-settings', [SystemSettingController::class, 'index'])->middleware('can:show.system_settings');
     Route::get('/system-settings/{system_setting}', [SystemSettingController::class, 'show'])->middleware('can:show.system_settings');
+
     Route::get('/ai-rules', [AiRuleController::class, 'index'])->middleware('can:show.ai_rules');
     Route::get('/ai-rules/{ai_rule}', [AiRuleController::class, 'show'])->middleware('can:show.ai_rules');
 
@@ -240,24 +272,26 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware('active.user')->group(function () {
         Route::post('bookings/quote', [BookingController::class, 'quote'])->middleware('can:create.order');
         Route::post('bookings/confirm', [BookingController::class, 'confirm'])->middleware('can:create.order');
+        Route::post('ratings', [RatingController::class, 'store'])->middleware('can:create.rating');
+        Route::post('ratings/{id}', [RatingController::class, 'update'])->whereNumber('id')->middleware('can:create.rating');
+        Route::get('wallets/my', [WalletController::class, 'myWallet'])->middleware('can:show.wallet');
+
+
     });
 
     //for SA
-    //Route::post('/points/transactions', [PointsTransactionController::class, 'store']);
+    Route::post('/points/transactions/{customer_id}', [PointsTransactionController::class, 'store'])->middleware('can:add.points.manual');
     Route::post('/points-configs', [PointsConfigController::class, 'store'])->middleware('can:manage.point_config');
     Route::post('/points-configs/{points_config}', [PointsConfigController::class, 'update'])->middleware('can:manage.point_config');
     Route::delete('/points-configs/{points_config}', [PointsConfigController::class, 'destroy'])->middleware('can:manage.point_config');
 
     Route::delete('/user-packages/{user_package}', [UserPackageController::class, 'destroy'])->middleware('can:manage.user_packages');
-
     Route::post('/packages',[PackageController::class,'store'])->middleware('can:manage.packages');
     Route::post('/packages/{package}',[PackageController::class,'update'])->middleware('can:manage.packages');
     Route::delete('/packages/{package}',[PackageController::class,'destroy'])->middleware('can:manage.packages');
-
     Route::post('/package-services',[PackageServiceController::class,'store'])->middleware('can:manage.package_services');
     Route::post('/package-services/{package_service}',[PackageServiceController::class,'update'])->middleware('can:manage.package_services');
     Route::delete('/package-services/{package_service}',[PackageServiceController::class,'destroy'])->middleware('can:manage.package_services');
-
     Route::post('/package-service-sub-services',[PackageServiceSubServiceController::class,'store'])->middleware('can:manage.package_service_sub_services');
     Route::post('/package-service-sub-services/{package_service_sub_service}',[PackageServiceSubServiceController::class,'update'])->middleware('can:manage.package_service_sub_services');
     Route::delete('/package-service-sub-services/{package_service_sub_service}',[PackageServiceSubServiceController::class,'destroy'])->middleware('can:manage.package_service_sub_services');

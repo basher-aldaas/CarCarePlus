@@ -31,9 +31,13 @@ return new class extends Migration
 
             $table->tinyInteger('service_rating');
 
-            $table->tinyInteger('employee_rating');
+            // Not every order has an assigned employee or a workshop, so these
+            // are optional; only the service rating is always required.
+            $table->tinyInteger('employee_rating')
+                ->nullable();
 
-            $table->tinyInteger('workshop_rating');
+            $table->tinyInteger('workshop_rating')
+                ->nullable();
 
             $table->text('comment')
                 ->nullable();

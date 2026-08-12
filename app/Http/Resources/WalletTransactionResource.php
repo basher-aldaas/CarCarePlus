@@ -5,26 +5,21 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PointsTransactionResource extends JsonResource
+class WalletTransactionResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
-            'customer_id' => $this->customer_id,
+            'wallet_id' => $this->wallet_id,
+            'user_id' => $this->user_id,
             'type' => $this->type?->value,
-            'points' => $this->points,
+            'reason' => $this->reason?->value,
+            'amount' => $this->amount,
             'balance_before' => $this->balance_before,
             'balance_after' => $this->balance_after,
-            'reference_type' => $this->reference_type,
-            'reference_id' => $this->reference_id,
             'note' => $this->note,
-            'created_at' => $this->created_at?->toDateTimeString(),
+            'created_at' => $this->created_at?->toIso8601String(),
         ];
     }
 }

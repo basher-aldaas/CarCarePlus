@@ -131,6 +131,10 @@ class Order extends Model
     {
         return $this->hasOne(MaintenanceDetail::class, 'order_id');
     }
+    public function towingDetail(): HasOne
+    {
+        return $this->hasOne(TowingDetail::class, 'order_id');
+    }
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class, 'order_id');
