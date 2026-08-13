@@ -25,7 +25,7 @@ class MaterialService
             abort_unless(
                 $material->is_visible_to_customer,
                 404,
-                __('Material not found')
+                __('This material is not for sail')
             );
         }
 
