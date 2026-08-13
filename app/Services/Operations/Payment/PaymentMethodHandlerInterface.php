@@ -19,4 +19,11 @@ interface PaymentMethodHandlerInterface
      * Charge for a single order (one car) and record the Payment.
      */
     public function settle(Order $order, float $amount, array $context): Payment;
+
+    /**
+     * Reverse a single settled Payment when its order is cancelled: return
+     * the value to wherever it came from (wallet balance, points, package
+     * use) and mark the Payment refunded. A no-op if it's already refunded.
+     */
+    public function refund(Order $order, Payment $payment): void;
 }

@@ -83,7 +83,7 @@ Route::middleware(['auth:sanctum', 'active.user'])
 
         Route::post('bookings/{id}', [BookingController::class, 'update'])->whereNumber('id')->middleware('can:edit.order'); //super admin, admin, workshop, employee
         Route::delete('bookings/{id}', [BookingController::class, 'cancel'])->whereNumber('id')->middleware('can:cancel.order'); //super admin, admin, customer
-        Route::post('bookings/{id}/assign', [BookingController::class, 'assign'])->whereNumber('id')->middleware('can:assign.order'); //super admin, admin, workshop
+        Route::post('bookings/{id}/assign', [BookingController::class, 'assign'])->whereNumber('id')->middleware('can:assign.order'); //super admin, admin
         Route::post('bookings/{id}/start', [BookingController::class, 'start'])->whereNumber('id')->middleware('can:edit.order'); //super admin, admin, workshop, employee
         Route::post('bookings/{id}/complete', [BookingController::class, 'complete'])->whereNumber('id')->middleware('can:edit.order'); //super admin, admin, workshop, employee
     });

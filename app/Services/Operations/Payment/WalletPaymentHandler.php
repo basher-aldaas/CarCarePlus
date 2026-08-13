@@ -50,4 +50,24 @@ class WalletPaymentHandler implements PaymentMethodHandlerInterface
             'amount' => $amount,
         ]);
     }
+
+    /**
+     * Credit the paid amount back to the customer's wallet and mark the
+     * payment refunded.
+     */
+    public function refund(Order $order, Payment $payment): void
+    {
+        if ($payment->status === PaymentStatus::REFUNDED) {
+            return;
+        }
+
+        $this->walletRepository->credit(
+            userId: $order->customer_id,
+            reason: WalletTransactionReason::REFUND,
+            amount: (float) $payment->amount,
+            note: __('Refund for cancelled booking #:id', ['id' => $order->id]),
+        );
+
+        $payment->update(['status' => PaymentStatus::REFUNDED]);
+    }
 }

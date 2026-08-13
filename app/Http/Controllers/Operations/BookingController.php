@@ -143,7 +143,7 @@ class BookingController extends Controller
         $result = $this->bookingService->assignBooking($id, (int) $request->validated('employee_id'));
 
         return Response::Success(
-            data: [],
+            data: new OrderResource($result),
             message: __('Booking assigned successfully')
         );
     }

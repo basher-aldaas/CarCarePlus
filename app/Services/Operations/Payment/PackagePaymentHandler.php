@@ -75,4 +75,24 @@ class PackagePaymentHandler implements PaymentMethodHandlerInterface
 
         return $payment;
     }
+
+    /**
+     * Give the consumed package use back (+1) and mark the package payment
+     * refunded. Any cash_due portion is settled as its own CASH payment row,
+     * which is reversed separately by the cash handler.
+     */
+    public function refund(Order $order, Payment $payment): void
+    {
+        if ($payment->status === PaymentStatus::REFUNDED) {
+            return;
+        }
+
+        if ($order->user_package_id !== null) {
+            $userPackage = UserPackage::lockForUpdate()->find($order->user_package_id);
+
+            $userPackage?->update(['remaining_count' => $userPackage->remaining_count + 1]);
+        }
+
+        $payment->update(['status' => PaymentStatus::REFUNDED]);
+    }
 }

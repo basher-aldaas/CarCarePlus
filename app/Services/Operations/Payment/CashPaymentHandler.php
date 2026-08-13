@@ -29,4 +29,17 @@ class CashPaymentHandler implements PaymentMethodHandlerInterface
             'amount' => $amount,
         ]);
     }
+
+    /**
+     * Cash is only collected from the customer on delivery, so a cancelled
+     * cash payment never took any money — just void the pending record.
+     */
+    public function refund(Order $order, Payment $payment): void
+    {
+        if ($payment->status === PaymentStatus::REFUNDED) {
+            return;
+        }
+
+        $payment->update(['status' => PaymentStatus::REFUNDED]);
+    }
 }

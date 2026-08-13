@@ -2,20 +2,31 @@
 
 namespace App\Services\Operations;
 
+use App\DTOs\InventoryTransactionDTO;
 use App\DTOs\OrderDTO;
+use App\Enums\InventoryTransactionType;
+use App\Enums\OrderEnums\OrderMaterialStatus;
 use App\Enums\OrderEnums\OrderStatus;
 use App\Enums\PaymentEnums\PaymentMethod;
+use App\Enums\PointsTransactionType;
 use App\Exceptions\BookingCancelUnauthorizedException;
 use App\Exceptions\BookingEditWindowExpiredException;
 use App\Exceptions\BookingShowUnauthorizedException;
 use App\Exceptions\BookingUpdateUnauthorizedException;
 use App\Exceptions\InvalidBookingStatusTransitionException;
 use App\Models\Order;
+use App\Models\PointsTransaction;
+use App\Models\UserPoint;
+use App\Repositories\Eloquent\InventoryRepository;
+use App\Repositories\Eloquent\InventoryTransactionRepository;
 use App\Repositories\Eloquent\OrderRepository;
+use App\Repositories\Eloquent\PointRepository;
 use App\Repositories\Eloquent\ServiceRepository;
+use App\Services\Operations\Payment\PaymentMethodHandlerResolver;
 use App\Traits\AuthorizesResourceOwnership;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class BookingService
 {
@@ -27,6 +38,10 @@ class BookingService
         protected OrderRepository $orderRepository,
         protected ServiceRepository $serviceRepository,
         protected PricingEngineService $pricingEngine,
+        protected PaymentMethodHandlerResolver $paymentMethodHandlerResolver,
+        protected InventoryRepository $inventoryRepository,
+        protected InventoryTransactionRepository $inventoryTransactionRepository,
+        protected PointRepository $pointRepository,
     ) {}
 
     public function getAllBookings(): LengthAwarePaginator
@@ -223,7 +238,10 @@ class BookingService
             $this->repriceBooking($updated);
         }
 
-        return $updated->fresh(['priceItems', 'payments', 'subServices.subService', 'materials.material']);
+        // Re-fetch with the full relation set so the response shows the same
+        // rich data as the other booking endpoints (customer, car, branch,
+        // service, price items, sub-services, materials, payments, …).
+        return $this->orderRepository->findById($id);
     }
 
     /**
@@ -243,6 +261,44 @@ class BookingService
         }
 
         return $order->employee_id !== null && $order->employee_id === $user->employee?->id;
+    }
+
+
+    protected function canManageSuperAdminAndAdmin(Order $order): bool
+    {
+        $user = auth()->user();
+
+        if ($user->hasRole('super_admin')) {
+            return true;
+        }
+
+        if ($user->hasRole('admin')) {
+            return $order->branch_id !== null && $order->branch?->admin_id === $user->id;
+        }
+
+        return false;
+
+    }
+
+
+    protected function canManageSuperAdminAndAdminAndCustomer(Order $order): bool
+    {
+        $user = auth()->user();
+
+        if ($user->hasRole('super_admin')) {
+            return true;
+        }
+
+        if ($user->hasRole('admin')) {
+            return $order->branch_id !== null && $order->branch?->admin_id === $user->id;
+        }
+
+        if ($user->hasRole(['customer_personal', 'customer_company'])) {
+            return $order->customer_id !== null && $order->customer_id === $user->id;
+        }
+
+        return false;
+
     }
 
     protected function canManageAll(Order $order): bool
@@ -334,6 +390,10 @@ class BookingService
     {
         $order = $this->orderRepository->findById($id);
 
+        if (! $this->canManageSuperAdminAndAdmin($order)) {
+            throw new BookingUpdateUnauthorizedException();
+        }
+
         if ($order->status !== OrderStatus::PENDING) {
             throw new InvalidBookingStatusTransitionException(__('Only a pending booking can be assigned.'));
         }
@@ -350,13 +410,15 @@ class BookingService
     {
         $order = $this->orderRepository->findById($id);
 
-        if (! $this->canManage($order)) {
+        if (! $this->canManageAll($order)) {
             throw new BookingUpdateUnauthorizedException();
         }
 
         if ($order->status !== OrderStatus::ASSIGNED) {
             throw new InvalidBookingStatusTransitionException(__('Only an assigned booking can be started.'));
         }
+
+
 
         return $this->orderRepository->changeStatus(
             id: $id,
@@ -370,7 +432,7 @@ class BookingService
     {
         $order = $this->orderRepository->findById($id);
 
-        if (! $this->canManage($order)) {
+        if (! $this->canManageAll($order)) {
             throw new BookingUpdateUnauthorizedException();
         }
 
@@ -391,21 +453,143 @@ class BookingService
         $order = $this->orderRepository->findById($id);
         $user = auth()->user();
 
-        $this->authorizeOwnerOrRoles(
-            ownerId: $order->customer_id,
-            allowedRoles: ['super_admin', 'admin'],
-            exception: new BookingCancelUnauthorizedException(),
-        );
+        $isStaff = $this->canManageSuperAdminAndAdmin($order);
+        $isOwner = $order->customer_id !== null && $order->customer_id === $user->id;
 
-        if (in_array($order->status, [OrderStatus::COMPLETED, OrderStatus::CANCELLED], true)) {
-            throw new InvalidBookingStatusTransitionException(__('This booking can no longer be cancelled.'));
+        if (! $isStaff && ! $isOwner) {
+            throw new BookingUpdateUnauthorizedException();
         }
 
-        return $this->orderRepository->changeStatus(
-            id: $id,
-            to: OrderStatus::CANCELLED,
-            extra: ['cancelled_at' => now(), 'cancel_reason' => $reason],
-            byEmployeeId: $user->employee?->id,
+        if ($isStaff) {
+            // SA, A: cancel any time, unless it's already finished.
+            if (in_array($order->status, [OrderStatus::COMPLETED, OrderStatus::CANCELLED], true)) {
+                throw new InvalidBookingStatusTransitionException(
+                    __('This booking can no longer be cancelled.')
+                );
+            }
+        } else {
+            // Customer: only while still pending...
+            if ($order->status !== OrderStatus::PENDING) {
+                throw new InvalidBookingStatusTransitionException(
+                    __('This booking can no longer be cancelled.')
+                );
+            }
+
+            // ...and no later than 30 minutes before the scheduled time.
+            if ($order->scheduled_at && now()->addMinutes(30)->gte($order->scheduled_at)) {
+                throw new InvalidBookingStatusTransitionException(
+                    __('A booking can only be cancelled at least 30 minutes before its scheduled time.')
+                );
+            }
+        }
+
+        // Reverse whatever was settled at confirm time (wallet credit, points
+        // returned, package use restored, cash voided), claw back any loyalty
+        // points that were awarded for it, put back any material stock that
+        // was already deducted, and flip the status — all or nothing.
+        return DB::transaction(function () use ($order, $id, $reason, $user) {
+            // Runs before the payment refunds: a points-method refund writes
+            // its own EARN row for the order, which must not be mistaken for
+            // the loyalty award we're reversing here.
+            $this->clawBackEarnedPoints($order);
+
+            foreach ($order->payments as $payment) {
+                $this->paymentMethodHandlerResolver
+                    ->resolve($payment->method)
+                    ->refund($order, $payment);
+            }
+
+            $this->restoreMaterials($order);
+
+            return $this->orderRepository->changeStatus(
+                id: $id,
+                to: OrderStatus::CANCELLED,
+                extra: [
+                    'cancelled_at' => now(),
+                    'cancel_reason' => $reason,
+                ],
+                byEmployeeId: $user->employee?->id,
+            );
+        });
+    }
+
+    /**
+     * Return material stock that was already deducted for this order back to
+     * its branch's inventory when the order is cancelled. Only USED lines —
+     * the ones {@see \App\Observers\PaymentObserver::deductMaterials()}
+     * actually consumed once a payment was PAID — are restored and logged as
+     * an IN movement, then flipped to REJECTED so they can never be
+     * re-deducted. Materials still merely APPROVED (e.g. an unpaid cash
+     * booking) were never taken from stock, so there's nothing to give back.
+     */
+    /**
+     * Reverse the loyalty points that {@see \App\Observers\PaymentObserver::awardPoints()}
+     * granted for this order once it was paid. The award is a single EARN row
+     * keyed to the order; we redeem the same amount back out on cancel. If the
+     * customer has already spent some of them, we only claw back what's still
+     * in their balance rather than driving it negative or blocking the cancel.
+     */
+    protected function clawBackEarnedPoints(Order $order): void
+    {
+        $earned = (int) PointsTransaction::where('reference_type', 'order')
+            ->where('reference_id', $order->id)
+            ->where('type', PointsTransactionType::EARN)
+            ->sum('points');
+
+        if ($earned <= 0) {
+            return;
+        }
+
+        $balance = (int) (UserPoint::where('customer_id', $order->customer_id)->value('balance') ?? 0);
+        $clawBack = min($earned, $balance);
+
+        if ($clawBack <= 0) {
+            return;
+        }
+
+        $this->pointRepository->createTransaction(
+            customer_id: $order->customer_id,
+            type: PointsTransactionType::REDEEM,
+            points: $clawBack,
+            reference_type: 'order_cancel',
+            reference_id: $order->id,
+            note: __('Order #:id cancelled — earned points reversed', ['id' => $order->id]),
         );
+    }
+
+    protected function restoreMaterials(Order $order): void
+    {
+        if ($order->branch_id === null) {
+            return;
+        }
+
+        $usedMaterials = $order->materials()
+            ->where('status', OrderMaterialStatus::USED)
+            ->get();
+
+        foreach ($usedMaterials as $orderMaterial) {
+            $inventory = $this->inventoryRepository->firstOrCreateForBranchMaterial(
+                $order->branch_id,
+                $orderMaterial->material_id,
+            );
+
+            $quantityBefore = (float) $inventory->quantity;
+            $quantityAfter = $quantityBefore + (float) $orderMaterial->quantity;
+
+            $inventory->update(['quantity' => $quantityAfter]);
+
+            $this->inventoryTransactionRepository->create(InventoryTransactionDTO::fromArray([
+                'branch_id' => $order->branch_id,
+                'material_id' => $orderMaterial->material_id,
+                'created_by' => auth()->id() ?? $order->customer_id,
+                'type' => InventoryTransactionType::IN->value,
+                'quantity' => (float) $orderMaterial->quantity,
+                'quantity_before' => $quantityBefore,
+                'quantity_after' => $quantityAfter,
+                'note' => __('Order #:id cancelled — material returned', ['id' => $order->id]),
+            ]));
+
+            $orderMaterial->update(['status' => OrderMaterialStatus::REJECTED]);
+        }
     }
 }

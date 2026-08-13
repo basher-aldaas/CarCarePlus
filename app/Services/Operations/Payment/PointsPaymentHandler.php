@@ -67,6 +67,28 @@ class PointsPaymentHandler implements PaymentMethodHandlerInterface
         ]);
     }
 
+    /**
+     * Return the exact points that were redeemed for this payment back to the
+     * customer's balance and mark the payment refunded.
+     */
+    public function refund(Order $order, Payment $payment): void
+    {
+        if ($payment->status === PaymentStatus::REFUNDED) {
+            return;
+        }
+
+        $this->pointRepository->createTransaction(
+            customer_id: $order->customer_id,
+            type: PointsTransactionType::EARN,
+            points: (int) $payment->points_used,
+            reference_type: 'order',
+            reference_id: $order->id,
+            note: __('Refund for cancelled booking #:id', ['id' => $order->id]),
+        );
+
+        $payment->update(['status' => PaymentStatus::REFUNDED]);
+    }
+
     protected function activeConfig(): PointsConfig
     {
         $config = PointsConfig::where('is_active', true)->first();
