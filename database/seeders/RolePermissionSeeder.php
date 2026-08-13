@@ -93,7 +93,7 @@ class RolePermissionSeeder extends Seeder
             'add.pricing_rule_types', 'edit.pricing_rule_types', 'delete.pricing_rule_types', 'show.pricing_rule_types',
 
             // === المواد، المخزون، والمشتريات ===
-            'add.material', 'edit.material', 'delete.material', 'show.materials',
+            'add.material', 'edit.material', 'delete.material', 'show.materials','show.material',
             'manage.material_units',
             'manage.inventory', 'show.inventory',
             'show.inventory_transactions',
@@ -167,7 +167,7 @@ class RolePermissionSeeder extends Seeder
             'show.categories', 'show.services', 'show.sub_services', 'show.pricing_rules',
 
             // === المواد، المخزون، والمشتريات (صلاحيات كاملة للفرع) ===
-            'show.materials',
+            'show.materials','show.material',
             'show.material_units',
             'manage.inventory', 'show.inventory',
             'show.inventory_transactions',
@@ -237,6 +237,7 @@ class RolePermissionSeeder extends Seeder
             'show.ratings',
             'show.orders',
             'browse.workshops',
+            'show.material',
         ];
     }
 
@@ -260,6 +261,7 @@ class RolePermissionSeeder extends Seeder
             'show.pricing_rules',
             'show.client.cars',
             'show.order_materials',
+            'show.material',
         ];
     }
 
@@ -280,7 +282,7 @@ class RolePermissionSeeder extends Seeder
             'show.car',
             'show.orders', 'edit.order', 'show.order_sub_services', 'show.order_status_history', 'show.order_price_items',
             'manage.gps_logs',
-            'show.categories', 'show.services', 'show.sub_services', 'show.materials', 'manage.order_materials',
+            'show.categories', 'show.services', 'show.sub_services', 'show.materials','show.material', 'manage.order_materials',
             'show.material_units',
 
             'create.employee_report', 'show.employee_reports', 'show.ratings',
@@ -307,7 +309,7 @@ class RolePermissionSeeder extends Seeder
             'show.towing_details', 'manage.towing_details',
             'confirm.cash_payment',
             'manage.gps_logs',
-            'show.categories', 'show.services', 'show.sub_services', 'show.materials', 'manage.order_materials',
+            'show.categories', 'show.services', 'show.sub_services', 'show.materials','show.material', 'manage.order_materials',
             'create.employee_report', 'show.employee_reports', 'create.spare_part_request', 'show.spare_part_requests',
             'show.ratings',
             'show.car_types',

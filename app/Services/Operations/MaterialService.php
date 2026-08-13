@@ -19,6 +19,16 @@ class MaterialService
 
     public function show(Material $material): Material
     {
+        $user = auth()->user();
+
+        if ($user && $user->hasAnyRole(['customer_personal', 'customer_company'])) {
+            abort_unless(
+                $material->is_visible_to_customer,
+                404,
+                __('Material not found')
+            );
+        }
+
         return $this->materialRepository->findById($material);
     }
 
