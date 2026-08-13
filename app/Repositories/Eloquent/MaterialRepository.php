@@ -9,9 +9,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class MaterialRepository
 {
-    public function getAll(int $perPage = 15): LengthAwarePaginator
+    public function getAll(int $perPage = 15, bool $onlyVisibleToCustomer = false): LengthAwarePaginator
     {
-        return Material::with('unit')->paginate($perPage);
+        return Material::with('unit')
+            ->when($onlyVisibleToCustomer, fn ($query) => $query->where('is_visible_to_customer', true))
+            ->paginate($perPage);
     }
 
     public function findManyByIds(array $ids): Collection

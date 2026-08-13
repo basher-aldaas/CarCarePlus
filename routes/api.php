@@ -135,7 +135,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/suggested-problems/{suggested_problem}', [SuggestedProblemController::class, 'show'])->middleware('can:show.suggested_problems');
     Route::get('/branches', [BranchController::class, 'index'])->middleware('can:show.branches');
     Route::get('/branches/{branch}', [BranchController::class, 'show'])->middleware('can:show.branches');
-    Route::get('/materials', [MaterialController::class, 'index'])->middleware('can:show.materials');
+    Route::get('/materials', [MaterialController::class, 'index'])->middleware('can:show.material');
     Route::get('/materials/{material}', [MaterialController::class, 'show'])->middleware('can:show.material');
     Route::get('bookings/', [BookingController::class, 'index'])->middleware('can:show.orders');
     Route::get('/companies',[CompanyController::class,'index'])->middleware('can:show.companies');

@@ -14,7 +14,11 @@ class MaterialService
     {}
     public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->materialRepository->getAll($perPage);
+        $user = auth()->user();
+
+        $onlyVisibleToCustomer = $user && $user->hasAnyRole(['customer_personal', 'customer_company']);
+
+        return $this->materialRepository->getAll($perPage, $onlyVisibleToCustomer);
     }
 
     public function show(Material $material): Material
@@ -25,7 +29,7 @@ class MaterialService
             abort_unless(
                 $material->is_visible_to_customer,
                 404,
-                __('This material is not for sail')
+                __('This material is not for sale')
             );
         }
 
