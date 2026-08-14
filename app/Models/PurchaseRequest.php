@@ -6,6 +6,7 @@ use App\Enums\PurchaseRequestStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PurchaseRequest extends Model
 {
@@ -38,5 +39,9 @@ class PurchaseRequest extends Model
     public function items(): HasMany
     {
         return $this->hasMany(PurchaseRequestItem::class, 'purchase_req_id');
+    }
+    public function payment(): HasOne
+    {
+        return $this->hasOne(PurchasePayment::class, 'purchase_request_id');
     }
 }

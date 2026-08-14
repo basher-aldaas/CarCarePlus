@@ -68,6 +68,9 @@ class DatabaseSeeder extends Seeder
             OrderMaterialSeeder::class,
             OrderStatusHistorySeeder::class,
             OrderPriceItemSeeder::class,
+
+            // 9. طلبات الشراء والنقل بين الفروع (تعتمد على الفروع والمواد)
+            PurchaseRequestSeeder::class,
         ]);
     }
 }

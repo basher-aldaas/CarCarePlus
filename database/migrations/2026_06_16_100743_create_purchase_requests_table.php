@@ -14,12 +14,13 @@ return new class extends Migration
     {
         Schema::create('purchase_requests', function (Blueprint $table) {
             $table->id();
-
+            //ألفرع يلي طلب المواد
             $table->foreignId('branch_id')
                 ->constrained('branches')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
+            //الفرع الذي ارسله ياها والا لح يشتري المواد مشترا
             $table->foreignId('from_branch_id')
                 ->nullable()
                 ->constrained('branches')

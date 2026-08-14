@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PaymentResource extends JsonResource
+class GpsLogResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,16 +16,14 @@ class PaymentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'payment_number' => $this->payment_number,
-            'type' => $this->type?->value,
-            'method' => $this->method?->value,
-            'status' => $this->status?->value,
-            'amount' => $this->amount,
-            'points_used' => $this->points_used,
-
+            'employee_id' => $this->employee_id,
+            'employee' => new EmployeeResource($this->whenLoaded('employee')),
             'order_id' => $this->order_id,
             'order' => new OrderResource($this->whenLoaded('order')),
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
+            'recorded_at' => $this->recorded_at,
+            'created_at' => $this->created_at,
         ];
     }
 }
-

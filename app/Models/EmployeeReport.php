@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\EmployeeReportStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -21,7 +22,7 @@ class EmployeeReport extends Model
     ];
 
     protected $casts = [
-        'status' => EmployeeReport::class,
+        'status' => EmployeeReportStatus::class,
         'affected_parts' => 'array',
         'images' => 'array',
         'reviewed_at' => 'datetime',

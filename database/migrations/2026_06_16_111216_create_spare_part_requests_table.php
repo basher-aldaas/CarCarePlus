@@ -25,9 +25,10 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->foreignId('admin_id')
+                ->nullable()
                 ->constrained('users')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->nullOnDelete();
 
             $table->string('part_name');
 

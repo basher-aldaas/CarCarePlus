@@ -171,7 +171,7 @@ class RolePermissionSeeder extends Seeder
             'show.material_units',
             'manage.inventory', 'show.inventory',
             'show.inventory_transactions',
-            'manage.purchase_requests', 'manage.purchase_request_items',
+            'manage.purchase_requests', 'manage.purchase_request_items','add.purchase_requests','edit.purchase_requests','delete.purchase_requests',
             'show.system_settings',
             // === الباقات والاشتراكات ===
             'show.packages', 'show.package_services', 'show.package_service_sub_services',
