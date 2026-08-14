@@ -8,7 +8,6 @@ use App\Enums\InventoryTransactionType;
 use App\Enums\PurchaseRequestStatus;
 use App\Exceptions\PurchaseRequestShowUnauthorizedException;
 use App\Models\Branch;
-use App\Models\Inventory;
 use App\Models\PurchasePayment;
 use App\Models\PurchaseRequest;
 use App\Models\PurchaseRequestItem;
@@ -30,13 +29,14 @@ class PurchaseRequestService
     public function index(int $perPage = 15): LengthAwarePaginator
     {
         $user = auth()->user();
-        $branch_id = Branch::where('admin_id', $user->id)->value('id');
 
-        $branchId = $user->hasRole('super_admin') ? null : $branch_id;
+        $branchId = null;
 
-        $purchaseRequest = PurchaseRequest::where('branch_id', $branchId)->get();
+        if (!$user->hasRole('super_admin')) {
+            $branchId = Branch::where('admin_id', $user->id)->value('id');
+        }
 
-        return $this->purchaseRequestRepository->getAll($perPage, $purchaseRequest);
+        return $this->purchaseRequestRepository->getAll($perPage, $branchId);
     }
 
     public function show(PurchaseRequest $purchaseRequest): PurchaseRequest
@@ -219,10 +219,14 @@ class PurchaseRequestService
         }
 
         return DB::transaction(function () use ($purchaseRequest) {
-            $createdBy = auth()->id();
+            $user = auth()->user();
             $branch_id =  $purchaseRequest->branch_id;
 
             $admin_id = Branch::where('id', $branch_id)->value('admin_id');
+
+            // A super admin approves under his own id; an admin approves as the
+            // admin of the request's branch.
+            $createdBy = $user->hasRole('super_admin') ? $user->id : $admin_id;
 
             $purchaseRequest->loadMissing('items');
 
@@ -248,6 +252,7 @@ class PurchaseRequestService
                     ], $createdBy);
                 } else {
                     // Purchased externally: add the bought quantity to the requesting branch.
+                    // store() already increments the branch's inventory, so no manual bump here.
                     $this->inventoryTransactionService->store([
                         'type' => InventoryTransactionType::IN->value,
                         'branch_id' => $purchaseRequest->branch_id,
@@ -255,10 +260,6 @@ class PurchaseRequestService
                         'quantity' => (float) $item->quantity,
                         'note' => "Purchase request #{$purchaseRequest->id} approved",
                     ], $createdBy);
-
-                    Inventory::where('branch_id', $purchaseRequest->branch_id)
-                        ->where('material_id', $item->material_id)
-                        ->increment('quantity', (float) $item->quantity);
                 }
             }
 

@@ -399,55 +399,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Audit Logs — read-only (SA)
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/audit-logs', [AuditLogController::class, 'index'])->middleware('can:show.audit_logs');
-    Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->whereNumber('auditLog')->middleware('can:show.audit_logs');
-
-    /*
-    |--------------------------------------------------------------------------
-    | Contracts — SA (manage) / A, workshop, company customer (view)
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/contracts', [ContractController::class, 'index'])->middleware('can:show.contracts');
-    Route::get('/contracts/{contract}', [ContractController::class, 'show'])->whereNumber('contract')->middleware('can:show.contracts');
-    Route::post('/contracts', [ContractController::class, 'store'])->middleware('can:add.contract');
-    Route::post('/contracts/{contract}', [ContractController::class, 'update'])->whereNumber('contract')->middleware('can:edit.contract');
-    Route::delete('/contracts/{contract}', [ContractController::class, 'destroy'])->whereNumber('contract')->middleware('can:delete.contract');
-
-    /*
-    |--------------------------------------------------------------------------
-    | Employee Reports — employees create, staff view
-    |--------------------------------------------------------------------------
-    */
-    Route::middleware('active.user')->group(function () {
-        Route::get('/employee-reports', [EmployeeReportController::class, 'index'])->middleware('can:show.employee_reports');
-        Route::get('/employee-reports/{employeeReport}', [EmployeeReportController::class, 'show'])->whereNumber('employeeReport')->middleware('can:show.employee_reports');
-        Route::post('/employee-reports', [EmployeeReportController::class, 'store'])->middleware('can:create.employee_report');
-
-        /*
-        |----------------------------------------------------------------------
-        | GPS Logs — employees record location, staff view / track
-        |----------------------------------------------------------------------
-        */
-        Route::get('/gps-logs', [GpsLogController::class, 'index'])->middleware('can:show.gps_logs');
-        Route::get('/gps-logs/{gpsLog}', [GpsLogController::class, 'show'])->whereNumber('gpsLog')->middleware('can:show.gps_logs');
-        Route::post('/gps-logs', [GpsLogController::class, 'store'])->middleware('can:manage.gps_logs');
-
-        /*
-        |----------------------------------------------------------------------
-        | Spare Part Requests — employees create, staff approve / reject
-        |----------------------------------------------------------------------
-        */
-        Route::get('/spare-part-requests', [SparePartRequestController::class, 'index'])->middleware('can:show.spare_part_requests');
-        Route::get('/spare-part-requests/{sparePartRequest}', [SparePartRequestController::class, 'show'])->whereNumber('sparePartRequest')->middleware('can:show.spare_part_requests');
-        Route::post('/spare-part-requests', [SparePartRequestController::class, 'store'])->middleware('can:create.spare_part_request');
-        Route::post('/spare-part-requests/{sparePartRequest}/approve', [SparePartRequestController::class, 'approve'])->whereNumber('sparePartRequest')->middleware('can:approve.spare_part_request');
-        Route::post('/spare-part-requests/{sparePartRequest}/reject', [SparePartRequestController::class, 'reject'])->whereNumber('sparePartRequest')->middleware('can:reject.spare_part_request');
-    });
 
 });
 Route::bind('admin', function ($value) {

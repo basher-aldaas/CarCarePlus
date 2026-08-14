@@ -11276,7 +11276,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{admin}}",
+											"value": "{{customer1-token}}",
 											"type": "string"
 										}
 									]
@@ -11379,7 +11379,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{admin}}",
+											"value": "{{customer1-token}}",
 											"type": "string"
 										}
 									]
@@ -11398,14 +11398,14 @@
 									}
 								],
 								"url": {
-									"raw": "{{base_url}}/api/materials/1",
+									"raw": "{{base_url}}/api/materials/2",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"materials",
-										"1"
+										"2"
 									]
 								}
 							},
@@ -11473,6 +11473,70 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"material_unit_id\": 1,\n        \"unit\": {\n            \"id\": 1,\n            \"name\": \"Litre\",\n            \"name_ar\": \"لتر\",\n            \"is_decimal\": true\n        },\n        \"name\": \"Synthetic Engine Oil 5W-30\",\n        \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n        \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n        \"unit_price\": \"45.00\",\n        \"is_visible_to_customer\": true,\n        \"is_active\": true\n    },\n    \"message\": \"material fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-07T13:00:52+00:00\"\n}"
+								},
+								{
+									"name": "success if material can user show it",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/materials/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"materials",
+												"1"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 13 Aug 2026 12:55:25 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 1,\n        \"material_unit_id\": 1,\n        \"unit\": {\n            \"id\": 1,\n            \"name\": \"Litre\",\n            \"name_ar\": \"لتر\",\n            \"is_decimal\": true\n        },\n        \"name\": \"Synthetic Engine Oil 5W-30\",\n        \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n        \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n        \"unit_price\": \"45.00\",\n        \"is_visible_to_customer\": true,\n        \"is_active\": true\n    },\n    \"message\": \"material fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-13T15:55:25+03:00\"\n}"
 								}
 							]
 						},
@@ -19938,7 +20002,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{admin}}",
+											"value": "{{super-token}}",
 											"type": "string"
 										}
 									]
@@ -29262,6 +29326,56 @@
 							"response": []
 						},
 						{
+							"name": "cancel",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{super-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "cancel_reason",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/bookings/24",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings",
+										"24"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "aasigned",
 							"request": {
 								"auth": {
@@ -29269,7 +29383,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{admin}}",
+											"value": "{{super-token}}",
 											"type": "string"
 										}
 									]
@@ -29298,21 +29412,21 @@
 									]
 								},
 								"url": {
-									"raw": "{{base_url}}/api/bookings/48/assign",
+									"raw": "{{base_url}}/api/bookings/24/assign",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"bookings",
-										"48",
+										"24",
 										"assign"
 									]
 								}
 							},
 							"response": [
 								{
-									"name": "success for SA, A",
+									"name": "employee , customer , workshop does not have permission",
 									"originalRequest": {
 										"method": "POST",
 										"header": [
@@ -29338,14 +29452,164 @@
 											]
 										},
 										"url": {
-											"raw": "{{base_url}}/api/bookings/48/assign",
+											"raw": "{{base_url}}/api/bookings/24/assign",
 											"host": [
 												"{{base_url}}"
 											],
 											"path": [
 												"api",
 												"bookings",
-												"48",
+												"24",
+												"assign"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 13 Aug 2026 19:35:26 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-13T22:35:26+03:00\"\n}"
+								},
+								{
+									"name": "does not belongs to you",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "employee_id",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/24/assign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"24",
+												"assign"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 13 Aug 2026 19:35:59 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"You are not allowed to update this booking.\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-13T22:35:59+03:00\"\n}"
+								},
+								{
+									"name": "success for SA and for A in his branch",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "employee_id",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/bookings/24/assign",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"24",
 												"assign"
 											]
 										}
@@ -29372,7 +29636,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Wed, 12 Aug 2026 00:38:53 GMT"
+											"value": "Thu, 13 Aug 2026 19:36:29 GMT"
 										},
 										{
 											"key": "Content-Type",
@@ -29384,10 +29648,10 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"Booking assigned successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-12T03:38:53+03:00\"\n}"
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 24,\n        \"booking_group_id\": null,\n        \"customer_id\": 15,\n        \"customer\": {\n            \"id\": 15,\n            \"name\": \"Reece Rowe\",\n            \"email\": \"kolby.ritchie@example.org\",\n            \"phone\": \"0965322616\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00ffbb?text=people+illo\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\"\n        },\n        \"company_id\": null,\n        \"car_id\": 5,\n        \"car\": {\n            \"id\": 5,\n            \"user_id\": 23,\n            \"brand_id\": 10,\n            \"car_type_id\": 3,\n            \"plate_number\": \"qpo-1772\",\n            \"model\": \"Model Y\",\n            \"year\": \"1990\",\n            \"color\": \"gray\",\n            \"fuel_type\": \"hybrid\",\n            \"cylinders\": 6,\n            \"mileage\": 163059,\n            \"image_url\": \"http://localhost:8000/storage/https://via.placeholder.com/400x300.png/00ff00?text=transport+et\",\n            \"is_active\": true,\n            \"created_at\": \"2026-08-11\",\n            \"updated_at\": \"2026-08-11\"\n        },\n        \"branch_id\": 2,\n        \"branch\": {\n            \"id\": 2,\n            \"admin_id\": 1,\n            \"name\": \"Jeddah Branch\",\n            \"name_ar\": \"فرع جدة\",\n            \"city\": \"Jeddah\",\n            \"address\": \"شارع التحلية، الأندلس\",\n            \"latitude\": \"21.5433000\",\n            \"longitude\": \"39.1728000\",\n            \"phone\": \"0512222222\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": true\n        },\n        \"workshop_id\": null,\n        \"workshop\": null,\n        \"employee_id\": 1,\n        \"employee\": {\n            \"id\": 1,\n            \"branch_id\": 1,\n            \"type\": \"washer\",\n            \"is_active\": true,\n            \"rating_avg\": \"5.00\",\n            \"user\": {\n                \"id\": 6,\n                \"name\": \"فني غسيل 1\",\n                \"email\": \"washer@system.com\",\n                \"phone\": \"0500000006\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/00ff77?text=people+voluptatem\",\n                \"is_active\": true,\n                \"role\": \"employee_washer\"\n            }\n        },\n        \"service_id\": 6,\n        \"service\": {\n            \"id\": 6,\n            \"category_id\": 3,\n            \"name\": \"Battery Jump Start\",\n            \"name_ar\": \"تشغيل بطارية\",\n            \"description\": \"تشغيل البطارية للسيارات العالقة\",\n            \"base_price\": \"80.00\",\n            \"is_vip_available\": false,\n            \"vip_extra_price\": null,\n            \"duration_minutes\": 20,\n            \"created_at\": \"2026-08-11 22:24:09\",\n            \"updated_at\": \"2026-08-11 22:24:09\"\n        },\n        \"category_id\": 3,\n        \"category\": {\n            \"id\": 3,\n            \"name\": \"Roadside Assistance\",\n            \"name_ar\": \"المساعدة على الطريق\",\n            \"description\": \"خدمات الطوارئ والإنقاذ أثناء السير\",\n            \"is_active\": true,\n            \"created_at\": \"2026-08-11 22:24:07\",\n            \"updated_at\": null\n        },\n        \"booking_type\": false,\n        \"is_vip\": false,\n        \"status\": \"assigned\",\n        \"scheduled_at\": \"2026-08-17T08:25:09+03:00\",\n        \"started_at\": null,\n        \"completed_at\": null,\n        \"cancelled_at\": null,\n        \"cancel_reason\": null,\n        \"assigned_at\": \"2026-08-13T22:36:29+03:00\",\n        \"location_lat\": \"24.0536330\",\n        \"location_lng\": \"46.2405610\",\n        \"location_address\": \"162 Zella Street\\nJenkinsville, KS 60920-8558\",\n        \"distance_km\": \"4.77\",\n        \"discount_amount\": \"0.00\",\n        \"service_price\": \"0.00\",\n        \"sub_service_price\": \"0.00\",\n        \"materials_price\": \"0.00\",\n        \"total_price\": \"80.00\",\n        \"user_package_id\": null,\n        \"user_package\": null,\n        \"package_covered_amount\": \"0.00\",\n        \"cash_due_amount\": \"0.00\",\n        \"price_items\": [\n            {\n                \"id\": 32,\n                \"pricing_rule_id\": null,\n                \"label\": \"Base Price\",\n                \"amount\": \"80.00\"\n            }\n        ],\n        \"sub_services\": [],\n        \"materials\": [\n            {\n                \"id\": 43,\n                \"material_id\": 1,\n                \"material\": {\n                    \"id\": 1,\n                    \"material_unit_id\": 1,\n                    \"name\": \"Synthetic Engine Oil 5W-30\",\n                    \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                    \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                    \"unit_price\": \"45.00\",\n                    \"is_visible_to_customer\": true,\n                    \"is_active\": true\n                },\n                \"requested_by\": 15,\n                \"quantity\": \"4.54\",\n                \"unit_price\": \"45.00\",\n                \"total_price\": \"204.30\",\n                \"status\": \"requested\",\n                \"approved_at\": null\n            },\n            {\n                \"id\": 44,\n                \"material_id\": 3,\n                \"material\": {\n                    \"id\": 3,\n                    \"material_unit_id\": 2,\n                    \"name\": \"Microfiber Towel (Ultra Soft)\",\n                    \"name_ar\": \"منشفة مايكروفايبر ناعمة فائقة الامتصاص\",\n                    \"description\": \"مناشف خاصة لتجفيف حماية من الخدوش\",\n                    \"unit_price\": \"8.00\",\n                    \"is_visible_to_customer\": false,\n                    \"is_active\": true\n                },\n                \"requested_by\": 15,\n                \"quantity\": \"1.42\",\n                \"unit_price\": \"8.00\",\n                \"total_price\": \"11.36\",\n                \"status\": \"requested\",\n                \"approved_at\": null\n            },\n            {\n                \"id\": 45,\n                \"material_id\": 2,\n                \"material\": {\n                    \"id\": 2,\n                    \"material_unit_id\": 2,\n                    \"name\": \"Premium Car Shampoo\",\n                    \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                    \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                    \"unit_price\": \"15.00\",\n                    \"is_visible_to_customer\": true,\n                    \"is_active\": true\n                },\n                \"requested_by\": 15,\n                \"quantity\": \"4.40\",\n                \"unit_price\": \"15.00\",\n                \"total_price\": \"66.00\",\n                \"status\": \"requested\",\n                \"approved_at\": null\n            }\n        ],\n        \"payments\": [],\n        \"notes\": \"Nihil dicta architecto culpa laudantium qui.\",\n        \"created_at\": \"2026-08-11T22:24:21+03:00\",\n        \"updated_at\": \"2026-08-13T22:36:29+03:00\"\n    },\n    \"message\": \"Booking assigned successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-13T22:36:29+03:00\"\n}"
 								},
 								{
-									"name": "you can assignd just pending status",
+									"name": "it must be pending to assigned",
 									"originalRequest": {
 										"method": "POST",
 										"header": [
@@ -29413,14 +29677,14 @@
 											]
 										},
 										"url": {
-											"raw": "{{base_url}}/api/bookings/48/assign",
+											"raw": "{{base_url}}/api/bookings/24/assign",
 											"host": [
 												"{{base_url}}"
 											],
 											"path": [
 												"api",
 												"bookings",
-												"48",
+												"24",
 												"assign"
 											]
 										}
@@ -29447,7 +29711,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Wed, 12 Aug 2026 00:39:14 GMT"
+											"value": "Thu, 13 Aug 2026 19:37:52 GMT"
 										},
 										{
 											"key": "Content-Type",
@@ -29459,7 +29723,611 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"Only a pending booking can be assigned.\",\n    \"status_code\": 409,\n    \"timestamp\": \"2026-08-12T03:39:14+03:00\"\n}"
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"Only a pending booking can be assigned.\",\n    \"status_code\": 409,\n    \"timestamp\": \"2026-08-13T22:37:52+03:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "start",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{super-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Charset",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/14/start",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings",
+										"14",
+										"start"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "it must assignd to you first",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept-Charset",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/bookings/24/start",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"24",
+												"start"
+											]
+										}
+									},
+									"status": "Conflict",
+									"code": 409,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 13 Aug 2026 18:54:52 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"Only an assigned booking can be started.\",\n    \"status_code\": 409,\n    \"timestamp\": \"2026-08-13T21:54:52+03:00\"\n}"
+								},
+								{
+									"name": "customer does not have permission",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept-Charset",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/bookings/25/start",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"25",
+												"start"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 13 Aug 2026 19:01:23 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-13T22:01:23+03:00\"\n}"
+								},
+								{
+									"name": "orders does not belongs to you",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept-Charset",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/bookings/25/start",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"25",
+												"start"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 13 Aug 2026 19:02:36 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"You are not allowed to update this booking.\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-13T22:02:36+03:00\"\n}"
+								},
+								{
+									"name": "success for SA,A for orders in his branch or employee for his order or workshop for his order",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept-Charset",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/bookings/14/start",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"14",
+												"start"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 13 Aug 2026 19:16:29 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 14,\n        \"booking_group_id\": null,\n        \"customer_id\": 10,\n        \"customer\": {\n            \"id\": 10,\n            \"name\": \"Dr. Orland Kertzmann\",\n            \"email\": \"moen.kristina@example.net\",\n            \"phone\": \"0997170078\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/00bbcc?text=people+quia\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\"\n        },\n        \"company_id\": null,\n        \"car_id\": 3,\n        \"car\": {\n            \"id\": 3,\n            \"user_id\": 18,\n            \"brand_id\": 6,\n            \"car_type_id\": 3,\n            \"plate_number\": \"czn-1192\",\n            \"model\": \"Accent\",\n            \"year\": \"2010\",\n            \"color\": \"teal\",\n            \"fuel_type\": \"hybrid\",\n            \"cylinders\": 6,\n            \"mileage\": 130343,\n            \"image_url\": \"http://localhost:8000/storage/https://via.placeholder.com/400x300.png/005588?text=transport+quia\",\n            \"is_active\": true,\n            \"created_at\": \"2026-08-11\",\n            \"updated_at\": \"2026-08-11\"\n        },\n        \"branch_id\": 1,\n        \"branch\": {\n            \"id\": 1,\n            \"admin_id\": 1,\n            \"name\": \"Main Riyadh Branch\",\n            \"name_ar\": \"فرع الرياض الرئيسي\",\n            \"city\": \"Riyadh\",\n            \"address\": \"طريق الملك فهد، العليا\",\n            \"latitude\": \"24.7136000\",\n            \"longitude\": \"46.6753000\",\n            \"phone\": \"0511111111\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": false\n        },\n        \"workshop_id\": null,\n        \"workshop\": null,\n        \"employee_id\": 2,\n        \"employee\": {\n            \"id\": 2,\n            \"branch_id\": 1,\n            \"type\": \"mechanic\",\n            \"is_active\": true,\n            \"rating_avg\": \"4.90\",\n            \"user\": {\n                \"id\": 7,\n                \"name\": \"مهندس ميكانيكي 1\",\n                \"email\": \"mechanic@system.com\",\n                \"phone\": \"0500000007\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/0088ff?text=people+nisi\",\n                \"is_active\": true,\n                \"role\": \"employee_mechanic\"\n            }\n        },\n        \"service_id\": 3,\n        \"service\": {\n            \"id\": 3,\n            \"category_id\": 2,\n            \"name\": \"Oil Change\",\n            \"name_ar\": \"تغيير زيت\",\n            \"description\": \"تغيير زيت المحرك والفلتر\",\n            \"base_price\": \"120.00\",\n            \"is_vip_available\": false,\n            \"vip_extra_price\": null,\n            \"duration_minutes\": 45,\n            \"created_at\": \"2026-08-11 22:24:09\",\n            \"updated_at\": \"2026-08-11 22:24:09\"\n        },\n        \"category_id\": 2,\n        \"category\": {\n            \"id\": 2,\n            \"name\": \"Maintenance\",\n            \"name_ar\": \"صيانة ميكانيكية\",\n            \"description\": \"خدمات الصيانة السريعة والميكانيكا العامة\",\n            \"is_active\": true,\n            \"created_at\": \"2026-08-11 22:24:07\",\n            \"updated_at\": null\n        },\n        \"booking_type\": true,\n        \"is_vip\": true,\n        \"status\": \"in_progress\",\n        \"scheduled_at\": \"2026-08-02T08:41:52+03:00\",\n        \"started_at\": \"2026-08-13T22:16:29+03:00\",\n        \"completed_at\": null,\n        \"cancelled_at\": null,\n        \"cancel_reason\": null,\n        \"assigned_at\": \"2026-08-08T14:58:18+03:00\",\n        \"location_lat\": \"24.8862060\",\n        \"location_lng\": \"46.6690740\",\n        \"location_address\": \"420 Auer Spurs Apt. 834\\nNew Jeannehaven, CA 56347\",\n        \"distance_km\": \"9.05\",\n        \"discount_amount\": \"0.00\",\n        \"service_price\": \"0.00\",\n        \"sub_service_price\": \"0.00\",\n        \"materials_price\": \"0.00\",\n        \"total_price\": \"170.00\",\n        \"user_package_id\": null,\n        \"user_package\": null,\n        \"package_covered_amount\": \"0.00\",\n        \"cash_due_amount\": \"0.00\",\n        \"price_items\": [\n            {\n                \"id\": 20,\n                \"pricing_rule_id\": null,\n                \"label\": \"Base Price\",\n                \"amount\": \"120.00\"\n            },\n            {\n                \"id\": 21,\n                \"pricing_rule_id\": null,\n                \"label\": \"VIP Charge\",\n                \"amount\": \"50.00\"\n            }\n        ],\n        \"sub_services\": [\n            {\n                \"id\": 8,\n                \"sub_service_id\": 4,\n                \"sub_service\": {\n                    \"id\": 4,\n                    \"service_id\": 6,\n                    \"name\": \"Oil Filter Replacement\",\n                    \"name_ar\": \"تغيير فلتر زيت\",\n                    \"description\": \"استبدال فلتر الزيت\",\n                    \"price\": \"20.00\",\n                    \"is_active\": true\n                },\n                \"price\": \"20.00\",\n                \"covered_by_package\": false,\n                \"status\": \"pending\",\n                \"notes\": null,\n                \"checked_at\": null\n            }\n        ],\n        \"materials\": [\n            {\n                \"id\": 23,\n                \"material_id\": 2,\n                \"material\": {\n                    \"id\": 2,\n                    \"material_unit_id\": 2,\n                    \"name\": \"Premium Car Shampoo\",\n                    \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                    \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                    \"unit_price\": \"15.00\",\n                    \"is_visible_to_customer\": true,\n                    \"is_active\": true\n                },\n                \"requested_by\": 7,\n                \"quantity\": \"3.94\",\n                \"unit_price\": \"15.00\",\n                \"total_price\": \"59.10\",\n                \"status\": \"requested\",\n                \"approved_at\": null\n            },\n            {\n                \"id\": 24,\n                \"material_id\": 1,\n                \"material\": {\n                    \"id\": 1,\n                    \"material_unit_id\": 1,\n                    \"name\": \"Synthetic Engine Oil 5W-30\",\n                    \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                    \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                    \"unit_price\": \"45.00\",\n                    \"is_visible_to_customer\": true,\n                    \"is_active\": true\n                },\n                \"requested_by\": 7,\n                \"quantity\": \"1.76\",\n                \"unit_price\": \"45.00\",\n                \"total_price\": \"79.20\",\n                \"status\": \"requested\",\n                \"approved_at\": null\n            },\n            {\n                \"id\": 25,\n                \"material_id\": 3,\n                \"material\": {\n                    \"id\": 3,\n                    \"material_unit_id\": 2,\n                    \"name\": \"Microfiber Towel (Ultra Soft)\",\n                    \"name_ar\": \"منشفة مايكروفايبر ناعمة فائقة الامتصاص\",\n                    \"description\": \"مناشف خاصة لتجفيف حماية من الخدوش\",\n                    \"unit_price\": \"8.00\",\n                    \"is_visible_to_customer\": false,\n                    \"is_active\": true\n                },\n                \"requested_by\": 7,\n                \"quantity\": \"2.53\",\n                \"unit_price\": \"8.00\",\n                \"total_price\": \"20.24\",\n                \"status\": \"requested\",\n                \"approved_at\": null\n            }\n        ],\n        \"payments\": [],\n        \"notes\": \"Officiis perspiciatis sed ratione doloremque quia aut.\",\n        \"created_at\": \"2026-08-11T22:24:21+03:00\",\n        \"updated_at\": \"2026-08-13T22:16:29+03:00\"\n    },\n    \"message\": \"Booking started successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-13T22:16:29+03:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "complete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{super-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/bookings/25/complete",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"bookings",
+										"25",
+										"complete"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "customer does not have permission",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/bookings/1/complete",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"1",
+												"complete"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 13 Aug 2026 19:07:11 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": \"\",\n    \"message\": \"strings.You do not have the required authorization\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-13T22:07:11+03:00\"\n}"
+								},
+								{
+									"name": "order does not belongs to you",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/bookings/24/complete",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"24",
+												"complete"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 13 Aug 2026 19:08:18 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"You are not allowed to update this booking.\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-13T22:08:18+03:00\"\n}"
+								},
+								{
+									"name": "it must be in progres to complete it",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/bookings/24/complete",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"24",
+												"complete"
+											]
+										}
+									},
+									"status": "Conflict",
+									"code": 409,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 13 Aug 2026 19:10:09 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"Only a booking in progress can be completed.\",\n    \"status_code\": 409,\n    \"timestamp\": \"2026-08-13T22:10:09+03:00\"\n}"
+								},
+								{
+									"name": "success for  SA,A for orders in his branch or employee for his order or workshop for his order",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/bookings/25/complete",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"bookings",
+												"25",
+												"complete"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Thu, 13 Aug 2026 19:11:27 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 25,\n        \"booking_group_id\": null,\n        \"customer_id\": 19,\n        \"customer\": {\n            \"id\": 19,\n            \"name\": \"Jared Pfannerstill\",\n            \"email\": \"eichmann.kamille@example.net\",\n            \"phone\": \"0982764150\",\n            \"image_url\": \"https://via.placeholder.com/200x200.png/0088ff?text=people+impedit\",\n            \"is_active\": true,\n            \"role\": \"customer_personal\"\n        },\n        \"company_id\": null,\n        \"car_id\": 6,\n        \"car\": {\n            \"id\": 6,\n            \"user_id\": 19,\n            \"brand_id\": 10,\n            \"car_type_id\": 4,\n            \"plate_number\": \"jac-2694\",\n            \"model\": \"Sonata\",\n            \"year\": \"1990\",\n            \"color\": \"silver\",\n            \"fuel_type\": \"diesel\",\n            \"cylinders\": 4,\n            \"mileage\": 141284,\n            \"image_url\": \"http://localhost:8000/storage/https://via.placeholder.com/400x300.png/00eedd?text=transport+voluptatem\",\n            \"is_active\": true,\n            \"created_at\": \"2026-08-11\",\n            \"updated_at\": \"2026-08-11\"\n        },\n        \"branch_id\": 2,\n        \"branch\": {\n            \"id\": 2,\n            \"admin_id\": 1,\n            \"name\": \"Jeddah Branch\",\n            \"name_ar\": \"فرع جدة\",\n            \"city\": \"Jeddah\",\n            \"address\": \"شارع التحلية، الأندلس\",\n            \"latitude\": \"21.5433000\",\n            \"longitude\": \"39.1728000\",\n            \"phone\": \"0512222222\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": true\n        },\n        \"workshop_id\": null,\n        \"workshop\": null,\n        \"employee_id\": null,\n        \"employee\": null,\n        \"service_id\": 6,\n        \"service\": {\n            \"id\": 6,\n            \"category_id\": 3,\n            \"name\": \"Battery Jump Start\",\n            \"name_ar\": \"تشغيل بطارية\",\n            \"description\": \"تشغيل البطارية للسيارات العالقة\",\n            \"base_price\": \"80.00\",\n            \"is_vip_available\": false,\n            \"vip_extra_price\": null,\n            \"duration_minutes\": 20,\n            \"created_at\": \"2026-08-11 22:24:09\",\n            \"updated_at\": \"2026-08-11 22:24:09\"\n        },\n        \"category_id\": 3,\n        \"category\": {\n            \"id\": 3,\n            \"name\": \"Roadside Assistance\",\n            \"name_ar\": \"المساعدة على الطريق\",\n            \"description\": \"خدمات الطوارئ والإنقاذ أثناء السير\",\n            \"is_active\": true,\n            \"created_at\": \"2026-08-11 22:24:07\",\n            \"updated_at\": null\n        },\n        \"booking_type\": false,\n        \"is_vip\": false,\n        \"status\": \"completed\",\n        \"scheduled_at\": \"2026-08-07T12:26:11+03:00\",\n        \"started_at\": \"2026-08-13T21:59:20+03:00\",\n        \"completed_at\": \"2026-08-13T22:11:27+03:00\",\n        \"cancelled_at\": null,\n        \"cancel_reason\": null,\n        \"assigned_at\": \"2026-08-10T15:17:51+03:00\",\n        \"location_lat\": \"24.9256450\",\n        \"location_lng\": \"46.2659270\",\n        \"location_address\": \"286 Strosin Rapid\\nWilliamsonstad, CO 26901-2116\",\n        \"distance_km\": \"10.79\",\n        \"discount_amount\": \"0.00\",\n        \"service_price\": \"0.00\",\n        \"sub_service_price\": \"0.00\",\n        \"materials_price\": \"0.00\",\n        \"total_price\": \"80.00\",\n        \"user_package_id\": null,\n        \"user_package\": null,\n        \"package_covered_amount\": \"0.00\",\n        \"cash_due_amount\": \"0.00\",\n        \"price_items\": [\n            {\n                \"id\": 33,\n                \"pricing_rule_id\": null,\n                \"label\": \"Base Price\",\n                \"amount\": \"80.00\"\n            }\n        ],\n        \"sub_services\": [],\n        \"materials\": [\n            {\n                \"id\": 46,\n                \"material_id\": 1,\n                \"material\": {\n                    \"id\": 1,\n                    \"material_unit_id\": 1,\n                    \"name\": \"Synthetic Engine Oil 5W-30\",\n                    \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                    \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                    \"unit_price\": \"45.00\",\n                    \"is_visible_to_customer\": true,\n                    \"is_active\": true\n                },\n                \"requested_by\": 19,\n                \"quantity\": \"2.24\",\n                \"unit_price\": \"45.00\",\n                \"total_price\": \"100.80\",\n                \"status\": \"requested\",\n                \"approved_at\": null\n            }\n        ],\n        \"payments\": [],\n        \"notes\": \"Voluptas aut ea pariatur aut assumenda voluptatem.\",\n        \"created_at\": \"2026-08-11T22:24:21+03:00\",\n        \"updated_at\": \"2026-08-13T22:11:27+03:00\"\n    },\n    \"message\": \"Booking completed successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-13T22:11:27+03:00\"\n}"
 								}
 							]
 						},
@@ -32957,8 +33825,216 @@
 					]
 				},
 				{
-					"name": "New Folder Copy 7",
+					"name": "purchaseRequest",
 					"item": [
+						{
+							"name": "index",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{super-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/purchase-requests",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"purchase-requests"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success for SA,A for his purchase in his branch",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 11:58:19 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 6,\n            \"branch_id\": 2,\n            \"branch\": {\n                \"id\": 2,\n                \"admin_id\": 1,\n                \"name\": \"Jeddah Branch\",\n                \"name_ar\": \"فرع جدة\",\n                \"city\": \"Jeddah\",\n                \"address\": \"شارع التحلية، الأندلس\",\n                \"latitude\": \"21.5433000\",\n                \"longitude\": \"39.1728000\",\n                \"phone\": \"0512222222\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": true\n            },\n            \"from_branch_id\": null,\n            \"from_branch\": null,\n            \"status\": \"rejected\",\n            \"total_amount\": \"1500.00\",\n            \"notes\": \"طلب شراء مرفوض\",\n            \"request_type\": false,\n            \"rejection_reason\": \"تجاوز الميزانية المخصصة\",\n            \"approved_at\": null,\n            \"created_at\": \"2026-08-14T00:06:21.000000Z\",\n            \"updated_at\": \"2026-08-14T00:06:21.000000Z\"\n        },\n        {\n            \"id\": 5,\n            \"branch_id\": 1,\n            \"branch\": {\n                \"id\": 1,\n                \"admin_id\": 1,\n                \"name\": \"Main Riyadh Branch\",\n                \"name_ar\": \"فرع الرياض الرئيسي\",\n                \"city\": \"Riyadh\",\n                \"address\": \"طريق الملك فهد، العليا\",\n                \"latitude\": \"24.7136000\",\n                \"longitude\": \"46.6753000\",\n                \"phone\": \"0511111111\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": false\n            },\n            \"from_branch_id\": 3,\n            \"from_branch\": {\n                \"id\": 3,\n                \"admin_id\": 2,\n                \"name\": \"Dammam Branch\",\n                \"name_ar\": \"فرع الدمام\",\n                \"city\": \"Dammam\",\n                \"address\": \"طريق الملك سعود، الشاطئ\",\n                \"latitude\": \"26.4207000\",\n                \"longitude\": \"50.0888000\",\n                \"phone\": \"0513333333\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": false\n            },\n            \"status\": \"approved\",\n            \"total_amount\": \"225.00\",\n            \"notes\": \"طلب نقل مخزون من فرع آخر\",\n            \"request_type\": true,\n            \"rejection_reason\": null,\n            \"approved_at\": \"2026-08-14T00:06:21.000000Z\",\n            \"created_at\": \"2026-08-14T00:06:21.000000Z\",\n            \"updated_at\": \"2026-08-14T00:06:21.000000Z\"\n        },\n        {\n            \"id\": 4,\n            \"branch_id\": 3,\n            \"branch\": {\n                \"id\": 3,\n                \"admin_id\": 2,\n                \"name\": \"Dammam Branch\",\n                \"name_ar\": \"فرع الدمام\",\n                \"city\": \"Dammam\",\n                \"address\": \"طريق الملك سعود، الشاطئ\",\n                \"latitude\": \"26.4207000\",\n                \"longitude\": \"50.0888000\",\n                \"phone\": \"0513333333\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": false\n            },\n            \"from_branch_id\": null,\n            \"from_branch\": null,\n            \"status\": \"pending\",\n            \"total_amount\": \"750.00\",\n            \"notes\": \"طلب شراء مواد جديدة من المورد\",\n            \"request_type\": false,\n            \"rejection_reason\": null,\n            \"approved_at\": null,\n            \"created_at\": \"2026-08-14T00:06:21.000000Z\",\n            \"updated_at\": \"2026-08-14T00:06:21.000000Z\"\n        },\n        {\n            \"id\": 3,\n            \"branch_id\": 3,\n            \"branch\": {\n                \"id\": 3,\n                \"admin_id\": 2,\n                \"name\": \"Dammam Branch\",\n                \"name_ar\": \"فرع الدمام\",\n                \"city\": \"Dammam\",\n                \"address\": \"طريق الملك سعود، الشاطئ\",\n                \"latitude\": \"26.4207000\",\n                \"longitude\": \"50.0888000\",\n                \"phone\": \"0513333333\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": false\n            },\n            \"from_branch_id\": null,\n            \"from_branch\": null,\n            \"status\": \"rejected\",\n            \"total_amount\": \"1500.00\",\n            \"notes\": \"طلب شراء مرفوض\",\n            \"request_type\": false,\n            \"rejection_reason\": \"تجاوز الميزانية المخصصة\",\n            \"approved_at\": null,\n            \"created_at\": \"2026-08-14T00:01:50.000000Z\",\n            \"updated_at\": \"2026-08-14T00:01:50.000000Z\"\n        },\n        {\n            \"id\": 2,\n            \"branch_id\": 1,\n            \"branch\": {\n                \"id\": 1,\n                \"admin_id\": 1,\n                \"name\": \"Main Riyadh Branch\",\n                \"name_ar\": \"فرع الرياض الرئيسي\",\n                \"city\": \"Riyadh\",\n                \"address\": \"طريق الملك فهد، العليا\",\n                \"latitude\": \"24.7136000\",\n                \"longitude\": \"46.6753000\",\n                \"phone\": \"0511111111\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": false\n            },\n            \"from_branch_id\": 2,\n            \"from_branch\": {\n                \"id\": 2,\n                \"admin_id\": 1,\n                \"name\": \"Jeddah Branch\",\n                \"name_ar\": \"فرع جدة\",\n                \"city\": \"Jeddah\",\n                \"address\": \"شارع التحلية، الأندلس\",\n                \"latitude\": \"21.5433000\",\n                \"longitude\": \"39.1728000\",\n                \"phone\": \"0512222222\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": true\n            },\n            \"status\": \"approved\",\n            \"total_amount\": \"225.00\",\n            \"notes\": \"طلب نقل مخزون من فرع آخر\",\n            \"request_type\": true,\n            \"rejection_reason\": null,\n            \"approved_at\": \"2026-08-14T00:01:50.000000Z\",\n            \"created_at\": \"2026-08-14T00:01:50.000000Z\",\n            \"updated_at\": \"2026-08-14T00:01:50.000000Z\"\n        },\n        {\n            \"id\": 1,\n            \"branch_id\": 1,\n            \"branch\": {\n                \"id\": 1,\n                \"admin_id\": 1,\n                \"name\": \"Main Riyadh Branch\",\n                \"name_ar\": \"فرع الرياض الرئيسي\",\n                \"city\": \"Riyadh\",\n                \"address\": \"طريق الملك فهد، العليا\",\n                \"latitude\": \"24.7136000\",\n                \"longitude\": \"46.6753000\",\n                \"phone\": \"0511111111\",\n                \"is_active\": true,\n                \"working_hours\": {\n                    \"end\": \"23:00\",\n                    \"start\": \"08:00\"\n                },\n                \"is_24h\": false\n            },\n            \"from_branch_id\": null,\n            \"from_branch\": null,\n            \"status\": \"pending\",\n            \"total_amount\": \"750.00\",\n            \"notes\": \"طلب شراء مواد جديدة من المورد\",\n            \"request_type\": false,\n            \"rejection_reason\": null,\n            \"approved_at\": null,\n            \"created_at\": \"2026-08-14T00:01:50.000000Z\",\n            \"updated_at\": \"2026-08-14T00:01:50.000000Z\"\n        }\n    ],\n    \"message\": \"purchase requests fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T14:58:19+03:00\",\n    \"pagination\": {\n        \"current_page\": 1,\n        \"per_page\": 15,\n        \"total\": 6,\n        \"last_page\": 1\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "show",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/purchase-requests/3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"purchase-requests",
+										"3"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success for SA,A in his branch",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/3",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"3"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 12:21:08 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 3,\n        \"branch_id\": 3,\n        \"branch\": {\n            \"id\": 3,\n            \"admin_id\": 2,\n            \"name\": \"Dammam Branch\",\n            \"name_ar\": \"فرع الدمام\",\n            \"city\": \"Dammam\",\n            \"address\": \"طريق الملك سعود، الشاطئ\",\n            \"latitude\": \"26.4207000\",\n            \"longitude\": \"50.0888000\",\n            \"phone\": \"0513333333\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": false\n        },\n        \"from_branch_id\": null,\n        \"from_branch\": null,\n        \"status\": \"rejected\",\n        \"total_amount\": \"1500.00\",\n        \"notes\": \"طلب شراء مرفوض\",\n        \"request_type\": false,\n        \"rejection_reason\": \"تجاوز الميزانية المخصصة\",\n        \"approved_at\": null,\n        \"items\": [\n            {\n                \"id\": 4,\n                \"purchase_req_id\": 3,\n                \"material_id\": 2,\n                \"material\": {\n                    \"id\": 2,\n                    \"material_unit_id\": 2,\n                    \"name\": \"Premium Car Shampoo\",\n                    \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                    \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                    \"unit_price\": \"15.00\",\n                    \"is_visible_to_customer\": true,\n                    \"is_active\": true\n                },\n                \"quantity\": \"100.00\",\n                \"unit_price\": \"15.00\",\n                \"total_price\": \"1500.00\"\n            }\n        ],\n        \"created_at\": \"2026-08-14T00:01:50.000000Z\",\n        \"updated_at\": \"2026-08-14T00:01:50.000000Z\"\n    },\n    \"message\": \"purchase request fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T15:21:08+03:00\"\n}"
+								}
+							]
+						},
 						{
 							"name": "store",
 							"request": {
@@ -32987,23 +34063,1218 @@
 								],
 								"body": {
 									"mode": "formdata",
-									"formdata": []
+									"formdata": [
+										{
+											"key": "notes",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "items[0][material_id]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "items[0][quantity]",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "items[0][unit_price]",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "items[1][material_id]",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "items[1][quantity]",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "items[1][unit_price]",
+											"value": "20",
+											"type": "text"
+										}
+									]
 								},
 								"url": {
-									"raw": "{{base_url}}/api/",
+									"raw": "{{base_url}}/api/purchase-requests",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
-										""
+										"purchase-requests"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success for admin only",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "notes",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "items[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "items[0][quantity]",
+													"value": "10",
+													"type": "text"
+												},
+												{
+													"key": "items[0][unit_price]",
+													"value": "20",
+													"type": "text"
+												},
+												{
+													"key": "items[1][material_id]",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "items[1][quantity]",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "items[1][unit_price]",
+													"value": "20",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 13:28:16 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 7,\n        \"branch_id\": 3,\n        \"branch\": {\n            \"id\": 3,\n            \"admin_id\": 2,\n            \"name\": \"Dammam Branch\",\n            \"name_ar\": \"فرع الدمام\",\n            \"city\": \"Dammam\",\n            \"address\": \"طريق الملك سعود، الشاطئ\",\n            \"latitude\": \"26.4207000\",\n            \"longitude\": \"50.0888000\",\n            \"phone\": \"0513333333\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": false\n        },\n        \"from_branch_id\": null,\n        \"from_branch\": null,\n        \"status\": \"pending\",\n        \"total_amount\": \"300.00\",\n        \"notes\": null,\n        \"request_type\": false,\n        \"rejection_reason\": null,\n        \"approved_at\": null,\n        \"items\": [\n            {\n                \"id\": 9,\n                \"purchase_req_id\": 7,\n                \"material_id\": 1,\n                \"material\": {\n                    \"id\": 1,\n                    \"material_unit_id\": 1,\n                    \"name\": \"Synthetic Engine Oil 5W-30\",\n                    \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                    \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                    \"unit_price\": \"45.00\",\n                    \"is_visible_to_customer\": true,\n                    \"is_active\": true\n                },\n                \"quantity\": \"10.00\",\n                \"unit_price\": \"20.00\",\n                \"total_price\": \"200.00\"\n            },\n            {\n                \"id\": 10,\n                \"purchase_req_id\": 7,\n                \"material_id\": 2,\n                \"material\": {\n                    \"id\": 2,\n                    \"material_unit_id\": 2,\n                    \"name\": \"Premium Car Shampoo\",\n                    \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                    \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                    \"unit_price\": \"15.00\",\n                    \"is_visible_to_customer\": true,\n                    \"is_active\": true\n                },\n                \"quantity\": \"5.00\",\n                \"unit_price\": \"20.00\",\n                \"total_price\": \"100.00\"\n            }\n        ],\n        \"created_at\": \"2026-08-14T13:28:16.000000Z\",\n        \"updated_at\": \"2026-08-14T13:28:16.000000Z\"\n    },\n    \"message\": \"purchase request created successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T16:28:16+03:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "items[0][material_id]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "items[0][quantity]",
+											"value": "50",
+											"type": "text"
+										},
+										{
+											"key": "items[0][unit_price]",
+											"value": "20",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/purchase-requests/7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"purchase-requests",
+										"7"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success for same admin",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "items[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "items[0][quantity]",
+													"value": "50",
+													"type": "text"
+												},
+												{
+													"key": "items[0][unit_price]",
+													"value": "20",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/7",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"7"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:03:54 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 7,\n        \"branch_id\": 3,\n        \"branch\": {\n            \"id\": 3,\n            \"admin_id\": 2,\n            \"name\": \"Dammam Branch\",\n            \"name_ar\": \"فرع الدمام\",\n            \"city\": \"Dammam\",\n            \"address\": \"طريق الملك سعود، الشاطئ\",\n            \"latitude\": \"26.4207000\",\n            \"longitude\": \"50.0888000\",\n            \"phone\": \"0513333333\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": false\n        },\n        \"from_branch_id\": null,\n        \"from_branch\": null,\n        \"status\": \"pending\",\n        \"total_amount\": \"1000.00\",\n        \"notes\": null,\n        \"request_type\": false,\n        \"rejection_reason\": null,\n        \"approved_at\": null,\n        \"items\": [\n            {\n                \"id\": 12,\n                \"purchase_req_id\": 7,\n                \"material_id\": 1,\n                \"material\": {\n                    \"id\": 1,\n                    \"material_unit_id\": 1,\n                    \"name\": \"Synthetic Engine Oil 5W-30\",\n                    \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                    \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                    \"unit_price\": \"45.00\",\n                    \"is_visible_to_customer\": true,\n                    \"is_active\": true\n                },\n                \"quantity\": \"50.00\",\n                \"unit_price\": \"20.00\",\n                \"total_price\": \"1000.00\"\n            }\n        ],\n        \"created_at\": \"2026-08-14T13:28:16.000000Z\",\n        \"updated_at\": \"2026-08-14T14:03:13.000000Z\"\n    },\n    \"message\": \"purchase request updated successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T17:03:54+03:00\"\n}"
+								},
+								{
+									"name": "its approved you can update it",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "items[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "items[0][quantity]",
+													"value": "50",
+													"type": "text"
+												},
+												{
+													"key": "items[0][unit_price]",
+													"value": "20",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/7",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"7"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:05:27 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"status\": [\n            \"Only pending purchase requests can be modified.\"\n        ]\n    },\n    \"message\": \"Only pending purchase requests can be modified.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-14T17:05:27+03:00\"\n}"
+								},
+								{
+									"name": "does not belongs to you",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "items[0][material_id]",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "items[0][quantity]",
+													"value": "50",
+													"type": "text"
+												},
+												{
+													"key": "items[0][unit_price]",
+													"value": "20",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/7",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"7"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:06:27 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"You are not authorized to modify this purchase request.\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-14T17:06:27+03:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "approved",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{super-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/purchase-requests/20/approve",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"purchase-requests",
+										"20",
+										"approve"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "alrady approved",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/8/approve",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"8",
+												"approve"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:23:12 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"status\": [\n            \"Only pending purchase requests can be approved.\"\n        ]\n    },\n    \"message\": \"Only pending purchase requests can be approved.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-14T17:23:12+03:00\"\n}"
+								},
+								{
+									"name": "success for SA",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/9/approve",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"9",
+												"approve"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:24:09 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 9,\n        \"branch_id\": 3,\n        \"branch\": {\n            \"id\": 3,\n            \"admin_id\": 2,\n            \"name\": \"Dammam Branch\",\n            \"name_ar\": \"فرع الدمام\",\n            \"city\": \"Dammam\",\n            \"address\": \"طريق الملك سعود، الشاطئ\",\n            \"latitude\": \"26.4207000\",\n            \"longitude\": \"50.0888000\",\n            \"phone\": \"0513333333\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": false\n        },\n        \"from_branch_id\": null,\n        \"from_branch\": null,\n        \"status\": \"approved\",\n        \"total_amount\": \"300.00\",\n        \"notes\": null,\n        \"request_type\": false,\n        \"rejection_reason\": null,\n        \"approved_at\": \"2026-08-14T14:24:09.000000Z\",\n        \"payment\": {\n            \"id\": 2,\n            \"amount\": \"300.00\",\n            \"paid_by\": 2,\n            \"note\": \"Payment for approved purchase request #9\",\n            \"created_at\": \"2026-08-14T14:24:09.000000Z\"\n        },\n        \"created_at\": \"2026-08-14T14:23:39.000000Z\",\n        \"updated_at\": \"2026-08-14T14:24:09.000000Z\"\n    },\n    \"message\": \"purchase request approved successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T17:24:09+03:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "reject",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{super-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "ty",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "rejection_reason",
+											"value": "ddd",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/purchase-requests/10/reject",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"purchase-requests",
+										"10",
+										"reject"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "you can reject just pennding status",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "ty",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rejection_reason",
+													"value": "ddd",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/8/reject",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"8",
+												"reject"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:27:26 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"status\": [\n            \"Only pending purchase requests can be rejected.\"\n        ]\n    },\n    \"message\": \"Only pending purchase requests can be rejected.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-14T17:27:26+03:00\"\n}"
+								},
+								{
+									"name": "success for SA",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "ty",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "rejection_reason",
+													"value": "ddd",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/10/reject",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"10",
+												"reject"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:28:06 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 10,\n        \"branch_id\": 3,\n        \"branch\": {\n            \"id\": 3,\n            \"admin_id\": 2,\n            \"name\": \"Dammam Branch\",\n            \"name_ar\": \"فرع الدمام\",\n            \"city\": \"Dammam\",\n            \"address\": \"طريق الملك سعود، الشاطئ\",\n            \"latitude\": \"26.4207000\",\n            \"longitude\": \"50.0888000\",\n            \"phone\": \"0513333333\",\n            \"is_active\": true,\n            \"working_hours\": {\n                \"end\": \"23:00\",\n                \"start\": \"08:00\"\n            },\n            \"is_24h\": false\n        },\n        \"from_branch_id\": null,\n        \"from_branch\": null,\n        \"status\": \"rejected\",\n        \"total_amount\": \"300.00\",\n        \"notes\": null,\n        \"request_type\": false,\n        \"rejection_reason\": \"ddd\",\n        \"approved_at\": null,\n        \"payment\": null,\n        \"created_at\": \"2026-08-14T14:27:59.000000Z\",\n        \"updated_at\": \"2026-08-14T14:28:06.000000Z\"\n    },\n    \"message\": \"purchase request rejected successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T17:28:06+03:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "transfate",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{super-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "from_branch_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "to_branch_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "notes",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "items[0][material_id]",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "items[0][quantity]",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/purchase-requests/transfer",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"purchase-requests",
+										"transfer"
 									]
 								}
 							},
 							"response": []
+						}
+					]
+				},
+				{
+					"name": "purchaseRequestItems",
+					"item": [
+						{
+							"name": "index",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{super-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/purchase-request-items",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"purchase-request-items"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success for SA,A for his purchase request items in his branch",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/purchase-request-items",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-request-items"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 13:00:02 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 8,\n            \"purchase_req_id\": 6,\n            \"material_id\": 2,\n            \"material\": {\n                \"id\": 2,\n                \"material_unit_id\": 2,\n                \"name\": \"Premium Car Shampoo\",\n                \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                \"unit_price\": \"15.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": \"100.00\",\n            \"unit_price\": \"15.00\",\n            \"total_price\": \"1500.00\"\n        },\n        {\n            \"id\": 7,\n            \"purchase_req_id\": 5,\n            \"material_id\": 1,\n            \"material\": {\n                \"id\": 1,\n                \"material_unit_id\": 1,\n                \"name\": \"Synthetic Engine Oil 5W-30\",\n                \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                \"unit_price\": \"45.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": \"5.00\",\n            \"unit_price\": \"45.00\",\n            \"total_price\": \"225.00\"\n        },\n        {\n            \"id\": 6,\n            \"purchase_req_id\": 4,\n            \"material_id\": 2,\n            \"material\": {\n                \"id\": 2,\n                \"material_unit_id\": 2,\n                \"name\": \"Premium Car Shampoo\",\n                \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                \"unit_price\": \"15.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": \"20.00\",\n            \"unit_price\": \"15.00\",\n            \"total_price\": \"300.00\"\n        },\n        {\n            \"id\": 5,\n            \"purchase_req_id\": 4,\n            \"material_id\": 1,\n            \"material\": {\n                \"id\": 1,\n                \"material_unit_id\": 1,\n                \"name\": \"Synthetic Engine Oil 5W-30\",\n                \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                \"unit_price\": \"45.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": \"10.00\",\n            \"unit_price\": \"45.00\",\n            \"total_price\": \"450.00\"\n        },\n        {\n            \"id\": 4,\n            \"purchase_req_id\": 3,\n            \"material_id\": 2,\n            \"material\": {\n                \"id\": 2,\n                \"material_unit_id\": 2,\n                \"name\": \"Premium Car Shampoo\",\n                \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                \"unit_price\": \"15.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": \"100.00\",\n            \"unit_price\": \"15.00\",\n            \"total_price\": \"1500.00\"\n        },\n        {\n            \"id\": 3,\n            \"purchase_req_id\": 2,\n            \"material_id\": 1,\n            \"material\": {\n                \"id\": 1,\n                \"material_unit_id\": 1,\n                \"name\": \"Synthetic Engine Oil 5W-30\",\n                \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                \"unit_price\": \"45.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": \"5.00\",\n            \"unit_price\": \"45.00\",\n            \"total_price\": \"225.00\"\n        },\n        {\n            \"id\": 2,\n            \"purchase_req_id\": 1,\n            \"material_id\": 2,\n            \"material\": {\n                \"id\": 2,\n                \"material_unit_id\": 2,\n                \"name\": \"Premium Car Shampoo\",\n                \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                \"unit_price\": \"15.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": \"20.00\",\n            \"unit_price\": \"15.00\",\n            \"total_price\": \"300.00\"\n        },\n        {\n            \"id\": 1,\n            \"purchase_req_id\": 1,\n            \"material_id\": 1,\n            \"material\": {\n                \"id\": 1,\n                \"material_unit_id\": 1,\n                \"name\": \"Synthetic Engine Oil 5W-30\",\n                \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                \"unit_price\": \"45.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": \"10.00\",\n            \"unit_price\": \"45.00\",\n            \"total_price\": \"450.00\"\n        }\n    ],\n    \"message\": \"purchase request items fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T16:00:02+03:00\",\n    \"pagination\": {\n        \"current_page\": 1,\n        \"per_page\": 15,\n        \"total\": 8,\n        \"last_page\": 1\n    }\n}"
+								}
+							]
 						},
 						{
-							"name": "update",
+							"name": "show",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{super-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/purchase-request-items/3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"purchase-request-items",
+										"3"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "does not belongs to you",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/purchase-request-items/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-request-items",
+												"1"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 13:04:44 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"You are not authorized to view this purchase request.\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-14T16:04:44+03:00\"\n}"
+								},
+								{
+									"name": "success for SA,A for purchase belongs to his branch",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/purchase-request-items/3",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-request-items",
+												"3"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 13:08:30 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 3,\n        \"purchase_req_id\": 2,\n        \"material_id\": 1,\n        \"material\": {\n            \"id\": 1,\n            \"material_unit_id\": 1,\n            \"name\": \"Synthetic Engine Oil 5W-30\",\n            \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n            \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n            \"unit_price\": \"45.00\",\n            \"is_visible_to_customer\": true,\n            \"is_active\": true\n        },\n        \"quantity\": \"5.00\",\n        \"unit_price\": \"45.00\",\n        \"total_price\": \"225.00\"\n    },\n    \"message\": \"purchase request item fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T16:08:30+03:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "store",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -33072,22 +35343,216 @@
 									}
 								],
 								"url": {
-									"raw": "{{base_url}}/api/",
+									"raw": "{{base_url}}/api/purchase-requests/7",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
-										""
+										"purchase-requests",
+										"7"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "its approved you can update it",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/7",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"7"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:05:58 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"status\": [\n            \"Only pending purchase requests can be modified.\"\n        ]\n    },\n    \"message\": \"Only pending purchase requests can be modified.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-14T17:05:58+03:00\"\n}"
+								},
+								{
+									"name": "dles not belong to you",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"1"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:06:06 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"You are not authorized to modify this purchase request.\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-14T17:06:06+03:00\"\n}"
+								},
+								{
+									"name": "delete successfule",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/7",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"7"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:07:26 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"purchase request deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T17:07:26+03:00\"\n}"
+								}
+							]
 						}
 					]
 				},
 				{
-					"name": "New Folder Copy 8",
+					"name": "New Folder Copy 10",
 					"item": [
 						{
 							"name": "index",
