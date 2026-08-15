@@ -47,7 +47,6 @@ use App\Http\Controllers\SuperAdmin\Operations\AdminController;
 use App\Http\Controllers\SuperAdmin\Operations\PurchaseRequestController;
 use App\Http\Controllers\SuperAdmin\Operations\PurchaseRequestItemController;
 use App\Http\Controllers\SuperAdmin\Operations\AuditLogController;
-use App\Http\Controllers\SuperAdmin\Operations\ContractController;
 use App\Http\Controllers\Operations\EmployeeReportController;
 use App\Http\Controllers\Operations\GpsLogController;
 use App\Http\Controllers\Operations\SparePartRequestController;
@@ -161,6 +160,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('bookings/{id}/price-items', [BookingController::class, 'priceItems'])->whereNumber('id')->middleware('can:show.order_price_items');//all except workshop
         Route::get('bookings/{id}/sub-services', [BookingController::class, 'subServices'])->whereNumber('id')->middleware('can:show.order_sub_services');//all except workshop
         Route::get('bookings/{id}/materials', [BookingController::class, 'materials'])->whereNumber('id')->middleware('can:show.order_materials');//all except workshop
+        Route::get('/spare-part-requests', [SparePartRequestController::class, 'index'])->middleware('can:show.spare_part_requests');//all except workshop
+        Route::get('/spare-part-requests/{sparePartRequest}', [SparePartRequestController::class, 'show'])->whereNumber('sparePartRequest')->middleware('can:show.spare_part_requests');//all except workshop
+
 
         Route::get('bookings/{id}/maintenance-detail', [BookingController::class, 'maintenanceDetail'])->whereNumber('id')->middleware('can:show.maintenance_details');
         Route::post('bookings/{id}/maintenance-detail', [BookingController::class, 'updateMaintenanceDetail'])->whereNumber('id')->middleware('can:manage.maintenance_details');//for SA, A, Employee, workshop
@@ -289,7 +291,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('ratings', [RatingController::class, 'store'])->middleware('can:create.rating');
         Route::post('ratings/{id}', [RatingController::class, 'update'])->whereNumber('id')->middleware('can:create.rating');
         Route::get('wallets/my', [WalletController::class, 'myWallet'])->middleware('can:show.wallet');
+        Route::post('/spare-part-requests/{sparePartRequest}/approve', [SparePartRequestController::class, 'approve'])->whereNumber('sparePartRequest')->middleware('can:approve.spare_part_request');
+        Route::post('/spare-part-requests/{sparePartRequest}/reject', [SparePartRequestController::class, 'reject'])->whereNumber('sparePartRequest')->middleware('can:reject.spare_part_request');
 
+    });
+
+    //for Employee
+    Route::middleware('active.user')->group(function () {
+        Route::post('/spare-part-requests', [SparePartRequestController::class, 'store'])->middleware('can:create.spare_part_request');
     });
 
 
@@ -399,6 +408,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
+
+
+    Route::get('/audit-logs', [AuditLogController::class, 'index'])->middleware('can:show.audit_logs');
+    Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->whereNumber('auditLog')->middleware('can:show.audit_logs');
+
+
+    Route::middleware('active.user')->group(function () {
+        Route::get('/employee-reports', [EmployeeReportController::class, 'index'])->middleware('can:show.employee_reports');
+        Route::get('/employee-reports/{employeeReport}', [EmployeeReportController::class, 'show'])->whereNumber('employeeReport')->middleware('can:show.employee_reports');
+        Route::post('/employee-reports', [EmployeeReportController::class, 'store'])->middleware('can:create.employee_report');
+        Route::get('/gps-logs', [GpsLogController::class, 'index'])->middleware('can:show.gps_logs');
+        Route::get('/gps-logs/{gpsLog}', [GpsLogController::class, 'show'])->whereNumber('gpsLog')->middleware('can:show.gps_logs');
+        Route::post('/gps-logs', [GpsLogController::class, 'store'])->middleware('can:manage.gps_logs');
+
+    });
 
 });
 Route::bind('admin', function ($value) {

@@ -113,7 +113,7 @@ class RolePermissionSeeder extends Seeder
             'show.order_status_history',
             'show.order_price_items',
             'show.employee_reports',
-            'show.spare_part_requests', 'approve.spare_part_request', 'reject.spare_part_request',
+            'show.spare_part_requests',
             'show.gps_tracking', 'show.gps_logs',
 
             // === المساعدة على الطريق وأعطال السيارات ===
@@ -133,8 +133,6 @@ class RolePermissionSeeder extends Seeder
             'show.wallet_transactions',
             'manage.point_config', 'show.point_config', 'show.user_points', 'show.all_user_points', 'show.points_transactions',
             'add.points.manual',
-            // === العقود ===
-            'add.contract', 'edit.contract', 'delete.contract', 'show.contracts',
             'show.wallets',
 
             // === التقييمات، التقارير، وإعدادات النظام ===
@@ -181,7 +179,7 @@ class RolePermissionSeeder extends Seeder
             'edit.order', 'cancel.order', 'assign.order', 'show.orders',
             'show.order_sub_services', 'show.order_materials', 'show.order_status_history', 'show.order_price_items',
             'show.employee_reports',
-            'show.spare_part_requests', 'approve.spare_part_request', 'reject.spare_part_request',
+            'show.spare_part_requests',
             'show.gps_tracking', 'show.gps_logs',
 
             // === المساعدة على الطريق والنزاعات ===
@@ -195,8 +193,8 @@ class RolePermissionSeeder extends Seeder
             'adjust.wallet_balance', 'show.wallet_transactions',
             'show.point_config', 'show.user_points', 'show.all_user_points', 'show.points_transactions',
             'show.wallets',
-            // === الورش والعقود ===
-            'show.workshops', 'show.contracts',
+            // === الورش ===
+            'show.workshops',
 
             // === التقييمات والتقارير ===
             'show.ratings', 'show.reports',
@@ -210,9 +208,8 @@ class RolePermissionSeeder extends Seeder
     private function workshopPermissions(): array
     {
         return [
-            // تصفح الورش والعقود الخاصة به والتعديل عليها بحسب النطاق البرمجي
+            // تصفح الورش الخاصة به والتعديل عليها بحسب النطاق البرمجي
             'edit.workshop', 'show.workshops',
-            'show.contracts',
             'show.car',
             'show.car_types',
             'show.car_brands',
@@ -233,7 +230,6 @@ class RolePermissionSeeder extends Seeder
 
             // العمليات والتقارير المالية
             'show.employee_reports',
-            'show.spare_part_requests', 'approve.spare_part_request', 'reject.spare_part_request',
             'show.ratings',
             'show.orders',
             'browse.workshops',
@@ -253,6 +249,7 @@ class RolePermissionSeeder extends Seeder
             'show.wallet', 'show.wallet_transactions', 'show.user_packages', 'add.user_package', 'edit.user_package',
             'show.user_points', 'show.points_transactions',
             'create.payment', 'show.payments','show.payment', 'create.refund', 'show.refunds', 'create.rating', 'show.ratings',
+            'show.spare_part_requests', 'approve.spare_part_request', 'reject.spare_part_request',
             'show.notifications', 'edit.notification_status',
             'show.car_types',
             'show.car_brands',
@@ -270,7 +267,6 @@ class RolePermissionSeeder extends Seeder
         return array_merge($this->customerPersonalPermissions(), [
             'show.companies', 'edit.company',
             'manage.fleet_cars',
-            'show.contracts',
             'show.reports',
         ]);
     }

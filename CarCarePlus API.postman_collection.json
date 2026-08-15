@@ -4086,8 +4086,7 @@
 									"if (token) { pm.collectionVariables.set('token', token); console.log('token saved'); }"
 								],
 								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
+								"packages": {}
 							}
 						}
 					],
@@ -4108,17 +4107,17 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "bashirقق",
+									"value": "bashir",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "bashir2.d.aldaasقق@gmail.com",
+									"value": "bashir.aldaas@gmail.com",
 									"type": "text"
 								},
 								{
 									"key": "phone",
-									"value": "0994875924",
+									"value": "0994875923",
 									"type": "text"
 								},
 								{
@@ -34995,6 +34994,239 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/purchase-requests/7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"purchase-requests",
+										"7"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "its approved you can update it",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/7",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"7"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:05:58 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"status\": [\n            \"Only pending purchase requests can be modified.\"\n        ]\n    },\n    \"message\": \"Only pending purchase requests can be modified.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-14T17:05:58+03:00\"\n}"
+								},
+								{
+									"name": "dles not belong to you",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/1",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"1"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:06:06 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"You are not authorized to modify this purchase request.\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-14T17:06:06+03:00\"\n}"
+								},
+								{
+									"name": "delete successfule",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/purchase-requests/7",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"purchase-requests",
+												"7"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 14 Aug 2026 14:07:26 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"purchase request deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T17:07:26+03:00\"\n}"
+								}
+							]
 						}
 					]
 				},
@@ -35272,64 +35504,26 @@
 									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 3,\n        \"purchase_req_id\": 2,\n        \"material_id\": 1,\n        \"material\": {\n            \"id\": 1,\n            \"material_unit_id\": 1,\n            \"name\": \"Synthetic Engine Oil 5W-30\",\n            \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n            \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n            \"unit_price\": \"45.00\",\n            \"is_visible_to_customer\": true,\n            \"is_active\": true\n        },\n        \"quantity\": \"5.00\",\n        \"unit_price\": \"45.00\",\n        \"total_price\": \"225.00\"\n    },\n    \"message\": \"purchase request item fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T16:08:30+03:00\"\n}"
 								}
 							]
-						},
+						}
+					]
+				},
+				{
+					"name": "spare part request",
+					"item": [
 						{
-							"name": "store",
+							"name": "index",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{admin}}",
+											"value": "{{super-token}}",
 											"type": "string"
 										}
 									]
 								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "formdata",
-									"formdata": []
-								},
-								"url": {
-									"raw": "{{base_url}}/api/",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{admin}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
+								"method": "GET",
 								"header": [
 									{
 										"key": "Accept",
@@ -35343,22 +35537,21 @@
 									}
 								],
 								"url": {
-									"raw": "{{base_url}}/api/purchase-requests/7",
+									"raw": "{{base_url}}/api/spare-part-requests",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
-										"purchase-requests",
-										"7"
+										"spare-part-requests"
 									]
 								}
 							},
 							"response": [
 								{
-									"name": "its approved you can update it",
+									"name": "success for sa to get all and for admin to get spare part on his orders that belongs to his branch",
 									"originalRequest": {
-										"method": "DELETE",
+										"method": "GET",
 										"header": [
 											{
 												"key": "Accept",
@@ -35372,142 +35565,13 @@
 											}
 										],
 										"url": {
-											"raw": "{{base_url}}/api/purchase-requests/7",
+											"raw": "{{base_url}}/api/spare-part-requests",
 											"host": [
 												"{{base_url}}"
 											],
 											"path": [
 												"api",
-												"purchase-requests",
-												"7"
-											]
-										}
-									},
-									"status": "Unprocessable Content",
-									"code": 422,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Host",
-											"value": "localhost:8000"
-										},
-										{
-											"key": "Connection",
-											"value": "close"
-										},
-										{
-											"key": "X-Powered-By",
-											"value": "PHP/8.3.11"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, private"
-										},
-										{
-											"key": "Date",
-											"value": "Fri, 14 Aug 2026 14:05:58 GMT"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"status\": 0,\n    \"data\": {\n        \"status\": [\n            \"Only pending purchase requests can be modified.\"\n        ]\n    },\n    \"message\": \"Only pending purchase requests can be modified.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-14T17:05:58+03:00\"\n}"
-								},
-								{
-									"name": "dles not belong to you",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{base_url}}/api/purchase-requests/1",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"purchase-requests",
-												"1"
-											]
-										}
-									},
-									"status": "Forbidden",
-									"code": 403,
-									"_postman_previewlanguage": "json",
-									"header": [
-										{
-											"key": "Host",
-											"value": "localhost:8000"
-										},
-										{
-											"key": "Connection",
-											"value": "close"
-										},
-										{
-											"key": "X-Powered-By",
-											"value": "PHP/8.3.11"
-										},
-										{
-											"key": "Cache-Control",
-											"value": "no-cache, private"
-										},
-										{
-											"key": "Date",
-											"value": "Fri, 14 Aug 2026 14:06:06 GMT"
-										},
-										{
-											"key": "Content-Type",
-											"value": "application/json"
-										},
-										{
-											"key": "Access-Control-Allow-Origin",
-											"value": "*"
-										}
-									],
-									"cookie": [],
-									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"You are not authorized to modify this purchase request.\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-14T17:06:06+03:00\"\n}"
-								},
-								{
-									"name": "delete successfule",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/json",
-												"type": "text"
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{base_url}}/api/purchase-requests/7",
-											"host": [
-												"{{base_url}}"
-											],
-											"path": [
-												"api",
-												"purchase-requests",
-												"7"
+												"spare-part-requests"
 											]
 										}
 									},
@@ -35533,7 +35597,7 @@
 										},
 										{
 											"key": "Date",
-											"value": "Fri, 14 Aug 2026 14:07:26 GMT"
+											"value": "Sat, 15 Aug 2026 09:53:39 GMT"
 										},
 										{
 											"key": "Content-Type",
@@ -35545,7 +35609,833 @@
 										}
 									],
 									"cookie": [],
-									"body": "{\n    \"status\": 1,\n    \"data\": [],\n    \"message\": \"purchase request deleted successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-14T17:07:26+03:00\"\n}"
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 7,\n            \"order_id\": 31,\n            \"order\": {\n                \"id\": 31,\n                \"booking_group_id\": null,\n                \"customer_id\": 13,\n                \"company_id\": null,\n                \"car_id\": 7,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 6,\n                \"category_id\": 3,\n                \"booking_type\": false,\n                \"is_vip\": false,\n                \"status\": \"assigned\",\n                \"scheduled_at\": \"2026-08-08T21:03:28+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": null,\n                \"cancel_reason\": null,\n                \"assigned_at\": \"2026-08-10T05:42:59+03:00\",\n                \"location_lat\": \"24.7298970\",\n                \"location_lng\": \"46.1123060\",\n                \"location_address\": \"825 Isadore Heights Apt. 245\\nSouth Maud, GA 91126-8157\",\n                \"distance_km\": \"5.94\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"80.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Reprehenderit veritatis quo ratione amet quod illum.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 3,\n            \"material\": {\n                \"id\": 3,\n                \"material_unit_id\": 2,\n                \"unit\": {\n                    \"id\": 2,\n                    \"name\": \"Piece\",\n                    \"name_ar\": \"قطعة\",\n                    \"is_decimal\": false\n                },\n                \"name\": \"Microfiber Towel (Ultra Soft)\",\n                \"name_ar\": \"منشفة مايكروفايبر ناعمة فائقة الامتصاص\",\n                \"description\": \"مناشف خاصة لتجفيف حماية من الخدوش\",\n                \"unit_price\": \"8.00\",\n                \"is_visible_to_customer\": false,\n                \"is_active\": true\n            },\n            \"quantity\": 2,\n            \"specifications\": null,\n            \"status\": \"pending\",\n            \"notes\": null,\n            \"decided_at\": null,\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 6,\n            \"order_id\": 31,\n            \"order\": {\n                \"id\": 31,\n                \"booking_group_id\": null,\n                \"customer_id\": 13,\n                \"company_id\": null,\n                \"car_id\": 7,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 6,\n                \"category_id\": 3,\n                \"booking_type\": false,\n                \"is_vip\": false,\n                \"status\": \"assigned\",\n                \"scheduled_at\": \"2026-08-08T21:03:28+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": null,\n                \"cancel_reason\": null,\n                \"assigned_at\": \"2026-08-10T05:42:59+03:00\",\n                \"location_lat\": \"24.7298970\",\n                \"location_lng\": \"46.1123060\",\n                \"location_address\": \"825 Isadore Heights Apt. 245\\nSouth Maud, GA 91126-8157\",\n                \"distance_km\": \"5.94\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"80.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Reprehenderit veritatis quo ratione amet quod illum.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 2,\n            \"material\": {\n                \"id\": 2,\n                \"material_unit_id\": 2,\n                \"unit\": {\n                    \"id\": 2,\n                    \"name\": \"Piece\",\n                    \"name_ar\": \"قطعة\",\n                    \"is_decimal\": false\n                },\n                \"name\": \"Premium Car Shampoo\",\n                \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                \"unit_price\": \"15.00\",\n                \"is_visible_to_customer\": false,\n                \"is_active\": true\n            },\n            \"quantity\": 4,\n            \"specifications\": \"Quis nam et enim odio cum voluptas atque ratione.\",\n            \"status\": \"pending\",\n            \"notes\": null,\n            \"decided_at\": null,\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 5,\n            \"order_id\": 24,\n            \"order\": {\n                \"id\": 24,\n                \"booking_group_id\": null,\n                \"customer_id\": 9,\n                \"company_id\": 1,\n                \"car_id\": 6,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 3,\n                \"category_id\": 2,\n                \"booking_type\": false,\n                \"is_vip\": false,\n                \"status\": \"assigned\",\n                \"scheduled_at\": \"2026-08-03T08:46:59+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": null,\n                \"cancel_reason\": null,\n                \"assigned_at\": \"2026-08-03T12:42:39+03:00\",\n                \"location_lat\": \"24.1551570\",\n                \"location_lng\": \"46.7881250\",\n                \"location_address\": \"9877 Daniel Run Suite 424\\nMoenshire, NY 75380-2238\",\n                \"distance_km\": \"10.22\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"120.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Quis sed aut veritatis ab sit.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 1,\n            \"material\": {\n                \"id\": 1,\n                \"material_unit_id\": 1,\n                \"unit\": {\n                    \"id\": 1,\n                    \"name\": \"Litre\",\n                    \"name_ar\": \"لتر\",\n                    \"is_decimal\": true\n                },\n                \"name\": \"Synthetic Engine Oil 5W-30\",\n                \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                \"unit_price\": \"45.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": 4,\n            \"specifications\": \"Iste cupiditate commodi laborum corporis minima.\",\n            \"status\": \"pending\",\n            \"notes\": null,\n            \"decided_at\": null,\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 4,\n            \"order_id\": 24,\n            \"order\": {\n                \"id\": 24,\n                \"booking_group_id\": null,\n                \"customer_id\": 9,\n                \"company_id\": 1,\n                \"car_id\": 6,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 3,\n                \"category_id\": 2,\n                \"booking_type\": false,\n                \"is_vip\": false,\n                \"status\": \"assigned\",\n                \"scheduled_at\": \"2026-08-03T08:46:59+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": null,\n                \"cancel_reason\": null,\n                \"assigned_at\": \"2026-08-03T12:42:39+03:00\",\n                \"location_lat\": \"24.1551570\",\n                \"location_lng\": \"46.7881250\",\n                \"location_address\": \"9877 Daniel Run Suite 424\\nMoenshire, NY 75380-2238\",\n                \"distance_km\": \"10.22\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"120.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Quis sed aut veritatis ab sit.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 2,\n            \"material\": {\n                \"id\": 2,\n                \"material_unit_id\": 2,\n                \"unit\": {\n                    \"id\": 2,\n                    \"name\": \"Piece\",\n                    \"name_ar\": \"قطعة\",\n                    \"is_decimal\": false\n                },\n                \"name\": \"Premium Car Shampoo\",\n                \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                \"unit_price\": \"15.00\",\n                \"is_visible_to_customer\": false,\n                \"is_active\": true\n            },\n            \"quantity\": 4,\n            \"specifications\": null,\n            \"status\": \"pending\",\n            \"notes\": null,\n            \"decided_at\": null,\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 3,\n            \"order_id\": 15,\n            \"order\": {\n                \"id\": 15,\n                \"booking_group_id\": null,\n                \"customer_id\": 14,\n                \"company_id\": null,\n                \"car_id\": 9,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 1,\n                \"service_id\": 2,\n                \"category_id\": 1,\n                \"booking_type\": true,\n                \"is_vip\": false,\n                \"status\": \"pending\",\n                \"scheduled_at\": \"2026-08-20T23:30:32+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": null,\n                \"cancel_reason\": null,\n                \"assigned_at\": null,\n                \"location_lat\": \"24.8881780\",\n                \"location_lng\": \"46.2462490\",\n                \"location_address\": \"8932 Gottlieb Lakes\\nFaustinostad, NY 01209\",\n                \"distance_km\": \"27.38\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"70.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Officiis ut aut quia hic rerum deserunt voluptatum.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 1,\n            \"employee\": {\n                \"id\": 1,\n                \"branch_id\": 1,\n                \"type\": \"washer\",\n                \"is_active\": true,\n                \"rating_avg\": \"5.00\",\n                \"user\": {\n                    \"id\": 6,\n                    \"name\": \"فني غسيل 1\",\n                    \"email\": \"washer@system.com\",\n                    \"phone\": \"0500000006\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/00ccff?text=people+sint\",\n                    \"is_active\": true,\n                    \"role\": \"employee_washer\"\n                }\n            },\n            \"material_id\": 2,\n            \"material\": {\n                \"id\": 2,\n                \"material_unit_id\": 2,\n                \"unit\": {\n                    \"id\": 2,\n                    \"name\": \"Piece\",\n                    \"name_ar\": \"قطعة\",\n                    \"is_decimal\": false\n                },\n                \"name\": \"Premium Car Shampoo\",\n                \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                \"unit_price\": \"15.00\",\n                \"is_visible_to_customer\": false,\n                \"is_active\": true\n            },\n            \"quantity\": 3,\n            \"specifications\": \"Aut quas tempora vitae alias deleniti voluptatem sed.\",\n            \"status\": \"pending\",\n            \"notes\": null,\n            \"decided_at\": null,\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 2,\n            \"order_id\": 1,\n            \"order\": {\n                \"id\": 1,\n                \"booking_group_id\": null,\n                \"customer_id\": 15,\n                \"company_id\": null,\n                \"car_id\": 5,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 4,\n                \"category_id\": 2,\n                \"booking_type\": true,\n                \"is_vip\": false,\n                \"status\": \"cancelled\",\n                \"scheduled_at\": \"2026-08-11T12:39:48+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": \"2026-08-12T02:21:04+03:00\",\n                \"cancel_reason\": \"Doloremque officiis blanditiis aut assumenda dolore assumenda sed aut.\",\n                \"assigned_at\": null,\n                \"location_lat\": \"24.2223800\",\n                \"location_lng\": \"46.1883060\",\n                \"location_address\": \"52426 Darrion Heights\\nWest Murl, FL 75313\",\n                \"distance_km\": \"16.44\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"90.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Praesentium alias molestiae vel optio.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 3,\n            \"material\": {\n                \"id\": 3,\n                \"material_unit_id\": 2,\n                \"unit\": {\n                    \"id\": 2,\n                    \"name\": \"Piece\",\n                    \"name_ar\": \"قطعة\",\n                    \"is_decimal\": false\n                },\n                \"name\": \"Microfiber Towel (Ultra Soft)\",\n                \"name_ar\": \"منشفة مايكروفايبر ناعمة فائقة الامتصاص\",\n                \"description\": \"مناشف خاصة لتجفيف حماية من الخدوش\",\n                \"unit_price\": \"8.00\",\n                \"is_visible_to_customer\": false,\n                \"is_active\": true\n            },\n            \"quantity\": 3,\n            \"specifications\": \"Ratione dolorum commodi unde rem est et quasi.\",\n            \"status\": \"rejected\",\n            \"notes\": \"Ut dignissimos ipsam eum facilis qui sint et.\",\n            \"decided_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 1,\n            \"order_id\": 1,\n            \"order\": {\n                \"id\": 1,\n                \"booking_group_id\": null,\n                \"customer_id\": 15,\n                \"company_id\": null,\n                \"car_id\": 5,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 4,\n                \"category_id\": 2,\n                \"booking_type\": true,\n                \"is_vip\": false,\n                \"status\": \"cancelled\",\n                \"scheduled_at\": \"2026-08-11T12:39:48+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": \"2026-08-12T02:21:04+03:00\",\n                \"cancel_reason\": \"Doloremque officiis blanditiis aut assumenda dolore assumenda sed aut.\",\n                \"assigned_at\": null,\n                \"location_lat\": \"24.2223800\",\n                \"location_lng\": \"46.1883060\",\n                \"location_address\": \"52426 Darrion Heights\\nWest Murl, FL 75313\",\n                \"distance_km\": \"16.44\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"90.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Praesentium alias molestiae vel optio.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 1,\n            \"material\": {\n                \"id\": 1,\n                \"material_unit_id\": 1,\n                \"unit\": {\n                    \"id\": 1,\n                    \"name\": \"Litre\",\n                    \"name_ar\": \"لتر\",\n                    \"is_decimal\": true\n                },\n                \"name\": \"Synthetic Engine Oil 5W-30\",\n                \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                \"unit_price\": \"45.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": 2,\n            \"specifications\": null,\n            \"status\": \"rejected\",\n            \"notes\": \"Est assumenda sit sint voluptatem.\",\n            \"decided_at\": \"2026-08-15T09:50:06.000000Z\",\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        }\n    ],\n    \"message\": \"spare part requests fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-15T12:53:39+03:00\",\n    \"pagination\": {\n        \"current_page\": 1,\n        \"per_page\": 15,\n        \"total\": 7,\n        \"last_page\": 1\n    }\n}"
+								},
+								{
+									"name": "success for employee to get his spar par request and for customer to get his spare part request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/spare-part-requests",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"spare-part-requests"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 15 Aug 2026 09:53:39 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": [\n        {\n            \"id\": 7,\n            \"order_id\": 31,\n            \"order\": {\n                \"id\": 31,\n                \"booking_group_id\": null,\n                \"customer_id\": 13,\n                \"company_id\": null,\n                \"car_id\": 7,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 6,\n                \"category_id\": 3,\n                \"booking_type\": false,\n                \"is_vip\": false,\n                \"status\": \"assigned\",\n                \"scheduled_at\": \"2026-08-08T21:03:28+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": null,\n                \"cancel_reason\": null,\n                \"assigned_at\": \"2026-08-10T05:42:59+03:00\",\n                \"location_lat\": \"24.7298970\",\n                \"location_lng\": \"46.1123060\",\n                \"location_address\": \"825 Isadore Heights Apt. 245\\nSouth Maud, GA 91126-8157\",\n                \"distance_km\": \"5.94\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"80.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Reprehenderit veritatis quo ratione amet quod illum.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 3,\n            \"material\": {\n                \"id\": 3,\n                \"material_unit_id\": 2,\n                \"unit\": {\n                    \"id\": 2,\n                    \"name\": \"Piece\",\n                    \"name_ar\": \"قطعة\",\n                    \"is_decimal\": false\n                },\n                \"name\": \"Microfiber Towel (Ultra Soft)\",\n                \"name_ar\": \"منشفة مايكروفايبر ناعمة فائقة الامتصاص\",\n                \"description\": \"مناشف خاصة لتجفيف حماية من الخدوش\",\n                \"unit_price\": \"8.00\",\n                \"is_visible_to_customer\": false,\n                \"is_active\": true\n            },\n            \"quantity\": 2,\n            \"specifications\": null,\n            \"status\": \"pending\",\n            \"notes\": null,\n            \"decided_at\": null,\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 6,\n            \"order_id\": 31,\n            \"order\": {\n                \"id\": 31,\n                \"booking_group_id\": null,\n                \"customer_id\": 13,\n                \"company_id\": null,\n                \"car_id\": 7,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 6,\n                \"category_id\": 3,\n                \"booking_type\": false,\n                \"is_vip\": false,\n                \"status\": \"assigned\",\n                \"scheduled_at\": \"2026-08-08T21:03:28+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": null,\n                \"cancel_reason\": null,\n                \"assigned_at\": \"2026-08-10T05:42:59+03:00\",\n                \"location_lat\": \"24.7298970\",\n                \"location_lng\": \"46.1123060\",\n                \"location_address\": \"825 Isadore Heights Apt. 245\\nSouth Maud, GA 91126-8157\",\n                \"distance_km\": \"5.94\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"80.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Reprehenderit veritatis quo ratione amet quod illum.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 2,\n            \"material\": {\n                \"id\": 2,\n                \"material_unit_id\": 2,\n                \"unit\": {\n                    \"id\": 2,\n                    \"name\": \"Piece\",\n                    \"name_ar\": \"قطعة\",\n                    \"is_decimal\": false\n                },\n                \"name\": \"Premium Car Shampoo\",\n                \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                \"unit_price\": \"15.00\",\n                \"is_visible_to_customer\": false,\n                \"is_active\": true\n            },\n            \"quantity\": 4,\n            \"specifications\": \"Quis nam et enim odio cum voluptas atque ratione.\",\n            \"status\": \"pending\",\n            \"notes\": null,\n            \"decided_at\": null,\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 5,\n            \"order_id\": 24,\n            \"order\": {\n                \"id\": 24,\n                \"booking_group_id\": null,\n                \"customer_id\": 9,\n                \"company_id\": 1,\n                \"car_id\": 6,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 3,\n                \"category_id\": 2,\n                \"booking_type\": false,\n                \"is_vip\": false,\n                \"status\": \"assigned\",\n                \"scheduled_at\": \"2026-08-03T08:46:59+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": null,\n                \"cancel_reason\": null,\n                \"assigned_at\": \"2026-08-03T12:42:39+03:00\",\n                \"location_lat\": \"24.1551570\",\n                \"location_lng\": \"46.7881250\",\n                \"location_address\": \"9877 Daniel Run Suite 424\\nMoenshire, NY 75380-2238\",\n                \"distance_km\": \"10.22\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"120.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Quis sed aut veritatis ab sit.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 1,\n            \"material\": {\n                \"id\": 1,\n                \"material_unit_id\": 1,\n                \"unit\": {\n                    \"id\": 1,\n                    \"name\": \"Litre\",\n                    \"name_ar\": \"لتر\",\n                    \"is_decimal\": true\n                },\n                \"name\": \"Synthetic Engine Oil 5W-30\",\n                \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                \"unit_price\": \"45.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": 4,\n            \"specifications\": \"Iste cupiditate commodi laborum corporis minima.\",\n            \"status\": \"pending\",\n            \"notes\": null,\n            \"decided_at\": null,\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 4,\n            \"order_id\": 24,\n            \"order\": {\n                \"id\": 24,\n                \"booking_group_id\": null,\n                \"customer_id\": 9,\n                \"company_id\": 1,\n                \"car_id\": 6,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 3,\n                \"category_id\": 2,\n                \"booking_type\": false,\n                \"is_vip\": false,\n                \"status\": \"assigned\",\n                \"scheduled_at\": \"2026-08-03T08:46:59+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": null,\n                \"cancel_reason\": null,\n                \"assigned_at\": \"2026-08-03T12:42:39+03:00\",\n                \"location_lat\": \"24.1551570\",\n                \"location_lng\": \"46.7881250\",\n                \"location_address\": \"9877 Daniel Run Suite 424\\nMoenshire, NY 75380-2238\",\n                \"distance_km\": \"10.22\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"120.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Quis sed aut veritatis ab sit.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 2,\n            \"material\": {\n                \"id\": 2,\n                \"material_unit_id\": 2,\n                \"unit\": {\n                    \"id\": 2,\n                    \"name\": \"Piece\",\n                    \"name_ar\": \"قطعة\",\n                    \"is_decimal\": false\n                },\n                \"name\": \"Premium Car Shampoo\",\n                \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                \"unit_price\": \"15.00\",\n                \"is_visible_to_customer\": false,\n                \"is_active\": true\n            },\n            \"quantity\": 4,\n            \"specifications\": null,\n            \"status\": \"pending\",\n            \"notes\": null,\n            \"decided_at\": null,\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 3,\n            \"order_id\": 15,\n            \"order\": {\n                \"id\": 15,\n                \"booking_group_id\": null,\n                \"customer_id\": 14,\n                \"company_id\": null,\n                \"car_id\": 9,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 1,\n                \"service_id\": 2,\n                \"category_id\": 1,\n                \"booking_type\": true,\n                \"is_vip\": false,\n                \"status\": \"pending\",\n                \"scheduled_at\": \"2026-08-20T23:30:32+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": null,\n                \"cancel_reason\": null,\n                \"assigned_at\": null,\n                \"location_lat\": \"24.8881780\",\n                \"location_lng\": \"46.2462490\",\n                \"location_address\": \"8932 Gottlieb Lakes\\nFaustinostad, NY 01209\",\n                \"distance_km\": \"27.38\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"70.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Officiis ut aut quia hic rerum deserunt voluptatum.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 1,\n            \"employee\": {\n                \"id\": 1,\n                \"branch_id\": 1,\n                \"type\": \"washer\",\n                \"is_active\": true,\n                \"rating_avg\": \"5.00\",\n                \"user\": {\n                    \"id\": 6,\n                    \"name\": \"فني غسيل 1\",\n                    \"email\": \"washer@system.com\",\n                    \"phone\": \"0500000006\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/00ccff?text=people+sint\",\n                    \"is_active\": true,\n                    \"role\": \"employee_washer\"\n                }\n            },\n            \"material_id\": 2,\n            \"material\": {\n                \"id\": 2,\n                \"material_unit_id\": 2,\n                \"unit\": {\n                    \"id\": 2,\n                    \"name\": \"Piece\",\n                    \"name_ar\": \"قطعة\",\n                    \"is_decimal\": false\n                },\n                \"name\": \"Premium Car Shampoo\",\n                \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n                \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n                \"unit_price\": \"15.00\",\n                \"is_visible_to_customer\": false,\n                \"is_active\": true\n            },\n            \"quantity\": 3,\n            \"specifications\": \"Aut quas tempora vitae alias deleniti voluptatem sed.\",\n            \"status\": \"pending\",\n            \"notes\": null,\n            \"decided_at\": null,\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 2,\n            \"order_id\": 1,\n            \"order\": {\n                \"id\": 1,\n                \"booking_group_id\": null,\n                \"customer_id\": 15,\n                \"company_id\": null,\n                \"car_id\": 5,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 4,\n                \"category_id\": 2,\n                \"booking_type\": true,\n                \"is_vip\": false,\n                \"status\": \"cancelled\",\n                \"scheduled_at\": \"2026-08-11T12:39:48+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": \"2026-08-12T02:21:04+03:00\",\n                \"cancel_reason\": \"Doloremque officiis blanditiis aut assumenda dolore assumenda sed aut.\",\n                \"assigned_at\": null,\n                \"location_lat\": \"24.2223800\",\n                \"location_lng\": \"46.1883060\",\n                \"location_address\": \"52426 Darrion Heights\\nWest Murl, FL 75313\",\n                \"distance_km\": \"16.44\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"90.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Praesentium alias molestiae vel optio.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 3,\n            \"material\": {\n                \"id\": 3,\n                \"material_unit_id\": 2,\n                \"unit\": {\n                    \"id\": 2,\n                    \"name\": \"Piece\",\n                    \"name_ar\": \"قطعة\",\n                    \"is_decimal\": false\n                },\n                \"name\": \"Microfiber Towel (Ultra Soft)\",\n                \"name_ar\": \"منشفة مايكروفايبر ناعمة فائقة الامتصاص\",\n                \"description\": \"مناشف خاصة لتجفيف حماية من الخدوش\",\n                \"unit_price\": \"8.00\",\n                \"is_visible_to_customer\": false,\n                \"is_active\": true\n            },\n            \"quantity\": 3,\n            \"specifications\": \"Ratione dolorum commodi unde rem est et quasi.\",\n            \"status\": \"rejected\",\n            \"notes\": \"Ut dignissimos ipsam eum facilis qui sint et.\",\n            \"decided_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        },\n        {\n            \"id\": 1,\n            \"order_id\": 1,\n            \"order\": {\n                \"id\": 1,\n                \"booking_group_id\": null,\n                \"customer_id\": 15,\n                \"company_id\": null,\n                \"car_id\": 5,\n                \"branch_id\": 1,\n                \"workshop_id\": null,\n                \"employee_id\": 2,\n                \"service_id\": 4,\n                \"category_id\": 2,\n                \"booking_type\": true,\n                \"is_vip\": false,\n                \"status\": \"cancelled\",\n                \"scheduled_at\": \"2026-08-11T12:39:48+03:00\",\n                \"started_at\": null,\n                \"completed_at\": null,\n                \"cancelled_at\": \"2026-08-12T02:21:04+03:00\",\n                \"cancel_reason\": \"Doloremque officiis blanditiis aut assumenda dolore assumenda sed aut.\",\n                \"assigned_at\": null,\n                \"location_lat\": \"24.2223800\",\n                \"location_lng\": \"46.1883060\",\n                \"location_address\": \"52426 Darrion Heights\\nWest Murl, FL 75313\",\n                \"distance_km\": \"16.44\",\n                \"discount_amount\": \"0.00\",\n                \"service_price\": \"0.00\",\n                \"sub_service_price\": \"0.00\",\n                \"materials_price\": \"0.00\",\n                \"total_price\": \"90.00\",\n                \"user_package_id\": null,\n                \"package_covered_amount\": \"0.00\",\n                \"cash_due_amount\": \"0.00\",\n                \"notes\": \"Praesentium alias molestiae vel optio.\",\n                \"created_at\": \"2026-08-15T12:50:05+03:00\",\n                \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n            },\n            \"employee_id\": 2,\n            \"employee\": {\n                \"id\": 2,\n                \"branch_id\": 1,\n                \"type\": \"mechanic\",\n                \"is_active\": true,\n                \"rating_avg\": \"4.90\",\n                \"user\": {\n                    \"id\": 7,\n                    \"name\": \"مهندس ميكانيكي 1\",\n                    \"email\": \"mechanic@system.com\",\n                    \"phone\": \"0500000007\",\n                    \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                    \"is_active\": true,\n                    \"role\": \"employee_mechanic\"\n                }\n            },\n            \"material_id\": 1,\n            \"material\": {\n                \"id\": 1,\n                \"material_unit_id\": 1,\n                \"unit\": {\n                    \"id\": 1,\n                    \"name\": \"Litre\",\n                    \"name_ar\": \"لتر\",\n                    \"is_decimal\": true\n                },\n                \"name\": \"Synthetic Engine Oil 5W-30\",\n                \"name_ar\": \"زيت محرك تخليقي 5W-30\",\n                \"description\": \"زيت محرك عالي الجودة يخدم حتى 10,000 كم\",\n                \"unit_price\": \"45.00\",\n                \"is_visible_to_customer\": true,\n                \"is_active\": true\n            },\n            \"quantity\": 2,\n            \"specifications\": null,\n            \"status\": \"rejected\",\n            \"notes\": \"Est assumenda sit sint voluptatem.\",\n            \"decided_at\": \"2026-08-15T09:50:06.000000Z\",\n            \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n            \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n        }\n    ],\n    \"message\": \"spare part requests fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-15T12:53:39+03:00\",\n    \"pagination\": {\n        \"current_page\": 1,\n        \"per_page\": 15,\n        \"total\": 7,\n        \"last_page\": 1\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "show",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{super-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}/api/spare-part-requests/6",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"spare-part-requests",
+										"6"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "does not belnogs  to you",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/spare-part-requests/6",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"spare-part-requests",
+												"6"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 15 Aug 2026 09:55:18 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 6,\n        \"order_id\": 31,\n        \"order\": {\n            \"id\": 31,\n            \"booking_group_id\": null,\n            \"customer_id\": 13,\n            \"company_id\": null,\n            \"car_id\": 7,\n            \"branch_id\": 1,\n            \"workshop_id\": null,\n            \"employee_id\": 2,\n            \"service_id\": 6,\n            \"category_id\": 3,\n            \"booking_type\": false,\n            \"is_vip\": false,\n            \"status\": \"assigned\",\n            \"scheduled_at\": \"2026-08-08T21:03:28+03:00\",\n            \"started_at\": null,\n            \"completed_at\": null,\n            \"cancelled_at\": null,\n            \"cancel_reason\": null,\n            \"assigned_at\": \"2026-08-10T05:42:59+03:00\",\n            \"location_lat\": \"24.7298970\",\n            \"location_lng\": \"46.1123060\",\n            \"location_address\": \"825 Isadore Heights Apt. 245\\nSouth Maud, GA 91126-8157\",\n            \"distance_km\": \"5.94\",\n            \"discount_amount\": \"0.00\",\n            \"service_price\": \"0.00\",\n            \"sub_service_price\": \"0.00\",\n            \"materials_price\": \"0.00\",\n            \"total_price\": \"80.00\",\n            \"user_package_id\": null,\n            \"package_covered_amount\": \"0.00\",\n            \"cash_due_amount\": \"0.00\",\n            \"notes\": \"Reprehenderit veritatis quo ratione amet quod illum.\",\n            \"created_at\": \"2026-08-15T12:50:05+03:00\",\n            \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n        },\n        \"employee_id\": 2,\n        \"employee\": {\n            \"id\": 2,\n            \"branch_id\": 1,\n            \"type\": \"mechanic\",\n            \"is_active\": true,\n            \"rating_avg\": \"4.90\",\n            \"user\": {\n                \"id\": 7,\n                \"name\": \"مهندس ميكانيكي 1\",\n                \"email\": \"mechanic@system.com\",\n                \"phone\": \"0500000007\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                \"is_active\": true,\n                \"role\": \"employee_mechanic\"\n            }\n        },\n        \"material_id\": 2,\n        \"material\": {\n            \"id\": 2,\n            \"material_unit_id\": 2,\n            \"unit\": {\n                \"id\": 2,\n                \"name\": \"Piece\",\n                \"name_ar\": \"قطعة\",\n                \"is_decimal\": false\n            },\n            \"name\": \"Premium Car Shampoo\",\n            \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n            \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n            \"unit_price\": \"15.00\",\n            \"is_visible_to_customer\": false,\n            \"is_active\": true\n        },\n        \"quantity\": 4,\n        \"specifications\": \"Quis nam et enim odio cum voluptas atque ratione.\",\n        \"status\": \"pending\",\n        \"notes\": null,\n        \"decided_at\": null,\n        \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n        \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n    },\n    \"message\": \"spare part request fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-15T12:55:18+03:00\"\n}"
+								},
+								{
+									"name": "success for sa, for admin in his branch, for employee if his request or for customer if his part request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}/api/spare-part-requests/6",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"spare-part-requests",
+												"6"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 15 Aug 2026 09:55:37 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 6,\n        \"order_id\": 31,\n        \"order\": {\n            \"id\": 31,\n            \"booking_group_id\": null,\n            \"customer_id\": 13,\n            \"company_id\": null,\n            \"car_id\": 7,\n            \"branch_id\": 1,\n            \"workshop_id\": null,\n            \"employee_id\": 2,\n            \"service_id\": 6,\n            \"category_id\": 3,\n            \"booking_type\": false,\n            \"is_vip\": false,\n            \"status\": \"assigned\",\n            \"scheduled_at\": \"2026-08-08T21:03:28+03:00\",\n            \"started_at\": null,\n            \"completed_at\": null,\n            \"cancelled_at\": null,\n            \"cancel_reason\": null,\n            \"assigned_at\": \"2026-08-10T05:42:59+03:00\",\n            \"location_lat\": \"24.7298970\",\n            \"location_lng\": \"46.1123060\",\n            \"location_address\": \"825 Isadore Heights Apt. 245\\nSouth Maud, GA 91126-8157\",\n            \"distance_km\": \"5.94\",\n            \"discount_amount\": \"0.00\",\n            \"service_price\": \"0.00\",\n            \"sub_service_price\": \"0.00\",\n            \"materials_price\": \"0.00\",\n            \"total_price\": \"80.00\",\n            \"user_package_id\": null,\n            \"package_covered_amount\": \"0.00\",\n            \"cash_due_amount\": \"0.00\",\n            \"notes\": \"Reprehenderit veritatis quo ratione amet quod illum.\",\n            \"created_at\": \"2026-08-15T12:50:05+03:00\",\n            \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n        },\n        \"employee_id\": 2,\n        \"employee\": {\n            \"id\": 2,\n            \"branch_id\": 1,\n            \"type\": \"mechanic\",\n            \"is_active\": true,\n            \"rating_avg\": \"4.90\",\n            \"user\": {\n                \"id\": 7,\n                \"name\": \"مهندس ميكانيكي 1\",\n                \"email\": \"mechanic@system.com\",\n                \"phone\": \"0500000007\",\n                \"image_url\": \"https://via.placeholder.com/200x200.png/006655?text=people+et\",\n                \"is_active\": true,\n                \"role\": \"employee_mechanic\"\n            }\n        },\n        \"material_id\": 2,\n        \"material\": {\n            \"id\": 2,\n            \"material_unit_id\": 2,\n            \"unit\": {\n                \"id\": 2,\n                \"name\": \"Piece\",\n                \"name_ar\": \"قطعة\",\n                \"is_decimal\": false\n            },\n            \"name\": \"Premium Car Shampoo\",\n            \"name_ar\": \"شامبو غسيل سيارات ممتاز\",\n            \"description\": \"شامبو واكس عالي الرغوة لحماية الطلاء\",\n            \"unit_price\": \"15.00\",\n            \"is_visible_to_customer\": false,\n            \"is_active\": true\n        },\n        \"quantity\": 4,\n        \"specifications\": \"Quis nam et enim odio cum voluptas atque ratione.\",\n        \"status\": \"pending\",\n        \"notes\": null,\n        \"decided_at\": null,\n        \"created_at\": \"2026-08-15T09:50:05.000000Z\",\n        \"updated_at\": \"2026-08-15T09:50:06.000000Z\"\n    },\n    \"message\": \"spare part request fetched successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-15T12:55:37+03:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "store",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{mechanic-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "order_id",
+											"value": "25",
+											"type": "text"
+										},
+										{
+											"key": "material_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "specifications",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "notes",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/spare-part-requests",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"spare-part-requests"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "success for mechanic employee only",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "order_id",
+													"value": "22",
+													"type": "text"
+												},
+												{
+													"key": "material_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "quantity",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "specifications",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "notes",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/spare-part-requests",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"spare-part-requests"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 15 Aug 2026 09:58:42 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 1,\n    \"data\": {\n        \"id\": 9,\n        \"order_id\": 22,\n        \"order\": {\n            \"id\": 22,\n            \"booking_group_id\": null,\n            \"customer_id\": 26,\n            \"company_id\": null,\n            \"car_id\": 6,\n            \"branch_id\": 5,\n            \"workshop_id\": null,\n            \"employee_id\": null,\n            \"service_id\": 5,\n            \"category_id\": 2,\n            \"booking_type\": false,\n            \"is_vip\": false,\n            \"status\": \"pending\",\n            \"scheduled_at\": \"2026-08-15T23:41:53+03:00\",\n            \"started_at\": null,\n            \"completed_at\": null,\n            \"cancelled_at\": null,\n            \"cancel_reason\": null,\n            \"assigned_at\": null,\n            \"location_lat\": \"24.6120120\",\n            \"location_lng\": \"46.5302190\",\n            \"location_address\": \"403 Lurline Loop\\nHettiefurt, WI 85539\",\n            \"distance_km\": \"24.38\",\n            \"discount_amount\": \"0.00\",\n            \"service_price\": \"0.00\",\n            \"sub_service_price\": \"0.00\",\n            \"materials_price\": \"0.00\",\n            \"total_price\": \"100.00\",\n            \"user_package_id\": null,\n            \"package_covered_amount\": \"0.00\",\n            \"cash_due_amount\": \"0.00\",\n            \"notes\": \"Blanditiis sunt odio aut repudiandae voluptatibus autem omnis.\",\n            \"created_at\": \"2026-08-15T12:50:05+03:00\",\n            \"updated_at\": \"2026-08-15T12:50:05+03:00\"\n        },\n        \"employee_id\": 2,\n        \"material_id\": 3,\n        \"material\": {\n            \"id\": 3,\n            \"material_unit_id\": 2,\n            \"name\": \"Microfiber Towel (Ultra Soft)\",\n            \"name_ar\": \"منشفة مايكروفايبر ناعمة فائقة الامتصاص\",\n            \"description\": \"مناشف خاصة لتجفيف حماية من الخدوش\",\n            \"unit_price\": \"8.00\",\n            \"is_visible_to_customer\": false,\n            \"is_active\": true\n        },\n        \"quantity\": 5,\n        \"specifications\": null,\n        \"status\": \"pending\",\n        \"notes\": null,\n        \"decided_at\": null,\n        \"created_at\": \"2026-08-15T09:58:42.000000Z\",\n        \"updated_at\": \"2026-08-15T09:58:42.000000Z\"\n    },\n    \"message\": \"spare part request created successfully\",\n    \"status_code\": 200,\n    \"timestamp\": \"2026-08-15T12:58:42+03:00\"\n}"
+								},
+								{
+									"name": "order status is canceled or completed",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "order_id",
+													"value": "25",
+													"type": "text"
+												},
+												{
+													"key": "material_id",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "quantity",
+													"value": "5",
+													"type": "text"
+												},
+												{
+													"key": "specifications",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "notes",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/spare-part-requests",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"spare-part-requests"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 15 Aug 2026 10:06:11 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"You cannot request a spare part for a completed or cancelled order.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-15T13:06:11+03:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "approve",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{customer1-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "notes",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/spare-part-requests/23/approve",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"spare-part-requests",
+										"23",
+										"approve"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "already desicded",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "notes",
+													"value": "",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/spare-part-requests/23/approve",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"spare-part-requests",
+												"23",
+												"approve"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 15 Aug 2026 10:41:54 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"This spare part request has already been decided.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-15T13:41:54+03:00\"\n}"
+								}
+							]
+						},
+						{
+							"name": "reject",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{customer2-token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "notes",
+											"value": "rejectin reason",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/api/spare-part-requests/23/reject",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"spare-part-requests",
+										"23",
+										"reject"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "does not belongs to you",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "notes",
+													"value": "rejectin reason",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/spare-part-requests/18/reject",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"spare-part-requests",
+												"18",
+												"reject"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 15 Aug 2026 09:41:49 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"You are not authorized to view this spare part request.\",\n    \"status_code\": 403,\n    \"timestamp\": \"2026-08-15T12:41:49+03:00\"\n}"
+								},
+								{
+									"name": "this spare part already rejected",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "notes",
+													"value": "rejectin reason",
+													"type": "text",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}/api/spare-part-requests/23/reject",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"api",
+												"spare-part-requests",
+												"23",
+												"reject"
+											]
+										}
+									},
+									"status": "Unprocessable Content",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Host",
+											"value": "localhost:8000"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "PHP/8.3.11"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "no-cache, private"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 15 Aug 2026 10:19:43 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": 0,\n    \"data\": [],\n    \"message\": \"This spare part request has already been decided.\",\n    \"status_code\": 422,\n    \"timestamp\": \"2026-08-15T13:19:43+03:00\"\n}"
 								}
 							]
 						}

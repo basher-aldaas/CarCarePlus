@@ -29,16 +29,16 @@ class CreateSparePartRequestRequest extends FormRequest
                 'exists:orders,id',
             ],
 
-            'part_name' => [
+            'material_id' => [
                 'required',
-                'string',
-                'max:255',
+                'integer',
+                'exists:materials,id',
             ],
 
-            'part_number' => [
-                'nullable',
-                'string',
-                'max:255',
+            'quantity' => [
+                'required',
+                'integer',
+                'min:1',
             ],
 
             'specifications' => [

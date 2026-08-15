@@ -158,10 +158,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(SparePartRequest::class, 'admin_id');
     }
-    public function contracts(): HasMany
-    {
-        return $this->hasMany(Contract::class, 'created_by');
-    }
 
 
 }

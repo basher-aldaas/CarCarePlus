@@ -33,8 +33,4 @@ class Company extends Model
     {
         return $this->hasMany(Order::class, 'company_id');
     }
-    public function contracts(): HasMany
-    {
-        return $this->hasMany(Contract::class, 'company_id');
-    }
 }

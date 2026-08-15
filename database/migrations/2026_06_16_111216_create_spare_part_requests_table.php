@@ -24,16 +24,14 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
-            $table->foreignId('admin_id')
-                ->nullable()
-                ->constrained('users')
+            $table->foreignId('material_id')
+                ->constrained('materials')
                 ->cascadeOnUpdate()
-                ->nullOnDelete();
+                ->restrictOnDelete();
 
-            $table->string('part_name');
+            $table->unsignedInteger('quantity')
+                ->default(1);
 
-            $table->string('part_number')
-                ->nullable();
 
             $table->text('specifications')
                 ->nullable();
@@ -41,6 +39,9 @@ return new class extends Migration
             $table->enum('status', SparePartRequestStatus::values());
 
             $table->text('notes')
+                ->nullable();
+
+            $table->timestamp('decided_at')
                 ->nullable();
 
             $table->timestamp('created_at')

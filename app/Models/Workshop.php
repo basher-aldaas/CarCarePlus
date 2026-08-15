@@ -34,9 +34,4 @@ class Workshop extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function contracts(): HasMany
-    {
-        return $this->hasMany(Contract::class, 'workshop_id');
-    }
-
 }

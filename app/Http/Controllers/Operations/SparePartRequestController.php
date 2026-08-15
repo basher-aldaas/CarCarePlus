@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Operations;
 
 use App\DTOs\SparePartRequestDTO;
+use App\Exceptions\OnleEmployeeExciption;
+use App\Exceptions\SparePartRequestShowUnauthorizedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OperationsRequest\SparePartRequestRequest\CreateSparePartRequestRequest;
 use App\Http\Requests\OperationsRequest\SparePartRequestRequest\DecideSparePartRequestRequest;
@@ -12,6 +14,7 @@ use App\Models\SparePartRequest;
 use App\Services\Operations\SparePartRequestService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\throwException;
 
 class SparePartRequestController extends Controller
 {
@@ -25,10 +28,12 @@ class SparePartRequestController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $filters = $request->only(['order_id', 'employee_id', 'status']);
-
         return Response::Success(
-            data: SparePartRequestResource::collection($this->sparePartRequestService->index($request->integer('per_page', 15), $filters)),
+            data: SparePartRequestResource::collection(
+                $this->sparePartRequestService->index(
+                    $request->integer('per_page', 15)
+                )
+            ),
             message: 'spare part requests fetched successfully'
         );
     }
@@ -40,7 +45,6 @@ class SparePartRequestController extends Controller
     {
         $employeeId = $request->user()->employee?->id;
 
-        abort_unless($employeeId !== null, 403, __('Only employees can request spare parts'));
 
         $dto = SparePartRequestDTO::fromArray($request->validated());
 
@@ -64,7 +68,7 @@ class SparePartRequestController extends Controller
     }
 
     /**
-     * Approve the specified spare part request.
+     * Approve the specified spare part request (order owner only).
      */
     public function approve(DecideSparePartRequestRequest $request, SparePartRequest $sparePartRequest): JsonResponse
     {
@@ -77,7 +81,7 @@ class SparePartRequestController extends Controller
     }
 
     /**
-     * Reject the specified spare part request.
+     * Reject the specified spare part request (order owner only).
      */
     public function reject(DecideSparePartRequestRequest $request, SparePartRequest $sparePartRequest): JsonResponse
     {

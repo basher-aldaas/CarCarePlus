@@ -15,13 +15,9 @@ return new class extends Migration
         Schema::create('workshops', function (Blueprint $table) {
             $table->id();
 
-            // Owner account (the workshop-role user who registered it).
-            // Nullable so system-seeded partner workshops can exist without an owner.
             $table->foreignId('user_id')
-              //  ->nullable()
                 ->constrained('users')
                 ->cascadeOnUpdate();
-                //->nullOnDelete();
 
             $table->string('name');
 

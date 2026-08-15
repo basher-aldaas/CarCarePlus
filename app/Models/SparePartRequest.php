@@ -11,16 +11,18 @@ class SparePartRequest extends Model
     protected $fillable = [
         'order_id',
         'employee_id',
-        'admin_id',
-        'part_name',
-        'part_number',
+        'material_id',
+        'quantity',
         'specifications',
         'status',
         'notes',
+        'decided_at',
     ];
 
     protected $casts = [
+        'quantity' => 'integer',
         'status' => SparePartRequestStatus::class,
+        'decided_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -33,8 +35,8 @@ class SparePartRequest extends Model
     {
         return $this->belongsTo(Employee::class, 'employee_id');
     }
-    public function admin(): BelongsTo
+    public function material(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'admin_id');
+        return $this->belongsTo(Material::class, 'material_id');
     }
 }
