@@ -8,6 +8,7 @@ use App\Http\Controllers\Operations\BookingController;
 use App\Http\Controllers\Operations\CarController;
 use App\Http\Controllers\Operations\CategoryController;
 use App\Http\Controllers\Operations\CompanyController;
+use App\Http\Controllers\Operations\EnumController;
 use App\Http\Controllers\Operations\PaymentController;
 use App\Http\Controllers\Operations\PointController;
 use App\Http\Controllers\Operations\PointsTransactionController;
@@ -44,6 +45,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SuperAdmin\Operations\AdminController;
+use App\Http\Controllers\SuperAdmin\Operations\PurchasePaymentController;
 use App\Http\Controllers\SuperAdmin\Operations\PurchaseRequestController;
 use App\Http\Controllers\SuperAdmin\Operations\PurchaseRequestItemController;
 use App\Http\Controllers\SuperAdmin\Operations\AuditLogController;
@@ -89,6 +91,7 @@ Route::middleware(['auth:sanctum', 'active.user'])
 
         Route::post('bookings/{id}', [BookingController::class, 'update'])->whereNumber('id')->middleware('can:edit.order'); //super admin, admin, workshop, employee
         Route::delete('bookings/{id}', [BookingController::class, 'cancel'])->whereNumber('id')->middleware('can:cancel.order'); //super admin, admin, customer
+        Route::post('bookings/{id}/discount', [BookingController::class, 'discount'])->whereNumber('id')->middleware('can:discount.order'); //super admin
         Route::post('bookings/{id}/assign', [BookingController::class, 'assign'])->whereNumber('id')->middleware('can:assign.order'); //super admin, admin
         Route::post('bookings/{id}/start', [BookingController::class, 'start'])->whereNumber('id')->middleware('can:edit.order'); //super admin, admin, workshop, employee
         Route::post('bookings/{id}/complete', [BookingController::class, 'complete'])->whereNumber('id')->middleware('can:edit.order'); //super admin, admin, workshop, employee
@@ -119,6 +122,7 @@ Route::middleware(['auth:sanctum'])
 Route::middleware(['auth:sanctum'])->group(function () {
 
     //for all
+    Route::get('/enums', [EnumController::class, 'index']);
     Route::get('/categories',[CategoryController::class,'index'])->middleware('can:show.categories');
     Route::get('/categories/{id}',[CategoryController::class,'show'])->middleware('can:show.categories');
     Route::get('/services',[ServiceController::class,'index'])->middleware('can:show.services');
@@ -155,6 +159,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
     Route::middleware('active.user')->group(function (){
+        Route::get('bookings/{id}/maintenance-detail', [BookingController::class, 'maintenanceDetail'])->whereNumber('id')->middleware('can:show.maintenance_details');//for all
+        Route::get('bookings/{id}/road-detail', [BookingController::class, 'roadDetail'])->whereNumber('id')->middleware('can:show.road_assistance_details');//for all
         Route::get('bookings/{id}', [BookingController::class, 'show'])->whereNumber('id')->middleware('can:show.orders');
         Route::get('bookings/{id}/status-history', [BookingController::class, 'statusHistory'])->whereNumber('id')->middleware('can:show.order_status_history');//all except workshop
         Route::get('bookings/{id}/price-items', [BookingController::class, 'priceItems'])->whereNumber('id')->middleware('can:show.order_price_items');//all except workshop
@@ -162,17 +168,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('bookings/{id}/materials', [BookingController::class, 'materials'])->whereNumber('id')->middleware('can:show.order_materials');//all except workshop
         Route::get('/spare-part-requests', [SparePartRequestController::class, 'index'])->middleware('can:show.spare_part_requests');//all except workshop
         Route::get('/spare-part-requests/{sparePartRequest}', [SparePartRequestController::class, 'show'])->whereNumber('sparePartRequest')->middleware('can:show.spare_part_requests');//all except workshop
-
-
-        Route::get('bookings/{id}/maintenance-detail', [BookingController::class, 'maintenanceDetail'])->whereNumber('id')->middleware('can:show.maintenance_details');
-        Route::post('bookings/{id}/maintenance-detail', [BookingController::class, 'updateMaintenanceDetail'])->whereNumber('id')->middleware('can:manage.maintenance_details');//for SA, A, Employee, workshop
-        Route::get('bookings/{id}/road-detail', [BookingController::class, 'roadDetail'])->whereNumber('id')->middleware('can:show.road_assistance_details');
-        Route::post('bookings/{id}/road-detail', [BookingController::class, 'updateRoadDetail'])->whereNumber('id')->middleware('can:manage.road_assistance_details');//for SA, A, Employee, workshop
-        Route::get('bookings/{id}/towing-detail', [BookingController::class, 'towingDetail'])->whereNumber('id')->middleware('can:show.towing_details');//for SA, A, Employee, Customer
-        Route::post('bookings/{id}/towing-detail', [BookingController::class, 'updateTowingDetail'])->whereNumber('id')->middleware('can:manage.towing_details');// for SA, A, Employee
-
+        Route::get('bookings/{id}/towing-detail', [BookingController::class, 'towingDetail'])->whereNumber('id')->middleware('can:show.towing_details');//all except workshop
+        Route::post('bookings/{id}/maintenance-detail', [BookingController::class, 'updateMaintenanceDetail'])->whereNumber('id')->middleware('can:manage.maintenance_details');//all except customer
+        Route::post('bookings/{id}/road-detail', [BookingController::class, 'updateRoadDetail'])->whereNumber('id')->middleware('can:manage.road_assistance_details');//all except customer
         Route::get('/workshops/nearby', [WorkshopController::class, 'nearby'])->middleware('can:browse.workshops');// customer picks a workshop
-        //Route::get('/workshops/cars/{car}/history', [WorkshopController::class, 'carHistory'])->middleware('can:show.car_service_history');// workshop manager viewing a visiting car's maintenance + road assistance history
     });
 
 
@@ -186,6 +185,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/users/{user}', [UserController::class, 'show'])->middleware('can:show.profile');
         Route::get('/pricing-rules', [PricingRuleController::class, 'index'])->middleware('can:show.pricing_rules');
         Route::get('/pricing-rules/{pricing_rule}', [PricingRuleController::class, 'show'])->middleware('can:show.pricing_rules');
+        Route::post('bookings/{id}/towing-detail/destination', [BookingController::class, 'submitTowingDestination'])->whereNumber('id')->middleware('can:manage.towing_details');
+        Route::post('bookings/{id}/towing-detail', [BookingController::class, 'updateTowingDetail'])->whereNumber('id')->middleware('can:manage.towing_details');
 
     });
 
@@ -267,6 +268,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/purchase-request-items', [PurchaseRequestItemController::class, 'index'])->middleware('can:manage.purchase_request_items');
         Route::get('/purchase-request-items/{purchaseRequestItem}', [PurchaseRequestItemController::class, 'show'])->whereNumber('purchaseRequestItem')->middleware('can:manage.purchase_request_items');
 
+        Route::get('/purchase-payments', [PurchasePaymentController::class, 'index'])->middleware('can:manage.purchase_payments');
+        Route::get('/purchase-payments/{purchasePayment}', [PurchasePaymentController::class, 'show'])->whereNumber('purchasePayment')->middleware('can:manage.purchase_payments');
+
     });
     Route::get('/material-units', [MaterialUnitController::class, 'index'])->middleware('can:show.material_units');
     Route::get('/material-units/{material_unit}', [MaterialUnitController::class, 'show'])->middleware('can:show.material_units');
@@ -288,6 +292,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware('active.user')->group(function () {
         Route::post('bookings/quote', [BookingController::class, 'quote'])->middleware('can:create.order');
         Route::post('bookings/confirm', [BookingController::class, 'confirm'])->middleware('can:create.order');
+        Route::get('bookings/{id}/rebook', [BookingController::class, 'rebook'])->whereNumber('id')->middleware('can:create.order');
+        Route::post('bookings/{id}/rebook/quote', [BookingController::class, 'rebookQuote'])->whereNumber('id')->middleware('can:create.order');
         Route::post('ratings', [RatingController::class, 'store'])->middleware('can:create.rating');
         Route::post('ratings/{id}', [RatingController::class, 'update'])->whereNumber('id')->middleware('can:create.rating');
         Route::get('wallets/my', [WalletController::class, 'myWallet'])->middleware('can:show.wallet');
@@ -301,8 +307,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/spare-part-requests', [SparePartRequestController::class, 'store'])->middleware('can:create.spare_part_request');
     });
 
+    Route::middleware('active.user')->group(function (){
+        Route::get('/workshops/cars/{car}/history', [WorkshopController::class, 'carHistory'])->middleware('can:show.car_service_history');// workshop manager viewing a visiting car's maintenance + road assistance history
+    });
 
-    //for admin
+
+        //for admin
     Route::middleware('active.admin')->group(function () {
     Route::post('/purchase-requests', [PurchaseRequestController::class, 'store'])->middleware('can:add.purchase_requests');
     Route::post('/purchase-requests/{purchaseRequest}', [PurchaseRequestController::class, 'update'])->whereNumber('purchaseRequest')->middleware('can:edit.purchase_requests');

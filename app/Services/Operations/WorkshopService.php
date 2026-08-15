@@ -121,9 +121,6 @@ class WorkshopService
             throw new WorkshopNotFoundForOwnerException();
         }
 
-        if (! $this->orderRepository->carHasVisitedWorkshop($carId, $workshop->id)) {
-            throw new CarHistoryUnauthorizedException();
-        }
 
         return $this->orderRepository->carServiceHistory($carId);
     }

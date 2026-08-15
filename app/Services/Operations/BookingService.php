@@ -14,6 +14,8 @@ use App\Exceptions\BookingEditWindowExpiredException;
 use App\Exceptions\BookingShowUnauthorizedException;
 use App\Exceptions\BookingUpdateUnauthorizedException;
 use App\Exceptions\InvalidBookingStatusTransitionException;
+use App\Exceptions\InvalidOrderDiscountException;
+use App\Exceptions\TowingDetailNotFoundException;
 use App\Models\Order;
 use App\Models\PointsTransaction;
 use App\Models\UserPoint;
@@ -186,6 +188,28 @@ class BookingService
         );
 
         return $order->towingDetail()->firstOrFail();
+    }
+
+    /**
+     * The towing/flatbed driver, once they've reached the delivery point,
+     * records the actual GPS coordinates of where the car was dropped off.
+     * Only the booking's staff (its assigned employee — the maintenance
+     * employee driving it — its branch admin, or a super admin) may do this,
+     * and only on a booking that actually has a towing detail.
+     */
+    public function submitTowingDestination(int $id, array $data): \App\Models\TowingDetail
+    {
+        $order = $this->authorizeManage($id);
+
+        $detail = $order->towingDetail()->first();
+
+        if ($detail === null) {
+            throw new TowingDetailNotFoundException();
+        }
+
+        $detail->update($this->only($data, ['destination_lat', 'destination_lng']));
+
+        return $detail->refresh();
     }
 
     /**
@@ -384,6 +408,74 @@ class BookingService
             'service_price' => $servicePrice,
             'total_price' => round($servicePrice + (float) $order->sub_service_price + (float) $order->materials_price, 2),
         ]);
+    }
+
+    /**
+     * A super admin grants a discount on a still-pending order (before it is
+     * assigned to an employee). The discount is either a fixed money amount or
+     * a percentage of the current total; it is added to the order's recorded
+     * discount and subtracted from both the total price and the cash still due,
+     * then the order record is updated.
+     *
+     * @param array{type: string, value: float|int|string, reason?: string|null} $data
+     */
+    public function applyDiscount(int $id, array $data): Order
+    {
+        $order = $this->orderRepository->findById($id);
+
+        if (! $this->canManageSuperAdminAndAdmin($order)) {
+            throw new BookingUpdateUnauthorizedException();
+        }
+
+        if ($order->status !== OrderStatus::PENDING) {
+            throw new InvalidBookingStatusTransitionException(
+                __('A discount can only be applied to a pending booking, before it is assigned.')
+            );
+        }
+
+        if ($order->user_package_id !== null) {
+            throw new InvalidOrderDiscountException(
+                __('A discount cannot be applied to a package booking.')
+            );
+        }
+
+        $currentTotal = (float) $order->total_price;
+
+        $discount = round($currentTotal * ((float) $data['value'] / 100), 2);
+
+        if ($discount <= 0 || $discount > $currentTotal) {
+            throw new InvalidOrderDiscountException();
+        }
+
+        return DB::transaction(function () use ($order, $id, $discount, $currentTotal, $data) {
+            $newTotal = round($currentTotal - $discount, 2);
+            $newDiscount = round((float) $order->discount_amount + $discount, 2);
+
+            $attributes = [
+                'discount_amount' => $newDiscount,
+                'total_price' => $newTotal,
+            ];
+
+            if (! empty($data['reason'])) {
+                $attributes['notes'] = trim(($order->notes ? $order->notes . ' | ' : '')
+                    . __('Discount applied: :reason', ['reason' => $data['reason']]));
+            }
+
+            $order->update($attributes);
+
+            // Keep the recorded payment in step with the reduced total: cash
+            // lowers what's still owed, while wallet/points (already charged
+            // in full at confirm) return the discounted difference.
+            $payment = $order->payments()->latest('id')->first();
+
+            if ($payment !== null) {
+                $this->paymentMethodHandlerResolver
+                    ->resolve($payment->method)
+                    ->adjustForDiscount($order, $payment, $discount);
+            }
+
+            return $this->orderRepository->findById($id);
+        });
     }
 
     public function assignBooking(int $id, int $employeeId): Order

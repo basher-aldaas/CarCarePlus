@@ -9,10 +9,12 @@ use App\Enums\OrderEnums\OrderSubServiceStatus;
 use App\Enums\PaymentEnums\PaymentMethod;
 use App\Exceptions\BookingBranchInactiveException;
 use App\Exceptions\BookingCompanyInactiveException;
+use App\Exceptions\BookingRebookUnauthorizedException;
 use App\Models\Branch;
 use App\Models\Car;
 use App\Models\Company;
 use App\Models\Inventory;
+use App\Models\Order;
 use App\Models\Service;
 use App\Models\SubService;
 use App\Models\User;
@@ -224,6 +226,127 @@ class BookingQuoteService
                 : null,
             'expires_at' => now()->addMinutes(self::QUOTE_TTL_MINUTES)->toIso8601String(),
         ];
+    }
+
+    /**
+     * Step 1 of rebooking: load a past order and hand its values back as
+     * editable defaults so the frontend can pre-fill the booking form. The
+     * customer may then change everything except the main service before
+     * requesting a quote (see {@see rebookQuote()}).
+     *
+     * Returns the original order (for display) plus a `form_defaults` block
+     * shaped exactly like the create-booking input, so the frontend can seed
+     * the form and post it straight back. `scheduled_at` is intentionally
+     * null (the original time is in the past — the customer picks a new one),
+     * and the service is reported under `locked_fields`.
+     */
+    public function rebookPrefill(int $orderId): Order
+    {
+        $order = Order::with([
+            'car.carType',
+            'branch',
+            'service.category',
+            'subServices.subService',
+            'materials.material',
+            'userPackage.package',
+            'roadAssistance',
+            'towingDetail',
+            'maintenanceDetail',
+            'payments',
+        ])->findOrFail($orderId);
+
+        // A booking may only be rebooked by the customer who placed it.
+        if ($order->customer_id !== auth()->id()) {
+            throw new BookingRebookUnauthorizedException();
+        }
+
+        return $order;
+    }
+
+    /**
+     * Build the create-booking-shaped defaults for a past order, used to seed
+     * the rebooking form. Every value here is editable by the customer except
+     * the service, which is locked.
+     *
+     * @return array<string, mixed>
+     */
+    public function rebookFormDefaults(Order $order): array
+    {
+        $defaults = [
+            'car_ids' => [(int) $order->car_id],
+            // Locked — echoed so the frontend can display it, but rebookQuote()
+            // always forces it back to the original regardless of what is sent.
+            'service_id' => (int) $order->service_id,
+            'booking_type' => (bool) $order->booking_type,
+            // The original time is in the past; the customer picks a new one.
+            'scheduled_at' => null,
+            'is_vip' => (bool) $order->is_vip,
+            'branch_id' => $order->branch_id !== null ? (int) $order->branch_id : null,
+            'location_lat' => $order->location_lat !== null ? (float) $order->location_lat : null,
+            'location_lng' => $order->location_lng !== null ? (float) $order->location_lng : null,
+            'location_address' => $order->location_address,
+            'notes' => $order->notes,
+            // Default to the method used originally, falling back to cash — the
+            // customer can change it, and rebookQuote() re-validates the funding.
+            'payment_method' => $order->payments->first()?->method?->value ?? PaymentMethod::CASH->value,
+            'user_package_id' => $order->user_package_id !== null ? (int) $order->user_package_id : null,
+            'sub_service_ids' => $order->subServices
+                ->pluck('sub_service_id')
+                ->map(fn ($id) => (int) $id)
+                ->values()
+                ->all(),
+            'materials' => $order->materials->map(fn ($material) => [
+                'material_id' => (int) $material->material_id,
+                'quantity' => (float) $material->quantity,
+            ])->values()->all(),
+        ];
+
+        // Booking-type-specific inputs, carried over as defaults.
+        if ($order->roadAssistance) {
+            $defaults['problem_type_id'] = $order->roadAssistance->problem_type_id;
+            $defaults['problem_description'] = $order->roadAssistance->problem_description;
+            $defaults['problem_image_url'] = $order->roadAssistance->problem_image_url;
+        }
+
+        if ($order->towingDetail) {
+            $defaults['destination_lat'] = $order->towingDetail->destination_lat !== null
+                ? (float) $order->towingDetail->destination_lat : null;
+            $defaults['destination_lng'] = $order->towingDetail->destination_lng !== null
+                ? (float) $order->towingDetail->destination_lng : null;
+            $defaults['destination_address'] = $order->towingDetail->destination_address;
+        }
+
+        if ($order->maintenanceDetail) {
+            $defaults['workshop_id'] = $order->maintenanceDetail->workshop_id;
+        }
+
+        return $defaults;
+    }
+
+    /**
+     * Step 2 of rebooking: price the customer's edited form. This runs the
+     * full, normal quote pipeline — car ownership, branch, stock, sub-service
+     * validity and payment funding are all re-validated at current values —
+     * with a single constraint: the main service is locked to the original
+     * booking and cannot be changed, no matter what the client sends.
+     *
+     * The returned quote_token is redeemed through the existing confirm()
+     * endpoint, exactly like a first-time booking.
+     */
+    public function rebookQuote(int $orderId, array $data): array
+    {
+        $order = Order::findOrFail($orderId);
+
+        // A booking may only be rebooked by the customer who placed it.
+        if ($order->customer_id !== auth()->id()) {
+            throw new BookingRebookUnauthorizedException();
+        }
+
+        // Lock the main service to the original booking — the one field the
+        // customer is not allowed to change when rebooking.
+        $data['service_id'] = $order->service_id;
+
+        return $this->quote($data);
     }
 
     /**

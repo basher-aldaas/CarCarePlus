@@ -70,4 +70,23 @@ class WalletPaymentHandler implements PaymentMethodHandlerInterface
 
         $payment->update(['status' => PaymentStatus::REFUNDED]);
     }
+
+    /**
+     * The wallet was already debited the full amount at confirm time, so a
+     * discount means the customer overpaid — credit the discounted difference
+     * back to their wallet and shrink the payment to the new amount.
+     */
+    public function adjustForDiscount(Order $order, Payment $payment, float $discount): void
+    {
+        $this->walletRepository->credit(
+            userId: $order->customer_id,
+            reason: WalletTransactionReason::ADJUSTMENT,
+            amount: $discount,
+            note: __('Discount on booking #:id', ['id' => $order->id]),
+        );
+
+        $payment->update([
+            'amount' => max(0, round((float) $payment->amount - $discount, 2)),
+        ]);
+    }
 }

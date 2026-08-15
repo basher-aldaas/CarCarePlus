@@ -26,4 +26,13 @@ interface PaymentMethodHandlerInterface
      * use) and mark the Payment refunded. A no-op if it's already refunded.
      */
     public function refund(Order $order, Payment $payment): void;
+
+    /**
+     * Reduce a still-pending order's Payment by a $discount granted on it.
+     * Cash simply lowers the amount still owed; already-charged methods
+     * (wallet, points) additionally return the discounted difference to the
+     * customer's balance. $discount is a positive money amount already
+     * validated against the order total.
+     */
+    public function adjustForDiscount(Order $order, Payment $payment, float $discount): void;
 }

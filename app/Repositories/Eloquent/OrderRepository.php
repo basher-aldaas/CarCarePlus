@@ -107,10 +107,11 @@ class OrderRepository
      */
     public function carServiceHistory(int $carId): Collection
     {
-        return Order::with(array_merge($this->with, ['roadAssistance.problemType']))
+        return Order::with(array_merge(['roadAssistance.problemType','maintenanceDetail','towingDetail','reports','sparePartRequests', 'car', 'workshop', 'employee', 'service', 'category', 'subServices.subService', 'materials.material']))
             ->where('car_id', $carId)
             ->whereHas('category', function (Builder $query) {
                 $query->where('name', 'like', '%maintenance%')
+                    ->orWhere('name', 'like', '%towing%')
                     ->orWhere('name', 'like', '%roadside%');
             })
             ->latest()

@@ -99,6 +99,7 @@ class RolePermissionSeeder extends Seeder
             'show.inventory_transactions',
             'manage.purchase_requests', 'approve.purchase_request', 'reject.purchase_request',
             'manage.purchase_request_items',
+            'manage.purchase_payments',
 
             // === الباقات والاشتراكات ===
             'manage.packages', 'show.packages',
@@ -107,7 +108,7 @@ class RolePermissionSeeder extends Seeder
             'manage.user_packages', 'show.user_packages', 'add.user_package', 'edit.user_package',
 
             // === الطلبات والعمليات الميدانية ===
-            'edit.order', 'cancel.order', 'assign.order', 'show.orders',
+            'edit.order', 'cancel.order', 'assign.order', 'discount.order', 'show.orders',
             'show.order_sub_services',
             'show.order_materials',
             'show.order_status_history',
@@ -163,13 +164,14 @@ class RolePermissionSeeder extends Seeder
             'show.ai_rules',
             // === الخدمات والأسعار (عرض فقط) ===
             'show.categories', 'show.services', 'show.sub_services', 'show.pricing_rules',
-
+            'discount.order',
             // === المواد، المخزون، والمشتريات (صلاحيات كاملة للفرع) ===
             'show.materials','show.material',
             'show.material_units',
             'manage.inventory', 'show.inventory',
             'show.inventory_transactions',
             'manage.purchase_requests', 'manage.purchase_request_items','add.purchase_requests','edit.purchase_requests','delete.purchase_requests',
+            'manage.purchase_payments',
             'show.system_settings',
             // === الباقات والاشتراكات ===
             'show.packages', 'show.package_services', 'show.package_service_sub_services',

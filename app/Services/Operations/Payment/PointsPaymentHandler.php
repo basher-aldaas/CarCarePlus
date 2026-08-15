@@ -89,6 +89,34 @@ class PointsPaymentHandler implements PaymentMethodHandlerInterface
         $payment->update(['status' => PaymentStatus::REFUNDED]);
     }
 
+    /**
+     * Points were already redeemed for the full amount at confirm time, so a
+     * discount means the customer over-redeemed — return the points for the
+     * discounted difference and shrink the payment to the new amount.
+     */
+    public function adjustForDiscount(Order $order, Payment $payment, float $discount): void
+    {
+        $newAmount = max(0, round((float) $payment->amount - $discount, 2));
+        $newPointsUsed = $this->pointsFor($newAmount, $this->activeConfig());
+        $pointsToReturn = (int) $payment->points_used - $newPointsUsed;
+
+        if ($pointsToReturn > 0) {
+            $this->pointRepository->createTransaction(
+                customer_id: $order->customer_id,
+                type: PointsTransactionType::EARN,
+                points: $pointsToReturn,
+                reference_type: 'order',
+                reference_id: $order->id,
+                note: __('Discount on booking #:id', ['id' => $order->id]),
+            );
+        }
+
+        $payment->update([
+            'amount' => $newAmount,
+            'points_used' => $newPointsUsed,
+        ]);
+    }
+
     protected function activeConfig(): PointsConfig
     {
         $config = PointsConfig::where('is_active', true)->first();

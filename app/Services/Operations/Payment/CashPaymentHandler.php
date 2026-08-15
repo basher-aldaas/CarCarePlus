@@ -42,4 +42,15 @@ class CashPaymentHandler implements PaymentMethodHandlerInterface
 
         $payment->update(['status' => PaymentStatus::REFUNDED]);
     }
+
+    /**
+     * Cash hasn't been collected yet, so a discount simply lowers the amount
+     * the customer will owe on delivery — no money to return.
+     */
+    public function adjustForDiscount(Order $order, Payment $payment, float $discount): void
+    {
+        $payment->update([
+            'amount' => max(0, round((float) $payment->amount - $discount, 2)),
+        ]);
+    }
 }

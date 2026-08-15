@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Operations;
 
 use App\DTOs\OrderDTO;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OperationsRequest\BookingRequest\ApplyOrderDiscountRequest;
 use App\Http\Requests\OperationsRequest\BookingRequest\AssignBookingRequest;
 use App\Http\Requests\OperationsRequest\BookingRequest\CancelBookingRequest;
 use App\Http\Requests\OperationsRequest\BookingRequest\ConfirmBookingRequest;
 use App\Http\Requests\OperationsRequest\BookingRequest\CreateBookingRequest;
+use App\Http\Requests\OperationsRequest\BookingRequest\RebookQuoteBookingRequest;
 use App\Http\Requests\OperationsRequest\BookingRequest\UpdateBookingRequest;
+use App\Http\Requests\OperationsRequest\OrderDetailRequest\SubmitTowingDestinationRequest;
 use App\Http\Requests\OperationsRequest\OrderDetailRequest\UpdateMaintenanceDetailRequest;
 use App\Http\Requests\OperationsRequest\OrderDetailRequest\UpdateRoadDetailRequest;
 use App\Http\Requests\OperationsRequest\OrderDetailRequest\UpdateTowingDetailRequest;
@@ -91,6 +94,68 @@ class BookingController extends Controller
     }
 
     /**
+     * Step 1 of rebooking: return a past order with its values as editable
+     * form defaults. The frontend pre-fills the booking form from
+     * `form_defaults`; the customer may change everything except the main
+     * service (see `locked_fields`) before requesting a quote via
+     * rebookQuote(). Prices are not computed here — that happens on quote.
+     */
+    public function rebook(int $id): JsonResponse
+    {
+        $order = $this->bookingQuoteService->rebookPrefill($id);
+
+        return Response::Success(
+            data: [
+                'booking' => new OrderResource($order),
+                'form_defaults' => $this->bookingQuoteService->rebookFormDefaults($order),
+            ],
+            message: __('Rebooking form loaded successfully')
+        );
+    }
+
+    /**
+     * Step 2 of rebooking: price the customer's edited form. Runs the full
+     * normal quote pipeline (car, branch, stock, sub-services, payment are all
+     * re-validated) with the main service locked to the original booking. The
+     * returned quote_token is confirmed through the existing confirm() flow.
+     */
+    public function rebookQuote(RebookQuoteBookingRequest $request, int $id): JsonResponse
+    {
+        $result = $this->bookingQuoteService->rebookQuote($id, $request->validated());
+
+        if ($result['requires_package_selection'] ?? false) {
+            return Response::Success(
+                data: [
+                    'requires_package_selection' => true,
+                    'available_packages' => UserPackageResource::collection($result['eligible_packages']),
+                    'distance_km' => $result['distance_km'] ?? null,
+                    'sub_services' => SubServiceResource::collection($result['sub_services']),
+                    'materials' => $result['materials'],
+                    'car_count' => $result['car_count'],
+                ],
+                message: __('Choose which package to use for this booking')
+            );
+        }
+
+        return Response::Success(
+            data: [
+                'quote_token' => $result['quote_token'],
+                'branch' => $result['branch'] ? new BranchResource($result['branch']) : null,
+                'distance_km' => $result['distance_km'] ?? null,
+                'sub_services' => SubServiceResource::collection($result['sub_services']),
+                'materials' => $result['materials'],
+                'user_package' => $result['user_package'] ? new UserPackageResource($result['user_package']) : null,
+                'car_count' => $result['car_count'],
+                'invoice' => $result['cars'],
+                'total_price' => $result['total_price'],
+                'cash_due_total' => $result['cash_due_total'],
+                'expires_at' => $result['expires_at'],
+            ],
+            message: __('Rebooking quote generated successfully')
+        );
+    }
+
+    /**
      * Step 2 of booking: redeem the quote_token and actually create the
      * order(s) — one per car — sharing a booking_group_id.
      */
@@ -135,6 +200,19 @@ class BookingController extends Controller
         return Response::Success(
             data: new OrderResource($result),
             message: __('Booking cancelled successfully')
+        );
+    }
+
+    /**
+     * Super admin grants a discount on a pending order (before assignment).
+     */
+    public function discount(ApplyOrderDiscountRequest $request, int $id): JsonResponse
+    {
+        $result = $this->bookingService->applyDiscount($id, $request->validated());
+
+        return Response::Success(
+            data: new OrderResource($result),
+            message: __('Discount applied successfully')
         );
     }
 
@@ -281,6 +359,18 @@ class BookingController extends Controller
         return Response::Success(
             data: new TowingDetailResource($this->bookingService->updateTowingDetail($id, $request->validated())),
             message: __('Towing detail updated successfully')
+        );
+    }
+
+    /**
+     * The towing/flatbed driver submits the actual GPS coordinates of the
+     * destination where the car was delivered, once they've arrived.
+     */
+    public function submitTowingDestination(SubmitTowingDestinationRequest $request, int $id): JsonResponse
+    {
+        return Response::Success(
+            data: new TowingDetailResource($this->bookingService->submitTowingDestination($id, $request->validated())),
+            message: __('Delivery destination coordinates submitted successfully')
         );
     }
 }

@@ -5,6 +5,7 @@ namespace App\Services\Operations\Payment;
 use App\Enums\PaymentEnums\PaymentMethod;
 use App\Enums\PaymentEnums\PaymentStatus;
 use App\Enums\PaymentEnums\PaymentType;
+use App\Exceptions\InvalidOrderDiscountException;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Service;
@@ -94,5 +95,17 @@ class PackagePaymentHandler implements PaymentMethodHandlerInterface
         }
 
         $payment->update(['status' => PaymentStatus::REFUNDED]);
+    }
+
+    /**
+     * Package bookings can't be discounted — their value is settled against a
+     * consumed package use, not a recomputable price. Guarded here as a
+     * safety net; the discount flow rejects package orders before this point.
+     */
+    public function adjustForDiscount(Order $order, Payment $payment, float $discount): void
+    {
+        throw new InvalidOrderDiscountException(
+            __('A discount cannot be applied to a package booking.')
+        );
     }
 }
