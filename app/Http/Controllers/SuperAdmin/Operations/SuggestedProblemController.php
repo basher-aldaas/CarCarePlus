@@ -27,7 +27,7 @@ class SuggestedProblemController extends Controller
     {
         return Response::Success(
             data: SuggestedProblemResource::collection($this->suggestedProblemService->index($request->integer('per_page', 15))),
-            message: 'suggested problems fetched successfully'
+            message: __('suggested problems fetched successfully')
         );
     }
 
@@ -44,7 +44,7 @@ class SuggestedProblemController extends Controller
 
         return Response::Success(
             data: new SuggestedProblemResource($result),
-            message: 'suggested problem created successfully',
+            message: __('suggested problem created successfully'),
         );
     }
 
@@ -72,7 +72,7 @@ class SuggestedProblemController extends Controller
 
         return Response::Success(
             data: new SuggestedProblemResource($result),
-            message: 'suggested problem updated successfully',
+            message: __('suggested problem updated successfully'),
         );
     }
 
@@ -85,7 +85,7 @@ class SuggestedProblemController extends Controller
 
         return Response::Success(
             data: [],
-            message: 'suggested problem deleted successfully'
+            message: __('suggested problem deleted successfully')
         );
     }
 }

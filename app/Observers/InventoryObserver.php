@@ -2,10 +2,9 @@
 
 namespace App\Observers;
 
-use App\Enums\NotificationType;
+use App\Events\Operations\LowStockDetected;
 use App\Models\Branch;
 use App\Models\Inventory;
-use App\Models\Notification;
 
 class InventoryObserver
 {
@@ -47,19 +46,13 @@ class InventoryObserver
 
         $inventory->loadMissing('material');
 
-        Notification::create([
-            'user_id' => $adminId,
-            'title' => __('Low stock alert'),
-            'body' => __('The material ":material" has reached its minimum stock level (:quantity left, minimum :min). Please restock it.', [
-                'material' => $inventory->material?->name,
-                'quantity' => $this->trim($after),
-                'min' => $this->trim($min),
-            ]),
-            'type' => NotificationType::WARNING->value,
-            'reference_type' => 'inventory',
-            'reference_id' => $inventory->id,
-            'is_read' => false,
-        ]);
+        LowStockDetected::dispatch(
+            $inventory->id,
+            $adminId,
+            $inventory->material?->name,
+            $this->trim($after),
+            $this->trim($min),
+        );
     }
 
     /**

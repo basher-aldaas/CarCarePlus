@@ -6,6 +6,8 @@ use App\DTOs\PurchaseRequestDTO;
 use App\DTOs\PurchaseRequestItemDTO;
 use App\Enums\InventoryTransactionType;
 use App\Enums\PurchaseRequestStatus;
+use App\Events\Operations\PurchaseRequestDecided;
+use App\Events\Operations\PurchaseRequestSubmitted;
 use App\Exceptions\PurchaseRequestShowUnauthorizedException;
 use App\Models\Branch;
 use App\Models\PurchasePayment;
@@ -77,7 +79,11 @@ class PurchaseRequestService
 
             $purchaseRequest->update(['total_amount' => $totalAmount]);
 
-            return $purchaseRequest->fresh(['branch', 'fromBranch', 'items.material']);
+            $purchaseRequest = $purchaseRequest->fresh(['branch', 'fromBranch', 'items.material']);
+
+            PurchaseRequestSubmitted::dispatch($purchaseRequest);
+
+            return $purchaseRequest;
         });
     }
 
@@ -279,7 +285,11 @@ class PurchaseRequestService
                 'approved_at' => now()->toDateTimeString(),
             ]);
 
-            return $this->purchaseRequestRepository->update($purchaseRequest, $dto);
+            $updated = $this->purchaseRequestRepository->update($purchaseRequest, $dto);
+
+            PurchaseRequestDecided::dispatch($updated);
+
+            return $updated;
         });
     }
 
@@ -297,7 +307,11 @@ class PurchaseRequestService
                 'rejection_reason' => $reason,
             ]);
 
-            return $this->purchaseRequestRepository->update($purchaseRequest, $dto);
+            $updated = $this->purchaseRequestRepository->update($purchaseRequest, $dto);
+
+            PurchaseRequestDecided::dispatch($updated);
+
+            return $updated;
         });
     }
 }

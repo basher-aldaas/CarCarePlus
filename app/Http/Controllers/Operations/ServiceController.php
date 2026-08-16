@@ -36,7 +36,7 @@ class ServiceController extends Controller
             new ServiceResource(
                 $this->serviceService->show($id)
             ),
-            'Service fetched successfully'
+            __('Service fetched successfully')
         );
     }
 

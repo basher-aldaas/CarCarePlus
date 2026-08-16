@@ -26,7 +26,7 @@ class InventoryController extends Controller
     {
         return Response::Success(
             data: InventoryResource::collection($this->inventoryService->index()),
-            message: 'inventories fetched successfully'
+            message: __('inventories fetched successfully')
         );
     }
 
@@ -43,7 +43,7 @@ class InventoryController extends Controller
 
         return Response::Success(
             data: new InventoryResource($result),
-            message: 'inventory created successfully',
+            message: __('inventory created successfully'),
         );
     }
 
@@ -71,7 +71,7 @@ class InventoryController extends Controller
 
         return Response::Success(
             data: new InventoryResource($result),
-            message: 'inventory updated successfully',
+            message: __('inventory updated successfully'),
         );
     }
 
@@ -84,7 +84,7 @@ class InventoryController extends Controller
 
         return Response::Success(
             data: [],
-            message: 'inventory deleted successfully'
+            message: __('inventory deleted successfully')
         );
     }
 }

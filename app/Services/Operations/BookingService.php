@@ -9,6 +9,7 @@ use App\Enums\OrderEnums\OrderMaterialStatus;
 use App\Enums\OrderEnums\OrderStatus;
 use App\Enums\PaymentEnums\PaymentMethod;
 use App\Enums\PointsTransactionType;
+use App\Events\Operations\BookingStatusChanged;
 use App\Exceptions\BookingCancelUnauthorizedException;
 use App\Exceptions\BookingEditWindowExpiredException;
 use App\Exceptions\BookingShowUnauthorizedException;
@@ -490,12 +491,16 @@ class BookingService
             throw new InvalidBookingStatusTransitionException(__('Only a pending booking can be assigned.'));
         }
 
-        return $this->orderRepository->changeStatus(
+        $order = $this->orderRepository->changeStatus(
             id: $id,
             to: OrderStatus::ASSIGNED,
             extra: ['employee_id' => $employeeId, 'assigned_at' => now()],
             byEmployeeId: $employeeId,
         );
+
+        BookingStatusChanged::dispatch($order, OrderStatus::ASSIGNED);
+
+        return $order;
     }
 
     public function startBooking(int $id): Order
@@ -512,12 +517,16 @@ class BookingService
 
 
 
-        return $this->orderRepository->changeStatus(
+        $order = $this->orderRepository->changeStatus(
             id: $id,
             to: OrderStatus::IN_PROGRESS,
             extra: ['started_at' => now()],
             byEmployeeId: $order->employee_id,
         );
+
+        BookingStatusChanged::dispatch($order, OrderStatus::IN_PROGRESS);
+
+        return $order;
     }
 
     public function completeBooking(int $id): Order
@@ -532,12 +541,16 @@ class BookingService
             throw new InvalidBookingStatusTransitionException(__('Only a booking in progress can be completed.'));
         }
 
-        return $this->orderRepository->changeStatus(
+        $order = $this->orderRepository->changeStatus(
             id: $id,
             to: OrderStatus::COMPLETED,
             extra: ['completed_at' => now()],
             byEmployeeId: $order->employee_id,
         );
+
+        BookingStatusChanged::dispatch($order, OrderStatus::COMPLETED);
+
+        return $order;
     }
 
     public function cancelBooking(int $id, ?string $reason): Order
@@ -579,7 +592,7 @@ class BookingService
         // returned, package use restored, cash voided), claw back any loyalty
         // points that were awarded for it, put back any material stock that
         // was already deducted, and flip the status — all or nothing.
-        return DB::transaction(function () use ($order, $id, $reason, $user) {
+        $cancelled = DB::transaction(function () use ($order, $id, $reason, $user) {
             // Runs before the payment refunds: a points-method refund writes
             // its own EARN row for the order, which must not be mistaken for
             // the loyalty award we're reversing here.
@@ -603,6 +616,10 @@ class BookingService
                 byEmployeeId: $user->employee?->id,
             );
         });
+
+        BookingStatusChanged::dispatch($cancelled, OrderStatus::CANCELLED, $reason);
+
+        return $cancelled;
     }
 
     /**

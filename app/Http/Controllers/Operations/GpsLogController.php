@@ -28,7 +28,7 @@ class GpsLogController extends Controller
 
         return Response::Success(
             data: GpsLogResource::collection($this->gpsLogService->index($request->integer('per_page', 15), $filters)),
-            message: 'gps logs fetched successfully'
+            message: __('gps logs fetched successfully')
         );
     }
 
@@ -47,7 +47,7 @@ class GpsLogController extends Controller
 
         return Response::Success(
             data: new GpsLogResource($result),
-            message: 'gps log recorded successfully',
+            message: __('gps log recorded successfully'),
         );
     }
 

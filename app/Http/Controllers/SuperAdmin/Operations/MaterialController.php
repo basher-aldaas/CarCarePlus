@@ -27,7 +27,7 @@ class MaterialController extends Controller
     {
         return Response::Success(
             data: MaterialResource::collection($this->materialService->index($request->integer('per_page', 15))),
-            message: 'materials fetched successfully'
+            message: __('materials fetched successfully')
         );
     }
 
@@ -44,7 +44,7 @@ class MaterialController extends Controller
 
         return Response::Success(
             data: new MaterialResource($result),
-            message: 'material created successfully',
+            message: __('material created successfully'),
         );
     }
 
@@ -72,7 +72,7 @@ class MaterialController extends Controller
 
         return Response::Success(
             data: new MaterialResource($result),
-            message: 'material updated successfully',
+            message: __('material updated successfully'),
         );
     }
 
@@ -85,7 +85,7 @@ class MaterialController extends Controller
 
         return Response::Success(
             data: [],
-            message: 'material deleted successfully'
+            message: __('material deleted successfully')
         );
     }
 }

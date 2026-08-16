@@ -27,7 +27,7 @@ class ProblemTypeController extends Controller
     {
         return Response::Success(
             data: ProblemTypeResource::collection($this->problemTypeService->index($request->integer('per_page', 15))),
-            message: 'problem types fetched successfully'
+            message: __('problem types fetched successfully')
         );
     }
 
@@ -44,7 +44,7 @@ class ProblemTypeController extends Controller
 
         return Response::Success(
             data: new ProblemTypeResource($result),
-            message: 'problem type created successfully',
+            message: __('problem type created successfully'),
         );
     }
 
@@ -72,7 +72,7 @@ class ProblemTypeController extends Controller
 
         return Response::Success(
             data: new ProblemTypeResource($result),
-            message: 'problem type updated successfully',
+            message: __('problem type updated successfully'),
         );
     }
 
@@ -85,7 +85,7 @@ class ProblemTypeController extends Controller
 
         return Response::Success(
             data: [],
-            message: 'problem type deleted successfully'
+            message: __('problem type deleted successfully')
         );
     }
 }

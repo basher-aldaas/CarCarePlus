@@ -26,7 +26,7 @@ class AuditLogController extends Controller
 
         return Response::Success(
             data: AuditLogResource::collection($this->auditLogService->index($request->integer('per_page', 15), $filters)),
-            message: 'audit logs fetched successfully'
+            message: __('audit logs fetched successfully')
         );
     }
 

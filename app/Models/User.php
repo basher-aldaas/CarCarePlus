@@ -73,6 +73,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(OtpCode::class, 'user_id');
     }
+
+    public function deviceTokens(): HasMany
+    {
+        return $this->hasMany(DeviceToken::class, 'user_id');
+    }
+
+    /**
+     * Route Firebase Cloud Messaging notifications to every device this user
+     * has registered. Used by the FcmChannel.
+     *
+     * @return array<int, string>
+     */
+    public function routeNotificationForFcm(): array
+    {
+        return $this->deviceTokens()->pluck('token')->all();
+    }
     public function wallet(): HasOne
     {
         return $this->hasOne(Wallet::class, 'user_id');

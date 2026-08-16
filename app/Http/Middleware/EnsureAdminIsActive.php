@@ -19,11 +19,11 @@ class EnsureAdminIsActive
         $user = $request->user();
 
         if (!$user) {
-            return response()->json([ 'message' => 'Unauthenticated.', ], 401);
+            return response()->json([ 'message' => __('Unauthenticated.'), ], 401);
         }
 
         if ($user->hasRole('admin') && !$user->is_active) {
-            return response()->json([ 'message' => 'Your account is inactive.', ], 403);
+            return response()->json([ 'message' => __('Your account is inactive.'), ], 403);
         }
         return $next($request);
     }

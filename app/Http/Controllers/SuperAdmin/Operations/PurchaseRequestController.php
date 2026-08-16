@@ -29,7 +29,7 @@ class PurchaseRequestController extends Controller
     {
         return Response::Success(
             data: PurchaseRequestResource::collection($this->purchaseRequestService->index($request->integer('per_page', 15))),
-            message: 'purchase requests fetched successfully'
+            message: __('purchase requests fetched successfully')
         );
     }
 
@@ -44,7 +44,7 @@ class PurchaseRequestController extends Controller
 
         return Response::Success(
             data: new PurchaseRequestResource($result),
-            message: 'purchase request created successfully',
+            message: __('purchase request created successfully'),
         );
     }
 
@@ -70,7 +70,7 @@ class PurchaseRequestController extends Controller
 
         return Response::Success(
             data: new PurchaseRequestResource($result),
-            message: 'purchase request updated successfully',
+            message: __('purchase request updated successfully'),
         );
     }
 
@@ -83,7 +83,7 @@ class PurchaseRequestController extends Controller
 
         return Response::Success(
             data: [],
-            message: 'purchase request deleted successfully'
+            message: __('purchase request deleted successfully')
         );
     }
 
@@ -97,7 +97,7 @@ class PurchaseRequestController extends Controller
 
         return Response::Success(
             data: new PurchaseRequestResource($result),
-            message: 'materials transferred successfully',
+            message: __('materials transferred successfully'),
         );
     }
 
@@ -110,7 +110,7 @@ class PurchaseRequestController extends Controller
 
         return Response::Success(
             data: new PurchaseRequestResource($result),
-            message: 'purchase request approved successfully',
+            message: __('purchase request approved successfully'),
         );
     }
 
@@ -123,7 +123,7 @@ class PurchaseRequestController extends Controller
 
         return Response::Success(
             data: new PurchaseRequestResource($result),
-            message: 'purchase request rejected successfully',
+            message: __('purchase request rejected successfully'),
         );
     }
 }

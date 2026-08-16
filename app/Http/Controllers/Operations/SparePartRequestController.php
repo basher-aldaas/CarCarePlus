@@ -34,7 +34,7 @@ class SparePartRequestController extends Controller
                     $request->integer('per_page', 15)
                 )
             ),
-            message: 'spare part requests fetched successfully'
+            message: __('spare part requests fetched successfully')
         );
     }
 
@@ -52,7 +52,7 @@ class SparePartRequestController extends Controller
 
         return Response::Success(
             data: new SparePartRequestResource($result),
-            message: 'spare part request created successfully',
+            message: __('spare part request created successfully'),
         );
     }
 
@@ -76,7 +76,7 @@ class SparePartRequestController extends Controller
 
         return Response::Success(
             data: new SparePartRequestResource($result),
-            message: 'spare part request approved successfully',
+            message: __('spare part request approved successfully'),
         );
     }
 
@@ -89,7 +89,7 @@ class SparePartRequestController extends Controller
 
         return Response::Success(
             data: new SparePartRequestResource($result),
-            message: 'spare part request rejected successfully',
+            message: __('spare part request rejected successfully'),
         );
     }
 }

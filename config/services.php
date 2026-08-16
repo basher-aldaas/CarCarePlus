@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    // Firebase Cloud Messaging (push notifications). Used by
+    // App\Notifications\Channels\FcmChannel — currently a no-op until the
+    // frontend wires Firebase up and the channel's send() body is uncommented.
+    'firebase' => [
+        'project_id' => env('FIREBASE_PROJECT_ID'),
+        // Path to the google service-account JSON used to mint FCM access tokens.
+        'credentials' => env('FIREBASE_CREDENTIALS'),
+    ],
+
 ];

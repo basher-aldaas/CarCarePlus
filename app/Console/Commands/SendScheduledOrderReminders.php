@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Enums\NotificationType;
 use App\Enums\OrderEnums\OrderStatus;
-use App\Models\Notification;
+use App\Events\Operations\OrderReminderDue;
 use App\Models\Order;
+use App\Notifications\Operations\OrderReminderNotification;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 
@@ -15,8 +15,8 @@ class SendScheduledOrderReminders extends Command
 
     protected $description = 'Remind the customer 30 minutes before, and the assigned employee 1 hour before, a scheduled order.';
 
-    private const CUSTOMER_REMINDER = 'order_customer_reminder';
-    private const EMPLOYEE_REMINDER = 'order_employee_reminder';
+    private const CUSTOMER_REMINDER = OrderReminderNotification::CUSTOMER_MARKER;
+    private const EMPLOYEE_REMINDER = OrderReminderNotification::EMPLOYEE_MARKER;
 
     /** Orders still ahead of their appointment that may need reminding. */
     private const UPCOMING_STATUSES = [
@@ -43,17 +43,7 @@ class SendScheduledOrderReminders extends Command
         $orders = $this->dueOrders($now, minutes: 30, marker: self::CUSTOMER_REMINDER);
 
         foreach ($orders as $order) {
-            Notification::create([
-                'user_id' => $order->customer_id,
-                'title' => __('Upcoming appointment reminder'),
-                'body' => __('Your appointment is scheduled at :time (in about 30 minutes).', [
-                    'time' => $order->scheduled_at->format('Y-m-d H:i'),
-                ]),
-                'type' => NotificationType::INFO->value,
-                'reference_type' => self::CUSTOMER_REMINDER,
-                'reference_id' => $order->id,
-                'is_read' => false,
-            ]);
+            OrderReminderDue::dispatch($order, 'customer');
         }
     }
 
@@ -69,23 +59,11 @@ class SendScheduledOrderReminders extends Command
         $orders->load('employee');
 
         foreach ($orders as $order) {
-            $employeeUserId = $order->employee?->user_id;
-
-            if ($employeeUserId === null) {
+            if ($order->employee?->user_id === null) {
                 continue;
             }
 
-            Notification::create([
-                'user_id' => $employeeUserId,
-                'title' => __('Upcoming job reminder'),
-                'body' => __('You have a job scheduled at :time (in about 1 hour).', [
-                    'time' => $order->scheduled_at->format('Y-m-d H:i'),
-                ]),
-                'type' => NotificationType::INFO->value,
-                'reference_type' => self::EMPLOYEE_REMINDER,
-                'reference_id' => $order->id,
-                'is_read' => false,
-            ]);
+            OrderReminderDue::dispatch($order, 'employee');
         }
     }
 

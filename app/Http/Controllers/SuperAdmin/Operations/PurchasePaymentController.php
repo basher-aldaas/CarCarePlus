@@ -24,7 +24,7 @@ class PurchasePaymentController extends Controller
     {
         return Response::Success(
             data: PurchasePaymentResource::collection($this->purchasePaymentService->index($request->integer('per_page', 15))),
-            message: 'purchase payments fetched successfully'
+            message: __('purchase payments fetched successfully')
         );
     }
 
@@ -35,7 +35,7 @@ class PurchasePaymentController extends Controller
     {
         return Response::Success(
             data: new PurchasePaymentResource($this->purchasePaymentService->show($purchasePayment)),
-            message: 'purchase payment fetched successfully'
+            message: __('purchase payment fetched successfully')
         );
     }
 }

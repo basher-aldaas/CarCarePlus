@@ -25,7 +25,7 @@ class InventoryTransactionController extends Controller
     {
         return Response::Success(
             data: InventoryTransactionResource::collection($this->inventoryTransactionService->index()),
-            message: 'inventory transactions fetched successfully'
+            message: __('inventory transactions fetched successfully')
         );
     }
 
@@ -41,7 +41,7 @@ class InventoryTransactionController extends Controller
 
         return Response::Success(
             data: new InventoryTransactionResource($result),
-            message: 'inventory transaction recorded successfully',
+            message: __('inventory transaction recorded successfully'),
         );
     }
 

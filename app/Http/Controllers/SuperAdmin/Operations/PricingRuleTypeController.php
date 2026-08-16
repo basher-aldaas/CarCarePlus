@@ -27,7 +27,7 @@ class PricingRuleTypeController extends Controller
     {
         return Response::Success(
             data: PricingRuleTypeResource::collection($this->pricingRuleTypeService->index($request->integer('per_page', 15))),
-            message: 'pricing rule types fetched successfully'
+            message: __('pricing rule types fetched successfully')
         );
     }
 
@@ -44,7 +44,7 @@ class PricingRuleTypeController extends Controller
 
         return Response::Success(
             data: new PricingRuleTypeResource($result),
-            message: 'pricing rule type created successfully',
+            message: __('pricing rule type created successfully'),
         );
     }
 
@@ -72,7 +72,7 @@ class PricingRuleTypeController extends Controller
 
         return Response::Success(
             data: new PricingRuleTypeResource($result),
-            message: 'pricing rule type updated successfully',
+            message: __('pricing rule type updated successfully'),
         );
     }
 
@@ -85,7 +85,7 @@ class PricingRuleTypeController extends Controller
 
         return Response::Success(
             data: [],
-            message: 'pricing rule type deleted successfully'
+            message: __('pricing rule type deleted successfully')
         );
     }
 }

@@ -20,13 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-// 1. تشغيل منطق اللغة تلقائياً لكل الطلبات القادمة للـ API
-//        $middleware->append(function ($request, $next) {
-//            if ($request->hasHeader('Accept-Language')) {
-//                app()->setLocale($request->header('Accept-Language'));
-//            }
-//            return $next($request);
-//        });
+        // 1. تحديد لغة التطبيق تلقائياً بناءً على ترويسة Accept-Language لكل طلبات الـ API
+        $middleware->api(prepend: [
+            \App\Http\Middleware\SetLocale::class,
+        ]);
 
         // 2. إجبار لارافيل على إرجاع رد JSON مسبك (401) للزوار غير المسجلين في الـ API
         $middleware->redirectGuestsTo(fn () => null);

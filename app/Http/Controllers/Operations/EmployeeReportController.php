@@ -28,7 +28,7 @@ class EmployeeReportController extends Controller
 
         return Response::Success(
             data: EmployeeReportResource::collection($this->employeeReportService->index($request->integer('per_page', 15), $filters)),
-            message: 'employee reports fetched successfully'
+            message: __('employee reports fetched successfully')
         );
     }
 
@@ -47,7 +47,7 @@ class EmployeeReportController extends Controller
 
         return Response::Success(
             data: new EmployeeReportResource($result),
-            message: 'employee report created successfully',
+            message: __('employee report created successfully'),
         );
     }
 

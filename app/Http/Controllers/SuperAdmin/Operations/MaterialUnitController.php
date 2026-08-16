@@ -27,7 +27,7 @@ class MaterialUnitController extends Controller
     {
         return Response::Success(
             data: MaterialUnitResource::collection($this->materialUnitService->index($request->integer('per_page', 15))),
-            message: 'material units fetched successfully'
+            message: __('material units fetched successfully')
         );
     }
 
@@ -44,7 +44,7 @@ class MaterialUnitController extends Controller
 
         return Response::Success(
             data: new MaterialUnitResource($result),
-            message: 'material unit created successfully',
+            message: __('material unit created successfully'),
         );
     }
 
@@ -72,7 +72,7 @@ class MaterialUnitController extends Controller
 
         return Response::Success(
             data: new MaterialUnitResource($result),
-            message: 'material unit updated successfully',
+            message: __('material unit updated successfully'),
         );
     }
 
@@ -85,7 +85,7 @@ class MaterialUnitController extends Controller
 
         return Response::Success(
             data: [],
-            message: 'material unit deleted successfully'
+            message: __('material unit deleted successfully')
         );
     }
 }

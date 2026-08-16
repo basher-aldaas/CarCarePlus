@@ -3,14 +3,14 @@
 namespace App\Services\Operations;
 
 use App\DTOs\SparePartRequestDTO;
-use App\Enums\NotificationType;
 use App\Enums\OrderEnums\OrderStatus;
 use App\Enums\SparePartRequestStatus;
+use App\Events\Operations\SparePartRequestCreated;
+use App\Events\Operations\SparePartRequestDecided;
 use App\Exceptions\SparePartAlreadyDecided;
 use App\Exceptions\SparePartRequestOrderNotOpenException;
 use App\Exceptions\SparePartRequestShowUnauthorizedException;
 use App\Models\Branch;
-use App\Models\Notification;
 use App\Models\Order;
 use App\Models\SparePartRequest;
 use App\Models\User;
@@ -74,7 +74,7 @@ class SparePartRequestService
 
             $sparePartRequest = $this->sparePartRequestRepository->create($dto);
 
-            $this->notifyCustomer($sparePartRequest);
+            SparePartRequestCreated::dispatch($sparePartRequest);
 
             return $sparePartRequest;
         });
@@ -110,30 +110,11 @@ class SparePartRequestService
                 'decided_at' => now()->toDateTimeString(),
             ]);
 
-            return $this->sparePartRequestRepository->update($sparePartRequest, $dto);
+            $updated = $this->sparePartRequestRepository->update($sparePartRequest, $dto);
+
+            SparePartRequestDecided::dispatch($updated);
+
+            return $updated;
         });
-    }
-
-    private function notifyCustomer(SparePartRequest $sparePartRequest): void
-    {
-        $sparePartRequest->loadMissing('order', 'material');
-
-        $customerId = $sparePartRequest->order?->customer_id;
-
-        if ($customerId === null) {
-            return;
-        }
-
-        Notification::create([
-            'user_id' => $customerId,
-            'title' => __('Spare part change requested'),
-            'body' => __('The technician requested to change the part ":part". Please review and approve or reject it.', [
-                'part' => $sparePartRequest->material?->name,
-            ]),
-            'type' => NotificationType::WARNING->value,
-            'reference_type' => 'spare_part_request',
-            'reference_id' => $sparePartRequest->id,
-            'is_read' => false,
-        ]);
     }
 }

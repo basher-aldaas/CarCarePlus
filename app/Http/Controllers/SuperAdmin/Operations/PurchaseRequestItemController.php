@@ -29,7 +29,7 @@ class PurchaseRequestItemController extends Controller
                     $request->has('purchase_req_id') ? $request->integer('purchase_req_id') : null
                 )
             ),
-            message: 'purchase request items fetched successfully'
+            message: __('purchase request items fetched successfully')
         );
     }
 

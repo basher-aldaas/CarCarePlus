@@ -27,7 +27,7 @@ class AiRuleController extends Controller
     {
         return Response::Success(
             data: AiRuleResource::collection($this->aiRuleService->index($request->integer('per_page', 15))),
-            message: 'ai rules fetched successfully'
+            message: __('ai rules fetched successfully')
         );
     }
 
@@ -44,7 +44,7 @@ class AiRuleController extends Controller
 
         return Response::Success(
             data: new AiRuleResource($result),
-            message: 'ai rule created successfully',
+            message: __('ai rule created successfully'),
         );
     }
 
@@ -72,7 +72,7 @@ class AiRuleController extends Controller
 
         return Response::Success(
             data: new AiRuleResource($result),
-            message: 'ai rule updated successfully',
+            message: __('ai rule updated successfully'),
         );
     }
 
@@ -85,7 +85,7 @@ class AiRuleController extends Controller
 
         return Response::Success(
             data: [],
-            message: 'ai rule deleted successfully'
+            message: __('ai rule deleted successfully')
         );
     }
 }

@@ -27,7 +27,7 @@ class BranchController extends Controller
     {
         return Response::Success(
             data: BranchResource::collection($this->branchService->index($request->integer('per_page', 15))),
-            message: 'branches fetched successfully'
+            message: __('branches fetched successfully')
         );
     }
 
@@ -44,7 +44,7 @@ class BranchController extends Controller
 
         return Response::Success(
             data: new BranchResource($result),
-            message: 'branch created successfully',
+            message: __('branch created successfully'),
         );
     }
 
@@ -72,7 +72,7 @@ class BranchController extends Controller
 
         return Response::Success(
             data: new BranchResource($result),
-            message: 'branch updated successfully',
+            message: __('branch updated successfully'),
         );
     }
 
@@ -85,7 +85,7 @@ class BranchController extends Controller
 
         return Response::Success(
             data: [],
-            message: 'branch deleted successfully'
+            message: __('branch deleted successfully')
         );
     }
 }

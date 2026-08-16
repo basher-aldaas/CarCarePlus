@@ -4,6 +4,7 @@ namespace App\Services\Operations;
 
 use App\Enums\PaymentEnums\PaymentMethod;
 use App\Enums\PaymentEnums\PaymentStatus;
+use App\Events\Operations\CashPaymentConfirmed;
 use App\Models\Employee;
 use App\Models\Payment;
 use App\Models\Workshop;
@@ -63,7 +64,11 @@ class PaymentService
             'cash_confirmed_by' => auth()->id(),
         ]);
 
-        return $payment->refresh()->load(['order', 'user', 'cashConfirmer']);
+        $payment = $payment->refresh()->load(['order', 'user', 'cashConfirmer']);
+
+        CashPaymentConfirmed::dispatch($payment);
+
+        return $payment;
     }
 
     /** @return Builder<Payment> */

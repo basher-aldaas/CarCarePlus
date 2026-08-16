@@ -3,6 +3,7 @@
 namespace App\Services\Operations;
 
 use App\Enums\OrderEnums\OrderStatus;
+use App\Events\Operations\RatingSubmitted;
 use App\Models\Order;
 use App\Models\Rating;
 use App\Models\Workshop;
@@ -69,7 +70,11 @@ class RatingService
             'image_urls' => $data['image_urls'] ?? null,
         ]);
 
-        return $rating->load(['customer', 'employee.user']);
+        $rating->load(['customer', 'employee.user']);
+
+        RatingSubmitted::dispatch($rating);
+
+        return $rating;
     }
 
     /**

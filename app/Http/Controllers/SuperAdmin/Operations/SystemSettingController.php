@@ -27,7 +27,7 @@ class SystemSettingController extends Controller
     {
         return Response::Success(
             data: SystemSettingResource::collection($this->systemSettingService->index($request->integer('per_page', 15))),
-            message: 'system settings fetched successfully'
+            message: __('system settings fetched successfully')
         );
     }
 
@@ -44,7 +44,7 @@ class SystemSettingController extends Controller
 
         return Response::Success(
             data: new SystemSettingResource($result),
-            message: 'system setting created successfully',
+            message: __('system setting created successfully'),
         );
     }
 
@@ -72,7 +72,7 @@ class SystemSettingController extends Controller
 
         return Response::Success(
             data: new SystemSettingResource($result),
-            message: 'system setting updated successfully',
+            message: __('system setting updated successfully'),
         );
     }
 
@@ -85,7 +85,7 @@ class SystemSettingController extends Controller
 
         return Response::Success(
             data: [],
-            message: 'system setting deleted successfully'
+            message: __('system setting deleted successfully')
         );
     }
 }

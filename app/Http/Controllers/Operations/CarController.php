@@ -33,7 +33,7 @@ class CarController extends Controller
         if (auth()->user()->hasAnyRole(['super_admin', 'admin', 'workshop', 'employee_washer', 'employee_mechanic'])) {
 
             if ($customer_id === null) {
-                return Response::Error(data:null,message: 'customer_id is required');
+                return Response::Error(data:null,message: __('customer_id is required'));
             }
 
             $result = $this->carService->getAllClientCars($customer_id);
@@ -54,7 +54,7 @@ class CarController extends Controller
         if (auth()->user()->hasAnyRole(['super_admin', 'admin'])) {
 
             if ($customer_id === null) {
-                return Response::Error(data:null, message: 'customer_id is required');
+                return Response::Error(data:null, message: __('customer_id is required'));
             }
 
             $data['user_id'] = $customer_id;
