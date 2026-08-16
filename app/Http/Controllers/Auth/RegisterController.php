@@ -19,9 +19,7 @@ class RegisterController extends Controller
 {
     public function __construct(protected RegistrationService $registrationService) {}
 
-    /**
-     * Type 1: Personal customer — self register, active immediately + token.
-     */
+     //Type 1: Personal customer — self register, active immediately + token.
     public function customer(RegisterCustomerRequest $request): JsonResponse
     {
         $dto = UserDTO::fromArray($request->validated());

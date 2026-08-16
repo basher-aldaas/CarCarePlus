@@ -55,7 +55,7 @@ class BranchController extends Controller
     {
         return Response::Success(
             new BranchResource($this->branchService->show($branch)),
-            'branch fetched successfully'
+            __('branch fetched successfully')
         );
     }
 

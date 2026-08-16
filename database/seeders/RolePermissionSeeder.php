@@ -142,6 +142,9 @@ class RolePermissionSeeder extends Seeder
             'add.ai_rule', 'edit.ai_rule', 'delete.ai_rule', 'show.ai_rules',
             'manage.system_setting', 'show.system_settings',
             'browse.workshops',
+
+            // === الإشعارات ===
+            'show.notifications', 'edit.notification_status',
         ];
     }
 
@@ -204,6 +207,8 @@ class RolePermissionSeeder extends Seeder
             'show.pricing_rule_types',
             'browse.workshops',
 
+            // === الإشعارات ===
+            'show.notifications', 'edit.notification_status',
         ];
     }
 
@@ -236,6 +241,9 @@ class RolePermissionSeeder extends Seeder
             'show.orders',
             'browse.workshops',
             'show.material',
+
+            // === الإشعارات ===
+            'show.notifications', 'edit.notification_status',
         ];
     }
 
@@ -293,6 +301,9 @@ class RolePermissionSeeder extends Seeder
             'show.order_materials',
             'browse.workshops',
             'show.payment',
+
+            // === الإشعارات ===
+            'show.notifications', 'edit.notification_status',
         ];
     }
 
@@ -318,6 +329,9 @@ class RolePermissionSeeder extends Seeder
             'show.order_materials',
             'browse.workshops',
             'show.payment',
+
+            // === الإشعارات ===
+            'show.notifications', 'edit.notification_status',
         ];
     }
 }

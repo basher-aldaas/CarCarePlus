@@ -24,7 +24,7 @@ class InventoryService
             return $this->inventoryRepository->getAllInAdminBranch();
         }
 
-        throw new AccessDeniedHttpException('You are not allowed to view inventory records.');
+        throw new AccessDeniedHttpException(__('You are not allowed to view inventory records.'));
     }
 
     public function show(Inventory $inventory): Inventory
@@ -41,7 +41,7 @@ class InventoryService
             return $this->inventoryRepository->findById($inventory);
         }
 
-        throw new AccessDeniedHttpException('You are not allowed to view this inventory record.');
+        throw new AccessDeniedHttpException(__('You are not allowed to view this inventory record.'));
     }
 
     public function store(InventoryDTO $dto): Inventory
@@ -55,12 +55,12 @@ class InventoryService
                 $branch_id = Branch::where('admin_id', $user->id)->value('id');
 
                 if (! $branch_id) {
-                    throw new AccessDeniedHttpException('You are not assigned to a branch.');
+                    throw new AccessDeniedHttpException(__('You are not assigned to a branch.'));
                 }
 
                 $dto->branch_id = $branch_id;
             } elseif (! $user->hasRole('super_admin')) {
-                throw new AccessDeniedHttpException('You are not allowed to create inventory records.');
+                throw new AccessDeniedHttpException(__('You are not allowed to create inventory records.'));
             }
 
             $exists = Inventory::where('branch_id', $dto->branch_id)
@@ -92,7 +92,7 @@ class InventoryService
                 return $this->inventoryRepository->update($inventory, $dto);
             }
 
-            throw new AccessDeniedHttpException('You are not allowed to update this inventory.');
+            throw new AccessDeniedHttpException(__('You are not allowed to update this inventory.'));
         });
     }
 
@@ -112,7 +112,7 @@ class InventoryService
                 return $this->inventoryRepository->delete($inventory);
             }
 
-            throw new AccessDeniedHttpException('You are not allowed to delete this inventory record.');
+            throw new AccessDeniedHttpException(__('You are not allowed to delete this inventory record.'));
         });
     }
 }

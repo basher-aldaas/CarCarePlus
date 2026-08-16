@@ -55,7 +55,7 @@ class MaterialController extends Controller
     {
         return Response::Success(
             new MaterialResource($this->materialService->show($material)),
-            'material fetched successfully'
+            __('material fetched successfully')
         );
     }
 

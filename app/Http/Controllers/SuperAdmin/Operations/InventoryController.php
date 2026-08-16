@@ -54,7 +54,7 @@ class InventoryController extends Controller
     {
         return Response::Success(
             new InventoryResource($this->inventoryService->show($inventory)),
-            'inventory fetched successfully'
+            __('inventory fetched successfully')
         );
     }
 

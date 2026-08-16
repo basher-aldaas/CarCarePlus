@@ -55,7 +55,7 @@ class PricingRuleTypeController extends Controller
     {
         return Response::Success(
             new PricingRuleTypeResource($this->pricingRuleTypeService->show($pricingRuleType)),
-            'pricing rule types fetched successfully '
+            __('pricing rule type fetched successfully')
         );
     }
 

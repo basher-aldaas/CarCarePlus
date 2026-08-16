@@ -13,14 +13,18 @@ use App\Models\Branch;
 use App\Models\User;
 use App\Models\UserPoint;
 use App\Models\Wallet;
+use App\Notifications\CompanyRegisteredNotification;
+use App\Notifications\CustomerRegisteredNotification;
 use App\Notifications\RegistrationPendingNotification;
 use App\Notifications\StaffAccountCreatedNotification;
 use App\Notifications\WelcomeNotification;
+use App\Notifications\WorkshopRegisteredNotification;
 use App\Repositories\Eloquent\CompanyRepository;
 use App\Repositories\Eloquent\EmployeeRepository;
 use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\Eloquent\WorkshopRepository;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 
 class RegistrationService
@@ -55,6 +59,15 @@ class RegistrationService
 
         $result['user']->notify(new WelcomeNotification());
 
+        // Inform the super admin(s) that a new customer has joined.
+        $admins = User::role('super_admin')->get();
+        if ($admins->isNotEmpty()) {
+            Notification::send(
+                $admins,
+                new CustomerRegisteredNotification($result['user']->name, $result['user']->email),
+            );
+        }
+
         return $result;
     }
 
@@ -82,6 +95,14 @@ class RegistrationService
 
         $result['user']->notify(new RegistrationPendingNotification(__('company')));
 
+        $admins = User::role('super_admin')->get();
+        if ($admins->isNotEmpty()) {
+            Notification::send(
+                $admins,
+                new CompanyRegisteredNotification($result['user']->name, $result['user']->email, $result['company']->name),
+            );
+        }
+
         return $result;
     }
 
@@ -107,6 +128,14 @@ class RegistrationService
         });
 
         $result['user']->notify(new RegistrationPendingNotification(__('workshop')));
+
+        $admins = User::role('super_admin')->get();
+        if ($admins->isNotEmpty()) {
+            Notification::send(
+                $admins,
+                new WorkshopRegisteredNotification($result['user']->name, $result['user']->email, $result['workshop']->name),
+            );
+        }
 
         return $result;
     }

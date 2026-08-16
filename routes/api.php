@@ -51,6 +51,7 @@ use App\Http\Controllers\SuperAdmin\Operations\PurchaseRequestItemController;
 use App\Http\Controllers\SuperAdmin\Operations\AuditLogController;
 use App\Http\Controllers\Operations\EmployeeReportController;
 use App\Http\Controllers\Operations\GpsLogController;
+use App\Http\Controllers\Operations\NotificationController;
 use App\Http\Controllers\Operations\SparePartRequestController;
 
 Route::get('/user', function (Request $request) {
@@ -123,6 +124,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     //for all
     Route::get('/enums', [EnumController::class, 'index']);
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->middleware('can:show.notifications');
+    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount'])->middleware('can:show.notifications');
+    Route::get('/notifications/{notification}', [NotificationController::class, 'show'])->whereNumber('notification')->middleware('can:show.notifications');
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead'])->middleware('can:edit.notification_status');
+    Route::post('/notifications/{notification}/read', [NotificationController::class, 'markAsRead'])->whereNumber('notification')->middleware('can:edit.notification_status');
+    //Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy'])->whereNumber('notification')->middleware('can:show.notifications');
     Route::get('/categories',[CategoryController::class,'index'])->middleware('can:show.categories');
     Route::get('/categories/{id}',[CategoryController::class,'show'])->middleware('can:show.categories');
     Route::get('/services',[ServiceController::class,'index'])->middleware('can:show.services');
@@ -143,6 +151,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/package-service-sub-services/{id}',[PackageServiceSubServiceController::class,'show'])->middleware('can:show.package_service_sub_services');
     Route::get('/suggested-problems', [SuggestedProblemController::class, 'index'])->middleware('can:show.suggested_problems');
     Route::get('/suggested-problems/{suggested_problem}', [SuggestedProblemController::class, 'show'])->middleware('can:show.suggested_problems');
+
     Route::get('/branches', [BranchController::class, 'index'])->middleware('can:show.branches');
     Route::get('/branches/{branch}', [BranchController::class, 'show'])->middleware('can:show.branches');
     Route::get('/materials', [MaterialController::class, 'index'])->middleware('can:show.material');

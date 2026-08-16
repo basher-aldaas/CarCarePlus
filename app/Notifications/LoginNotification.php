@@ -2,30 +2,43 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Enums\NotificationType;
+use App\Notifications\Operations\OperationNotification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 /**
  * Security notice sent to a user whenever a new sign-in to their account occurs.
  */
-class LoginNotification extends Notification implements ShouldQueue
+class LoginNotification extends OperationNotification
 {
-    use Queueable;
-
     public function __construct(
         public ?string $ip = null,
         public ?string $userAgent = null,
         public ?string $signedInAt = null,
     ) {}
 
-    /**
-     * @return array<int, string>
-     */
-    public function via(object $notifiable): array
+    protected function title(object $notifiable): string
     {
-        return ['mail'];
+        return __('New sign-in to your CarCarePlus account');
+    }
+
+    protected function body(object $notifiable): string
+    {
+        $line = __('We detected a new sign-in to your account.');
+
+        if ($this->signedInAt) {
+            $line .= ' '.__('Time: :time', ['time' => $this->signedInAt]);
+        }
+        if ($this->ip) {
+            $line .= ' '.__('IP address: :ip', ['ip' => $this->ip]);
+        }
+
+        return $line;
+    }
+
+    protected function type(): NotificationType
+    {
+        return NotificationType::WARNING;
     }
 
     public function toMail(object $notifiable): MailMessage

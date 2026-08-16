@@ -2,31 +2,35 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Enums\NotificationType;
+use App\Notifications\Operations\OperationNotification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 /**
  * Sent to an employee / admin when the super admin creates their account.
  * The password is chosen by the super admin, so this is an account-created
  * notice with the login email (not the password itself, for security).
  */
-class StaffAccountCreatedNotification extends Notification implements ShouldQueue
+class StaffAccountCreatedNotification extends OperationNotification
 {
-    use Queueable;
-
     /**
      * @param  string  $accountType  Localized label, e.g. "employee" or "admin".
      */
     public function __construct(public string $accountType) {}
 
-    /**
-     * @return array<int, string>
-     */
-    public function via(object $notifiable): array
+    protected function title(object $notifiable): string
     {
-        return ['mail'];
+        return __('Your CarCarePlus account has been created');
+    }
+
+    protected function body(object $notifiable): string
+    {
+        return __('An :type account has been created for you on CarCarePlus. Please sign in with the password provided by the administrator.', ['type' => $this->accountType]);
+    }
+
+    protected function type(): NotificationType
+    {
+        return NotificationType::SUCCESS;
     }
 
     public function toMail(object $notifiable): MailMessage

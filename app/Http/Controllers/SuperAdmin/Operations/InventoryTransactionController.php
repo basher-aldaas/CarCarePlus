@@ -52,7 +52,7 @@ class InventoryTransactionController extends Controller
     {
         return Response::Success(
             new InventoryTransactionResource($this->inventoryTransactionService->show($inventoryTransaction)),
-            'inventory transaction fetched successfully'
+            __('inventory transaction fetched successfully')
         );
     }
 }

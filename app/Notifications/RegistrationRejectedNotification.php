@@ -2,29 +2,39 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Enums\NotificationType;
+use App\Notifications\Operations\OperationNotification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 /**
  * Sent to a company / workshop owner when the super admin rejects their request.
  */
-class RegistrationRejectedNotification extends Notification implements ShouldQueue
+class RegistrationRejectedNotification extends OperationNotification
 {
-    use Queueable;
-
     public function __construct(
         public string $accountType,
         public ?string $reason = null,
     ) {}
 
-    /**
-     * @return array<int, string>
-     */
-    public function via(object $notifiable): array
+    protected function title(object $notifiable): string
     {
-        return ['mail'];
+        return __('Update on your registration request');
+    }
+
+    protected function body(object $notifiable): string
+    {
+        $line = __('We are sorry to inform you that your :type registration was not approved.', ['type' => $this->accountType]);
+
+        if ($this->reason) {
+            $line .= ' '.__('Reason: :reason', ['reason' => $this->reason]);
+        }
+
+        return $line;
+    }
+
+    protected function type(): NotificationType
+    {
+        return NotificationType::ERROR;
     }
 
     public function toMail(object $notifiable): MailMessage

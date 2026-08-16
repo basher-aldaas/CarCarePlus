@@ -2,24 +2,22 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Notifications\Operations\OperationNotification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 /**
  * Notice sent to a user when they sign out of their account.
  */
-class LogoutNotification extends Notification implements ShouldQueue
+class LogoutNotification extends OperationNotification
 {
-    use Queueable;
-
-    /**
-     * @return array<int, string>
-     */
-    public function via(object $notifiable): array
+    protected function title(object $notifiable): string
     {
-        return ['mail'];
+        return __('You have signed out of CarCarePlus');
+    }
+
+    protected function body(object $notifiable): string
+    {
+        return __('You have successfully signed out of your CarCarePlus account.');
     }
 
     public function toMail(object $notifiable): MailMessage

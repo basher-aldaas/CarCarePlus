@@ -33,4 +33,21 @@ class AiRuleRepository
     {
         return $aiRule->delete();
     }
+
+    public function findMatchingRule(string $problem)
+    {
+        return AiRule::where('is_active', true)
+            ->whereNotNull('condition_value')
+            ->where('condition_value', '!=', '')
+            ->where(function ($query) use ($problem) {
+
+                $query->whereRaw(
+                    '? LIKE CONCAT("%", condition_value, "%")',
+                    [$problem]
+                );
+
+            })
+            ->first();
+    }
+
 }

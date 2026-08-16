@@ -26,7 +26,7 @@ class CarBrandController extends Controller
             CarBrandResource::collection(
                 $this->carBrandService->index($request->integer('per_page', 15))
             ),
-            'Car brands fetched successfully'
+            __('Car brands fetched successfully')
         );
     }
 
@@ -36,7 +36,7 @@ class CarBrandController extends Controller
             new CarBrandResource(
                 $this->carBrandService->show($id)
             ),
-            'Car brand fetched successfully'
+            __('Car brand fetched successfully')
         );
     }
 
@@ -51,7 +51,7 @@ class CarBrandController extends Controller
 
         return Response::Success(
             new CarBrandResource($carBrand),
-            'Car brand created successfully'
+            __('Car brand created successfully')
         );
     }
 
@@ -66,7 +66,7 @@ class CarBrandController extends Controller
 
         return Response::Success(
             new CarBrandResource($carBrand),
-            'Car brand updated successfully'
+            __('Car brand updated successfully')
         );
     }
 
@@ -77,7 +77,7 @@ class CarBrandController extends Controller
 
         return Response::Success(
             [],
-            'Car brand deleted successfully'
+            __('Car brand deleted successfully')
         );
     }
 }

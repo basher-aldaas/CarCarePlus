@@ -2,25 +2,29 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Enums\NotificationType;
+use App\Notifications\Operations\OperationNotification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 /**
  * Confirmation sent after a user's password is changed — via reset or while
  * signed in. Acts as a security alert if the change was not made by the user.
  */
-class PasswordChangedNotification extends Notification implements ShouldQueue
+class PasswordChangedNotification extends OperationNotification
 {
-    use Queueable;
-
-    /**
-     * @return array<int, string>
-     */
-    public function via(object $notifiable): array
+    protected function title(object $notifiable): string
     {
-        return ['mail'];
+        return __('Your CarCarePlus password was changed');
+    }
+
+    protected function body(object $notifiable): string
+    {
+        return __('This is a confirmation that the password for your account has just been changed. If you did not make this change, please contact our support team immediately.');
+    }
+
+    protected function type(): NotificationType
+    {
+        return NotificationType::WARNING;
     }
 
     public function toMail(object $notifiable): MailMessage

@@ -18,12 +18,15 @@ class RoadAssistanceDetail extends Model
         'problem_image_url',
         'ai_diagnosis',
         'ai_chat_log',
+        'towing_required',
     ];
 
     protected $casts = [
         'car_type_size' => CarTypeSize::class,
         'ai_chat_log' => 'array',
         'created_at' => 'datetime',
+        'towing_required' => 'boolean',
+
     ];
 
     public function order(): BelongsTo

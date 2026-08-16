@@ -25,7 +25,7 @@ class PackageController extends Controller
             PackageResource::collection(
                 $this->packageService->index()
             ),
-            'Packages fetched successfully'
+            __('Packages fetched successfully')
         );
     }
 
@@ -35,7 +35,7 @@ class PackageController extends Controller
             new PackageResource(
                 $this->packageService->show($id)
             ),
-            'Package fetched successfully'
+            __('Package fetched successfully')
         );
     }
 
@@ -50,7 +50,7 @@ class PackageController extends Controller
 
         return Response::Success(
             new PackageResource($package),
-            'Package created successfully'
+            __('Package created successfully')
         );
     }
 
@@ -65,7 +65,7 @@ class PackageController extends Controller
 
         return Response::Success(
             new PackageResource($package),
-            'Package updated successfully'
+            __('Package updated successfully')
         );
     }
 
@@ -76,7 +76,7 @@ class PackageController extends Controller
 
         return Response::Success(
             [],
-            'Package deleted successfully'
+            __('Package deleted successfully')
         );
     }
 }

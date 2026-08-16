@@ -28,7 +28,7 @@ class CategoryController extends Controller
             CategoryResource::collection(
                 $this->categoryService->index($request->integer('per_page', 15))
             ),
-            'Categories fetched successfully'
+            __('Categories fetched successfully')
         );
     }
 
@@ -38,7 +38,7 @@ class CategoryController extends Controller
             new CategoryResource(
                 $this->categoryService->show($id)
             ),
-            'Category fetched successfully'
+            __('Category fetched successfully')
         );
     }
 
@@ -53,7 +53,7 @@ class CategoryController extends Controller
 
         return Response::Success(
             new CategoryResource($category),
-            'Category created successfully'
+            __('Category created successfully')
         );
     }
 
@@ -71,7 +71,7 @@ class CategoryController extends Controller
 
         return Response::Success(
             new CategoryResource($category),
-            'Category updated successfully'
+            __('Category updated successfully')
         );
     }
 
@@ -82,7 +82,7 @@ class CategoryController extends Controller
 
         return Response::Success(
             [],
-            'Category deleted successfully'
+            __('Category deleted successfully')
         );
     }
 }

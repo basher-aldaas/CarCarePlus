@@ -21,7 +21,7 @@ class EnumController extends Controller
     {
         return Response::Success(
             $this->enumService->all(),
-            'Enums fetched successfully'
+            __('Enums fetched successfully')
         );
     }
 }

@@ -58,7 +58,7 @@ class EmployeeReportController extends Controller
     {
         return Response::Success(
             new EmployeeReportResource($this->employeeReportService->show($employeeReport)),
-            'employee report fetched successfully'
+            __('employee report fetched successfully')
         );
     }
 }

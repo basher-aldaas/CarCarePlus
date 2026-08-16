@@ -4,7 +4,9 @@ namespace App\Services\Operations;
 
 use App\DTOs\AdjustPointsDTO;
 use App\Models\PointsTransaction;
+use App\Models\User;
 use App\Models\UserPoint;
+use App\Notifications\Operations\PointsAdjustedNotification;
 use App\Repositories\Eloquent\PointRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -38,7 +40,7 @@ class PointService
      */
     public function adjustPoints(AdjustPointsDTO $dto): PointsTransaction
     {
-        return DB::transaction(function () use ($dto) {
+        $transaction = DB::transaction(function () use ($dto) {
             return $this->pointRepository->createTransaction(
                 customer_id: $dto->customer_id,
                 type: $dto->type,
@@ -48,5 +50,12 @@ class PointService
                 note: $dto->note,
             );
         });
+
+        // Let the customer know their points balance changed.
+        User::find($dto->customer_id)?->notify(
+            new PointsAdjustedNotification($transaction, $dto->note)
+        );
+
+        return $transaction;
     }
 }

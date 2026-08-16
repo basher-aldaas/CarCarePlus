@@ -58,7 +58,7 @@ class GpsLogController extends Controller
     {
         return Response::Success(
             new GpsLogResource($this->gpsLogService->show($gpsLog)),
-            'gps log fetched successfully'
+            __('gps log fetched successfully')
         );
     }
 }

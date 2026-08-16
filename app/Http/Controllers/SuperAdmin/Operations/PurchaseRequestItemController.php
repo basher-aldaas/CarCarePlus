@@ -40,7 +40,7 @@ class PurchaseRequestItemController extends Controller
     {
         return Response::Success(
             new PurchaseRequestItemResource($this->purchaseRequestItemService->show($purchaseRequestItem)),
-            'purchase request item fetched successfully'
+            __('purchase request item fetched successfully')
         );
     }
 }

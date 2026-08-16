@@ -55,7 +55,7 @@ class SuggestedProblemController extends Controller
     {
         return Response::Success(
             new SuggestedProblemResource($this->suggestedProblemService->show($suggestedProblem)),
-            'suggested problem fetched successfully'
+            __('suggested problem fetched successfully')
         );
     }
 

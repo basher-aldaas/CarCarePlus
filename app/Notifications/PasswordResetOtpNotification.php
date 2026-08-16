@@ -2,29 +2,30 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Notifications\Operations\OperationNotification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 /**
  * Emails a one-time password (OTP) code for resetting a password.
+ *
+ * NOTE: the OTP code is delivered by email only. The in-app record stores a
+ * generic message and never persists the code.
  */
-class PasswordResetOtpNotification extends Notification implements ShouldQueue
+class PasswordResetOtpNotification extends OperationNotification
 {
-    use Queueable;
-
     public function __construct(
         public string $code,
         public int $expiresInMinutes = 10,
     ) {}
 
-    /**
-     * @return array<int, string>
-     */
-    public function via(object $notifiable): array
+    protected function title(object $notifiable): string
     {
-        return ['mail'];
+        return __('Your password reset code');
+    }
+
+    protected function body(object $notifiable): string
+    {
+        return __('A password reset code has been sent to your email.');
     }
 
     public function toMail(object $notifiable): MailMessage

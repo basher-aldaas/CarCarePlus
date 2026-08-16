@@ -55,7 +55,7 @@ class MaterialUnitController extends Controller
     {
         return Response::Success(
             new MaterialUnitResource($this->materialUnitService->show($materialUnit)),
-            'material unit fetched successfully'
+            __('material unit fetched successfully')
         );
     }
 

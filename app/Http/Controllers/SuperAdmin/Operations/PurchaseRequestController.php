@@ -55,7 +55,7 @@ class PurchaseRequestController extends Controller
     {
         return Response::Success(
             new PurchaseRequestResource($this->purchaseRequestService->show($purchaseRequest)),
-            'purchase request fetched successfully'
+            __('purchase request fetched successfully')
         );
     }
 

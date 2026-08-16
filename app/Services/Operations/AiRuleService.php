@@ -42,4 +42,50 @@ class AiRuleService
             return $this->aiRuleRepository->delete($aiRule);
         });
     }
+    public function findMatchingRule(
+        string $problem,
+        ?int $brandId = null,
+        ?string $carType = null,
+        ?string $fuelType = null
+    ): ?AiRule {
+
+        return AiRule::query()
+
+            ->where('is_active', true)
+
+            ->when($brandId, function ($q) use ($brandId) {
+                $q->where(function ($query) use ($brandId) {
+                    $query->whereNull('brand_id')
+                        ->orWhere('brand_id', $brandId);
+                });
+            })
+
+            ->when($carType, function ($q) use ($carType) {
+                $q->where(function ($query) use ($carType) {
+                    $query->whereNull('car_type')
+                        ->orWhere('car_type', $carType);
+                });
+            })
+
+            ->when($fuelType, function ($q) use ($fuelType) {
+                $q->where(function ($query) use ($fuelType) {
+                    $query->whereNull('fuel_type')
+                        ->orWhere('fuel_type', $fuelType);
+                });
+            })
+
+            ->where(function ($query) use ($problem) {
+
+                $query
+
+                    ->where('name', 'like', "%{$problem}%")
+
+                    ->orWhere('name_ar', 'like', "%{$problem}%")
+
+                    ->orWhere('condition_value', 'like', "%{$problem}%");
+
+            })
+
+            ->first();
+    }
 }

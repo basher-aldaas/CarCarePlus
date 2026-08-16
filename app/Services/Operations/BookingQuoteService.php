@@ -18,6 +18,8 @@ use App\Models\Order;
 use App\Models\Service;
 use App\Models\SubService;
 use App\Models\User;
+use App\Notifications\Operations\BookingConfirmedNotification;
+use App\Notifications\Operations\BookingPlacedAdminNotification;
 use App\Repositories\Eloquent\BranchRepository;
 use App\Repositories\Eloquent\MaterialRepository;
 use App\Repositories\Eloquent\OrderRepository;
@@ -476,7 +478,7 @@ class BookingQuoteService
             $scheduledAt = Carbon::parse($data['scheduled_at']);
         }
 
-        return DB::transaction(function () use ($payload, $data, $scheduledAt, $bookingTypeHandler, $paymentHandler, $context, $companyId) {
+        $orders = DB::transaction(function () use ($payload, $data, $scheduledAt, $bookingTypeHandler, $paymentHandler, $context, $companyId) {
             $groupId = $companyId !== null ? (string) Str::uuid() : null;
             $orders = [];
 
@@ -542,6 +544,38 @@ class BookingQuoteService
 
             return $orders;
         });
+
+        $this->notifyBookingConfirmed($orders, $customer);
+
+        return $orders;
+    }
+
+    /**
+     * After a booking is confirmed, tell the customer it went through and
+     * notify the branch admin so they can assign a technician. A confirmation
+     * can span several cars (one order each) that all share one branch, so a
+     * single notification is sent to each party covering the whole batch.
+     *
+     * @param array<int, Order> $orders
+     */
+    protected function notifyBookingConfirmed(array $orders, User $customer): void
+    {
+        if ($orders === []) {
+            return;
+        }
+
+        $firstOrder = $orders[0];
+        $count = count($orders);
+
+        // Notify the customer that their booking is confirmed.
+        $customer->notify(new BookingConfirmedNotification($firstOrder, $count));
+
+        // Notify the branch admin of the (shared) branch.
+        $branchAdmin = Branch::with('manager')->find($firstOrder->branch_id)?->manager;
+
+        if ($branchAdmin !== null && $branchAdmin->getKey() !== $customer->getKey()) {
+            $branchAdmin->notify(new BookingPlacedAdminNotification($firstOrder, $customer->name, $count));
+        }
     }
 
     /**

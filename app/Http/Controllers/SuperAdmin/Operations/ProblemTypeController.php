@@ -55,7 +55,7 @@ class ProblemTypeController extends Controller
     {
         return Response::Success(
             new ProblemTypeResource($this->problemTypeService->show($problemType)),
-            'problem type fetched successfully'
+            __('problem type fetched successfully')
         );
     }
 

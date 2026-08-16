@@ -37,7 +37,7 @@ class AuditLogController extends Controller
     {
         return Response::Success(
             new AuditLogResource($this->auditLogService->show($auditLog)),
-            'audit log fetched successfully'
+            __('audit log fetched successfully')
         );
     }
 }

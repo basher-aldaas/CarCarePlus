@@ -2,27 +2,28 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Notifications\Operations\OperationNotification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 /**
  * Sent when a user requests a password reset. Carries the reset token and a
  * deep link the frontend/mobile app can open to complete the reset.
+ *
+ * NOTE: the reset token is delivered by email only. The in-app record stores a
+ * generic message and never persists the token/link.
  */
-class ResetPasswordNotification extends Notification implements ShouldQueue
+class ResetPasswordNotification extends OperationNotification
 {
-    use Queueable;
-
     public function __construct(public string $token) {}
 
-    /**
-     * @return array<int, string>
-     */
-    public function via(object $notifiable): array
+    protected function title(object $notifiable): string
     {
-        return ['mail'];
+        return __('Reset your CarCarePlus password');
+    }
+
+    protected function body(object $notifiable): string
+    {
+        return __('We received a password reset request for your account. A reset link has been sent to your email.');
     }
 
     public function toMail(object $notifiable): MailMessage

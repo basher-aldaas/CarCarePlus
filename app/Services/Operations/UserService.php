@@ -4,6 +4,7 @@ namespace App\Services\Operations;
 
 use App\DTOs\UserDTO;
 use App\Models\User;
+use App\Notifications\AccountStatusChangedNotification;
 use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -36,7 +37,14 @@ class UserService
             ]);
         }
 
+        $statusChanged = (bool) $user->is_active !== $isActive;
+
         $user->update(['is_active' => $isActive]);
+
+        // Only notify the user when their status actually changed.
+        if ($statusChanged) {
+            $user->notify(new AccountStatusChangedNotification($isActive));
+        }
 
         return $user->refresh();
     }

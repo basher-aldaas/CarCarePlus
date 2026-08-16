@@ -3,10 +3,14 @@
 namespace App\Services\Operations;
 
 use App\Enums\WalletTransactionEnums\WalletTransactionReason;
+use App\Models\User;
 use App\Models\Wallet;
+use App\Notifications\Operations\WalletAdjustedAdminNotification;
+use App\Notifications\Operations\WalletAdjustedNotification;
 use App\Repositories\Eloquent\WalletRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class WalletService
 {
@@ -44,6 +48,26 @@ class WalletService
             }
         });
 
-        return $this->forUser($userId);
+        $wallet = $this->forUser($userId);
+        $admin = auth()->user();
+
+        // Notify the customer whose wallet changed.
+        $wallet->user?->notify(new WalletAdjustedNotification($wallet, $amount, $note));
+
+        // Notify the super admin(s) who made / oversee the change, recording
+        // which admin adjusted which customer. Skip the acting admin so they
+        // are not notified about their own action.
+        $superAdmins = User::role('super_admin')
+            ->when($admin !== null, fn ($q) => $q->where('id', '!=', $admin->id))
+            ->get();
+
+        if ($superAdmins->isNotEmpty()) {
+            Notification::send(
+                $superAdmins,
+                new WalletAdjustedAdminNotification($wallet, $admin, $amount, $note),
+            );
+        }
+
+        return $wallet;
     }
 }

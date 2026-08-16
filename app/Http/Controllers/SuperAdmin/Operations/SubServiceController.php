@@ -25,7 +25,7 @@ class SubServiceController extends Controller
             SubServiceResource::collection(
                 $this->subServiceService->index()
             ),
-            'Sub services fetched successfully'
+            __('Sub services fetched successfully')
         );
     }
 
@@ -35,7 +35,7 @@ class SubServiceController extends Controller
             new SubServiceResource(
                 $this->subServiceService->show($id)
             ),
-            'Sub service fetched successfully'
+            __('Sub service fetched successfully')
         );
     }
 
@@ -45,7 +45,7 @@ class SubServiceController extends Controller
             SubServiceResource::collection(
                 $this->subServiceService->indexByService($service)
             ),
-            'Sub services fetched successfully'
+            __('Sub services fetched successfully')
         );
     }
 
@@ -60,7 +60,7 @@ class SubServiceController extends Controller
 
         return Response::Success(
             new SubServiceResource($subService),
-            'Sub service created successfully'
+            __('Sub service created successfully')
         );
     }
 
@@ -75,7 +75,7 @@ class SubServiceController extends Controller
 
         return Response::Success(
             new SubServiceResource($subService),
-            'Sub service updated successfully'
+            __('Sub service updated successfully')
         );
     }
 
@@ -86,7 +86,7 @@ class SubServiceController extends Controller
 
         return Response::Success(
             [],
-            'Sub service deleted successfully'
+            __('Sub service deleted successfully')
         );
     }
 }

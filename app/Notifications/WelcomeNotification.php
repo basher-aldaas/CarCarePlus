@@ -2,24 +2,31 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Enums\NotificationType;
+use App\Notifications\Operations\OperationNotification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 /**
  * Sent to a personal customer right after a successful self-registration.
+ *
+ * Extends OperationNotification so it is delivered on both the in-app channel
+ * (a row in the `notifications` table) and best-effort email.
  */
-class WelcomeNotification extends Notification implements ShouldQueue
+class WelcomeNotification extends OperationNotification
 {
-    use Queueable;
-
-    /**
-     * @return array<int, string>
-     */
-    public function via(object $notifiable): array
+    protected function title(object $notifiable): string
     {
-        return ['mail'];
+        return __('Welcome to CarCarePlus');
+    }
+
+    protected function body(object $notifiable): string
+    {
+        return __('Your account has been created successfully and is ready to use.');
+    }
+
+    protected function type(): NotificationType
+    {
+        return NotificationType::SUCCESS;
     }
 
     public function toMail(object $notifiable): MailMessage

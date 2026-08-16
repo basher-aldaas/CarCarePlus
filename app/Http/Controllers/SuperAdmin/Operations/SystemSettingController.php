@@ -55,7 +55,7 @@ class SystemSettingController extends Controller
     {
         return Response::Success(
             new SystemSettingResource($this->systemSettingService->show($systemSetting)),
-            'system setting fetched successfully'
+            __('system setting fetched successfully')
         );
     }
 

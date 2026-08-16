@@ -4,20 +4,7 @@ namespace App\Notifications\Channels;
 
 use Illuminate\Notifications\Notification;
 
-/**
- * Sends a push notification through Firebase Cloud Messaging (FCM).
- *
- * The actual delivery is COMMENTED OUT for now — the frontend team will wire
- * Firebase up later. Until then this channel is a safe no-op: nothing is sent,
- * nothing breaks. To enable it:
- *   1. Add the FCM_* / firebase credentials to your .env and config/services.php.
- *   2. Uncomment the send() body below.
- *   3. Add FcmChannel::class to the notification's channel list
- *      (see OperationNotification::channels()).
- *
- * Any notification routed here must expose a `toFcm()` method returning:
- *   ['title' => ..., 'body' => ..., 'data' => [...]]
- */
+
 class FcmChannel
 {
     public function send(object $notifiable, Notification $notification): void

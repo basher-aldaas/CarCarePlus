@@ -26,7 +26,7 @@ class CarTypeController extends Controller
             CarTypeResource::collection(
                 $this->carTypeService->index($request->integer('per_page', 15))
             ),
-            'Car types fetched successfully'
+            __('Car types fetched successfully')
         );
     }
 
@@ -36,7 +36,7 @@ class CarTypeController extends Controller
             new CarTypeResource(
                 $this->carTypeService->show($id)
             ),
-            'Car type fetched successfully'
+            __('Car type fetched successfully')
         );
     }
 
@@ -51,7 +51,7 @@ class CarTypeController extends Controller
 
         return Response::Success(
             new CarTypeResource($carType),
-            'Car type created successfully'
+            __('Car type created successfully')
         );
     }
 
@@ -66,7 +66,7 @@ class CarTypeController extends Controller
 
         return Response::Success(
             new CarTypeResource($carType),
-            'Car type updated successfully'
+            __('Car type updated successfully')
         );
     }
 
@@ -77,7 +77,7 @@ class CarTypeController extends Controller
 
         return Response::Success(
             [],
-            'Car type deleted successfully'
+            __('Car type deleted successfully')
         );
     }
 }

@@ -30,7 +30,7 @@ class InventoryTransactionService
             return $this->inventoryTransactionRepository->getAllInAdminBranch();
         }
 
-        throw new AccessDeniedHttpException('You are not allowed to view inventory transactions.');
+        throw new AccessDeniedHttpException(__('You are not allowed to view inventory transactions.'));
     }
 
     public function show(InventoryTransaction $inventoryTransaction): InventoryTransaction
@@ -44,7 +44,7 @@ class InventoryTransactionService
             return $this->inventoryTransactionRepository->findByIdForAdmin($inventoryTransaction);
         }
 
-        throw new AccessDeniedHttpException('You are not allowed to view inventory transactions.');
+        throw new AccessDeniedHttpException(__('You are not allowed to view inventory transactions.'));
 
     }
 
@@ -138,13 +138,13 @@ class InventoryTransactionService
             $branchId = Branch::query()->where('admin_id', $user->id)->value('id');
 
             if (! $branchId) {
-                throw new AccessDeniedHttpException('You are not assigned to a branch.');
+                throw new AccessDeniedHttpException(__('You are not assigned to a branch.'));
             }
 
             return (int) $branchId;
         }
 
-        throw new AccessDeniedHttpException('You are not allowed to create inventory transactions.');
+        throw new AccessDeniedHttpException(__('You are not allowed to create inventory transactions.'));
     }
 
     /**

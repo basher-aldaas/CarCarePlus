@@ -26,7 +26,7 @@ class PackageServiceSubServiceController extends Controller
             PackageServiceSubServiceResource::collection(
                 $this->packageServiceSubServiceService->index($request->integer('per_page', 15))
             ),
-            'Package service sub services fetched successfully'
+            __('Package service sub services fetched successfully')
         );
     }
 
@@ -36,7 +36,7 @@ class PackageServiceSubServiceController extends Controller
             new PackageServiceSubServiceResource(
                 $this->packageServiceSubServiceService->show($id)
             ),
-            'Package service sub service fetched successfully'
+            __('Package service sub service fetched successfully')
         );
     }
 
@@ -51,7 +51,7 @@ class PackageServiceSubServiceController extends Controller
 
         return Response::Success(
             new PackageServiceSubServiceResource($packageServiceSubService),
-            'Package service sub service created successfully'
+            __('Package service sub service created successfully')
         );
     }
 
@@ -66,7 +66,7 @@ class PackageServiceSubServiceController extends Controller
 
         return Response::Success(
             new PackageServiceSubServiceResource($packageServiceSubService),
-            'Package service sub service updated successfully'
+            __('Package service sub service updated successfully')
         );
     }
 
@@ -77,7 +77,7 @@ class PackageServiceSubServiceController extends Controller
 
         return Response::Success(
             [],
-            'Package service sub service deleted successfully'
+            __('Package service sub service deleted successfully')
         );
     }
 }

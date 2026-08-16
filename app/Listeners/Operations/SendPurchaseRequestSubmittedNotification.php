@@ -6,7 +6,7 @@ use App\Events\Operations\PurchaseRequestSubmitted;
 use App\Models\Branch;
 use App\Models\User;
 use App\Notifications\Operations\PurchaseRequestSubmittedNotification;
-use Illuminate\Notifications\Facades\Notification;
+use Illuminate\Support\Facades\Notification;
 
 class SendPurchaseRequestSubmittedNotification
 {

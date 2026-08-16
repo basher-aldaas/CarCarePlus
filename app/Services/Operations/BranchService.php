@@ -44,7 +44,7 @@ class BranchService
             if ( $user->hasRole('admin') && $user->id === $branch->admin_id ) {
                 return $this->branchRepository->update($branch, $dto);
             }
-            throw new AccessDeniedHttpException( 'You are not allowed to update this branch.' );
+            throw new AccessDeniedHttpException(__('You are not allowed to update this branch.'));
 
         });
     }

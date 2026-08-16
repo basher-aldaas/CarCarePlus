@@ -52,7 +52,10 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // صلاحيات غير كافية (403)
         $exceptions->render(function (AccessDeniedHttpException $e, $request) {
-            return Response::Error('', __('strings.You do not have the required authorization'), HttpStatusConstants::HTTP_403_FORBIDDEN);
+            // اعرض رسالة الاستثناء الفعلية (وهي مترجمة عبر __()) وإلا ارجع للرسالة الموحّدة
+            $message = $e->getMessage() ?: __('strings.You do not have the required authorization');
+
+            return Response::Error('', $message, HttpStatusConstants::HTTP_403_FORBIDDEN);
         });
 
         // مورد غير موجود (404)

@@ -55,7 +55,7 @@ class AiRuleController extends Controller
     {
         return Response::Success(
             new AiRuleResource($this->aiRuleService->show($aiRule)),
-            'ai rule fetched successfully'
+            __('ai rule fetched successfully')
         );
     }
 

@@ -26,7 +26,7 @@ class ServiceController extends Controller
             ServiceResource::collection(
                 $this->serviceService->index()
             ),
-            'Services fetched successfully'
+            __('Services fetched successfully')
         );
     }
 
@@ -46,7 +46,7 @@ class ServiceController extends Controller
             ServiceResource::collection(
                 $this->serviceService->indexByCategory($category)
             ),
-            'Services fetched successfully'
+            __('Services fetched successfully')
         );
     }
 
@@ -61,7 +61,7 @@ class ServiceController extends Controller
 
         return Response::Success(
             new ServiceResource($service),
-            'Service created successfully'
+            __('Service created successfully')
         );
     }
 
@@ -79,7 +79,7 @@ class ServiceController extends Controller
 
         return Response::Success(
             new ServiceResource($service),
-            'Service updated successfully'
+            __('Service updated successfully')
         );
     }
 
@@ -90,7 +90,7 @@ class ServiceController extends Controller
 
         return Response::Success(
             [],
-            'Service deleted successfully'
+            __('Service deleted successfully')
         );
     }
 }

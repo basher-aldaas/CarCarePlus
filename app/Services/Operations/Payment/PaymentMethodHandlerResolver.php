@@ -20,7 +20,7 @@ class PaymentMethodHandlerResolver
             PaymentMethod::WALLET => $this->walletPaymentHandler,
             PaymentMethod::POINT => $this->pointsPaymentHandler,
             PaymentMethod::PACKAGE => $this->packagePaymentHandler,
-            PaymentMethod::CARD => throw new \RuntimeException('Card payment is not supported yet.'),
+            PaymentMethod::CARD => throw new \RuntimeException(__('Card payment is not supported yet.')),
         };
     }
 }

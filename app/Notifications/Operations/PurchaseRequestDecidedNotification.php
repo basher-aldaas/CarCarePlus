@@ -31,9 +31,23 @@ class PurchaseRequestDecidedNotification extends OperationNotification
         return $this->purchaseRequest->id;
     }
 
+    /** Whether this request moves stock between branches (vs. an external purchase). */
+    protected function isTransfer(): bool
+    {
+        return (bool) $this->purchaseRequest->request_type;
+    }
+
     protected function title(object $notifiable): string
     {
-        return $this->purchaseRequest->status === PurchaseRequestStatus::APPROVED
+        $approved = $this->purchaseRequest->status === PurchaseRequestStatus::APPROVED;
+
+        if ($this->isTransfer()) {
+            return $approved
+                ? __('Stock transfer completed')
+                : __('Stock transfer rejected');
+        }
+
+        return $approved
             ? __('Purchase request approved')
             : __('Purchase request rejected');
     }
@@ -43,10 +57,14 @@ class PurchaseRequestDecidedNotification extends OperationNotification
         $id = $this->purchaseRequest->id;
 
         if ($this->purchaseRequest->status === PurchaseRequestStatus::APPROVED) {
-            return __('Your purchase request #:id has been approved.', ['id' => $id]);
+            return $this->isTransfer()
+                ? __('Your stock transfer #:id has been approved and the stock has been moved.', ['id' => $id])
+                : __('Your purchase request #:id has been approved.', ['id' => $id]);
         }
 
-        $message = __('Your purchase request #:id has been rejected.', ['id' => $id]);
+        $message = $this->isTransfer()
+            ? __('Your stock transfer #:id has been rejected.', ['id' => $id])
+            : __('Your purchase request #:id has been rejected.', ['id' => $id]);
 
         if ($this->purchaseRequest->rejection_reason) {
             $message .= ' ' . __('Reason: :reason', ['reason' => $this->purchaseRequest->rejection_reason]);

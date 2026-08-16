@@ -18,6 +18,7 @@ use App\Exceptions\InvalidBookingStatusTransitionException;
 use App\Exceptions\InvalidOrderDiscountException;
 use App\Exceptions\TowingDetailNotFoundException;
 use App\Models\Order;
+use App\Notifications\Operations\OrderDiscountedNotification;
 use App\Models\PointsTransaction;
 use App\Models\UserPoint;
 use App\Repositories\Eloquent\InventoryRepository;
@@ -448,7 +449,7 @@ class BookingService
             throw new InvalidOrderDiscountException();
         }
 
-        return DB::transaction(function () use ($order, $id, $discount, $currentTotal, $data) {
+        $updatedOrder = DB::transaction(function () use ($order, $id, $discount, $currentTotal, $data) {
             $newTotal = round($currentTotal - $discount, 2);
             $newDiscount = round((float) $order->discount_amount + $discount, 2);
 
@@ -477,6 +478,13 @@ class BookingService
 
             return $this->orderRepository->findById($id);
         });
+
+        // Let the customer know a discount was granted (in-app + email).
+        $updatedOrder->customer?->notify(
+            new OrderDiscountedNotification($updatedOrder, $discount, $data['reason'] ?? null)
+        );
+
+        return $updatedOrder;
     }
 
     public function assignBooking(int $id, int $employeeId): Order

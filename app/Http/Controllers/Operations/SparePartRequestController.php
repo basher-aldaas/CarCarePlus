@@ -63,7 +63,7 @@ class SparePartRequestController extends Controller
     {
         return Response::Success(
             new SparePartRequestResource($this->sparePartRequestService->show($sparePartRequest)),
-            'spare part request fetched successfully'
+            __('spare part request fetched successfully')
         );
     }
 

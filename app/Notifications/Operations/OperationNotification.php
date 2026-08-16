@@ -5,6 +5,7 @@ namespace App\Notifications\Operations;
 use App\Enums\NotificationType;
 use App\Notifications\Channels\FcmChannel;
 use App\Notifications\Channels\InAppChannel;
+use App\Notifications\Channels\SafeMailChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -72,8 +73,11 @@ abstract class OperationNotification extends Notification implements ShouldQueue
     public function sentVia(): array
     {
         return [
-            'mail',
+            // 'in_app' is listed first so the DB record is written before the
+            // best-effort 'mail' step, guaranteeing the customer always gets an
+            // in-app notification even if email delivery fails.
             'in_app',
+            'mail',
             // 'fcm', // TODO: uncomment when Firebase Cloud Messaging is wired up on the frontend.
         ];
     }
@@ -87,6 +91,7 @@ abstract class OperationNotification extends Notification implements ShouldQueue
     {
         return array_map(fn (string $channel): string => match ($channel) {
             'in_app' => InAppChannel::class,
+            'mail' => SafeMailChannel::class,
             'fcm' => FcmChannel::class,
             default => $channel,
         }, $this->sentVia());

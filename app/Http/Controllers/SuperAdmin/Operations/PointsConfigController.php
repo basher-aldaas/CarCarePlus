@@ -26,7 +26,7 @@ class PointsConfigController extends Controller
             PointsConfigResource::collection(
                 $this->pointsConfigService->index($request->integer('per_page', 15))
             ),
-            'Points configs fetched successfully'
+            __('Points configs fetched successfully')
         );
     }
 
@@ -36,7 +36,7 @@ class PointsConfigController extends Controller
             new PointsConfigResource(
                 $this->pointsConfigService->show($id)
             ),
-            'Points config fetched successfully'
+            __('Points config fetched successfully')
         );
     }
 
@@ -51,7 +51,7 @@ class PointsConfigController extends Controller
 
         return Response::Success(
             new PointsConfigResource($pointsConfig),
-            'Points config created successfully'
+            __('Points config created successfully')
         );
     }
 
@@ -66,7 +66,7 @@ class PointsConfigController extends Controller
 
         return Response::Success(
             new PointsConfigResource($pointsConfig),
-            'Points config updated successfully'
+            __('Points config updated successfully')
         );
     }
 
@@ -77,7 +77,7 @@ class PointsConfigController extends Controller
 
         return Response::Success(
             [],
-            'Points config deleted successfully'
+            __('Points config deleted successfully')
         );
     }
 }

@@ -2,30 +2,29 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Enums\NotificationType;
+use App\Notifications\Operations\OperationNotification;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 /**
  * Sent to a company / workshop owner immediately after they submit a
  * registration request, acknowledging it is pending super-admin approval.
  */
-class RegistrationPendingNotification extends Notification implements ShouldQueue
+class RegistrationPendingNotification extends OperationNotification
 {
-    use Queueable;
-
     /**
      * @param  string  $accountType  Localized label, e.g. "company" or "workshop".
      */
     public function __construct(public string $accountType) {}
 
-    /**
-     * @return array<int, string>
-     */
-    public function via(object $notifiable): array
+    protected function title(object $notifiable): string
     {
-        return ['mail'];
+        return __('Registration request received');
+    }
+
+    protected function body(object $notifiable): string
+    {
+        return __('We have received your :type registration request. It is now pending review by our team.', ['type' => $this->accountType]);
     }
 
     public function toMail(object $notifiable): MailMessage
