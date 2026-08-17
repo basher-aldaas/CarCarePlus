@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent;
 use App\DTOs\OrderDTO;
 use App\Enums\OrderEnums\OrderStatus;
 use App\Models\Branch;
+use App\Filters\OrderFilter;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -24,38 +25,40 @@ class OrderRepository
      * only the maintenance bookings placed at their workshop, and a
      * customer sees only their own bookings.
      */
-    public function getAllScoped(): Builder
+
+
+    public function getAllScoped(?OrderFilter $filter = null): Builder
     {
         $user = auth()->user();
 
         $query = Order::with($this->with)->latest();
 
         if ($user->hasRole('super_admin')) {
-            return $query;
-        }
-
-        if ($user->hasRole('admin')) {
+            // no restriction
+        } elseif ($user->hasRole('admin')) {
             $branchIds = Branch::where('admin_id', $user->id)->pluck('id');
-            return $query->whereIn('branch_id', $branchIds);
-        }
 
-        if ($user->hasAnyRole(['employee_washer', 'employee_mechanic'])) {
-            return $query->where('employee_id', $user->employee?->id);
-        }
-
-        if ($user->hasRole('workshop')) {
+            $query->whereIn('branch_id', $branchIds);
+        } elseif ($user->hasAnyRole(['employee_washer', 'employee_mechanic'])) {
+            $query->where('employee_id', $user->employee?->id);
+        } elseif ($user->hasRole('workshop')) {
             $workshop = $this->workshopRepository->findByOwnerId($user->id);
 
             if (! $workshop) {
                 return $query->whereRaw('1 = 0');
             }
 
-            return $query->where('workshop_id', $workshop->id);
+            $query->where('workshop_id', $workshop->id);
+        } else {
+            $query->where('customer_id', $user->id);
         }
 
-        return $query->where('customer_id', $user->id);
-    }
+        if ($filter) {
+            $query = $filter->apply($query);
+        }
 
+        return $query;
+    }
     public function create(OrderDTO $DTO): Order
     {
         $order = Order::create($DTO->toArray());

@@ -9,6 +9,7 @@ use App\Models\Car;
 use App\Repositories\Eloquent\CarRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use App\Filters\CarFilter;
 
 class CarService
 {
@@ -18,9 +19,11 @@ class CarService
     /**
      * @return Collection<int, Car>
      */
-    public function getAllDashboardCars(): LengthAwarePaginator
+    public function getAllDashboardCars(?CarFilter $filter = null): LengthAwarePaginator
     {
-        return $this->carRepository->getAllDashboard()->paginate(10);
+        return $this->carRepository
+            ->getAllDashboard($filter)
+            ->paginate(10);
     }
 
     /**

@@ -22,10 +22,12 @@ class AuditLogController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $filters = $request->only(['user_id', 'table_name', 'action']);
-
         return Response::Success(
-            data: AuditLogResource::collection($this->auditLogService->index($request->integer('per_page', 15), $filters)),
+            data: AuditLogResource::collection(
+                $this->auditLogService->index(
+                    $request->integer('per_page', 15)
+                )
+            ),
             message: 'audit logs fetched successfully'
         );
     }

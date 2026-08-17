@@ -4,6 +4,7 @@ namespace App\Services\Operations;
 
 use App\DTOs\InventoryTransactionDTO;
 use App\DTOs\OrderDTO;
+use App\Filters\OrderFilter;
 use App\Enums\InventoryTransactionType;
 use App\Enums\OrderEnums\OrderMaterialStatus;
 use App\Enums\OrderEnums\OrderStatus;
@@ -18,6 +19,7 @@ use App\Exceptions\InvalidOrderDiscountException;
 use App\Exceptions\TowingDetailNotFoundException;
 use App\Models\Order;
 use App\Models\PointsTransaction;
+use App\Models\TowingDetail;
 use App\Models\UserPoint;
 use App\Repositories\Eloquent\InventoryRepository;
 use App\Repositories\Eloquent\InventoryTransactionRepository;
@@ -46,11 +48,12 @@ class BookingService
         protected PointRepository $pointRepository,
     ) {}
 
-    public function getAllBookings(): LengthAwarePaginator
+    public function getAllBookings(?OrderFilter $filter = null): LengthAwarePaginator
     {
-        return $this->orderRepository->getAllScoped()->paginate(10);
+        return $this->orderRepository
+            ->getAllScoped($filter)
+            ->paginate(10);
     }
-
 
     public function getBookingById(int $id): Order
     {
@@ -171,12 +174,12 @@ class BookingService
         return $order->roadAssistance()->with('problemType')->firstOrFail();
     }
 
-    public function getTowingDetail(int $id): ?\App\Models\TowingDetail
+    public function getTowingDetail(int $id): TowingDetail
     {
         return $this->authorizeView($id)->towingDetail()->first();
     }
 
-    public function updateTowingDetail(int $id, array $data): \App\Models\TowingDetail
+    public function updateTowingDetail(int $id, array $data): TowingDetail
     {
         $order = $this->authorizeManage($id);
 
@@ -197,7 +200,7 @@ class BookingService
      * employee driving it — its branch admin, or a super admin) may do this,
      * and only on a booking that actually has a towing detail.
      */
-    public function submitTowingDestination(int $id, array $data): \App\Models\TowingDetail
+    public function submitTowingDestination(int $id, array $data): TowingDetail
     {
         $order = $this->authorizeManage($id);
 

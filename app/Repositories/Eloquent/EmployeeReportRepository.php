@@ -3,22 +3,20 @@
 namespace App\Repositories\Eloquent;
 
 use App\DTOs\EmployeeReportDTO;
+use App\Filters\EmployeeReportFilter;
 use App\Models\EmployeeReport;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class EmployeeReportRepository
 {
-    /**
-     * @param  array<string, mixed>  $filters
-     */
-    public function getAll(int $perPage = 15, array $filters = []): LengthAwarePaginator
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return EmployeeReport::with(['order', 'employee.user'])
-            ->when($filters['order_id'] ?? null, fn ($query, $orderId) => $query->where('order_id', $orderId))
-            ->when($filters['employee_id'] ?? null, fn ($query, $employeeId) => $query->where('employee_id', $employeeId))
-            ->when($filters['status'] ?? null, fn ($query, $status) => $query->where('status', $status))
-            ->latest('id')
-            ->paginate($perPage);
+        $query = EmployeeReport::with(['order', 'employee.user'])
+            ->latest('id');
+
+        $query = (new EmployeeReportFilter())->apply($query);
+
+        return $query->paginate($perPage);
     }
 
     public function findById(EmployeeReport $employeeReport): EmployeeReport
@@ -31,9 +29,12 @@ class EmployeeReportRepository
         return EmployeeReport::create($dto->toArray());
     }
 
-    public function update(EmployeeReport $employeeReport, EmployeeReportDTO $dto): EmployeeReport
-    {
+    public function update(
+        EmployeeReport $employeeReport,
+        EmployeeReportDTO $dto
+    ): EmployeeReport {
         $employeeReport->update($dto->toArray());
+
         return $employeeReport->fresh(['order', 'employee.user']);
     }
 

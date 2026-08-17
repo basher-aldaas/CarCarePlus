@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Operations;
 
 use App\DTOs\CarDTO;
+use App\Filters\CarFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OperationsRequest\CarsRequest\CreateCarRequest;
 use App\Http\Requests\OperationsRequest\CarsRequest\UpdateCarRequest;
@@ -17,16 +18,15 @@ class CarController extends Controller
     {}
 
     //Get all Cars in system for admins and super admin
-    public function indexDashboard(): JsonResponse
+    public function indexDashboard(CarFilter $filter): JsonResponse
     {
-        $result = $this->carService->getAllDashboardCars();
+        $result = $this->carService->getAllDashboardCars($filter);
 
         return Response::Success(
             data: CarResource::collection($result),
             message: __('Cars retrieved successfully')
         );
     }
-
     //Get all Cars in system for clients
     public function indexClient(?int $customer_id = null): JsonResponse
     {

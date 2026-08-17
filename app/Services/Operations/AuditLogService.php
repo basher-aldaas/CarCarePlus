@@ -14,9 +14,9 @@ class AuditLogService
     /**
      * @param  array<string, mixed>  $filters
      */
-    public function index(int $perPage = 15, array $filters = []): LengthAwarePaginator
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->auditLogRepository->getAll($perPage, $filters);
+        return $this->auditLogRepository->getAll($perPage);
     }
 
     public function show(AuditLog $auditLog): AuditLog

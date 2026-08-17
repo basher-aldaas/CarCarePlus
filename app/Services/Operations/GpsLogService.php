@@ -16,9 +16,9 @@ class GpsLogService
     /**
      * @param  array<string, mixed>  $filters
      */
-    public function index(int $perPage = 15, array $filters = []): LengthAwarePaginator
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->gpsLogRepository->getAll($perPage, $filters);
+        return $this->gpsLogRepository->getAll($perPage);
     }
 
     public function show(GpsLog $gpsLog): GpsLog

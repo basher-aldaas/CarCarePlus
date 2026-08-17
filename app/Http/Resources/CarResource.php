@@ -44,7 +44,7 @@ class CarResource extends JsonResource
             // العلاقات — تظهر فقط عند تحميلها مسبقاً (eager loaded)
             'owner' => new UserResource($this->whenLoaded('owner')),
             'car_type' => new CarTypeResource($this->whenLoaded('carType')),
-
+            'brand' => new CarBrandResource($this->whenLoaded('brand')),
             // تنسيق التواريخ
             'created_at' => $this->created_at->toDateString(),
             'updated_at' => $this->updated_at->toDateString(),

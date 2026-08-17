@@ -6,15 +6,22 @@ use App\DTOs\CarDTO;
 use App\Models\Car;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use App\Filters\CarFilter;
 class CarRepository
 {
     /**
      * @return Collection<int, Car>
      */
-    public function getAllDashboard(): Builder
+    public function getAllDashboard(?CarFilter $filter = null): Builder
     {
-        return Car::with(['owner', 'carType'])
+        $query = Car::with(['owner', 'carType', 'brand'])
             ->latest();
+
+        if ($filter) {
+            $query = $filter->apply($query);
+        }
+
+        return $query;
     }
 
     /**
@@ -44,7 +51,8 @@ class CarRepository
 
     public function findById(int $id): Car
     {
-        return Car::with(['owner', 'carType'])->findOrFail($id);
+        return Car::with(['owner', 'carType', 'brand'])
+            ->findOrFail($id);
     }
 
     public function delete(int $id): void

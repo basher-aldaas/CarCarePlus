@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Operations;
 
 use App\DTOs\OrderDTO;
+use App\Filters\OrderFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OperationsRequest\BookingRequest\ApplyOrderDiscountRequest;
 use App\Http\Requests\OperationsRequest\BookingRequest\AssignBookingRequest;
@@ -44,16 +45,15 @@ class BookingController extends Controller
      * every booking, an admin sees their branch's, an employee sees the ones
      * assigned to them, and a customer sees only their own.
      */
-    public function index(): JsonResponse
+    public function index(OrderFilter $filter)
     {
-        $result = $this->bookingService->getAllBookings();
+        $bookings = $this->bookingService->getAllBookings($filter);
 
         return Response::Success(
-            data: OrderResource::collection($result),
+            data: $bookings,
             message: __('Bookings retrieved successfully')
         );
     }
-
 
     public function quote(CreateBookingRequest $request): JsonResponse
     {

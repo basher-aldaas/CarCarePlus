@@ -17,9 +17,10 @@ class EmployeeReportService
     /**
      * @param  array<string, mixed>  $filters
      */
-    public function index(int $perPage = 15, array $filters = []): LengthAwarePaginator
+
+    public function index(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->employeeReportRepository->getAll($perPage, $filters);
+        return $this->employeeReportRepository->getAll($perPage);
     }
 
     public function show(EmployeeReport $employeeReport): EmployeeReport

@@ -3,19 +3,18 @@
 namespace App\Repositories\Eloquent;
 
 use App\DTOs\GpsLogDTO;
+use App\Filters\GpsLogFilter;
 use App\Models\GpsLog;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class GpsLogRepository
 {
-    /**
-     * @param  array<string, mixed>  $filters
-     */
-    public function getAll(int $perPage = 15, array $filters = []): LengthAwarePaginator
+    public function getAll(int $perPage = 15): LengthAwarePaginator
     {
-        return GpsLog::with(['employee.user', 'order'])
-            ->when($filters['employee_id'] ?? null, fn ($query, $employeeId) => $query->where('employee_id', $employeeId))
-            ->when($filters['order_id'] ?? null, fn ($query, $orderId) => $query->where('order_id', $orderId))
+        return (new GpsLogFilter())
+            ->apply(
+                GpsLog::with(['employee.user', 'order'])
+            )
             ->latest('recorded_at')
             ->paginate($perPage);
     }

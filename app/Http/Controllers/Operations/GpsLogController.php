@@ -24,10 +24,12 @@ class GpsLogController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $filters = $request->only(['employee_id', 'order_id']);
-
         return Response::Success(
-            data: GpsLogResource::collection($this->gpsLogService->index($request->integer('per_page', 15), $filters)),
+            data: GpsLogResource::collection(
+                $this->gpsLogService->index(
+                    $request->integer('per_page', 15)
+                )
+            ),
             message: 'gps logs fetched successfully'
         );
     }
