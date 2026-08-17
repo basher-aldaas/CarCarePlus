@@ -432,6 +432,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/gps-logs/{gpsLog}', [GpsLogController::class, 'show'])->whereNumber('gpsLog')->middleware('can:show.gps_logs');
         Route::post('/gps-logs', [GpsLogController::class, 'store'])->middleware('can:manage.gps_logs');
 
+
+
     });
 
 });

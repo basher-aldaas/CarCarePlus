@@ -68,7 +68,7 @@ class UserSeeder extends Seeder
         // 6. موظف غسيل
         $washer = User::factory()->create([
             'name' => 'فني غسيل 1',
-            'email' => 'washer@system.com',
+            'email' => '@system.com',
             'phone' => '0500000006',
             'password' => bcrypt('password123'),
             'is_active' => true,
