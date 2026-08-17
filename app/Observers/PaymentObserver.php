@@ -9,12 +9,14 @@ use App\Enums\PaymentEnums\PaymentStatus;
 use App\Enums\PaymentEnums\PaymentType;
 use App\Enums\PointsTransactionType;
 use App\Exceptions\InsufficientStockException;
+use App\Models\AuditLog;
 use App\Models\Payment;
 use App\Models\PointsConfig;
 use App\Models\PointsTransaction;
 use App\Repositories\Eloquent\InventoryRepository;
 use App\Repositories\Eloquent\InventoryTransactionRepository;
 use App\Repositories\Eloquent\PointRepository;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class PaymentObserver
@@ -29,6 +31,7 @@ class PaymentObserver
     {
         $this->awardPoints($payment);
         $this->deductMaterials($payment);
+        $this->audit($payment, 'created', null, $this->auditableAttributes($payment->getAttributes()));
     }
 
     public function updated(Payment $payment): void
@@ -37,6 +40,49 @@ class PaymentObserver
             $this->awardPoints($payment);
             $this->deductMaterials($payment);
         }
+
+        $changed = $this->auditableAttributes($payment->getChanges());
+
+        if (! empty($changed)) {
+            $old = [];
+            foreach (array_keys($changed) as $key) {
+                $old[$key] = $payment->getOriginal($key);
+            }
+
+            $this->audit($payment, 'updated', $old, $changed);
+        }
+    }
+
+    /**
+     * Write an audit trail row for a payment change. Runs inside the same
+     * transaction as the payment itself, so a rolled-back payment leaves no
+     * orphan audit entry. The actor is the authenticated user when there is
+     * one, otherwise the payment's own owner (system/queue contexts).
+     */
+    protected function audit(Payment $payment, string $action, ?array $old, ?array $new): void
+    {
+        AuditLog::create([
+            'user_id' => auth()->id() ?? $payment->user_id,
+            'record_id' => $payment->id,
+            'table_name' => $payment->getTable(),
+            'action' => $action,
+            'old_values' => $old,
+            'new_values' => $new,
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+        ]);
+    }
+
+    /**
+     * Strip surrogate/timestamp columns so the audit snapshot only carries
+     * meaningful payment fields.
+     *
+     * @param  array<string, mixed>  $attributes
+     * @return array<string, mixed>
+     */
+    protected function auditableAttributes(array $attributes): array
+    {
+        return Arr::except($attributes, ['id', 'created_at', 'updated_at']);
     }
 
     /**

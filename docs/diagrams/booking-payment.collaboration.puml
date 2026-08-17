@@ -1,0 +1,90 @@
+@startuml booking-payment-collaboration
+'============================================================================
+' CarCarePlus — Booking / Payment Collaboration (Communication) Diagram
+'
+' Traced from the actual code. Numbering follows the two-step flow:
+'   1.x  = POST bookings/quote   (BookingQuoteService::quote)
+'   2.x  = POST bookings/confirm (BookingQuoteService::confirm)
+'   2.6.x = PaymentObserver::created side effects
+'
+' Source:
+'   app/Http/Controllers/Operations/BookingController.php
+'   app/Services/Operations/BookingQuoteService.php
+'   app/Services/Operations/Booking/BookingTypeHandlerResolver.php
+'   app/Services/Operations/Payment/PaymentMethodHandlerResolver.php
+'   app/Services/Operations/Payment/WalletPaymentHandler.php
+'   app/Repositories/Eloquent/OrderRepository.php
+'   app/Observers/PaymentObserver.php
+'============================================================================
+
+left to right direction
+skinparam shadowing false
+skinparam objectBorderColor #4a6785
+skinparam ArrowColor #4a6785
+
+actor Customer
+
+object "BookingController"          as Ctrl
+object "BookingQuoteService"        as QS
+object "BookingTypeHandlerResolver" as BTR
+object "BookingTypeHandler"         as BTH
+object "ServiceRepository"          as SR
+object "BranchRepository"           as BR
+object "PaymentMethodHandlerResolver" as PMR
+object "PaymentMethodHandler\n(WalletPaymentHandler)" as PH
+object "PackageCoverageService"     as PCS
+object "PricingEngineService"       as PE
+object "Cache"                      as Cache
+object "OrderRepository"            as OR
+object "Order"                      as Order
+object "WalletRepository"           as WR
+object "Payment"                    as Pay
+object "PaymentObserver"            as Obs
+object "PointRepository"            as PR
+object "InventoryRepository"        as IR
+object "AuditLog"                   as Audit
+
+' ---------------- Phase 1: quote ----------------
+Customer --> Ctrl  : 1: POST bookings/quote
+Ctrl     --> QS    : 1.1: quote(data)
+QS       --> BTR   : 1.2: resolve(data)
+QS       --> BTH   : 1.3: validate(data)
+QS       --> SR    : 1.4: findById(service_id)
+QS       --> BR    : 1.5: nearest / findByIdOrNull
+QS       --> PMR   : 1.6: resolve(paymentMethod)
+QS       --> PCS   : 1.7: eligiblePackagesFor / resolveSelected
+QS       --> PE    : 1.8: calculate(...) [per car]
+QS       --> PCS   : 1.9: computeCoverage(...) [per car]
+QS       --> PH    : 1.10: validate(customer, total, ctx)
+QS       --> Cache : 1.11: put(quote_token, payload)
+
+' ---------------- Phase 2: confirm ----------------
+Customer --> Ctrl  : 2: POST bookings/confirm
+Ctrl     --> QS    : 2.1: confirm(quote_token)
+QS       --> Cache : 2.2: pull(quote_token)
+QS       --> PMR   : 2.3: resolve(payment_method)
+QS       --> OR    : 2.4: create(OrderDTO) [per car]
+OR       --> Order : 2.4.1: Order::create(...)
+QS       --> Order : 2.5: priceItems/subServices/materials createMany
+QS       --> BTH   : 2.6: afterCreate(order, data)
+QS       --> PH    : 2.7: settle(order, amount, ctx)
+PH       --> WR    : 2.7.1: debit(customer, ORDER_PAYMENT, amount)
+PH       --> Pay   : 2.7.2: Payment::create(status=PAID)
+
+' ---------------- PaymentObserver::created side effects ----------------
+Pay      --> Obs   : 2.8: created(payment)
+Obs      --> PR    : 2.8.1: awardPoints -> createTransaction(EARN)
+Obs      --> IR    : 2.8.2: deductMaterials -> inventory OUT
+Obs      --> Audit : 2.8.3: AuditLog::create(created)
+
+' ---------------- notifications ----------------
+QS       --> Customer : 2.9: BookingConfirmedNotification
+
+note bottom of PH
+  WalletPaymentHandler shown as the
+  representative handler. Cash / Points /
+  Package implement the same settle()
+  interface with different side effects.
+end note
+
+@enduml
