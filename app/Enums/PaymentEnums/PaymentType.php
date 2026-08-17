@@ -7,6 +7,7 @@ enum PaymentType: string
     case ORDER = 'order';
     case PACKAGE = 'package';
     case WALLET_TOPUP = 'wallet_topup';
+    case SPARE = 'spare';
 
     public static function values(): array
     {

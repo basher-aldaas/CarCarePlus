@@ -46,7 +46,7 @@ class NotificationController extends Controller
      */
     public function show(Request $request, Notification $notification): JsonResponse
     {
-        //$this->authorizeOwnership($request, $notification);
+        $this->authorizeOwnership($request, $notification);
 
         return Response::Success(
             data: new NotificationResource($notification),

@@ -15,6 +15,7 @@ class Payment extends Model
         'order_id',
         'user_id',
         'package_id',
+        'spare_part_request_id',
         'cash_confirmed_by',
         'payment_number',
         'type',
@@ -42,6 +43,10 @@ class Payment extends Model
     public function package(): BelongsTo
     {
         return $this->belongsTo(UserPackage::class, 'package_id');
+    }
+    public function sparePartRequest(): BelongsTo
+    {
+        return $this->belongsTo(SparePartRequest::class, 'spare_part_request_id');
     }
     public function cashConfirmer(): BelongsTo
     {

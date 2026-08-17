@@ -90,7 +90,7 @@ Route::prefix('auth')->group(function () {
 Route::middleware(['auth:sanctum', 'active.user'])
     ->group(function () {
 
-        Route::post('bookings/{id}', [BookingController::class, 'update'])->whereNumber('id')->middleware('can:edit.order'); //super admin, admin, workshop, employee
+        //Route::post('bookings/{id}', [BookingController::class, 'update'])->whereNumber('id')->middleware('can:edit.order'); //super admin, admin, workshop, employee
         Route::delete('bookings/{id}', [BookingController::class, 'cancel'])->whereNumber('id')->middleware('can:cancel.order'); //super admin, admin, customer
         Route::post('bookings/{id}/discount', [BookingController::class, 'discount'])->whereNumber('id')->middleware('can:discount.order'); //super admin
         Route::post('bookings/{id}/assign', [BookingController::class, 'assign'])->whereNumber('id')->middleware('can:assign.order'); //super admin, admin
@@ -236,12 +236,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::post('/{customer_id?}', [CarController::class, 'store'])->whereNumber('customer_id')->middleware(['can:add.car', 'active.user']);
         Route::post('/update/{id}', [CarController::class, 'update'])->middleware(['can:edit.car', 'active.user']);
-        Route::get('/delete/{id}', [CarController::class, 'destroy'])->middleware(['can:delete.car', 'active.user']);
+        Route::delete('/delete/{id}', [CarController::class, 'destroy'])->middleware(['can:delete.car', 'active.user']);
 
 
         Route::post('/cars/{customer_id?}', [CarController::class, 'store'])->whereNumber('customer_id')->middleware(['can:add.car', 'active.user']);
         Route::post('/cars/update/{id}', [CarController::class, 'update'])->whereNumber('id')->middleware(['can:edit.car', 'active.user']);
-        Route::get('/cars/delete/{id}', [CarController::class, 'destroy'])->whereNumber('id')->middleware(['can:delete.car', 'active.user']);
+        Route::delete('/cars/delete/{id}', [CarController::class, 'destroy'])->whereNumber('id')->middleware(['can:delete.car', 'active.user']);
 
     });
 

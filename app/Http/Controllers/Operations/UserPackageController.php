@@ -67,7 +67,9 @@ class UserPackageController extends Controller
      */
     public function store(CreateUserPackageRequest $request, ?int $customer_id = null): JsonResponse
     {
-        if (auth()->user()->hasAnyRole(['super_admin', 'admin'])) {
+        $isStaff = auth()->user()->hasAnyRole(['super_admin', 'admin']);
+
+        if ($isStaff) {
             if ($customer_id === null) {
                 return Response::Error(data:null,message: __('customer_id is required'), code: HttpStatusConstants::HTTP_400_BAD_REQUEST);
             }
@@ -80,7 +82,8 @@ class UserPackageController extends Controller
 
         $dto = UserPackageDTO::fromArray($data);
 
-        $userPackage = $this->userPackageService->store($dto);
+
+        $userPackage = $this->userPackageService->store($dto, chargeWallet: ! $isStaff);
 
         return Response::Success(
             data: new UserPackageResource($userPackage),

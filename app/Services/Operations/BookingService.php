@@ -704,8 +704,8 @@ class BookingService
                 );
             }
         } else {
-            // Customer: only while still pending...
-            if ($order->status !== OrderStatus::PENDING) {
+            // Customer: only while still pending or assigned (not started/finished)...
+            if (! in_array($order->status, [OrderStatus::PENDING, OrderStatus::ASSIGNED], true)) {
                 throw new InvalidBookingStatusTransitionException(
                     __('This booking can no longer be cancelled.')
                 );
@@ -719,14 +719,7 @@ class BookingService
             }
         }
 
-        // Reverse whatever was settled at confirm time (wallet credit, points
-        // returned, package use restored, cash voided), claw back any loyalty
-        // points that were awarded for it, put back any material stock that
-        // was already deducted, and flip the status — all or nothing.
         $cancelled = DB::transaction(function () use ($order, $id, $reason, $user) {
-            // Runs before the payment refunds: a points-method refund writes
-            // its own EARN row for the order, which must not be mistaken for
-            // the loyalty award we're reversing here.
             $this->clawBackEarnedPoints($order);
 
             foreach ($order->payments as $payment) {
@@ -754,20 +747,9 @@ class BookingService
     }
 
     /**
-     * Return material stock that was already deducted for this order back to
-     * its branch's inventory when the order is cancelled. Only USED lines —
      * the ones {@see \App\Observers\PaymentObserver::deductMaterials()}
-     * actually consumed once a payment was PAID — are restored and logged as
-     * an IN movement, then flipped to REJECTED so they can never be
-     * re-deducted. Materials still merely APPROVED (e.g. an unpaid cash
-     * booking) were never taken from stock, so there's nothing to give back.
-     */
     /**
      * Reverse the loyalty points that {@see \App\Observers\PaymentObserver::awardPoints()}
-     * granted for this order once it was paid. The award is a single EARN row
-     * keyed to the order; we redeem the same amount back out on cancel. If the
-     * customer has already spent some of them, we only claw back what's still
-     * in their balance rather than driving it negative or blocking the cancel.
      */
     protected function clawBackEarnedPoints(Order $order): void
     {
