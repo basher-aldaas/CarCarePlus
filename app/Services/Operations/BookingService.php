@@ -7,7 +7,7 @@ use App\DTOs\OrderDTO;
 use App\Enums\InventoryTransactionType;
 use App\Enums\OrderEnums\OrderMaterialStatus;
 use App\Enums\OrderEnums\OrderStatus;
-use App\Enums\PaymentEnums\PaymentMethod;
+use App\Enums\OrderEnums\OrderSubServiceStatus;
 use App\Enums\PointsTransactionType;
 use App\Events\Operations\BookingStatusChanged;
 use App\Exceptions\BookingCancelUnauthorizedException;
@@ -20,6 +20,7 @@ use App\Exceptions\TowingDetailNotFoundException;
 use App\Models\Order;
 use App\Notifications\Operations\OrderDiscountedNotification;
 use App\Models\PointsTransaction;
+use App\Models\SubService;
 use App\Models\UserPoint;
 use App\Repositories\Eloquent\InventoryRepository;
 use App\Repositories\Eloquent\InventoryTransactionRepository;
@@ -31,6 +32,7 @@ use App\Traits\AuthorizesResourceOwnership;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class BookingService
 {
@@ -244,7 +246,7 @@ class BookingService
      * The customer may edit their own booking (until the edit window
      * closes); staff who can manage it may edit it regardless of timing.
      */
-    public function updateBooking(OrderDTO $DTO, int $id): Order
+    public function updateBooking(OrderDTO $DTO, int $id, ?array $subServiceIds = null): Order
     {
         $order = $this->orderRepository->findById($id);
         $user = auth()->user();
@@ -258,11 +260,93 @@ class BookingService
             $this->assertWithinEditWindow($order);
         }
 
-        $updated = $this->orderRepository->update($DTO, $id);
+        // Only these count as a change (null on the DTO / null $subServiceIds
+        // means "not submitted", not "set to null").
+        $wantsVipChange = $DTO->is_vip !== null && (bool) $DTO->is_vip !== (bool) $order->is_vip;
+        $wantsBookingTypeChange = $DTO->booking_type !== null && (bool) $DTO->booking_type !== (bool) $order->booking_type;
+        $wantsSubServiceChange = $subServiceIds !== null;
 
-        if ($this->pricingRelevantFieldsChanged($order, $updated)) {
-            $this->repriceBooking($updated);
+        // A package booking's value is settled against a consumed package use,
+        // not a recomputable price, so its priced inputs (VIP, immediate
+        // surcharge, sub-services) can no longer be edited. Rescheduling — which
+        // never re-prices a package order — is still allowed.
+        if ($this->isPackageBooking($order) && ($wantsVipChange || $wantsBookingTypeChange || $wantsSubServiceChange)) {
+            throw ValidationException::withMessages([
+                'payment' => [__('This booking is covered by a package; VIP, booking type and sub-services can no longer be changed.')],
+            ]);
         }
+
+        // Keep booking_type and scheduled_at mutually consistent, exactly as at
+        // booking time, but evaluated against the *effective* values so a
+        // partial update (e.g. only booking_type) still validates correctly.
+        $becomingImmediate = $DTO->booking_type !== null
+            ? (bool) $DTO->booking_type
+            : (bool) $order->booking_type;
+
+        if ($becomingImmediate) {
+            // An immediate booking carries no scheduled time: reject one if the
+            // client submitted it, otherwise the stored one is cleared below.
+            if ($DTO->scheduled_at !== null) {
+                throw ValidationException::withMessages([
+                    'scheduled_at' => [__('An immediate booking cannot have a scheduled time.')],
+                ]);
+            }
+        } else {
+            // A scheduled booking must end up with a time — either the one just
+            // submitted or the one already stored.
+            $effectiveScheduledAt = $DTO->scheduled_at ?? $order->scheduled_at;
+
+            if ($effectiveScheduledAt === null) {
+                throw ValidationException::withMessages([
+                    'scheduled_at' => [__('A scheduled booking requires a scheduled time.')],
+                ]);
+            }
+        }
+
+        // Validate the new sub-service selection up front — an invalid id must
+        // abort the whole update before anything is written.
+        $resolvedSubServices = $wantsSubServiceChange
+            ? $this->resolveSubServicesForOrder($order, $subServiceIds)
+            : null;
+
+        DB::transaction(function () use ($DTO, $id, $order, $becomingImmediate, $wantsSubServiceChange, $resolvedSubServices) {
+            $updated = $this->orderRepository->update($DTO, $id);
+
+            // Switching to immediate drops any stored schedule. The DTO can't
+            // carry this (array_filter strips nulls), so it's cleared here.
+            if ($becomingImmediate && $updated->scheduled_at !== null) {
+                $updated->update(['scheduled_at' => null]);
+            }
+
+            // Full-replace the sub-service selection and re-total its price.
+            if ($wantsSubServiceChange) {
+                $updated->subServices()->delete();
+
+                if ($resolvedSubServices->isNotEmpty()) {
+                    $updated->subServices()->createMany(
+                        $resolvedSubServices->map(fn (SubService $subService) => [
+                            'sub_service_id' => $subService->id,
+                            'price' => (float) $subService->price,
+                            'covered_by_package' => false,
+                            'status' => OrderSubServiceStatus::PENDING->value,
+                        ])->all()
+                    );
+                }
+
+                $updated->update([
+                    'sub_service_price' => round(
+                        (float) $resolvedSubServices->sum(fn (SubService $subService) => (float) $subService->price),
+                        2
+                    ),
+                ]);
+            }
+
+            // Reprice when a service-pricing input changed, or when the
+            // sub-service total moved (which shifts the combined total).
+            if ($this->pricingRelevantFieldsChanged($order, $updated) || $wantsSubServiceChange) {
+                $this->repriceBooking($updated);
+            }
+        });
 
         // Re-fetch with the full relation set so the response shows the same
         // rich data as the other booking endpoints (customer, car, branch,
@@ -362,7 +446,7 @@ class BookingService
 
     protected function pricingRelevantFieldsChanged(Order $before, Order $after): bool
     {
-        foreach (['branch_id', 'scheduled_at', 'location_lat', 'location_lng', 'distance_km'] as $field) {
+        foreach (['branch_id', 'scheduled_at', 'location_lat', 'location_lng', 'distance_km', 'is_vip', 'booking_type'] as $field) {
             if ((string) $before->{$field} !== (string) $after->{$field}) {
                 return true;
             }
@@ -372,15 +456,53 @@ class BookingService
     }
 
     /**
+     * A booking is package-covered when it's linked to a user package. This is
+     * read from the order itself, not from its latest payment: a package
+     * booking with a cash-due portion also records a later CASH payment, so the
+     * most recent payment method isn't a reliable signal of package coverage.
+     */
+    protected function isPackageBooking(Order $order): bool
+    {
+        return $order->user_package_id !== null;
+    }
+
+    /**
+     * Sub-services the customer picked for this update, restricted to ones
+     * belonging to the booking's service and active — throws if any requested
+     * id doesn't match. Mirrors BookingQuoteService::resolveSubServices.
+     */
+    protected function resolveSubServicesForOrder(Order $order, array $subServiceIds): Collection
+    {
+        $subServiceIds = array_values(array_unique(array_map('intval', $subServiceIds)));
+
+        if ($subServiceIds === []) {
+            return new Collection();
+        }
+
+        $subServices = SubService::whereIn('id', $subServiceIds)
+            ->where('service_id', $order->service_id)
+            ->where('is_active', true)
+            ->get();
+
+        if ($subServices->count() !== count($subServiceIds)) {
+            throw ValidationException::withMessages([
+                'sub_service_ids' => [__('One or more selected sub-services are invalid for this service.')],
+            ]);
+        }
+
+        return $subServices;
+    }
+
+    /**
      * Replaces the order's price breakdown after a price-relevant field
      * changed. A package-covered order stays covered/zero — its payment was
      * already settled against a package use, not a recomputable amount.
      */
     protected function repriceBooking(Order $order): void
     {
-        $paymentMethod = $order->payments()->latest('id')->first()?->method;
-
-        if ($paymentMethod === PaymentMethod::PACKAGE) {
+        // A package-covered order stays covered/zero — its payment was settled
+        // against a package use, not a recomputable amount.
+        if ($this->isPackageBooking($order)) {
             return;
         }
 
@@ -400,9 +522,10 @@ class BookingService
         $order->priceItems()->delete();
         $order->priceItems()->createMany($breakdown->items);
 
-        // sub_service_price/materials_price aren't affected by a reprice
-        // (selection isn't editable), so they're carried over as-is and
-        // only the service portion + combined total are recomputed.
+        // The sub-service selection is re-totalled into sub_service_price
+        // before this runs, and materials aren't editable, so both are taken
+        // from the order's current values — only the service portion and the
+        // combined total are recomputed here.
         $servicePrice = round($breakdown->servicePrice, 2);
 
         $order->update([

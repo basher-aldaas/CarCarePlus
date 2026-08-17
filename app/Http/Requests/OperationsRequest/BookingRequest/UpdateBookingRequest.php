@@ -18,21 +18,22 @@ class UpdateBookingRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * Only the booking's own details may be edited here — status, employee
-     * assignment and pricing go through their dedicated endpoints instead.
+     * The customer may only adjust these four booking fields; everything else
+     * (status, assignment, pricing inputs, location, …) goes through its own
+     * dedicated endpoint. The booking_type/scheduled_at consistency and the
+     * package-booking restriction are enforced in BookingService::updateBooking,
+     * where the booking's existing state is available.
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            'car_id' => ['sometimes', 'integer', 'exists:cars,id'],
-            'branch_id' => ['sometimes', 'nullable', 'integer', 'exists:branches,id'],
             'scheduled_at' => ['sometimes', 'nullable', 'date', 'after_or_equal:now'],
-            'location_lat' => ['sometimes', 'nullable', 'numeric', 'between:-90,90'],
-            'location_lng' => ['sometimes', 'nullable', 'numeric', 'between:-180,180'],
-            'location_address' => ['sometimes', 'nullable', 'string', 'max:500'],
-            'notes' => ['sometimes', 'nullable', 'string', 'max:1000'],
+            'booking_type' => ['sometimes', 'boolean'],
+            'is_vip' => ['sometimes', 'boolean'],
+            'sub_service_ids' => ['sometimes', 'nullable', 'array'],
+            'sub_service_ids.*' => ['distinct', 'integer', 'exists:sub_services,id'],
         ];
     }
 }

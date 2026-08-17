@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\DTOs\WorkshopDTO;
 use App\Enums\WorkshopStatus;
+use App\Models\User;
 use App\Models\Workshop;
 use App\Support\GeoDistance;
 use Illuminate\Database\Eloquent\Collection;
@@ -30,6 +31,24 @@ class WorkshopRepository
     {
         return Workshop::with('owner')
             ->latest()
+            ->get();
+    }
+
+    /**
+     * Accounts that may be attached as the owner of a NEW workshop.
+     *
+     * A workshop logs into the system through its owner account, so `workshops.user_id` is
+     * mandatory. Candidates are therefore users who (a) carry the `workshop` role and
+     * (b) do not already own a workshop — `User::workshop()` is a HasOne, so one account can
+     * never own two. Used by the owner dropdown on the "Add workshop" screen.
+     *
+     * @return Collection<int, User>
+     */
+    public function ownerCandidates(): Collection
+    {
+        return User::role('workshop')
+            ->whereDoesntHave('workshop')
+            ->orderBy('name')
             ->get();
     }
 

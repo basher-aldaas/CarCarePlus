@@ -16,7 +16,12 @@ class CreateWorkshopRequest extends FormRequest
     {
         return [
 
-            'user_id' => ['nullable', 'exists:users,id'],
+            'user_id' => [
+                'required',
+                'integer',
+                'exists:users,id',
+                'unique:workshops,user_id'
+            ],
 
             'name' => ['required', 'string', 'max:255'],
 

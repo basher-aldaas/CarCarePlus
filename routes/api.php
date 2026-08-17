@@ -161,6 +161,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/indexClient/{customer_id?}', [CarController::class, 'indexClient'])->middleware('can:show.client.cars');
     Route::get('/show/{id}', [CarController::class, 'show'])->middleware('can:show.car');
 
+    Route::get('/cars/indexClient/{customer_id?}', [CarController::class, 'indexClient'])->middleware('can:show.client.cars');
+    Route::get('/cars/show/{id}', [CarController::class, 'show'])->whereNumber('id')->middleware('can:show.car');
+
+
     Route:: prefix('profile')->group(function () {
             Route::get('/showProfile', [UserController::class, 'showProfile']);
             Route::post('/updateProfile', [UserController::class, 'updateProfile']);
@@ -234,6 +238,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/update/{id}', [CarController::class, 'update'])->middleware(['can:edit.car', 'active.user']);
         Route::get('/delete/{id}', [CarController::class, 'destroy'])->middleware(['can:delete.car', 'active.user']);
 
+
+        Route::post('/cars/{customer_id?}', [CarController::class, 'store'])->whereNumber('customer_id')->middleware(['can:add.car', 'active.user']);
+        Route::post('/cars/update/{id}', [CarController::class, 'update'])->whereNumber('id')->middleware(['can:edit.car', 'active.user']);
+        Route::get('/cars/delete/{id}', [CarController::class, 'destroy'])->whereNumber('id')->middleware(['can:delete.car', 'active.user']);
+
     });
 
 
@@ -267,9 +276,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::get('/workshops', [WorkshopController::class, 'index'])->middleware('can:show.workshops');
         Route::get('/workshops/my', [WorkshopController::class, 'myWorkshop'])->middleware('can:show.workshops');
+        Route::get('/workshops/owner-candidates', [WorkshopController::class, 'ownerCandidates'])->middleware('can:add.workshop');
+
         Route::get('/workshops/{workshop}', [WorkshopController::class, 'show'])->middleware('can:show.workshops');
 
         Route::get('/all', [CarController::class, 'indexDashboard'])->middleware('can:show.cars');
+        Route::get('/cars/all', [CarController::class, 'indexDashboard'])->middleware('can:show.cars');
 
         Route::get('/purchase-requests', [PurchaseRequestController::class, 'index'])->middleware('can:manage.purchase_requests');
         Route::get('/purchase-requests/{purchaseRequest}', [PurchaseRequestController::class, 'show'])->whereNumber('purchaseRequest')->middleware('can:manage.purchase_requests');

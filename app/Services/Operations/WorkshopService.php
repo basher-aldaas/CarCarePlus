@@ -36,6 +36,16 @@ class WorkshopService
     }
 
     /**
+     * Users eligible to own a new workshop (see WorkshopRepository::ownerCandidates).
+     *
+     * @return Collection<int, \App\Models\User>
+     */
+    public function ownerCandidates(): Collection
+    {
+        return $this->workshopRepository->ownerCandidates();
+    }
+
+    /**
      * Show one workshop.
      */
     public function show(int $id): Workshop

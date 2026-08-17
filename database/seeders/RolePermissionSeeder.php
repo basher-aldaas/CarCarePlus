@@ -135,6 +135,8 @@ class RolePermissionSeeder extends Seeder
             'manage.point_config', 'show.point_config', 'show.user_points', 'show.all_user_points', 'show.points_transactions',
             'add.points.manual',
             'show.wallets',
+            'show.material_units',
+
 
             // === التقييمات، التقارير، وإعدادات النظام ===
             'show.ratings',

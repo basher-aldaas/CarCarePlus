@@ -8,6 +8,7 @@ use App\Http\Requests\OperationsRequest\WorkshopRequest\CreateWorkshopRequest;
 use App\Http\Requests\OperationsRequest\WorkshopRequest\NearbyWorkshopsRequest;
 use App\Http\Requests\OperationsRequest\WorkshopRequest\UpdateWorkshopRequest;
 use App\Http\Resources\OrderResource;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\WorkshopResource;
 use App\Http\Responses\Response;
 use App\Models\Car;
@@ -35,6 +36,24 @@ class WorkshopController extends Controller
                 $this->workshopService->index()
             ),
             message: __('Workshops retrieved successfully')
+        );
+    }
+
+    /**
+     * List the accounts that can be attached as the owner of a new workshop.
+     *
+     * Feeds the owner dropdown on "Add workshop". Gated by `can:add.workshop`
+     * (super_admin only) — this is deliberately NOT a general user directory: it returns
+     * only unattached `workshop`-role accounts, so it exposes nothing beyond what the
+     * create form already needs.
+     */
+    public function ownerCandidates(): JsonResponse
+    {
+        return Response::Success(
+            data: UserResource::collection(
+                $this->workshopService->ownerCandidates()
+            ),
+            message: __('Workshop owner candidates retrieved successfully')
         );
     }
 

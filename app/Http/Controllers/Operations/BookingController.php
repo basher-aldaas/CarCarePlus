@@ -181,8 +181,19 @@ class BookingController extends Controller
 
     public function update(UpdateBookingRequest $request, int $id): JsonResponse
     {
-        $dto = OrderDTO::fromArray($request->validated());
-        $result = $this->bookingService->updateBooking($dto, $id);
+        $validated = $request->validated();
+
+        // Distinguish "sub_service_ids not sent" (leave the selection alone)
+        // from "sent as empty" (clear it) — a null DTO field can't carry that.
+        $subServiceIds = array_key_exists('sub_service_ids', $validated)
+            ? ($validated['sub_service_ids'] ?? [])
+            : null;
+
+        $result = $this->bookingService->updateBooking(
+            OrderDTO::fromArray($validated),
+            $id,
+            $subServiceIds,
+        );
 
         return Response::Success(
             data: new OrderResource($result),
