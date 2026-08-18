@@ -24,11 +24,13 @@ class EmployeeReportController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $filters = $request->only(['order_id', 'employee_id', 'status']);
-
         return Response::Success(
-            data: EmployeeReportResource::collection($this->employeeReportService->index($request->integer('per_page', 15), $filters)),
-            message: __('employee reports fetched successfully')
+            data: EmployeeReportResource::collection(
+                $this->employeeReportService->index(
+                    $request->integer('per_page', 15)
+                )
+            ),
+            message: 'employee reports fetched successfully'
         );
     }
 
@@ -47,7 +49,7 @@ class EmployeeReportController extends Controller
 
         return Response::Success(
             data: new EmployeeReportResource($result),
-            message: __('employee report created successfully'),
+            message: 'employee report created successfully',
         );
     }
 
@@ -58,7 +60,7 @@ class EmployeeReportController extends Controller
     {
         return Response::Success(
             new EmployeeReportResource($this->employeeReportService->show($employeeReport)),
-            __('employee report fetched successfully')
+            'employee report fetched successfully'
         );
     }
 }

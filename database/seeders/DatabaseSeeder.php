@@ -69,6 +69,11 @@ class DatabaseSeeder extends Seeder
             OrderStatusHistorySeeder::class,
             OrderPriceItemSeeder::class,
 
+
+            AITestSeeder::class,
+           // AiOrderSeeder::class,
+
+
             // 8b. طلبات قطع الغيار (تعتمد على الطلبات المسندة لموظف والمواد)
             SparePartRequestSeeder::class,
 

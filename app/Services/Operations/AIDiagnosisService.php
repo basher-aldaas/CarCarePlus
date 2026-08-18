@@ -53,12 +53,13 @@ class AIDiagnosisService
         |--------------------------------------------------------------------------
         */
 
-        $rule = $this->aiRuleService->findMatchingRule(
-            problem: $problem,
-            brandId: $brandId,
-            carType: $carType,
-            fuelType: $fuelType
-        );
+            $rule = $this->aiRuleService->findMatchingRule(
+                problem: $problem,
+
+                brandId: $brandId,
+                carType: $carType,
+                fuelType: $fuelType
+            );
 
         if ($rule) {
 

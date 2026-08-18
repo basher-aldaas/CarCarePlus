@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Operations\AiController;
+use App\Http\Controllers\Operations\AIServiceController;
 use App\Http\Controllers\Operations\BookingController;
 use App\Http\Controllers\Operations\CarController;
 use App\Http\Controllers\Operations\CategoryController;
@@ -438,9 +440,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 
-
-
-
     Route::get('/audit-logs', [AuditLogController::class, 'index'])->middleware('can:show.audit_logs');
     Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->whereNumber('auditLog')->middleware('can:show.audit_logs');
 
@@ -453,6 +452,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/gps-logs/{gpsLog}', [GpsLogController::class, 'show'])->whereNumber('gpsLog')->middleware('can:show.gps_logs');
         Route::post('/gps-logs', [GpsLogController::class, 'store'])->middleware('can:manage.gps_logs');
 
+
+        Route::prefix('ai')->group(function () {
+            Route::post('/diagnose',[AiController::class, 'diagnose']);
+            Route::post('/apply-service', [AIServiceController::class, 'apply']);
+        });
     });
 
 });

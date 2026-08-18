@@ -13,7 +13,6 @@ class OpenRouterService
 
         if ($apiKey === '') {
             throw new RuntimeException(
-                __('OPENROUTER_API_KEY is not configured.')
             );
         }
 
@@ -21,7 +20,6 @@ class OpenRouterService
 
         if ($model === '') {
             throw new RuntimeException(
-                __('OPENROUTER_MODEL is not configured.')
             );
         }
 
@@ -57,7 +55,6 @@ class OpenRouterService
 
         if (!is_string($content)) {
             throw new RuntimeException(
-                __('OpenRouter returned an invalid response.')
             );
         }
 

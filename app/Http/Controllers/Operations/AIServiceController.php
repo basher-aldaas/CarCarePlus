@@ -11,7 +11,8 @@ class AIServiceController extends Controller
 {
     public function __construct(
         protected OrderServiceApplicationService $orderServiceApplicationService
-    ) {
+    )
+    {
     }
 
     public function apply(Request $request)
